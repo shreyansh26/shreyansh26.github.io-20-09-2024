@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>information retrieval | Shreyansh Singh</title>
+    <link>/tags/information-retrieval/</link>
+      <atom:link href="/tags/information-retrieval/index.xml" rel="self" type="application/rss+xml" />
+    <description>information retrieval</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 20 Nov 2017 17:15:45 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>information retrieval</title>
+      <link>/tags/information-retrieval/</link>
+    </image>
+    
+    <item>
+      <title>Review Opinion Diversificatio&amp;shy;n</title>
+      <link>/project/revopid/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/project/revopid/</guid>
+      <description>&lt;p&gt;Work done as a part of the organizing team of RevOpiD, a shared task organized at IJCNLP 2017 (International Joint Conference on Natural Language Processing, Taipei, Taiwan).
+The task aims to produce a top-k ranking of product reviews which can sufficiently represent the gist of opinions expressed in all the reviews of that product.
+Implemented the official baseline for Subtask-B of the shared task. Also volunteered to annotate gold dataset for the shared task.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

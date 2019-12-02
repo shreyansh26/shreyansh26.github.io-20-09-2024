@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publication_types | Shreyansh Singh</title>
+    <link>/publication_types/</link>
+      <atom:link href="/publication_types/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publication_types</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 01 Jul 2018 00:00:00 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Publication_types</title>
+      <link>/publication_types/</link>
+    </image>
+    
+    <item>
+      <title>1</title>
+      <link>/publication_types/1/</link>
+      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
+      <guid>/publication_types/1/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories | Shreyansh Singh</title>
+    <link>/categories/</link>
+      <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <description>Categories</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Categories</title>
+      <link>/categories/</link>
+    </image>
+    
+    <item>
+      <title>Information Security</title>
+      <link>/categories/information-security/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/categories/information-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Natural Language Processing</title>
+      <link>/categories/natural-language-processing/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/categories/natural-language-processing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Application Development</title>
+      <link>/categories/application-development/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/categories/application-development/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

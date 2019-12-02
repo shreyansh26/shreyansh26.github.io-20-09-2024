@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nids | Shreyansh Singh</title>
+    <link>/tags/nids/</link>
+      <atom:link href="/tags/nids/index.xml" rel="self" type="application/rss+xml" />
+    <description>nids</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 05 May 2019 17:28:30 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>nids</title>
+      <link>/tags/nids/</link>
+    </image>
+    
+    <item>
+      <title>Network Intrusion Detection in an Adversarial setting</title>
+      <link>/project/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/project/nids/</guid>
+      <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

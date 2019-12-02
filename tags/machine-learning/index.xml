@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>machine learning | Shreyansh Singh</title>
+    <link>/tags/machine-learning/</link>
+      <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>machine learning</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 05 May 2019 17:28:30 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>machine learning</title>
+      <link>/tags/machine-learning/</link>
+    </image>
+    
+    <item>
+      <title>Network Intrusion Detection in an Adversarial setting</title>
+      <link>/project/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/project/nids/</guid>
+      <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux Malware detection using Machine Learning</title>
+      <link>/project/linux-malware/</link>
+      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
+      <guid>/project/linux-malware/</guid>
+      <description>&lt;p&gt;Implemented various papers on Linux Malware detection, where I analysed the structure of ELF files to determine whether they were malicious or benign. Approaches included the analysis of -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Symbol Table&lt;/li&gt;
+&lt;li&gt;Opcode frequency&lt;/li&gt;
+&lt;li&gt;ELF file metadata&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
