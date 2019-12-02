@@ -1,4 +1,11 @@
+@font-face {
+    font-family: monaco123;
+    font-weight: 100%;
+    font-style: normal;
+    src: url("/fonts/MONACO.TTF");
+} 
+
 code {
-    font-family: Inconsolata;
+    font-family: monaco123;
     font-size: 60%;
 }
