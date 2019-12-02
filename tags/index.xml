@@ -5,12 +5,44 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 02 Dec 2019 19:39:57 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Tags</title>
       <link>/tags/</link>
     </image>
+    
+    <item>
+      <title>ctf</title>
+      <link>/tags/ctf/</link>
+      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <guid>/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>information security</title>
+      <link>/tags/information-security/</link>
+      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <guid>/tags/information-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>infosec</title>
+      <link>/tags/infosec/</link>
+      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <guid>/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>writeups</title>
+      <link>/tags/writeups/</link>
+      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <guid>/tags/writeups/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>deep learning</title>
@@ -37,34 +69,10 @@
     </item>
     
     <item>
-      <title>information security</title>
-      <link>/tags/information-security/</link>
-      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
-      <guid>/tags/information-security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>secure multi-party computation</title>
       <link>/tags/secure-multi-party-computation/</link>
       <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
       <guid>/tags/secure-multi-party-computation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ctf</title>
-      <link>/tags/ctf/</link>
-      <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
-      <guid>/tags/ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>infosec</title>
-      <link>/tags/infosec/</link>
-      <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
-      <guid>/tags/infosec/</guid>
       <description></description>
     </item>
     

