@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A.K. Singh | Shreyansh Singh</title>
+    <link>/authors/a.k.-singh/</link>
+      <atom:link href="/authors/a.k.-singh/index.xml" rel="self" type="application/rss+xml" />
+    <description>A.K. Singh</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 01 Jul 2018 00:00:00 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>A.K. Singh</title>
+      <link>/authors/a.k.-singh/</link>
+    </image>
+    
+    <item>
+      <title>IIT (BHU) Varanasi at MSR-SRST 2018: A Language Model Based Approach for Natural Language Generation</title>
+      <link>/publication/singh-etal-2018-iit/</link>
+      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
+      <guid>/publication/singh-etal-2018-iit/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

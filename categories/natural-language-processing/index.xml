@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Natural Language Processing | Shreyansh Singh</title>
+    <link>/categories/natural-language-processing/</link>
+      <atom:link href="/categories/natural-language-processing/index.xml" rel="self" type="application/rss+xml" />
+    <description>Natural Language Processing</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 23 Jul 2018 16:52:28 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Natural Language Processing</title>
+      <link>/categories/natural-language-processing/</link>
+    </image>
+    
+    <item>
+      <title>Multilingual Surface Realization for NLG</title>
+      <link>/project/msr-nlg/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/project/msr-nlg/</guid>
+      <description>&lt;p&gt;A shared task organized at ACL 2018 (Association for Computational Linguistics, Melbourne, Australia). The task aims to determining the word order and inflecting words from given unordered Universal Dependencies (UD) structures from which word order information has been removed and the tokens have been lemmatized.
+Worked on techniques like Language Modelling and Neural Machine Translation methods to solve the problem of reinflection and correct word order generation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Review Opinion Diversificatio&amp;shy;n</title>
+      <link>/project/revopid/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/project/revopid/</guid>
+      <description>&lt;p&gt;Work done as a part of the organizing team of RevOpiD, a shared task organized at IJCNLP 2017 (International Joint Conference on Natural Language Processing, Taipei, Taiwan).
+The task aims to produce a top-k ranking of product reviews which can sufficiently represent the gist of opinions expressed in all the reviews of that product.
+Implemented the official baseline for Subtask-B of the shared task. Also volunteered to annotate gold dataset for the shared task.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

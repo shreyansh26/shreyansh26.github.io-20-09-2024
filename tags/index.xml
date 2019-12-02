@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags | Shreyansh Singh</title>
+    <link>/tags/</link>
+      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <description>Tags</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Tags</title>
+      <link>/tags/</link>
+    </image>
+    
+    <item>
+      <title>deep learning</title>
+      <link>/tags/deep-learning/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>differential privacy</title>
+      <link>/tags/differential-privacy/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/tags/differential-privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>image classification</title>
+      <link>/tags/image-classification/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/tags/image-classification/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>information security</title>
+      <link>/tags/information-security/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/tags/information-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>secure multi-party computation</title>
+      <link>/tags/secure-multi-party-computation/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/tags/secure-multi-party-computation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ctf</title>
+      <link>/tags/ctf/</link>
+      <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
+      <guid>/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>infosec</title>
+      <link>/tags/infosec/</link>
+      <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
+      <guid>/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>adversarial machine learning</title>
+      <link>/tags/adversarial-machine-learning/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/tags/adversarial-machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deep learing</title>
+      <link>/tags/deep-learing/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/tags/deep-learing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine learning</title>
+      <link>/tags/machine-learning/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>neural networks</title>
+      <link>/tags/neural-networks/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/tags/neural-networks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nids</title>
+      <link>/tags/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/tags/nids/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>malware</title>
+      <link>/tags/malware/</link>
+      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
+      <guid>/tags/malware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reverse engineering</title>
+      <link>/tags/reverse-engineering/</link>
+      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
+      <guid>/tags/reverse-engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ai</title>
+      <link>/tags/ai/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/tags/ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>language model</title>
+      <link>/tags/language-model/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/tags/language-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nlg</title>
+      <link>/tags/nlg/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/tags/nlg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nlp</title>
+      <link>/tags/nlp/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>information retrieval</title>
+      <link>/tags/information-retrieval/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/tags/information-retrieval/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ir</title>
+      <link>/tags/ir/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/tags/ir/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sentiment analysis</title>
+      <link>/tags/sentiment-analysis/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/tags/sentiment-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>django</title>
+      <link>/tags/django/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web development</title>
+      <link>/tags/web-development/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/tags/web-development/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

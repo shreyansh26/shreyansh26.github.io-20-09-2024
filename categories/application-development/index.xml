@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Application Development | Shreyansh Singh</title>
+    <link>/categories/application-development/</link>
+      <atom:link href="/categories/application-development/index.xml" rel="self" type="application/rss+xml" />
+    <description>Application Development</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Fri, 20 Oct 2017 18:14:20 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Application Development</title>
+      <link>/categories/application-development/</link>
+    </image>
+    
+    <item>
+      <title>Worldlink - Social Networking Website</title>
+      <link>/project/worldlink/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/project/worldlink/</guid>
+      <description>&lt;p&gt;Created a social networking website (webapp) using the Django framework as a part of my curriculum
+project.&lt;/p&gt;
+&lt;p&gt;Implemented features like user authentication, profile creation and edit options, posts/blogs creation,
+like and comment on the posts, searching other users, personal messaging between users, following other
+users and a meme generator for generating memes.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

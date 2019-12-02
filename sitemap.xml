@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/authors/</loc>
+    <lastmod>2019-11-29T21:04:19+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/deep-learning/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/differential-privacy/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/image-classification/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/information-security/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/information-security/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/privacy-ml/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/secure-multi-party-computation/</loc>
+    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/shreyansh-singh/</loc>
+    <lastmod>2019-11-29T21:04:19+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ctf/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/infosec/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-11-19_ritsec-ctf-2019/</loc>
+    <lastmod>2019-11-29T21:04:58+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-08-25_codefest19-ctf-writeups/</loc>
+    <lastmod>2019-11-29T21:04:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/adversarial-machine-learning/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/deep-learing/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/nids/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/neural-networks/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nids/</loc>
+    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/linux-malware/</loc>
+    <lastmod>2019-01-03T18:07:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/malware/</loc>
+    <lastmod>2019-01-03T18:07:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/reverse-engineering/</loc>
+    <lastmod>2019-01-03T18:07:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ai/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/language-model/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/msr-nlg/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/natural-language-processing/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlg/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlp/</loc>
+    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication_types/1/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/a.k.-singh/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/avi-chawla/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/ayush-sharma/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/singh-etal-2018-iit/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication_types/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication/</loc>
+    <lastmod>2018-07-01T00:00:00+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2018-03-23_angstromctf-writeups/</loc>
+    <lastmod>2019-11-29T21:04:24+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2018-02-27_neverlan-ctf-2018-writeups/</loc>
+    <lastmod>2019-11-29T21:04:19+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/information-retrieval/</loc>
+    <lastmod>2017-11-20T17:15:45+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ir/</loc>
+    <lastmod>2017-11-20T17:15:45+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/revopid/</loc>
+    <lastmod>2017-11-20T17:15:45+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sentiment-analysis/</loc>
+    <lastmod>2017-11-20T17:15:45+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/application-development/</loc>
+    <lastmod>2017-10-20T18:14:20+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/django/</loc>
+    <lastmod>2017-10-20T18:14:20+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2017-10-20T18:14:20+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/web-development/</loc>
+    <lastmod>2017-10-20T18:14:20+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/worldlink/</loc>
+    <lastmod>2017-10-20T18:14:20+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/admin/</loc>
+  </url>
+  
+  <url>
+    <loc>/talk/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+  </url>
+  
+</urlset>

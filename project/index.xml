@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Shreyansh Singh</title>
+    <link>/project/</link>
+      <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Projects</title>
+      <link>/project/</link>
+    </image>
+    
+    <item>
+      <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
+      <link>/project/privacy-ml/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/project/privacy-ml/</guid>
+      <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Network Intrusion Detection in an Adversarial setting</title>
+      <link>/project/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/project/nids/</guid>
+      <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux Malware detection using Machine Learning</title>
+      <link>/project/linux-malware/</link>
+      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
+      <guid>/project/linux-malware/</guid>
+      <description>&lt;p&gt;Implemented various papers on Linux Malware detection, where I analysed the structure of ELF files to determine whether they were malicious or benign. Approaches included the analysis of -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Symbol Table&lt;/li&gt;
+&lt;li&gt;Opcode frequency&lt;/li&gt;
+&lt;li&gt;ELF file metadata&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multilingual Surface Realization for NLG</title>
+      <link>/project/msr-nlg/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/project/msr-nlg/</guid>
+      <description>&lt;p&gt;A shared task organized at ACL 2018 (Association for Computational Linguistics, Melbourne, Australia). The task aims to determining the word order and inflecting words from given unordered Universal Dependencies (UD) structures from which word order information has been removed and the tokens have been lemmatized.
+Worked on techniques like Language Modelling and Neural Machine Translation methods to solve the problem of reinflection and correct word order generation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Review Opinion Diversificatio&amp;shy;n</title>
+      <link>/project/revopid/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/project/revopid/</guid>
+      <description>&lt;p&gt;Work done as a part of the organizing team of RevOpiD, a shared task organized at IJCNLP 2017 (International Joint Conference on Natural Language Processing, Taipei, Taiwan).
+The task aims to produce a top-k ranking of product reviews which can sufficiently represent the gist of opinions expressed in all the reviews of that product.
+Implemented the official baseline for Subtask-B of the shared task. Also volunteered to annotate gold dataset for the shared task.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Worldlink - Social Networking Website</title>
+      <link>/project/worldlink/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/project/worldlink/</guid>
+      <description>&lt;p&gt;Created a social networking website (webapp) using the Django framework as a part of my curriculum
+project.&lt;/p&gt;
+&lt;p&gt;Implemented features like user authentication, profile creation and edit options, posts/blogs creation,
+like and comment on the posts, searching other users, personal messaging between users, following other
+users and a meme generator for generating memes.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

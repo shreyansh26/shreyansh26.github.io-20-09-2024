@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>secure multi-party computation | Shreyansh Singh</title>
+    <link>/tags/secure-multi-party-computation/</link>
+      <atom:link href="/tags/secure-multi-party-computation/index.xml" rel="self" type="application/rss+xml" />
+    <description>secure multi-party computation</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>secure multi-party computation</title>
+      <link>/tags/secure-multi-party-computation/</link>
+    </image>
+    
+    <item>
+      <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
+      <link>/project/privacy-ml/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/project/privacy-ml/</guid>
+      <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shreyansh Singh</title>
+    <link>/authors/shreyansh-singh/</link>
+      <atom:link href="/authors/shreyansh-singh/index.xml" rel="self" type="application/rss+xml" />
+    <description>Shreyansh Singh</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Shreyansh Singh</title>
+      <link>/authors/shreyansh-singh/</link>
+    </image>
+    
+    <item>
+      <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
+      <link>/project/privacy-ml/</link>
+      <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
+      <guid>/project/privacy-ml/</guid>
+      <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Network Intrusion Detection in an Adversarial setting</title>
+      <link>/project/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/project/nids/</guid>
+      <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux Malware detection using Machine Learning</title>
+      <link>/project/linux-malware/</link>
+      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
+      <guid>/project/linux-malware/</guid>
+      <description>&lt;p&gt;Implemented various papers on Linux Malware detection, where I analysed the structure of ELF files to determine whether they were malicious or benign. Approaches included the analysis of -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Symbol Table&lt;/li&gt;
+&lt;li&gt;Opcode frequency&lt;/li&gt;
+&lt;li&gt;ELF file metadata&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multilingual Surface Realization for NLG</title>
+      <link>/project/msr-nlg/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/project/msr-nlg/</guid>
+      <description>&lt;p&gt;A shared task organized at ACL 2018 (Association for Computational Linguistics, Melbourne, Australia). The task aims to determining the word order and inflecting words from given unordered Universal Dependencies (UD) structures from which word order information has been removed and the tokens have been lemmatized.
+Worked on techniques like Language Modelling and Neural Machine Translation methods to solve the problem of reinflection and correct word order generation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IIT (BHU) Varanasi at MSR-SRST 2018: A Language Model Based Approach for Natural Language Generation</title>
+      <link>/publication/singh-etal-2018-iit/</link>
+      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
+      <guid>/publication/singh-etal-2018-iit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NeverLAN CTF 2018 Writeups</title>
+      <link>/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
+      <pubDate>Tue, 27 Feb 2018 08:55:58 +0000</pubDate>
+      <guid>/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
+      <description>&lt;p&gt;These are the writeups of the problems I solved over the weekend for the NeverLAN CTF 2018.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;scripting-challenges&#34;&gt;&lt;strong&gt;Scripting Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Basic Math&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a file with some numbers which we had to sum.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    File
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, we write a simple python script to do it.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/907d53ddd7a9b8b12c0e36ac4afef320.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;This gives the flag — 49562942146280612&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. More Basic Math&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This time we have a larger list of numbers. However, we can just run the script again on the new file.&lt;/p&gt;
+&lt;p&gt;This gives us the flag — 50123971501856573397&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Even more Basic Math with some junk&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this file, we see that we have spaces, commas and even English words in between the file. Using any text editor, we replace the commas with a space, and then write a script to replace all spaces with new lines.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/9c4443d59df7469ad8652dcc6676d0b1.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Then we run our first script again. We find two or three English words which give Value Error when the script is run. For them, we can manually remove them.&lt;/p&gt;
+&lt;p&gt;Finally, we get the flag — 34659711530484678082&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. JSON Parsing 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On analysing the file, we find that each line is a JSON. We have to find the 5 AV engines which had the highest detection ratio (not detection count) in that file.&lt;/p&gt;
+&lt;p&gt;We write the following script to do that —&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/68288cff647b17b45752c6c4602d2fea.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The last five in the list are —&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    High Detection Ratio AV engines
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So the flag is — &lt;code&gt;SymantecMobileInsight,CrowdStrike,SentinelOne,Invincea,Endgame&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;reversing-challenges&#34;&gt;&lt;strong&gt;Reversing Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Commitment Issues&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The first thing which came to my mind is to run &lt;code&gt;strings&lt;/code&gt; on the file. I did, and got the flag —&lt;strong&gt;flag{don’t_string_me_along_man!}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;interweb-challenges&#34;&gt;&lt;strong&gt;Interweb Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. ajax_not_soap&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On inspecting the script(ajax) of the webpage, we find that the form compares our username and password with one that is stored at the endpoint &lt;code&gt;/webhooks/get_username.php&lt;/code&gt;. On going to that link we find the username as &lt;code&gt;MrClean&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Also the password is also checked by the endpoint &lt;code&gt;/webhooks/get_pass.php?username=*username*&lt;/code&gt; Replacing &lt;em&gt;username&lt;/em&gt; with &lt;code&gt;MrClean&lt;/code&gt; we get the password (also the flag) as &lt;strong&gt;flag{hj38dsjk324nkeasd9}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. the_red_or_blue_pill&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The page says we can either take the red pill(endpoint &lt;code&gt;?red&lt;/code&gt; ) or the blue pill(endpoint &lt;code&gt;?blue&lt;/code&gt; ) but not both. We enter the endpoint as &lt;code&gt;?red&amp;amp;blue&lt;/code&gt; to get the flag as &lt;strong&gt;flag{breaking_the_matrix…I_like_it!}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. ajax_not_borax&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This problem is very similar to ajax_not_soap with the difference here that when we go to the endpoint &lt;code&gt;/webhooks/get_username.php?username=&lt;/code&gt;, we are presented with a hash (c5644ca91d1307779ed493c4dedfdcb7). We use an online MD5 decryptor to get the value as &lt;code&gt;tideade&lt;/code&gt;. Then, when we go to the endpoint &lt;code&gt;/webhooks/get_pass.php?username=tideade&lt;/code&gt;, we get a base64 encoded string, which on decryption gives the flag as &lt;strong&gt;flag{sd90J0dnLKJ1ls9HJed}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Das_blog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, when we are presented with a login page, we find that a testing credential is available as a comment in the HTML. We login using those credentials. Then, we find that the cureent permission is &lt;code&gt;DEFAULT&lt;/code&gt;. We need &lt;code&gt;admin&lt;/code&gt; permissions to view the flag. On inspecting the cookies, we find that there is a cookie &lt;code&gt;permission&lt;/code&gt; which has its value as user. We use the &lt;strong&gt;EditThisCookie plugin&lt;/strong&gt; to change its value to &lt;code&gt;admin&lt;/code&gt;. On refreshing, we get the flag as a blog post &lt;strong&gt;flag{C00ki3s_c4n_b33_ch4ng3d_?}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;passwords-challenges&#34;&gt;Passwords Challenges&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Encoding != Hashing&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a pcap capture. We open this in Wireshark and analyse the HTTP packets using the &lt;code&gt;http&lt;/code&gt; filter. On reading the contents of the filtered packets, we find the flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Wireshark Packets analysis
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is &lt;strong&gt;flag{help-me-obiwan}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;trivia-challenges&#34;&gt;&lt;strong&gt;Trivia Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Can you Name it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This system provides a reference-method for publicly known information-security vulnerabilities and exposures.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— &lt;a href=&#34;https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures&#34;&gt;Common Vulnerabilities and Exposures&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Can you find it? (Bonus)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This Vulnerability was used for a major worldwide Ransomware attack. It was so bad it forced the software company to write a patch for end of life systems that they had stopped supporting years before the attack.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— EternalBlue. And the ransomware was WannaCry.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Yummy…&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— These store small pieces of data sent from a website to the user’s computer. This yummy sounding things are stored by the user’s web browser while the user surfing the web. Answer is non-singular.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— Cookies&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Can you find it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This Vulnerability was used for a major worldwide Ransomware attack. It was so bad it forced the software company to write a patch for end of life systems that they had stopped supporting years before the attack.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— The formal listing code (CVE) for EternalBlue is &lt;strong&gt;CVE-2017–0144&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;5. Can you search it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— For the Vulnerability you found in question 2, There is a proof of concept. What is the string for TARGET_HAL_HEAP_ADDR_x64?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— The vulnerability being discussed is EternalBlue. We canf ind the source code at &lt;a href=&#34;https://gist.github.com/worawit/bd04bad3cd231474763b873df081c09a&#34;&gt;this link&lt;/a&gt;. There we find that TARGET_HAL_HEAP_ADDR_x64 is assigned &lt;strong&gt;0xffffffffffd00010&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;6. Who knew?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This product had Highest Number Of “Distinct” Vulnerabilities in 1999&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— A simple Google search of “Highest Number Of “Distinct” Vulnerabilities in 1999&amp;quot;, gets us the following &lt;a href=&#34;https://www.cvedetails.com/top-50-products.php?year=1999&#34;&gt;link&lt;/a&gt;. The product with the highest vulnerabilities was &lt;strong&gt;Windows NT&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;blast-from-the-past-challenges&#34;&gt;&lt;strong&gt;Blast from the Past Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1. cookie_monster&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On inspecting the cookies, we find that the Cookie value should be the Red Guy’s name. We change the value of the cookie to &lt;code&gt;Elom&lt;/code&gt;. On refreshing the page, we get the flag as &lt;strong&gt;flag{C00kies_4r3_the_b3st}&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Review Opinion Diversificatio&amp;shy;n</title>
+      <link>/project/revopid/</link>
+      <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
+      <guid>/project/revopid/</guid>
+      <description>&lt;p&gt;Work done as a part of the organizing team of RevOpiD, a shared task organized at IJCNLP 2017 (International Joint Conference on Natural Language Processing, Taipei, Taiwan).
+The task aims to produce a top-k ranking of product reviews which can sufficiently represent the gist of opinions expressed in all the reviews of that product.
+Implemented the official baseline for Subtask-B of the shared task. Also volunteered to annotate gold dataset for the shared task.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Worldlink - Social Networking Website</title>
+      <link>/project/worldlink/</link>
+      <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
+      <guid>/project/worldlink/</guid>
+      <description>&lt;p&gt;Created a social networking website (webapp) using the Django framework as a part of my curriculum
+project.&lt;/p&gt;
+&lt;p&gt;Implemented features like user authentication, profile creation and edit options, posts/blogs creation,
+like and comment on the posts, searching other users, personal messaging between users, following other
+users and a meme generator for generating memes.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

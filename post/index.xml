@@ -1,0 +1,1466 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | Shreyansh Singh</title>
+    <link>/post/</link>
+      <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Tue, 19 Nov 2019 17:31:59 +0000</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Posts</title>
+      <link>/post/</link>
+    </image>
+    
+    <item>
+      <title>RITSEC CTF 2019</title>
+      <link>/post/2019-11-19_ritsec-ctf-2019/</link>
+      <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
+      <guid>/post/2019-11-19_ritsec-ctf-2019/</guid>
+      <description>&lt;p&gt;A bit late for writeups, but still here are the solutions to the challenges I solved during the CTF. The CTF was from 15 Nov. 2019, 22:30 IST — Mon, 18 Nov. 2019, 10:30 IST. It was a decent CTF with quality challenges, from both beginner to advanced level.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: The scripts to solve and the flags are present in &lt;a href=&#34;https://github.com/wr47h/CTF-Writeups/tree/master/2019/RITSEC%20CTF%202019&#34;&gt;this repo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I&#39;ll do the writeups category-wise -&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;crypto&#34;&gt;Crypto&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;pre-legend — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;9EEADi^⁸:E9F3]4@&amp;amp;gt;⁴=2J32==^D@&amp;amp;gt;6E9:?8\FD67F=\C:ED64&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is the provided cipher text. Since all of these are ASCII characters, we try a ROT of till say, 50.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/e3386cba7303cdcb24b01d552b16aad4.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;On i=47, we get — https\x98\x8d\x8dgithub\x8ccom\x8dclayball\x8dsomething\x8buseful\x8britsec&lt;/p&gt;
+&lt;p&gt;There is a problem with the special characters, but we understand that is a GitHub repo, with the URL (after some testing) — &lt;a href=&#34;https://github.com/clayball/something-useful-ritsec&#34;&gt;&lt;a href=&#34;https://github.com/clayball/something-useful-ritsec&#34;&gt;https://github.com/clayball/something-useful-ritsec&lt;/a&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Although there is nothing flag related in the repo, but the discord group of the CTF said that the link itself is the flag.&lt;/p&gt;
+&lt;p&gt;Flag —&lt;strong&gt;RITSEC{https://github.com/clayball/something-useful-ritsec}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Shiny — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given the following text, and an image
+&lt;code&gt;.‡8]5);483‡5;&lt;/code&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://cdn-images-1.medium.com/max/800/0*szkUp3DoP0hYUlyx&#34; data-caption=&#34;gold-bug.jfif&#34;&gt;
+&lt;img src=&#34;https://cdn-images-1.medium.com/max/800/0*szkUp3DoP0hYUlyx&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    gold-bug.jfif
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This did not hit me directly, so I had to do a bit of Googling. I found that this is a reference to a short story by Edgar Allan Poe, called The Gold Bug which involves a substitution cipher. I found an &lt;a href=&#34;https://www.dcode.fr/gold-bug-poe&#34;&gt;online tool&lt;/a&gt; for the same.&lt;/p&gt;
+&lt;p&gt;This gives us the flag —&lt;strong&gt;RITSEC{POEWASTHEGOAT}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;random — 290 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;After connecting to &lt;em&gt;nc ctfchallenges.ritsec.club 8001&lt;/em&gt; we find that we are presented with a series of numbers and we have to guess the next. The challenge title tells us that we have something to do with the &lt;strong&gt;random&lt;/strong&gt; function in the &lt;strong&gt;C&lt;/strong&gt; language, because of the hint,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Are you starting to &amp;lsquo;C&amp;rsquo; a pattern?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We make a guess that whenever we request that host and port, the random function is initialized with a certain seed and we are given the first five random numbers generated from that seed. So, I wrote a simple C code to bruteforce all unix timestamps from 15th Nov 2019, 00:00 UTC to 17th Nov. 2019 00:00 UTC, and check for the seed. The code is shown below —&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; start &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1573776000&lt;/span&gt;;  &lt;span style=&#34;color:#75715e&#34;&gt;// 15th Nov 2019, 00:00 UTC
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; end &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1573948800&lt;/span&gt;;  &lt;span style=&#34;color:#75715e&#34;&gt;// // 17th Nov 2019, 00:00 UTC
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;start; i&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;end; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;) {
+        srand(i);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; d &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; e &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rand();
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1068399227&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; b&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;161933545&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;741438783&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; d&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1951874661&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; e&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1076387813&lt;/span&gt;) {
+            printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Seed: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, i);
+            printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Next: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, f);
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+        }
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We provide the next number, and get the flag — &lt;strong&gt;RITSEC{404_RANDOMNESS_NOT_FOUND}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Crack me If You Can — 391 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this challenge, after connecting to &lt;em&gt;nc ctfchallenges.ritsec.club 8080&lt;/em&gt;, we find that we are presented with queries of hashes, and we have to break them in order to get the flag. They were NTLM and sha256 hashes. So, we used a combination of &lt;a href=&#34;http://crackstation.net&#34;&gt;crackstation.net&lt;/a&gt; and John the Ripper to crack both of them.&lt;/p&gt;
+&lt;p&gt;We found the flag — &lt;strong&gt;RS{H@$HM31FY0UCAN}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Onion Layer Encoding — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The challenge says that the text is encoded using either Base16 or Baser32 or Base64 in a sequence. So we write a simple python script to solve it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; base64
+
+flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;onionlayerencoding.txt&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;RITSEC&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; str(flag):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+        flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b16decode(flag)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+            flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b32decode(flag)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt;:
+            flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b64decode(flag)
+            
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is — &lt;strong&gt;RITSEC{0n1On_L4y3R}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;AlPhAbEtIcAl Challenge - 100pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I couldn&#39;t solve this during the CTF, but saw other writeups and found that it was actually pretty interesting. The cipher text that is provided is —&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;59:87:57:51:85:80{:40:50:56:08:82:58:81:08:18:85:57:87:48:85:88:40:50:56:59:15:56:11:18:85:59:51:}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We see that the &amp;lsquo;{&amp;rsquo; and &amp;lsquo;}&amp;rsquo; are in place. So, this must represent the flag. The other numbers are assigned some alphabet starting from &amp;lsquo;A&amp;rsquo;. After this we see that we have the following — ABCDEF{GHIJKLMJNECBOEPGHIAQIRNEAD}.&lt;/p&gt;
+&lt;p&gt;On this we use an online substitution solver like quipquip.com and also the fact that ABCDEF corresponds to RITSEC, we get the flag as — &lt;strong&gt;RITSEC{YOUALPHABETIZEDYOURNUMBERS}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;misdirection — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a URL — &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;&lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;http://ctfchallenges.ritsec.club:5000/&lt;/a&gt;&lt;/a&gt; However, on clicking it we see that we are directed to another webpage &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;&lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;http://ctfchallenges.ritsec.club:5000/n&lt;/a&gt;&lt;/a&gt; and the information that the webpage isn&#39;t redirecting properly. So, I decided to see what is happening, for that I did a simple &lt;em&gt;wget&lt;/em&gt; to the url.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; data-caption=&#34;Running wget&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Running wget
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We see that the page redirects to different pages and keeps doing that. We note that the last character is basically in the flag format when put together. We do that and get the flag — &lt;strong&gt;RS{4!way5_Ke3p-m0v1ng}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Buckets of fun — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given the following URL — &lt;a href=&#34;http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/&#34;&gt;&lt;a href=&#34;http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/&#34;&gt;http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Taking a hint from the name of the challenge, we try the following URL in the browser —&lt;a href=&#34;http://bucketsoffun-ctf.s3.amazonaws.com&#34;&gt;&lt;a href=&#34;http://bucketsoffun-ctf.s3.amazonaws.com&#34;&gt;http://bucketsoffun-ctf.s3.amazonaws.com&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; data-caption=&#34;The webpage&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The webpage
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We see a file &lt;strong&gt;youfoundme-asd897kjm.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Heading to &lt;a href=&#34;http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt&#34;&gt;&lt;a href=&#34;http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt&#34;&gt;http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt&lt;/a&gt;&lt;/a&gt; we find the flag — &lt;strong&gt;RITSEC{LIST_HIDDEN_FILES}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;forensics&#34;&gt;Forensics&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Take it to the Cleaners — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given an image&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The challenge
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Performing basic recon, we check the metadata for the image using exiftool.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; data-caption=&#34;exiftool output&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    exiftool output
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;In the user comment, we see a string which is probably base64 encoded.&lt;/p&gt;
+&lt;p&gt;Decoding it gives, &lt;strong&gt;EVGFRP{SBERAFVPF_SNVYF_JBAG_URYC_LBH_URER}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Looks rotated by an offset. We use &lt;a href=&#34;http://theblob.org/rot.cgi&#34;&gt;&lt;a href=&#34;http://theblob.org/rot.cgi&#34;&gt;http://theblob.org/rot.cgi&lt;/a&gt;&lt;/a&gt; to get rotations by different offsets. This is ROT13 and the flag is — &lt;strong&gt;RITSEC{FORENSICS_FAILS_WONT_HELP_YOU_HERE}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;Long Gone — 100 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are provided a chromebin. Extract it as it is a tar archive.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;tar xzvf ./chromebin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We see there are a lot of folders, on inspecting the history we find it is an SQLite 3.X database. Loading it into DBBrowser, and inspecting the tables, shows an odd URL — us-central-1.ritsec.club/l/relaxfizzblur&lt;/p&gt;
+&lt;p&gt;Opening the url gives the flag — &lt;strong&gt;RITSEC{SP00KY_BR0WS3R_H1ST0RY}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;pwn&#34;&gt;Pwn&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;999 Bottles — 110 pts&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given 999 ELF files, each having a password as a single character. Basically, 999 crackmes with a one character password. If we check the disassembly of main function of any one —&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; data-caption=&#34;The disassembly for main&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The disassembly for main
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;At 0x8048728 we see a comparison, where register edx (dl) stores our input character and eax (al) stores the value at address 0x804a039.&lt;/p&gt;
+&lt;p&gt;Also, in the disassembly, we have some character mappings to addresses —&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; data-caption=&#34;Character mappings&#34;&gt;
+&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Character mappings
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, one way to solve this challenge is to get the address to be compared and check the character at this address and automate it somehow.&lt;/p&gt;
+&lt;p&gt;During the CTF, however, I wrote a bruteforce script to try all characters for every ELF file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; string
+
+FOLDER &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./elfs/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
+filenames &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;digits &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;letters &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; string&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;punctuation
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;):
+    filenames&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(str(i)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;zfill(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.c.out&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
+f &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;flag.txt&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; file &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; filenames:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; inp &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; s:
+        p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(FOLDER&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;file)
+        p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recv()
+        p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(inp)
+        a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;OK!&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; a:
+            flag &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp
+            p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;FLAG: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag)
+            f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;FLAG: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag)
+            f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+            p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+            
+f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;FLAG: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; flag)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, we have the following string in the output generated -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;lr^wN${HnW&amp;lt;DtVjk.RITSEC{AuT057v}^W!xT&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Note the string in the flag format, that is the flag — &lt;strong&gt;RITSEC{AuT057v}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A better way to solve it actually using the method described above. The following script can help do that -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; r2pipe  
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; binascii  
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;):  
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;elfs/{0:03}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i))  
+    b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; r2pipe&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;elfs/{0:03}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;format(i) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.c.out&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+
+    disass &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cmd(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;aaa; s main; pdd&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)  
+    field &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; disass&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;eax = *(obj.&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]  
+    byte &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; disass&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(f&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;*(obj.{field}) = &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]  
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(binascii&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;unhexlify(byte)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;ascii&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;), sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is all. Thanks for reading!&lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Codefest’19 CTF Writeups</title>
+      <link>/post/2019-08-25_codefest19-ctf-writeups/</link>
+      <pubDate>Sun, 25 Aug 2019 19:13:05 +0000</pubDate>
+      <guid>/post/2019-08-25_codefest19-ctf-writeups/</guid>
+      <description>&lt;p&gt;The Capture the Flag event for &lt;a href=&#34;http://codefest.tech&#34;&gt;Codefest’19&lt;/a&gt; was hosted from 8 pm, 23rd August 2019 to 12 noon, 24th August 2019 on Hackerrank.&lt;/p&gt;
+&lt;p&gt;The contest link can be found &lt;a href=&#34;https://www.hackerrank.com/codefest19-ctf&#34;&gt;here&lt;/a&gt;. There were a total of &lt;strong&gt;1532&lt;/strong&gt; registrations and &lt;strong&gt;518&lt;/strong&gt; people who were successful in solving atleast one challenge.&lt;/p&gt;
+&lt;p&gt;So, onto the writeups.&lt;/p&gt;
+&lt;h3 id=&#34;welcome-to-codefest-19-intro-challenge100pts&#34;&gt;&lt;strong&gt;Welcome to Codefest 19! (Intro Challenge — 100pts)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;This was the introductory challenge. I had tried to make it a bit difficult than the normal introductory challenges, but I felt that it proved to be a bit difficult for the beginners.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The challenge
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here, first you had to join the telegram group linked in the proble. There you got the first half of the flag — **CodefestCTF{G3t_r3ady_**. For the other half there was a pinned message on the group.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The other half of the flag was uploaded on the contest page yesterday by accident. It has now been removed. Can you find it?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For this you had to use &lt;a href=&#34;http://archive.org&#34;&gt;archive.org,&lt;/a&gt; there was a snapshot of the contest page created on 23rd Aug 2019. Viewing the &lt;a href=&#34;https://web.archive.org/web/20190823133528/https://www.hackerrank.com/codefest19-ctf&#34;&gt;snapshot&lt;/a&gt; got you the second half of the flag —&lt;strong&gt;f0r_C0def3stCTF-8fb34fjr4bs43ur8}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So, the final flag is — &lt;strong&gt;CodefestCTF{G3t_r3ady_f0r_C0def3stCTF-8fb34fjr4bs43ur8}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;what-language-is-this-misc100pts&#34;&gt;What language is this? (Misc — 100pts)&lt;/h3&gt;
+&lt;p&gt;This was basically a esoteric language question. The given text was —&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;iiisdsiiioiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiodddddddddddoioiodoiiiiiiiiiiiiiioiodddddddddddddddddddddddddddddddddddddddddddddddddoiiiiiiiiiiiiiiiiioddddddddddddddoiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiioddddddddddddddddddddddddddddddddddddoiiiiiiiiiiiiiioiiiiiiiodddddddddodddddddddddddddddddddddddddddddddddddddddddddddddddoddddddddddddddddddddddddddddddddddddddsiiiiiiiiioddddddddoddddddoiiiiiiiiiiiiiiiiiiiiioddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddoddddddddddddddddddddddddddddddddsiiisisdddddoddddddddddddddddddddddddddddodddddddddddddddddddoddddddddddddddddddddddddddddddddsiiisisoioiodoiiiiiiiiiiiiiioiodddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddoiiiiiiiioddddddddddddddddddddddddddddddddddddddddddddddsiiiio
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The language was &lt;a href=&#34;https://esolangs.org/wiki/Deadfish&#34;&gt;Deadfish&lt;/a&gt;. You could use an online decoder for that language, something like &lt;a href=&#34;https://www.dcode.fr/deadfish-language&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The final flag was — &lt;strong&gt;CodefestCTF{Welc0me_t0_C0defest19}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;gibberish-file-misc100pts&#34;&gt;Gibberish file (Misc — 100pts)&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The challenge
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The hint was in the problem statement. You had to reverse the file to find the flag. A simple one-line script could do it&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;output2.txt&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;output.txt&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;rb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()[::&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The resulting had some text like&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The flag was the ASCII analog of each unicode character.&lt;/p&gt;
+&lt;p&gt;The flag was — &lt;strong&gt;CodefestCTF{LiTErAL_REVERSinG}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;image-corruption-forensics100pts&#34;&gt;Image Corruption (Forensics — 100pts)&lt;/h3&gt;
+&lt;p&gt;In the challenge, you were given a link to a corrupted &lt;em&gt;.bmp&lt;/em&gt; &lt;a href=&#34;https://drive.google.com/file/d/1t5d_lKkdoG1aicBJYhM8wqh7Ispk0G4U/view&#34;&gt;file&lt;/a&gt;. On viewing the file in a hex editor, and also checking the magic bytes —&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; data-caption=&#34;Hex view of the image&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Hex view of the image
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We know there is something to do with “matrix”. Also for a normal &lt;em&gt;.bmp&lt;/em&gt; file the initial magic bytes are 424d 8a44 1300. XORing this with the first six bytes of the given file also gives you “matrix”. So to solve the challenge, we XOR the whole image with “matrix”.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/391d4103c8175cd3484c286d7c51dfd7.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Run the script, and you obtain the correct file.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; data-caption=&#34;The correct file&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The correct file
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is — &lt;strong&gt;CodefestCTF{f1l35_h4v3_m461c_by735}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;mail-capture-steganography-100pts&#34;&gt;Mail capture (Steganography— 100pts)&lt;/h3&gt;
+&lt;p&gt;You are presented with a “email friendly text”. This was encoded to unicode by a tool called &lt;strong&gt;uuencode&lt;/strong&gt;. It can be decoded by using &lt;strong&gt;uudecode&lt;/strong&gt;, a decoder for such formats. Running &lt;strong&gt;uudecode&lt;/strong&gt; with the file gives an output file called “flag_encoded”. The contents are the flag — &lt;strong&gt;CodefestCTF{7h15_15_4_c001_3nc0d1n9}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;cats-are-innocent-right-steganography-500pts&#34;&gt;Cats are innocent, right? (Steganography— 500pts)&lt;/h3&gt;
+&lt;p&gt;This challenge was based on LSB steganography. I had used a tool called &lt;a href=&#34;https://github.com/DimitarPetrov/stegify&#34;&gt;&lt;strong&gt;stegify&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The challenge image -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; data-caption=&#34;Challenge image&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Challenge image
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;On running the command -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;stegify -op decode -carrier cute_kittens.jpg -result hello&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We get a &lt;em&gt;hello.zip&lt;/em&gt; file which was embedded in the LSBs of the image. The zip file had a file inside it but that was of no use. The flag was appended at the end of the zip file.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; &gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is appended at the end of the zip file&lt;/p&gt;
+&lt;p&gt;The flag is — &lt;strong&gt;CodefestCTF{h1d1ng_b3h1nd_1nn0c3nt_k1tt3n5}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;weird-encoding-misc-200pts&#34;&gt;Weird encoding (Misc— 200pts)&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    The challenge
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We are given the following “encoding”&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0x85+1x1+0x14
+0x7+1x1+0x7+1x1+0x9+1x2+0x3+1x4+0x3+1x1+0x6+1x5+0x1+1x1+0x2+1x1+0x1+1x2+0x13+1x2+0x3+1x1+0x8+1x1+0x5+1x2+0x8
+0x1+1x5+0x18+1x3+0x3+1x1+0x16+1x2+0x1+1x1+0x5+1x2+0x2+1x1+0x3+1x1+0x4+1x2+0x3+1x3+0x3+1x1+0x2+1x2+0x4+1x3+0x8
+0x3+1x1+0x7+1x1+0x11+1x2+0x1+1x1+0x3+1x5+0x12+1x1+0x2+1x1+0x7+1x1+0x10+1x1+0x3+1x2+0x1+1x1+0x5+1x3+0x4+1x1+0x1+1x2+0x2+1x1+0x4
+0x3+1x1+0x3+1x1+0x7+1x2+0x3+1x1+0x2+1x1+0x2+1x1+0x7+1x1+0x11+1x2+0x2+1x2+0x5+1x2+0x10+1x1+0x3+1x1+0x2+1x1+0x3+1x2+0x2+1x1+0x4+1x4+0x7
+0x3+1x1+0x3+1x1+0x3+1x1+0x1+1x3+0x10+1x1+0x7+1x1+0x7+1x1+0x3+1x1+0x3+1x1+0x1+1x2+0x2+1x3+0x8+1x5+0x4+1x1+0x3+1x9+0x1+1x3+0x7
+0x3+1x1+0x3+1x3+0x1+1x1+0x1+1x4+0x9+1x1+0x6+1x2+0x2+1x1+0x7+1x2+0x3+1x1+0x2+1x1+0x4+1x1+0x10+1x1+0x6+1x1+0x7+1x1+0x7+1x4+0x4
+0x5+1x1+0x1+1x1+0x1+1x1+0x1+1x1+0x4+1x2+0x7+1x2+0x3+1x4+0x11+1x1+0x4+1x1+0x2+1x1+0x3+1x2+0x6+1x1+0x3+1x1+0x6+1x1+0x7+1x1+0x1+1x1+0x1+1x5+0x7
+0x7+1x1+0x1+1x1+0x1+1x1+0x2+1x3+0x7+1x5+0x16+1x1+0x4+1x1+0x2+1x1+0x1+1x3+0x3+1x6+0x2+1x1+0x2+1x1+0x1+1x5+0x5+1x1+0x2+1x1+0x4+1x1+0x7
+0x18+1x5+0x13+1x6+0x27+1x1+0x14+1x1+0x2+1x2+0x2+1x1+0x5+1x1+0x2
+0x1+1x1+0x5+1x1+0x4+1x1+0x3+1x1+0x8+1x1+0x8+1x1+0x9+1x1+0x8+1x1+0x5+1x1+0x17+1x1+0x10+1x3+0x9
+0x68+1x1+0x11+1x1+0x19
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here a bit of observation was required to figure out that the “x” symbol mean concatenation &lt;em&gt;n&lt;/em&gt; number of a character, like 0x5 will mean 00000. And “+” would mean concatenation of two strings of different type. Also, one will also have to decide on 0 representing 255 255 255 i.e. the color &lt;em&gt;white&lt;/em&gt; and 1 representing 0 0 0 , i.e. the color &lt;em&gt;black&lt;/em&gt;. You could have experimented with both combinations but eventually you would get the correct mapping.&lt;/p&gt;
+&lt;p&gt;The following script can help generate the image.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/9f262ca29ec6bcb5c8b66e1feb95cf6e.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The obtained image is this -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; data-caption=&#34;You may want to zoom in a bit&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    You may want to zoom in a bit
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is — &lt;strong&gt;CodefestCTF{This_15_7h3_f14g}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;linux-re-1-reversing300pts&#34;&gt;Linux RE 1 (Reversing — 300pts)&lt;/h3&gt;
+&lt;p&gt;This challenge was a bit difficult to solve using a debugger due to some anti-debugging techniques that were implemented. Also, initially the ELF was packed using UPX, which was visible as a string when you would have run the &lt;strong&gt;strings&lt;/strong&gt; command. So, first use&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;upx -d&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;with the ELF to decompress it.&lt;/p&gt;
+&lt;p&gt;For the next part, You could use a disassembler or a decompiler to get the source code and eventually reverse the binary. The executable was generated from a C++ file hence it was a bit messy to view in a decompiler.&lt;/p&gt;
+&lt;p&gt;The decompiled view (using Ghidra) of the main function (the interesting part) is the following -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; data-caption=&#34;Decompiled main function&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Decompiled main function
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The &lt;em&gt;key_int&lt;/em&gt; and &lt;em&gt;enc_int&lt;/em&gt; are global variables. The main logic of the ELF is in the &lt;strong&gt;rahasya&lt;/strong&gt; function.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; data-caption=&#34;Decompiled rahasya function&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Decompiled rahasya function
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This basically takes two strings and XORs them and returns the XORd string. The two strings it takes as input are the user input and the &lt;em&gt;key_int&lt;/em&gt; string. The XORd data is matched with the &lt;em&gt;enc_int&lt;/em&gt; data.&lt;/p&gt;
+&lt;p&gt;So, basically to reverse the binary you have to XOR both the &lt;em&gt;key_int&lt;/em&gt; and &lt;em&gt;enc_int&lt;/em&gt; data.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; data-caption=&#34;enc_int data&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    enc_int data
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; data-caption=&#34;key_int data&#34;&gt;
+&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    key_int data
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Basically,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;int &lt;em&gt;enc_int[]&lt;/em&gt; = {80, 93, 3, 67, 3, 86, 11, 110, 64, 2, 90, 27, 84, 28, 110, 75, 3, 69, 52, 6, 11, 5, 80, 88, 90, 88};&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;int &lt;em&gt;key_int[]&lt;/em&gt; = {49, 51, 51, 55, 107, 101, 121};&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;XOR both of them, and you get &lt;em&gt;an0th3r_s1mp1e_x0r_cr4ckm3&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So, the flag is &lt;strong&gt;CodefestCTF{an0th3r_s1mp1e_x0r_cr4ckm3}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;linux-re-2-reversing500pts&#34;&gt;Linux RE 2 (Reversing — 500pts)&lt;/h3&gt;
+&lt;p&gt;Again we open the file in IDA or any disassembler and/or decompiler we see that the input should satisfy a set of conditions on the letters of the input.&lt;/p&gt;
+&lt;p&gt;The conditions can be translated as&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/c0c225fa5daa05da85bb0534dc5438a9.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;We can use some kind of SMT solver like z3 to find the password.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/bccc43909e68ddd7d219f59fc48da4c5.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The obtained password is — &lt;em&gt;shouldve_used_some_tool&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The flag, hence, is &lt;strong&gt;CodefestCTF{shouldve_used_some_tool}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;windows-re-reversing500pts&#34;&gt;Windows RE (Reversing — 500pts)&lt;/h3&gt;
+&lt;p&gt;In this problem, the Windows exe file (actually a .NET file) that was provided, was packed with &lt;a href=&#34;https://yck1509.github.io/ConfuserEx/&#34;&gt;ConfuserEx&lt;/a&gt;. We can use &lt;a href=&#34;https://github.com/CodeShark-Dev/NoFuserEx&#34;&gt;NoFuserEx,&lt;/a&gt; which is a free deobfuscator for this packer.&lt;/p&gt;
+&lt;p&gt;Then, open the executable in any .NET decompiler like dnSpy and check the &lt;strong&gt;Form&lt;/strong&gt; function to get the password as well as the flag.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Password — thisisa1337password&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The flag — &lt;strong&gt;CodefestCTF{51mp13_1npu7_v411d4710n_8u7_w17h_4_7w157}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;no-fatshaming-web600pts&#34;&gt;No Fatshaming (Web — 600pts)&lt;/h3&gt;
+&lt;p&gt;I’ll cheat a bit here xD. You can read my friend Yashit’s &lt;a href=&#34;https://medium.com/@yashitmaheshwary/no-fatshaming-web-challenge-writeup-codefest19-ctf-1deea5a2ea49&#34;&gt;awesome writeup&lt;/a&gt; on the challenge.&lt;/p&gt;
+&lt;p&gt;Flag is — &lt;strong&gt;CodefestCTF{1AmTeHHHAX00Rr4uj8rfi4e$%y5yhrf}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Hope you had a great time solving the challenges and that it was a good learning experience for beginners.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngstromCTF Writeups</title>
+      <link>/post/2018-03-23_angstromctf-writeups/</link>
+      <pubDate>Fri, 23 Mar 2018 12:37:04 +0000</pubDate>
+      <guid>/post/2018-03-23_angstromctf-writeups/</guid>
+      <description>&lt;p&gt;These are the writeups to the problems I solved during the AngstromCTF.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;misc&#34;&gt;MISC&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Waldo1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a zip file — flags.zip containing flags of countries. The file flag5.png, we see on opening has the flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/2.png&#34; data-caption=&#34;Flag-Waldo1&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Flag-Waldo1
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Waldo2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this problem, we are given multiple flag images in a folder. Judging by the problem, it seems that one image is different. We see the md5 hash of the few files which are the same-&lt;strong&gt;9f6e902c233020026caf0ebbb1cf0ff5&lt;/strong&gt;. So we write the following script-&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/06c29b45da61157827bb20a355faa6c9.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;So, the filename we get is &lt;strong&gt;waldo339.jpg&lt;/strong&gt;. Running &lt;code&gt;strings&lt;/code&gt; on the file we get the flag as — &lt;strong&gt;actf{r3d_4nd_wh1t3_str1p3s}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. That’s not my name&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a pdf file — gettysburg.pdf, but on trying to open it, it does not open, giving incorrect file format error. We run &lt;code&gt;binwalk&lt;/code&gt; on the file to see that it infact is a &lt;code&gt;docx&lt;/code&gt; file. We change the extension to &lt;code&gt;.docx&lt;/code&gt; anf on opening we get the flag as — &lt;strong&gt;actf{thanks_mr_lincoln_but_who_even_uses_word_anymore}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. File Transfer&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/3.png&#34; data-caption=&#34;Capture&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Capture
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The highlighted packet shows a JPEG image capture. We export the JPEG as bytes to get the image.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; data-caption=&#34;Flag — File Transfer&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Flag — File Transfer
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;5. GIF&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On running &lt;code&gt;binwalk&lt;/code&gt; on the given image, we see that it is infact a collection of many images.&lt;/p&gt;
+&lt;p&gt;So , we run the command &lt;code&gt;binwalk -D &#39;png image:png&#39; jiggs.gif.png&lt;/code&gt;. On inspecting the extracted files, we see an image which has the flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/5.png&#34; data-caption=&#34;Flag — Gif&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Flag — Gif
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;crypto&#34;&gt;Crypto&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Warmup&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;From the term &lt;strong&gt;&lt;em&gt;fine&lt;/em&gt;&lt;/strong&gt; cipher, we get the hint that it could be an &lt;strong&gt;Affine cipher&lt;/strong&gt;. We use an online Affine cipher &lt;a href=&#34;https://www.dcode.fr/affine-cipher&#34;&gt;solver&lt;/a&gt; to get the flag as — &lt;strong&gt;actf{it_begins}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Back to Base-ics&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given the following cipher text -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/6.png&#34; data-caption=&#34;Ciphertext&#34;&gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Ciphertext
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now we can easily see that the Part 1 is binary(base 2) and Part 3 is hexadecimal(base 16). On decoding them using any online converter, we get&lt;/p&gt;
+&lt;p&gt;Part 1: &lt;strong&gt;actf{0ne_tw0_f0&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Part 3: &lt;strong&gt;n_th1rtytw0_s1x&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Also judging from the title of the problem, we can say that all the ciphers have the base of some power of two. We guess that Part 2 could be base 8(octal). using an online octal to text converter we get,&lt;/p&gt;
+&lt;p&gt;Part 2: &lt;strong&gt;ur_eight_sixt33&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The last one looks like base64. On decrypting, we get&lt;/p&gt;
+&lt;p&gt;Part 4: &lt;strong&gt;tyf0ur_no_m0re}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;So, the flag is — &lt;strong&gt;actf{0ne_tw0_f0ur_eight_sixt33n_th1rtytw0_s1xtyf0ur_no_m0re}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. XOR&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This looks like a singlebyteXOR problem. We use the following script&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/982f2b6974fec2195f752bb86cc91393.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;On seeing all the plain texts, we get the flag as — &lt;strong&gt;actf{hope_you_used_a_script}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Intro to RSA&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is a classical RSA problem, we use the following script to decrypt&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/f6af59e02f2db1d0e27e88b5b8084585.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;So the flag is — &lt;strong&gt;actf{rsa_is_reallllly_fun!!!!!!}&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;web&#34;&gt;WEB&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Source Me 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here, we are presented with a login page. On inspecting the source, we find the password —&lt;strong&gt;f7s0jkl&lt;/strong&gt;, in the comments. **** So, we login with the username as &lt;code&gt;admin&lt;/code&gt; and password as &lt;code&gt;f7s0jkl&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This gives us the flag-&lt;strong&gt;actf{source_aint_secure}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Get Me&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Initially all we have is a button with the message that only authorized users are allowed to pass. On clicking the button, we get the message that we are not authorized. However in the url bar we see that the get parameter is &lt;code&gt;auth=false&lt;/code&gt;. We change it to &lt;code&gt;auth=true&lt;/code&gt;and hit enter.&lt;/p&gt;
+&lt;p&gt;We then get the flag — &lt;strong&gt;actf{why_did_you_get_me}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Sequel&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is a classic case of SQL injection(SQLi). The hint here is the name of the problem which is pronunciation of SQL.&lt;/p&gt;
+&lt;p&gt;We enter both username and password as &lt;code&gt;&#39;or&#39;&#39;=&#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This gives us the flag — &lt;strong&gt;actf{sql_injection_more_like_prequel_injection}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Source Me 2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are give another login page. Here, too, the username is &lt;code&gt;admin&lt;/code&gt;. On inspecting the source, we find the script which converts our entered password to md5 and compares it to the hash &lt;strong&gt;bdc87b9c894da5168059e00ebffb9077&lt;/strong&gt;. We use an &lt;a href=&#34;http://www.md5online.org/&#34;&gt;online md5 decryptor to&lt;/a&gt; get the password as &lt;code&gt;password1234&lt;/code&gt;. Entering this gives the flag — &lt;strong&gt;actf{md5_hash_browns_and_pasta_sauce}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;5. Madlibs&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here, from the Flask code we see that there is a variable app.secret_key, which is basically a config variable. So we head to Tale of a Person section and enter &lt;code&gt;{{config}}&lt;/code&gt; as the Author name and any random strings in the other options.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/7.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here we see the SECRET_KEY variable assigned to the flag, &lt;strong&gt;actf{wow_ur_a_jinja_ninja}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;reversingre&#34;&gt;Reversing(RE)&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Rev1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, we run &lt;code&gt;strings&lt;/code&gt; on the given ELF executable. We see the string, &lt;strong&gt;s3cret_pa55word&lt;/strong&gt;. This could be the secret password the program is looking for. On running the executable and giving the above string as key, we get the flag. This is to be done on the shell server.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Rev2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The ELF on executing asks for a number to be guessed. We use radare2 to disassemble the code.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/8.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/9.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The highlighted hex, 0x11d7 is &lt;strong&gt;4567&lt;/strong&gt; in decimal. On entering this, the program now asks us to give two two-digit numbers. We again analyze the disassembled code.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/10.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This tells us that the product of the two numbers should be 0xd67 i.e &lt;strong&gt;3431&lt;/strong&gt;. From &lt;a href=&#34;http://www.mathwarehouse.com/arithmetic/numbers/prime-number/prime-factorization.php?number=3431&#34;&gt;this link,&lt;/a&gt; we find that the numbers are &lt;strong&gt;47&lt;/strong&gt; and &lt;strong&gt;73&lt;/strong&gt;. We enter them in ascending order, i.e 47 and then 73.&lt;/p&gt;
+&lt;p&gt;We get the flag as — &lt;strong&gt;actf{4567_47_73}&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;binary&#34;&gt;Binary&lt;/h2&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Accumulator&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here the ideas is to keep adding integers to an &lt;code&gt;int&lt;/code&gt; variiable and without explicitly entering negative values, we have to make the result negative. This can be done by integer overflow.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/11.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Running these inputs on the shell server will give us the flag.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Cookie Jar&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is a buffer overflow problem. Although we never explicitly gave a value to numCookie, we can overflow the buffer so that it gets a value. I fwe the following input — aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa99999998 to the program, we get the flag.&lt;/p&gt;
+&lt;p&gt;The flag is — &lt;strong&gt;actf{eat_cookies_get_buffer}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Number Guess&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We take the help of the hint given. The most common vulnerability of the printf function is the use(or not) of format strings.&lt;/p&gt;
+&lt;p&gt;In the code, just before the &lt;code&gt;printf(buf)&lt;/code&gt; the two random integers are initialized. So, when we are asked for our name, if we give the following input, &lt;strong&gt;%d %d %d %d %d %d %d %d %d %d %d %d&lt;/strong&gt; . This would give us the other numbers in the stack. On running this, we take the 3rd and the 9th value as rand1 and rand2. We add them and give the result as our guess.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/12.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So the flag is -&lt;strong&gt;actf{format_stringz_are_pre77y_sc4ry}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Rop to the Top&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is an example of Return Oriented Programming (ROP) vulnerability which is basically buffer overflow to access the non-executable stack. To exploit it we can use the following set of commands-&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; &gt;
+&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We find that the address of &lt;strong&gt;the_top&lt;/strong&gt; function is &lt;strong&gt;0x8048db&lt;/strong&gt;. Also the buffer size is &lt;strong&gt;0x28&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So, the following command works for us-&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;./rop_to_the_top32 &amp;ldquo;$(python -c &amp;lsquo;print &amp;ldquo;A&amp;rdquo;*0x28 + &amp;ldquo;BBBB&amp;rdquo; + &amp;ldquo;\xdb\x84\x04\x08&amp;rdquo;&#39;)&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We enter the character ‘A’ to fill the size of the buffer, “BBBB” to replace the current stack pointer (%ebx) followed by the address to which we wish to point to, here the address of &lt;strong&gt;the_top&lt;/strong&gt; function.&lt;/p&gt;
+&lt;p&gt;Running the above command on the shell server gives us the flag.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;For more writeups, you can follow me on&lt;/em&gt; &lt;a href=&#34;https://github.com/wr47h&#34;&gt;&lt;em&gt;Github&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NeverLAN CTF 2018 Writeups</title>
+      <link>/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
+      <pubDate>Tue, 27 Feb 2018 08:55:58 +0000</pubDate>
+      <guid>/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
+      <description>&lt;p&gt;These are the writeups of the problems I solved over the weekend for the NeverLAN CTF 2018.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;scripting-challenges&#34;&gt;&lt;strong&gt;Scripting Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Basic Math&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a file with some numbers which we had to sum.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    File
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, we write a simple python script to do it.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/907d53ddd7a9b8b12c0e36ac4afef320.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;This gives the flag — 49562942146280612&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. More Basic Math&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This time we have a larger list of numbers. However, we can just run the script again on the new file.&lt;/p&gt;
+&lt;p&gt;This gives us the flag — 50123971501856573397&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Even more Basic Math with some junk&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this file, we see that we have spaces, commas and even English words in between the file. Using any text editor, we replace the commas with a space, and then write a script to replace all spaces with new lines.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/9c4443d59df7469ad8652dcc6676d0b1.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Then we run our first script again. We find two or three English words which give Value Error when the script is run. For them, we can manually remove them.&lt;/p&gt;
+&lt;p&gt;Finally, we get the flag — 34659711530484678082&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. JSON Parsing 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On analysing the file, we find that each line is a JSON. We have to find the 5 AV engines which had the highest detection ratio (not detection count) in that file.&lt;/p&gt;
+&lt;p&gt;We write the following script to do that —&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/68288cff647b17b45752c6c4602d2fea.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The last five in the list are —&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    High Detection Ratio AV engines
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So the flag is — &lt;code&gt;SymantecMobileInsight,CrowdStrike,SentinelOne,Invincea,Endgame&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;reversing-challenges&#34;&gt;&lt;strong&gt;Reversing Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Commitment Issues&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The first thing which came to my mind is to run &lt;code&gt;strings&lt;/code&gt; on the file. I did, and got the flag —&lt;strong&gt;flag{don’t_string_me_along_man!}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;interweb-challenges&#34;&gt;&lt;strong&gt;Interweb Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. ajax_not_soap&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On inspecting the script(ajax) of the webpage, we find that the form compares our username and password with one that is stored at the endpoint &lt;code&gt;/webhooks/get_username.php&lt;/code&gt;. On going to that link we find the username as &lt;code&gt;MrClean&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Also the password is also checked by the endpoint &lt;code&gt;/webhooks/get_pass.php?username=*username*&lt;/code&gt; Replacing &lt;em&gt;username&lt;/em&gt; with &lt;code&gt;MrClean&lt;/code&gt; we get the password (also the flag) as &lt;strong&gt;flag{hj38dsjk324nkeasd9}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. the_red_or_blue_pill&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The page says we can either take the red pill(endpoint &lt;code&gt;?red&lt;/code&gt; ) or the blue pill(endpoint &lt;code&gt;?blue&lt;/code&gt; ) but not both. We enter the endpoint as &lt;code&gt;?red&amp;amp;blue&lt;/code&gt; to get the flag as &lt;strong&gt;flag{breaking_the_matrix…I_like_it!}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. ajax_not_borax&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This problem is very similar to ajax_not_soap with the difference here that when we go to the endpoint &lt;code&gt;/webhooks/get_username.php?username=&lt;/code&gt;, we are presented with a hash (c5644ca91d1307779ed493c4dedfdcb7). We use an online MD5 decryptor to get the value as &lt;code&gt;tideade&lt;/code&gt;. Then, when we go to the endpoint &lt;code&gt;/webhooks/get_pass.php?username=tideade&lt;/code&gt;, we get a base64 encoded string, which on decryption gives the flag as &lt;strong&gt;flag{sd90J0dnLKJ1ls9HJed}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Das_blog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, when we are presented with a login page, we find that a testing credential is available as a comment in the HTML. We login using those credentials. Then, we find that the cureent permission is &lt;code&gt;DEFAULT&lt;/code&gt;. We need &lt;code&gt;admin&lt;/code&gt; permissions to view the flag. On inspecting the cookies, we find that there is a cookie &lt;code&gt;permission&lt;/code&gt; which has its value as user. We use the &lt;strong&gt;EditThisCookie plugin&lt;/strong&gt; to change its value to &lt;code&gt;admin&lt;/code&gt;. On refreshing, we get the flag as a blog post &lt;strong&gt;flag{C00ki3s_c4n_b33_ch4ng3d_?}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;passwords-challenges&#34;&gt;Passwords Challenges&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Encoding != Hashing&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are given a pcap capture. We open this in Wireshark and analyse the HTTP packets using the &lt;code&gt;http&lt;/code&gt; filter. On reading the contents of the filtered packets, we find the flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
+&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Wireshark Packets analysis
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is &lt;strong&gt;flag{help-me-obiwan}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;trivia-challenges&#34;&gt;&lt;strong&gt;Trivia Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;1. Can you Name it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This system provides a reference-method for publicly known information-security vulnerabilities and exposures.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— &lt;a href=&#34;https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures&#34;&gt;Common Vulnerabilities and Exposures&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;2. Can you find it? (Bonus)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This Vulnerability was used for a major worldwide Ransomware attack. It was so bad it forced the software company to write a patch for end of life systems that they had stopped supporting years before the attack.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— EternalBlue. And the ransomware was WannaCry.&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;3. Yummy…&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— These store small pieces of data sent from a website to the user’s computer. This yummy sounding things are stored by the user’s web browser while the user surfing the web. Answer is non-singular.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— Cookies&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;4. Can you find it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This Vulnerability was used for a major worldwide Ransomware attack. It was so bad it forced the software company to write a patch for end of life systems that they had stopped supporting years before the attack.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— The formal listing code (CVE) for EternalBlue is &lt;strong&gt;CVE-2017–0144&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;5. Can you search it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— For the Vulnerability you found in question 2, There is a proof of concept. What is the string for TARGET_HAL_HEAP_ADDR_x64?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— The vulnerability being discussed is EternalBlue. We canf ind the source code at &lt;a href=&#34;https://gist.github.com/worawit/bd04bad3cd231474763b873df081c09a&#34;&gt;this link&lt;/a&gt;. There we find that TARGET_HAL_HEAP_ADDR_x64 is assigned &lt;strong&gt;0xffffffffffd00010&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;br&gt;
+&lt;strong&gt;6. Who knew?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;— This product had Highest Number Of “Distinct” Vulnerabilities in 1999&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;— A simple Google search of “Highest Number Of “Distinct” Vulnerabilities in 1999&amp;quot;, gets us the following &lt;a href=&#34;https://www.cvedetails.com/top-50-products.php?year=1999&#34;&gt;link&lt;/a&gt;. The product with the highest vulnerabilities was &lt;strong&gt;Windows NT&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;blast-from-the-past-challenges&#34;&gt;&lt;strong&gt;Blast from the Past Challenges&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1. cookie_monster&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On inspecting the cookies, we find that the Cookie value should be the Red Guy’s name. We change the value of the cookie to &lt;code&gt;Elom&lt;/code&gt;. On refreshing the page, we get the flag as &lt;strong&gt;flag{C00kies_4r3_the_b3st}&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

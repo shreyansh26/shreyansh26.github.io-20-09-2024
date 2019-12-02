@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>neural networks | Shreyansh Singh</title>
+    <link>/tags/neural-networks/</link>
+      <atom:link href="/tags/neural-networks/index.xml" rel="self" type="application/rss+xml" />
+    <description>neural networks</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 05 May 2019 17:28:30 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>neural networks</title>
+      <link>/tags/neural-networks/</link>
+    </image>
+    
+    <item>
+      <title>Network Intrusion Detection in an Adversarial setting</title>
+      <link>/project/nids/</link>
+      <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
+      <guid>/project/nids/</guid>
+      <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multilingual Surface Realization for NLG</title>
+      <link>/project/msr-nlg/</link>
+      <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
+      <guid>/project/msr-nlg/</guid>
+      <description>&lt;p&gt;A shared task organized at ACL 2018 (Association for Computational Linguistics, Melbourne, Australia). The task aims to determining the word order and inflecting words from given unordered Universal Dependencies (UD) structures from which word order information has been removed and the tokens have been lemmatized.
+Worked on techniques like Language Modelling and Neural Machine Translation methods to solve the problem of reinflection and correct word order generation.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
