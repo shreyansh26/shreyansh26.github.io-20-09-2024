@@ -29,7 +29,7 @@
     
   
   <meta name="description" content="I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
- thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow.">
+ Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2019-12-02_tuctf-pwn-2019/">
@@ -151,15 +151,15 @@
   
   <meta property="og:site_name" content="Shreyansh Singh">
   <meta property="og:url" content="/post/2019-12-02_tuctf-pwn-2019/">
-  <meta property="og:title" content="TUCTF 2019 - Pwn Challenges | Shreyansh Singh">
+  <meta property="og:title" content="TUCTF 2019 - Pwn &amp; Rev Challenges | Shreyansh Singh">
   <meta property="og:description" content="I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
- thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."><meta property="og:image" content="/post/2019-12-02_tuctf-pwn-2019/featured.png">
+ Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."><meta property="og:image" content="/post/2019-12-02_tuctf-pwn-2019/featured.png">
   <meta property="twitter:image" content="/post/2019-12-02_tuctf-pwn-2019/featured.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-12-02T19:39:57&#43;05:30">
     
-    <meta property="article:modified_time" content="2019-12-02T19:39:57&#43;05:30">
+    <meta property="article:modified_time" content="2019-12-05T19:39:57&#43;05:30">
   
 
   
@@ -187,14 +187,14 @@
     "@type": "WebPage",
     "@id": "/post/2019-12-02_tuctf-pwn-2019/"
   },
-  "headline": "TUCTF 2019 - Pwn Challenges",
+  "headline": "TUCTF 2019 - Pwn \u0026 Rev Challenges",
   
   "image": [
     "/post/2019-12-02_tuctf-pwn-2019/featured.png"
   ],
   
   "datePublished": "2019-12-02T19:39:57+05:30",
-  "dateModified": "2019-12-02T19:39:57+05:30",
+  "dateModified": "2019-12-05T19:39:57+05:30",
   
   "author": {
     "@type": "Person",
@@ -209,7 +209,7 @@
       "url": "/img/shreyansh-icon-512.png"
     }
   },
-  "description": "I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.\n thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."
+  "description": "I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.\n Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."
 }
 </script>
 
@@ -240,7 +240,7 @@
 </style>
 
 
-  <title>TUCTF 2019 - Pwn Challenges | Shreyansh Singh</title>
+  <title>TUCTF 2019 - Pwn &amp; Rev Challenges | Shreyansh Singh</title>
 
 </head>
 
@@ -489,7 +489,7 @@
 
 
 <div class="article-container pt-3">
-  <h1>TUCTF 2019 - Pwn Challenges</h1>
+  <h1>TUCTF 2019 - Pwn &amp; Rev Challenges</h1>
 
   
   <p class="page-subtitle">My writeups for some of the PWN challenges of TUCTF 2019.</p>
@@ -508,8 +508,10 @@
     
     
       
+          Last updated on
+      
     
-    Dec 2, 2019
+    Dec 5, 2019
   </span>
   
 
@@ -518,7 +520,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    5 min read
   </span>
   
 
@@ -570,6 +572,7 @@
     <div class="article-style">
       <p>I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.</p>
 <hr>
+<h1 id="pwn-challenges">Pwn Challenges</h1>
 <h2 id="thefirst--379-pts">thefirst - 379 pts</h2>
 <p>We can see in the image below that <code>gets</code> is being used to take the input. Hence it can be exploited for <em>buffer overflow</em>. First, using GDB (with GEF), we find that the offset required to overflow the buffer is 24.</p>
 
@@ -788,8 +791,173 @@ payload <span style="color:#f92672">=</span> <span style="color:#e6db74"></span>
 p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">? </span><span style="color:#e6db74">&#39;</span>, payload)
 
 p<span style="color:#f92672">.</span>interactive()
-</code></pre></div><p>That's all for now 👋.</p>
-<p>I'm working on a few more of the PWN challenges and also on the REV ones which I found very interesting. Will be posting their writeups too.</p>
+</code></pre></div><hr>
+<h1 id="rev-challenges">Rev Challenges</h1>
+<h2 id="faker--400-pts">faker - 400 pts</h2>
+<p>If we open the binary in Ghidra, we see that there are calls to different functions, namely <em>A</em>, <em>B</em> and <em>C</em>, which depend on the user input. But on trying them, we get fake flags.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-02_tuctf-pwn-2019/images/faker.png" >
+<img src="/post/2019-12-02_tuctf-pwn-2019/images/faker.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>But all of them have a common structure, they have a call to <code>printFlag</code> with a string.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png" >
+<img src="/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Also in the functions list, we see that there is a function named <code>thisone</code>. First we take a look at <code>printFlag</code> function.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png" >
+<img src="/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>There can be two ways to solve this challenge.</p>
+<h3 id="method-1--static">Method 1 - Static</h3>
+<p>Write a script to emulate the functionality of the <code>printFlag</code> function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">printFlag</span>(s):
+    s2 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s)):
+        x <span style="color:#f92672">=</span> ((((ord(s[i]) <span style="color:#f92672">^</span> <span style="color:#ae81ff">0xf</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1d</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">0x5f</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x20</span>
+        s2 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(x)
+    <span style="color:#66d9ef">print</span>(s2)
+
+printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">PJ</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">fC|)L0LTw@Yt@;Twmq0Lw|qw@w2$a@0;w|)@awmLL|Tw|)LwZL2lhhL0k</span><span style="color:#e6db74">&#34;</span>)
+</code></pre></div><p>This gives us the flag - <code>TUCTF{7h3r35_4lw4y5_m0r3_70_4_b1n4ry_7h4n_m3375_7h3_d3bu663r}</code></p>
+<h3 id="method-2--dynamic">Method 2 - Dynamic</h3>
+<p>Here set a breakpoint in main and then run the following commads in GDB.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info functions  <span style="color:#75715e"># get address of printFlag function</span>
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> set $rip<span style="color:#f92672">=</span>0x000055555555534b   <span style="color:#75715e"># i.e. to the address of the function</span>
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> c
+</code></pre></div><p>This will print the flag.</p>
+<hr>
+<h2 id="core--400-pts">core - 400 pts</h2>
+<p>We a re provided a core dump and a C file. The C file looks like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdio.h&gt;  // prints</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdlib.h&gt; // malloc</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;string.h&gt; // strcmp</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;unistd.h&gt; // read</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;fcntl.h&gt;  // open</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;unistd.h&gt; // close</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;time.h&gt;   // time</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#</span><span style="color:#75715e">define FLAG_LEN 64</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> flag[FLAG_LEN];
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">xor</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str, <span style="color:#66d9ef">int</span> len) {
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">+</span><span style="color:#f92672">+</span>) {
+		str[i] <span style="color:#f92672">=</span> str[i] <span style="color:#f92672">^</span> <span style="color:#ae81ff">1</span>;
+	}
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    setvbuf(stdout, NULL, _IONBF, <span style="color:#ae81ff">20</span>);
+    setvbuf(stdin, NULL, _IONBF, <span style="color:#ae81ff">20</span>);
+
+	<span style="color:#75715e">// Read the flag
+</span><span style="color:#75715e"></span>	memset(flag, <span style="color:#ae81ff">0</span>, FLAG_LEN);
+	printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#34;</span>);
+	<span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> read(<span style="color:#ae81ff">0</span>, flag, FLAG_LEN);
+
+	xor(flag, len);
+
+	<span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">32</span>];
+	read(<span style="color:#ae81ff">0</span>, buf, <span style="color:#ae81ff">128</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Basically we are XORing the input string with 1. We assume that flag is in the standard format, i.e. begins with <code>TUCTF</code>. So we pre-calculate, the starting of the string that should be in memory.</p>
+<p><code>TUCTF</code> =&gt; <code>UTBUG</code></p>
+<p>We use <code>xxd</code> to view the core.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-02_tuctf-pwn-2019/images/core.png" >
+<img src="/post/2019-12-02_tuctf-pwn-2019/images/core.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>We find something interesting in the memory. On decoding</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">core_string <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">55544255477a623173325e65746c713e5e4f327732735e69323573655e31675e7831747c</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>decode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hex</span><span style="color:#e6db74">&#39;</span>)
+
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> core_string:
+    flag <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(ord(i) <span style="color:#f92672">^</span> <span style="color:#ae81ff">1</span>)
+
+<span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>The flag - <code>TUCTF{c0r3_dump?_N3v3r_h34rd_0f_y0u}</code></p>
+<hr>
+<p>That's all for now 👋.</p>
 
     </div>
 
@@ -824,7 +992,7 @@ p<span style="color:#f92672">.</span>interactive()
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/2019-12-02_tuctf-pwn-2019/&amp;text=TUCTF%202019%20-%20Pwn%20Challenges" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-12-02_tuctf-pwn-2019/&amp;text=TUCTF%202019%20-%20Pwn%20&amp;amp;%20Rev%20Challenges" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -837,7 +1005,7 @@ p<span style="color:#f92672">.</span>interactive()
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/2019-12-02_tuctf-pwn-2019/&amp;t=TUCTF%202019%20-%20Pwn%20Challenges" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-12-02_tuctf-pwn-2019/&amp;t=TUCTF%202019%20-%20Pwn%20&amp;amp;%20Rev%20Challenges" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -850,7 +1018,7 @@ p<span style="color:#f92672">.</span>interactive()
       
       
       <li>
-        <a href="mailto:?subject=TUCTF%202019%20-%20Pwn%20Challenges&amp;body=/post/2019-12-02_tuctf-pwn-2019/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=TUCTF%202019%20-%20Pwn%20&amp;amp;%20Rev%20Challenges&amp;body=/post/2019-12-02_tuctf-pwn-2019/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -863,7 +1031,7 @@ p<span style="color:#f92672">.</span>interactive()
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-12-02_tuctf-pwn-2019/&amp;title=TUCTF%202019%20-%20Pwn%20Challenges" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-12-02_tuctf-pwn-2019/&amp;title=TUCTF%202019%20-%20Pwn%20&amp;amp;%20Rev%20Challenges" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -876,7 +1044,7 @@ p<span style="color:#f92672">.</span>interactive()
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=TUCTF%202019%20-%20Pwn%20Challenges%20/post/2019-12-02_tuctf-pwn-2019/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=TUCTF%202019%20-%20Pwn%20&amp;amp;%20Rev%20Challenges%20/post/2019-12-02_tuctf-pwn-2019/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
