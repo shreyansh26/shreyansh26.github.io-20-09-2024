@@ -5,7 +5,7 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 02 Dec 2019 19:39:57 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Tags</title>
@@ -15,7 +15,7 @@
     <item>
       <title>ctf</title>
       <link>/tags/ctf/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/ctf/</guid>
       <description></description>
     </item>
@@ -23,7 +23,7 @@
     <item>
       <title>information security</title>
       <link>/tags/information-security/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/information-security/</guid>
       <description></description>
     </item>
@@ -31,15 +31,23 @@
     <item>
       <title>infosec</title>
       <link>/tags/infosec/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>misc</title>
+      <link>/tags/misc/</link>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
+      <guid>/tags/misc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pwn</title>
       <link>/tags/pwn/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/pwn/</guid>
       <description></description>
     </item>
@@ -47,7 +55,7 @@
     <item>
       <title>rev</title>
       <link>/tags/rev/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/rev/</guid>
       <description></description>
     </item>
@@ -55,7 +63,7 @@
     <item>
       <title>writeups</title>
       <link>/tags/writeups/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/writeups/</guid>
       <description></description>
     </item>

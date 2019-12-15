@@ -586,7 +586,7 @@ I&#39;ll do the writeups category-wise -
 <script type="application/javascript" src="https://gist.github.com/shreyansh26/e3386cba7303cdcb24b01d552b16aad4.js"></script>
 
 <p>On i=47, we get — https\x98\x8d\x8dgithub\x8ccom\x8dclayball\x8dsomething\x8buseful\x8britsec</p>
-<p>There is a problem with the special characters, but we understand that is a GitHub repo, with the URL (after some testing) — <a href="https://github.com/clayball/something-useful-ritsec"><a href="https://github.com/clayball/something-useful-ritsec">https://github.com/clayball/something-useful-ritsec</a></a>.</p>
+<p>There is a problem with the special characters, but we understand that is a GitHub repo, with the URL (after some testing) — <a href="https://github.com/clayball/something-useful-ritsec">https://github.com/clayball/something-useful-ritsec</a>.</p>
 <p>Although there is nothing flag related in the repo, but the discord group of the CTF said that the link itself is the flag.</p>
 <p>Flag —<strong>RITSEC{https://github.com/clayball/something-useful-ritsec}</strong></p>
 <p> <br>
@@ -690,7 +690,7 @@ flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></spa
 <h2 id="web">Web</h2>
 <p> <br>
 <strong>misdirection — 100 pts</strong></p>
-<p>We are given a URL — <a href="http://ctfchallenges.ritsec.club:5000/"><a href="http://ctfchallenges.ritsec.club:5000/">http://ctfchallenges.ritsec.club:5000/</a></a> However, on clicking it we see that we are directed to another webpage <a href="http://ctfchallenges.ritsec.club:5000/n"><a href="http://ctfchallenges.ritsec.club:5000/n">http://ctfchallenges.ritsec.club:5000/n</a></a> and the information that the webpage isn't redirecting properly. So, I decided to see what is happening, for that I did a simple <em>wget</em> to the url.</p>
+<p>We are given a URL — <a href="http://ctfchallenges.ritsec.club:5000/">http://ctfchallenges.ritsec.club:5000/</a> However, on clicking it we see that we are directed to another webpage <a href="http://ctfchallenges.ritsec.club:5000/n">http://ctfchallenges.ritsec.club:5000/n</a> and the information that the webpage isn't redirecting properly. So, I decided to see what is happening, for that I did a simple <em>wget</em> to the url.</p>
 
 
 
@@ -723,8 +723,8 @@ flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></spa
 <p>We see that the page redirects to different pages and keeps doing that. We note that the last character is basically in the flag format when put together. We do that and get the flag — <strong>RS{4!way5_Ke3p-m0v1ng}</strong></p>
 <p> <br>
 <strong>Buckets of fun — 100 pts</strong></p>
-<p>We are given the following URL — <a href="http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/"><a href="http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/">http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/</a></a></p>
-<p>Taking a hint from the name of the challenge, we try the following URL in the browser —<a href="http://bucketsoffun-ctf.s3.amazonaws.com"><a href="http://bucketsoffun-ctf.s3.amazonaws.com">http://bucketsoffun-ctf.s3.amazonaws.com</a></a></p>
+<p>We are given the following URL — <a href="http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/">http://bucketsoffun-ctf.s3-website-us-east-1.amazonaws.com/</a></p>
+<p>Taking a hint from the name of the challenge, we try the following URL in the browser —<a href="http://bucketsoffun-ctf.s3.amazonaws.com">http://bucketsoffun-ctf.s3.amazonaws.com</a></p>
 
 
 
@@ -755,7 +755,7 @@ flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></spa
 </figure>
 
 <p>We see a file <strong>youfoundme-asd897kjm.txt</strong></p>
-<p>Heading to <a href="http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt"><a href="http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt">http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt</a></a> we find the flag — <strong>RITSEC{LIST_HIDDEN_FILES}</strong></p>
+<p>Heading to <a href="http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt">http://bucketsoffun-ctf.s3.amazonaws.com/youfoundme-asd897kjm.txt</a> we find the flag — <strong>RITSEC{LIST_HIDDEN_FILES}</strong></p>
 <hr>
 <h2 id="forensics">Forensics</h2>
 <p> <br>
@@ -822,7 +822,7 @@ flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></spa
 
 <p>In the user comment, we see a string which is probably base64 encoded.</p>
 <p>Decoding it gives, <strong>EVGFRP{SBERAFVPF_SNVYF_JBAG_URYC_LBH_URER}</strong></p>
-<p>Looks rotated by an offset. We use <a href="http://theblob.org/rot.cgi"><a href="http://theblob.org/rot.cgi">http://theblob.org/rot.cgi</a></a> to get rotations by different offsets. This is ROT13 and the flag is — <strong>RITSEC{FORENSICS_FAILS_WONT_HELP_YOU_HERE}</strong></p>
+<p>Looks rotated by an offset. We use <a href="http://theblob.org/rot.cgi">http://theblob.org/rot.cgi</a> to get rotations by different offsets. This is ROT13 and the flag is — <strong>RITSEC{FORENSICS_FAILS_WONT_HELP_YOU_HERE}</strong></p>
 <p> <br>
 <strong>Long Gone — 100 pts</strong></p>
 <p>We are provided a chromebin. Extract it as it is a tar archive.</p>

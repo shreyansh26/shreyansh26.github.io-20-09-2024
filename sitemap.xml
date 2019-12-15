@@ -3,68 +3,83 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/authors/</loc>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/ctf/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/information-security/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/information-security/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/infosec/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/misc/</loc>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/pwn/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/rev/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/shreyansh-singh/</loc>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-12-15_watevr-ctf-2019-writeups/</loc>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/writeups/</loc>
+    <lastmod>2019-12-15T11:44:06+05:30</lastmod>
   </url>
   
   <url>
     <loc>/post/2019-12-02_tuctf-pwn-2019/</loc>
     <lastmod>2019-12-05T19:39:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/writeups/</loc>
-    <lastmod>2019-12-05T19:39:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/</loc>
-    <lastmod>2019-11-29T21:04:19+05:30</lastmod>
   </url>
   
   <url>
@@ -95,11 +110,6 @@
   <url>
     <loc>/tags/secure-multi-party-computation/</loc>
     <lastmod>2019-11-25T17:53:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/shreyansh-singh/</loc>
-    <lastmod>2019-11-29T21:04:19+05:30</lastmod>
   </url>
   
   <url>

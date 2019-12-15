@@ -5,7 +5,7 @@
     <link>/categories/</link>
       <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Mon, 02 Dec 2019 19:39:57 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Categories</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Information Security</title>
       <link>/categories/information-security/</link>
-      <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
+      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/categories/information-security/</guid>
       <description></description>
     </item>

