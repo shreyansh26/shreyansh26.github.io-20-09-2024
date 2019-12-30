@@ -5,12 +5,384 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>hxp 36C3 CTF Writeups</title>
+      <link>/post/2019-12-30_hxp-36c3-ctf/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/post/2019-12-30_hxp-36c3-ctf/</guid>
+      <description>&lt;p&gt;The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of &lt;a href=&#34;https://www.oooverflow.io/dc-ctf-2020-quals/&#34;&gt;DEFCON 2020 CTF&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the &lt;a href=&#34;https://kuchenblech.xyz/&#34;&gt;Junior CTF&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here are the writeups for the challenges I solved.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;main-ctf&#34;&gt;Main CTF&lt;/h1&gt;
+&lt;h2 id=&#34;1337-skills---android-rev&#34;&gt;1337 Skills - Android, Rev&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;App: &lt;a href=&#34;https://play.google.com/store/apps/details?id=com.progressio.wildskills&#34;&gt;Link&lt;/a&gt;&lt;br&gt;
+Connection: nc 88.198.154.132 7002&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;First, I installed the app on my phone, to try to play around with it a bit. But the very first page was a login type screen asking for a code. I knew I had to open it in a decompiler to see what is happening and figure out the code. I extracted the APK of the app and opened it up in jadx.&lt;/p&gt;
+&lt;p&gt;First I took a look at the AndroidManifest.xml, to find the launcher activity.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The class we have to check out first is the &lt;code&gt;com.progressio.wildskills.MainActivity&lt;/code&gt;. Opening this we see that the &lt;code&gt;onCreate&lt;/code&gt; method calls the &lt;code&gt;activateApp&lt;/code&gt; method to check the activation code.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;activateApp&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;View view&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Integer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;parseInt&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;editTextActivation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getText&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;NumberFormatException unused&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+    Calendar instance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Calendar&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getInstance&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Math&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;pow&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;3&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 2&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; 999983&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        findViewById&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;R&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;scrollViewActivation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setVisibility&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;4&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;InputMethodManager&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; getSystemService&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;input_method&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hideSoftInputFromWindow&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;editTextActivation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getWindowToken&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        SharedPreferences&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Editor&lt;/span&gt; edit &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;prefsmain&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;edit&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        edit&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;putBoolean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Activated&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt; time &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Date&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getTime&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        edit&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;putLong&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Installed&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        edit&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;putLong&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivationDate&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        edit&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;commit&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+    Toast&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;makeText&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Ungültiger Aktivierungscode&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;show&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;editTextActivation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;requestFocus&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;InputMethodManager&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; getSystemService&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;input_method&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;showSoftInput&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;editTextActivation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have to pay attenton to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Math&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;pow&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;3&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 2&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; 999983&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For 29th Decmember 2019, this value is a constant and equal to &lt;code&gt;76429&lt;/code&gt;. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app&#39;s code for this.&lt;/p&gt;
+&lt;p&gt;One thing I note is that on entering a wrong code, the following message is shown as a Toast - &amp;ldquo;Ungültiger Aktivierungscode&amp;rdquo;. So, I used Jadx&#39;s Text Search to find all instances of this. We find this&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;These are basically the codes for the three sections. Now all we have to do is connect to the given server and port and answer with these codes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Activation code: 
+76429
+activated!
+Sales activation code: 
+sgk258
+activated!
+Leadership activation code: 
+wmt275
+activated
+Service Roadmap (SRM) activation code: 
+udh736
+activated!
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After this, we get the flag - &lt;code&gt;hxp{thx_f0r_4773nd1n6_70d4y}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;xmas-future---rev&#34;&gt;xmas_future - Rev&lt;/h2&gt;
+&lt;p&gt;Files: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.&lt;/p&gt;
+&lt;p&gt;First I thought of converting the .wasm file into some readable code like in C. I used the official &lt;a href=&#34;https://github.com/WebAssembly/wabt&#34;&gt;WebAssembly binary toolkit (wabt)&lt;/a&gt; for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the &lt;code&gt;check&lt;/code&gt; function, specifically the &lt;code&gt;$hxp2019::check::h578f31d490e10a31&lt;/code&gt; fnction. But it was a lot of code and I couldn&#39;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.&lt;/p&gt;
+&lt;p&gt;Opening the html file directly in the browser wasn&#39;t loading the js file due to CORS. I copied the folder into my &lt;code&gt;/var/www/html&lt;/code&gt; folder and accessed it from there using localhost.&lt;/p&gt;
+&lt;p&gt;First I set a breakpoint at line 71 of the hxp2019.js file.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Stepping through the code line by line, we then get into the wasm code after line 73, i.e the wasm.check() function which passes the address where our input flag is stored and the length of the input. After this, on stepping into it, our code jumps into the wasm code.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Stepping through each line (and after having done this over and over many times, I kind of understood what each line of the code was doing), we reach line 12 where actually our length of input is being checked with 50. So, we have to make our input length 50. We supply a dummy flag &lt;code&gt;hxp{45 times &#39;a&#39;}&lt;/code&gt;. Then we see that on stepping throght the code, and doing a lot of calculations on some array stored in memory, each character of our input is sequentially comapred with another character. The character to be compared with is loaded at line 284.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here, we see that the first character (&amp;lsquo;a&amp;rsquo; = 97) is to be compared with (109 = &amp;lsquo;m&amp;rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &amp;ldquo;flag&amp;rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to &lt;code&gt;br_if 1&lt;/code&gt; but that seemed to crash somewhere. Anyways, whatever works during the CTF 😛.&lt;/p&gt;
+&lt;p&gt;The flag was - &lt;code&gt;hxp{merry_xmas___github.com/benediktwerner/rewasm}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This could probably be the author of the chllenge as the repo is wasm reverse engineering tool. Loved the challenge!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;junior-ctf&#34;&gt;Junior CTF&lt;/h1&gt;
+&lt;h2 id=&#34;tracer---forensics&#34;&gt;tracer - Forensics&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/tracer&#34;&gt;file&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The file looks like strace running on some process. I decided to scroll right to the very bottom and saw&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;541   write(1, &amp;quot;\&amp;quot;Flag\&amp;quot;&amp;quot;, 6)           = 6
+541   write(1, &amp;quot; [New] 1L, 24C written&amp;quot;, 22) = 22
+541   write(3, &amp;quot;b0VIM 8.0\0\0\0\0\20\0\0\0\0\0\0\0\0\0\0\35\2\0\0root&amp;quot;..., 4096) = 4096
+541   write(4, &amp;quot;# This viminfo file was generate&amp;quot;..., 1035) = 1035
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This meant that at the end something was being written to a file named Flag using vim. I started looking at the preceeding lines and saw text or vim commands being typed in (i.e the read command). From line no. 65782, is the interetsing part. This has &amp;lsquo;i&amp;rsquo; bein read, which is the command for insert in vim, that is typing began from here.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now all I did was to focus on the &lt;code&gt;read&lt;/code&gt; commands and type in whatever that was read on my local computer in vim. I treated &lt;code&gt;\33&lt;/code&gt; as escape and just typed in whatever was being given as input as in the trace file.&lt;/p&gt;
+&lt;p&gt;Eventually I ended with some text which seemed meaningful, there was some slight error whic I fixed by intuition.&lt;/p&gt;
+&lt;p&gt;The flag was - &lt;code&gt;junior-nanoiswayBETTER!&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;maybe---rev&#34;&gt;maybe - Rev&lt;/h2&gt;
+&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/chal1&#34;&gt;chal1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We open up the file in Ghidra and head to the main function.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &amp;ldquo;junior-totally_the_flag_or_maybe_not&amp;rdquo;. The rest of the computations don&#39;t mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &amp;ldquo;wrong!&amp;rdquo; and there does not seem to be any checking.&lt;/p&gt;
+&lt;p&gt;After this I opened up GDB to analyse the flow. I set a breakpoint at the main function, and observed something interesting.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The fixed string &amp;ldquo;junior-totally_the_flag_or_maybe_not&amp;rdquo; is now changed to &amp;ldquo;ton_ebyam_ro_galf__flag_or_maybe_not&amp;rdquo;. This has to be because of some code running before main. Heading back to Ghidra, I opened the &lt;code&gt;_INIT_0&lt;/code&gt; and &lt;code&gt;_INIT_1&lt;/code&gt; functions since they run before the entry point is reached. The &lt;code&gt;_INIT_1&lt;/code&gt; function was the required code.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;So, now after struggling for some time on the input evaluation part, I checked the &lt;code&gt;_FINI_0&lt;/code&gt; and &lt;code&gt;_FINI_1&lt;/code&gt; functions as well, as they run just before the end of the program. The &lt;code&gt;_FINI_1&lt;/code&gt; function had the required code.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; &gt;
+&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here we see that the string &amp;ldquo;ton_ebyam_ro_galf__flag_or_maybe_not&amp;rdquo; is XORed with our input string at offset +0x40. This is then compared with alternate elements of the array &lt;code&gt;&amp;amp;DAT_003010a0&lt;/code&gt;. The array contents are&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;b = [0x1E ,0x00 ,0x1A ,0x00 ,0x00 ,0x00 ,0x36 ,0x00 ,0x0A ,0x00 ,0x10 ,0x00 ,0x54 ,0x00 ,0x00 ,0x00 ,0x01 ,0x00 ,0x33 ,0x00 ,0x17 ,0x00 ,0x1C ,0x00 ,0x00 ,0x00 ,0x09 ,0x00 ,0x14 ,0x00 ,0x1E ,0x00 ,0x39 ,0x00 ,0x34 ,0x00 ,0x2A ,0x00 ,0x05 ,0x00 ,0x04 ,0x00 ,0x04 ,0x00 ,0x09 ,0x00 ,0x3D ,0x00 ,0x03 ,0x00 ,0x17 ,0x00 ,0x3C ,0x00 ,0x05 ,0x00 ,0x3E ,0x00 ,0x14 ,0x00 ,0x03 ,0x00 ,0x03 ,0x00 ,0x36 ,0x00 ,0x0F ,0x00 ,0x4E ,0x00 ,0x55 ,0x00]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So, all we have to do is XOR the fixed string with the alternate elements of this array and that should give us our flag.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;ton_ebyam_ro_galf__flag_or_maybe_not&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+
+b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x1E&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x1A&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x36&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x0A&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x54&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x01&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x33&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x17&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x1C&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x09&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x1E&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x39&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x34&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x2A&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x05&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x04&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x04&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x09&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x3D&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x03&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x17&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x3C&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x05&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x3E&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x03&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x03&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x36&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x0F&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x4E&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x55&lt;/span&gt; ,&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt;]
+
+flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
+
+b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(len(b)):
+    flag &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chr(b[i] &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; ord(a[i]))
+
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
+&lt;span style=&#34;color:#75715e&#34;&gt;# &amp;#39;junior-alles_nur_kuchenblech_mafia!!&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;code&gt;junior-alles_nur_kuchenblech_mafia!!&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I had great fun solving this CTF. Learnt a ton! This was my last CTF and blog post for 2019.&lt;/p&gt;
+&lt;p&gt;2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara 👋.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn)</title>
