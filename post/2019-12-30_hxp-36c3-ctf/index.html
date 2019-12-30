@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of DEFCON 2020 CTF.
+I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the Junior CTF.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2019-12-30_hxp-36c3-ctf/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7COpen+Sans&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="/post/2019-12-30_hxp-36c3-ctf/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="/post/2019-12-30_hxp-36c3-ctf/">
+  <meta property="og:title" content="hxp 36C3 CTF Writeups | Shreyansh Singh">
+  <meta property="og:description" content="The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of DEFCON 2020 CTF.
+I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the Junior CTF."><meta property="og:image" content="/post/2019-12-30_hxp-36c3-ctf/featured.png">
+  <meta property="twitter:image" content="/post/2019-12-30_hxp-36c3-ctf/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-12-29T14:06:46&#43;05:30">
+    
+    <meta property="article:modified_time" content="2019-12-29T14:06:46&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2019-12-30_hxp-36c3-ctf/"
+  },
+  "headline": "hxp 36C3 CTF Writeups",
+  
+  "image": [
+    "/post/2019-12-30_hxp-36c3-ctf/featured.png"
+  ],
+  
+  "datePublished": "2019-12-29T14:06:46+05:30",
+  "dateModified": "2019-12-29T14:06:46+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of DEFCON 2020 CTF.\nI was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the Junior CTF."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+
+  <title>hxp 36C3 CTF Writeups | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>hxp 36C3 CTF Writeups</h1>
+
+  
+  <p class="page-subtitle">The writeups for the challenges I solved in the first MAJOR CTF that I participated in after a long time.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 29, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    8 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2019-12-30_hxp-36c3-ctf/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/information-security/">Information Security</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 354px; max-height: 212px;">
+  <div style="position: relative">
+    <img src="/post/2019-12-30_hxp-36c3-ctf/featured.png" alt="" class="featured-image">
+    <span class="article-header-caption">hxp 36C3 CTF</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of <a href="https://www.oooverflow.io/dc-ctf-2020-quals/">DEFCON 2020 CTF</a>.</p>
+<p>I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the <a href="https://kuchenblech.xyz/">Junior CTF</a>.</p>
+<p>Here are the writeups for the challenges I solved.</p>
+<hr>
+<h1 id="main-ctf">Main CTF</h1>
+<h2 id="1337-skills---android-rev">1337 Skills - Android, Rev</h2>
+<blockquote>
+<p>App: <a href="https://play.google.com/store/apps/details?id=com.progressio.wildskills">Link</a><br>
+Connection: nc 88.198.154.132 7002</p>
+</blockquote>
+<p>First, I installed the app on my phone, to try to play around with it a bit. But the very first page was a login type screen asking for a code. I knew I had to open it in a decompiler to see what is happening and figure out the code. I extracted the APK of the app and opened it up in jadx.</p>
+<p>First I took a look at the AndroidManifest.xml, to find the launcher activity.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/manifest.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/manifest.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The class we have to check out first is the <code>com.progressio.wildskills.MainActivity</code>. Opening this we see that the <code>onCreate</code> method calls the <code>activateApp</code> method to check the activation code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">activateApp</span><span style="color:#f92672">(</span>View view<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        i <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">parseInt</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editTextActivation</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getText</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>NumberFormatException unused<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        i <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    Calendar instance <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>3<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> 2<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span> <span style="color:#f92672">%</span> 999983<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">scrollViewActivation</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">setVisibility</span><span style="color:#f92672">(</span>4<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">(</span><span style="color:#f92672">(</span>InputMethodManager<span style="color:#f92672">)</span> getSystemService<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;input_method&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">hideSoftInputFromWindow</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editTextActivation</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getWindowToken</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        SharedPreferences<span style="color:#f92672">.</span><span style="color:#a6e22e">Editor</span> edit <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">prefsmain</span><span style="color:#f92672">.</span><span style="color:#a6e22e">edit</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        edit<span style="color:#f92672">.</span><span style="color:#a6e22e">putBoolean</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Activated&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">long</span> time <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        edit<span style="color:#f92672">.</span><span style="color:#a6e22e">putLong</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Installed&#34;</span><span style="color:#f92672">,</span> time<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        edit<span style="color:#f92672">.</span><span style="color:#a6e22e">putLong</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ActivationDate&#34;</span><span style="color:#f92672">,</span> time<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        edit<span style="color:#f92672">.</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    Toast<span style="color:#f92672">.</span><span style="color:#a6e22e">makeText</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Ungültiger Aktivierungscode&#34;</span><span style="color:#f92672">,</span> 1<span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">show</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editTextActivation</span><span style="color:#f92672">.</span><span style="color:#a6e22e">requestFocus</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">(</span><span style="color:#f92672">(</span>InputMethodManager<span style="color:#f92672">)</span> getSystemService<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;input_method&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">showSoftInput</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editTextActivation</span><span style="color:#f92672">,</span> 1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>We have to pay attenton to</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">i <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>3<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> 2<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span> <span style="color:#f92672">%</span> 999983<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+</code></pre></div><p>For 29th Decmember 2019, this value is a constant and equal to <code>76429</code>. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app's code for this.</p>
+<p>One thing I note is that on entering a wrong code, the following message is shown as a Toast - &ldquo;Ungültiger Aktivierungscode&rdquo;. So, I used Jadx's Text Search to find all instances of this. We find this</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/codes.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/codes.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>These are basically the codes for the three sections. Now all we have to do is connect to the given server and port and answer with these codes.</p>
+<pre><code>Activation code: 
+76429
+activated!
+Sales activation code: 
+sgk258
+activated!
+Leadership activation code: 
+wmt275
+activated
+Service Roadmap (SRM) activation code: 
+udh736
+activated!
+</code></pre><p>After this, we get the flag - <code>hxp{thx_f0r_4773nd1n6_70d4y}</code></p>
+<p> </p>
+<h2 id="xmas-future---rev">xmas_future - Rev</h2>
+<p>Files: <a href="/post/2019-12-30_hxp-36c3-ctf/files/files.zip">files.zip</a></p>
+<p>This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.</p>
+<p>First I thought of converting the .wasm file into some readable code like in C. I used the official <a href="https://github.com/WebAssembly/wabt">WebAssembly binary toolkit (wabt)</a> for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the <code>check</code> function, specifically the <code>$hxp2019::check::h578f31d490e10a31</code> fnction. But it was a lot of code and I couldn't make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.</p>
+<p>Opening the html file directly in the browser wasn't loading the js file due to CORS. I copied the folder into my <code>/var/www/html</code> folder and accessed it from there using localhost.</p>
+<p>First I set a breakpoint at line 71 of the hxp2019.js file.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/debug1.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/debug1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Stepping through the code line by line, we then get into the wasm code after line 73, i.e the wasm.check() function which passes the address where our input flag is stored and the length of the input. After this, on stepping into it, our code jumps into the wasm code.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/debug2.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/debug2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Stepping through each line (and after having done this over and over many times, I kind of understood what each line of the code was doing), we reach line 12 where actually our length of input is being checked with 50. So, we have to make our input length 50. We supply a dummy flag <code>hxp{45 times 'a'}</code>. Then we see that on stepping throght the code, and doing a lot of calculations on some array stored in memory, each character of our input is sequentially comapred with another character. The character to be compared with is loaded at line 284.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/debug3.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/debug3.png" alt="" ></a>
+
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/debug4.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/debug4.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here, we see that the first character (&lsquo;a&rsquo; = 97) is to be compared with (109 = &lsquo;m&rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &ldquo;flag&rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to <code>br_if 1</code> but that seemed to crash somewhere. Anyways, whatever works during the CTF 😛.</p>
+<p>The flag was - <code>hxp{merry_xmas___github.com/benediktwerner/rewasm}</code></p>
+<p>This could probably be the author of the chllenge as the repo is wasm reverse engineering tool. Loved the challenge!</p>
+<hr>
+<h1 id="junior-ctf">Junior CTF</h1>
+<h2 id="tracer---forensics">tracer - Forensics</h2>
+<p>File: <a href="/post/2019-12-30_hxp-36c3-ctf/files/tracer">file</a></p>
+<p>The file looks like strace running on some process. I decided to scroll right to the very bottom and saw</p>
+<pre><code>541   write(1, &quot;\&quot;Flag\&quot;&quot;, 6)           = 6
+541   write(1, &quot; [New] 1L, 24C written&quot;, 22) = 22
+541   write(3, &quot;b0VIM 8.0\0\0\0\0\20\0\0\0\0\0\0\0\0\0\0\35\2\0\0root&quot;..., 4096) = 4096
+541   write(4, &quot;# This viminfo file was generate&quot;..., 1035) = 1035
+</code></pre><p>This meant that at the end something was being written to a file named Flag using vim. I started looking at the preceeding lines and saw text or vim commands being typed in (i.e the read command). From line no. 65782, is the interetsing part. This has &lsquo;i&rsquo; bein read, which is the command for insert in vim, that is typing began from here.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/vim.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/vim.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Now all I did was to focus on the <code>read</code> commands and type in whatever that was read on my local computer in vim. I treated <code>\33</code> as escape and just typed in whatever was being given as input as in the trace file.</p>
+<p>Eventually I ended with some text which seemed meaningful, there was some slight error whic I fixed by intuition.</p>
+<p>The flag was - <code>junior-nanoiswayBETTER!</code></p>
+<p> </p>
+<h2 id="maybe---rev">maybe - Rev</h2>
+<p>File: <a href="/post/2019-12-30_hxp-36c3-ctf/files/chal1">chal1</a></p>
+<p>We open up the file in Ghidra and head to the main function.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/rev11.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/rev11.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &ldquo;junior-totally_the_flag_or_maybe_not&rdquo;. The rest of the computations don't mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &ldquo;wrong!&rdquo; and there does not seem to be any checking.</p>
+<p>After this I opened up GDB to analyse the flow. I set a breakpoint at the main function, and observed something interesting.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/re12.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/re12.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The fixed string &ldquo;junior-totally_the_flag_or_maybe_not&rdquo; is now changed to &ldquo;ton_ebyam_ro_galf__flag_or_maybe_not&rdquo;. This has to be because of some code running before main. Heading back to Ghidra, I opened the <code>_INIT_0</code> and <code>_INIT_1</code> functions since they run before the entry point is reached. The <code>_INIT_1</code> function was the required code.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/re13.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/re13.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>So, now after struggling for some time on the input evaluation part, I checked the <code>_FINI_0</code> and <code>_FINI_1</code> functions as well, as they run just before the end of the program. The <code>_FINI_1</code> function had the required code.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2019-12-30_hxp-36c3-ctf/images/re14.png" >
+<img src="/post/2019-12-30_hxp-36c3-ctf/images/re14.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here we see that the string &ldquo;ton_ebyam_ro_galf__flag_or_maybe_not&rdquo; is XORed with our input string at offset +0x40. This is then compared with alternate elements of the array <code>&amp;DAT_003010a0</code>. The array contents are</p>
+<blockquote>
+<p>b = [0x1E ,0x00 ,0x1A ,0x00 ,0x00 ,0x00 ,0x36 ,0x00 ,0x0A ,0x00 ,0x10 ,0x00 ,0x54 ,0x00 ,0x00 ,0x00 ,0x01 ,0x00 ,0x33 ,0x00 ,0x17 ,0x00 ,0x1C ,0x00 ,0x00 ,0x00 ,0x09 ,0x00 ,0x14 ,0x00 ,0x1E ,0x00 ,0x39 ,0x00 ,0x34 ,0x00 ,0x2A ,0x00 ,0x05 ,0x00 ,0x04 ,0x00 ,0x04 ,0x00 ,0x09 ,0x00 ,0x3D ,0x00 ,0x03 ,0x00 ,0x17 ,0x00 ,0x3C ,0x00 ,0x05 ,0x00 ,0x3E ,0x00 ,0x14 ,0x00 ,0x03 ,0x00 ,0x03 ,0x00 ,0x36 ,0x00 ,0x0F ,0x00 ,0x4E ,0x00 ,0x55 ,0x00]</p>
+</blockquote>
+<p>So, all we have to do is XOR the fixed string with the alternate elements of this array and that should give us our flag.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ton_ebyam_ro_galf__flag_or_maybe_not</span><span style="color:#e6db74">&#34;</span>
+
+b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0x1E</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x1A</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x36</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x0A</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x10</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x54</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x01</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x33</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x17</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x1C</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x09</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x14</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x1E</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x39</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x34</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x2A</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x05</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x04</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x04</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x09</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x3D</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x03</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x17</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x3C</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x05</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x3E</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x14</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x03</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x03</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x36</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x0F</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x4E</span> ,<span style="color:#ae81ff">0x00</span> ,<span style="color:#ae81ff">0x55</span> ,<span style="color:#ae81ff">0x00</span>]
+
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>
+
+b <span style="color:#f92672">=</span> b[::<span style="color:#ae81ff">2</span>]
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(b)):
+    flag <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(b[i] <span style="color:#f92672">^</span> ord(a[i]))
+
+
+<span style="color:#66d9ef">print</span>(flag)
+<span style="color:#75715e"># &#39;junior-alles_nur_kuchenblech_mafia!!&#39;</span>
+</code></pre></div><p>The flag is - <code>junior-alles_nur_kuchenblech_mafia!!</code></p>
+<hr>
+<p>I had great fun solving this CTF. Learnt a ton! This was my last CTF and blog post for 2019.</p>
+<p>2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara 👋.</p>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rev/">rev</a>
+  
+  <a class="badge badge-light" href="/tags/wasm/">wasm</a>
+  
+  <a class="badge badge-light" href="/tags/android/">android</a>
+  
+  <a class="badge badge-light" href="/tags/misc/">misc</a>
+  
+  <a class="badge badge-light" href="/tags/36c3/">36C3</a>
+  
+  <a class="badge badge-light" href="/tags/information-security/">information security</a>
+  
+  <a class="badge badge-light" href="/tags/infosec/">infosec</a>
+  
+  <a class="badge badge-light" href="/tags/writeups/">writeups</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2019-12-30_hxp-36c3-ctf/&amp;text=hxp%2036C3%20CTF%20Writeups" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2019-12-30_hxp-36c3-ctf/&amp;t=hxp%2036C3%20CTF%20Writeups" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=hxp%2036C3%20CTF%20Writeups&amp;body=/post/2019-12-30_hxp-36c3-ctf/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2019-12-30_hxp-36c3-ctf/&amp;title=hxp%2036C3%20CTF%20Writeups" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=hxp%2036C3%20CTF%20Writeups%20/post/2019-12-30_hxp-36c3-ctf/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2019-12-15_watevr-ctf-2019-writeups/" rel="prev">watevrCTF 2019 Writeups (Mainly Rev and Pwn)</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2019-12-15_watevr-ctf-2019-writeups/">watevrCTF 2019 Writeups (Mainly Rev and Pwn)</a></li>
+      
+      <li><a href="/post/2019-12-02_tuctf-pwn-2019/">TUCTF 2019 - Pwn &amp; Rev Challenges</a></li>
+      
+      <li><a href="/post/2019-11-19_ritsec-ctf-2019/">RITSEC CTF 2019</a></li>
+      
+      <li><a href="/post/2019-08-25_codefest19-ctf-writeups/">Codefest’19 CTF Writeups</a></li>
+      
+      <li><a href="/post/2018-03-23_angstromctf-writeups/">AngstromCTF Writeups</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2019 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
