@@ -5,12 +5,76 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Tags</title>
       <link>/tags/</link>
     </image>
+    
+    <item>
+      <title>36C3</title>
+      <link>/tags/36c3/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/36c3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link>/tags/android/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>information security</title>
+      <link>/tags/information-security/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/information-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>infosec</title>
+      <link>/tags/infosec/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>misc</title>
+      <link>/tags/misc/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/misc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rev</title>
+      <link>/tags/rev/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/rev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wasm</title>
+      <link>/tags/wasm/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/wasm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>writeups</title>
+      <link>/tags/writeups/</link>
+      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <guid>/tags/writeups/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ctf</title>
@@ -21,50 +85,10 @@
     </item>
     
     <item>
-      <title>information security</title>
-      <link>/tags/information-security/</link>
-      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/tags/information-security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>infosec</title>
-      <link>/tags/infosec/</link>
-      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/tags/infosec/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>misc</title>
-      <link>/tags/misc/</link>
-      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/tags/misc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>pwn</title>
       <link>/tags/pwn/</link>
       <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
       <guid>/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rev</title>
-      <link>/tags/rev/</link>
-      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/tags/rev/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>writeups</title>
-      <link>/tags/writeups/</link>
-      <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/tags/writeups/</guid>
       <description></description>
     </item>
     
