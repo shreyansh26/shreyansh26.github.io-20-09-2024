@@ -244,6 +244,8 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 </style>
 
 
+
+
   <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn) | Shreyansh Singh</title>
 
 </head>
@@ -535,7 +537,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    9 min read
   </span>
   
 
@@ -692,7 +694,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 
 </figure>
 
-<p>Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag 😛.</p>
+<p>Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag :stuck_out_tongue:.</p>
 <p>PS - Before the dynamic analysis, we patch the <code>PTRACE_TRACEME</code> call to jump to the required function.</p>
 <p>The flag is - <strong>watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}</strong></p>
 <p> </p>
@@ -779,14 +781,14 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 </figure>
 
 <p><code>strtok</code> is used here, which is used to split the string at some delimiter. And also, <code>atol</code> is used to convert each such substring to a number. The delimiter here is 0x20, i.e. a space. So we have to supply our input &ldquo;command&rdquo; as space separated numbers.</p>
-<p>We use dynamic analysis after we give our input, since all the precomputations are done, we don't have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of <em>10 11 12 13 14 15 16</em>, the following parameters are passed -</p>
+<p>We use dynamic analysis after we give our input, since all the precomputations are done, we don&rsquo;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of <em>10 11 12 13 14 15 16</em>, the following parameters are passed -</p>
 <pre><code>0x5555555551af (
    $rdi = 0x00007fffffffd370 → 0x000000000000000a,
    $rsi = 0x0000000000000040,
    $rdx = 0x0000000000000000,
    $rcx = 0x00007fffffffd350 → 0x000000000000008f
 )
-</code></pre><p>i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array's pointer, with the first element as 0x8f.</p>
+</code></pre><p>i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&rsquo;s pointer, with the first element as 0x8f.</p>
 <p>Now I analysed FUN_001011af, it has two malloc calls to get the buffer to store the decrypted string. After some basic checks, there is a call to FUN_00100dc3.</p>
 
 
@@ -904,7 +906,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 
 </figure>
 
-<p>The offset of the crash is calculated using gef's pattern create and pattern search functionality.</p>
+<p>The offset of the crash is calculated using gef&rsquo;s pattern create and pattern search functionality.</p>
 <p>My exploit code -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
@@ -927,7 +929,7 @@ p<span style="color:#f92672">.</span>sendline(payload)
     f<span style="color:#f92672">.</span>write(payload)
 
 p<span style="color:#f92672">.</span>interactive()
-</code></pre></div><p>The flag is - <strong>watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_<a href="https://www.youtube.com/watch?v=Va4aF6rRdqU">https://www.youtube.com/watch?v=Va4aF6rRdqU</a>}</strong></p>
+</code></pre></div><p>The flag is - <strong>watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_<a href="https://www.youtube.com/watch?v=Va4aF6rRdqU%7D">https://www.youtube.com/watch?v=Va4aF6rRdqU}</a></strong></p>
 <p> </p>
 <h2 id="voting-machine-2">Voting Machine 2</h2>
 <p>File: <a href="/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2">kamikaze2</a></p>
@@ -992,7 +994,7 @@ p<span style="color:#f92672">.</span>sendline(payload)
     f<span style="color:#f92672">.</span>write(pad(exploit))
 
 p<span style="color:#f92672">.</span>interactive()
-</code></pre></div><p>The flag is - <strong>watevr{GOT_som3_fl4g_for_you_<a href="https://www.youtube.com/watch?v=hYeFcSq7Mxg">https://www.youtube.com/watch?v=hYeFcSq7Mxg</a>}</strong></p>
+</code></pre></div><p>The flag is - <strong>watevr{GOT_som3_fl4g_for_you_<a href="https://www.youtube.com/watch?v=hYeFcSq7Mxg%7D">https://www.youtube.com/watch?v=hYeFcSq7Mxg}</a></strong></p>
 <hr>
 <h1 id="other-categories">Other categories</h1>
 <h2 id="misc---unspaellablle">Misc - Unspaellablle</h2>
@@ -1031,7 +1033,44 @@ p<span style="color:#f92672">.</span>interactive()
 <p>We see that the <em>Flag</em> cookie is for 100$, so if we set the cookie to base64({&ldquo;money&rdquo;: 200, &ldquo;history&rdquo;: []}), i.e. <strong>eyJtb25leSI6IDIwMCwgImhpc3RvcnkiOiBbXX0=</strong>.  With this our balance gets updated. Now we can buy the flag cookie and get the flag.</p>
 <p>The flag is - <strong>watevr{b64_15_4_6r347_3ncryp710n_m37h0d}</strong></p>
 <hr>
-<p>That's all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn't solve. I will add my version of their writeups when I get to know their solution.</p>
+<p>That&rsquo;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&rsquo;t solve. I will add my version of their writeups when I get to know their solution.</p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><a id="openpopup" class="example_a" rel="nofollow noopener">Subscribe to my posts!</a></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
 <p> </p>
 <p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
 
@@ -1378,7 +1417,7 @@ p<span style="color:#f92672">.</span>interactive()
   
 
   <p class="powered-by">
-    © Shreyansh Singh 2019 &middot; 
+    © Shreyansh Singh 2020 &middot; 
 
     Powered by 
     

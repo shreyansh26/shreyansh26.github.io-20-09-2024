@@ -5,12 +5,44 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Sat, 04 Jan 2020 17:24:28 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Tags</title>
       <link>/tags/</link>
     </image>
+    
+    <item>
+      <title>infosec</title>
+      <link>/tags/infosec/</link>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
+      <guid>/tags/infosec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>malware</title>
+      <link>/tags/malware/</link>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
+      <guid>/tags/malware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rev</title>
+      <link>/tags/rev/</link>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
+      <guid>/tags/rev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>writeups</title>
+      <link>/tags/writeups/</link>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
+      <guid>/tags/writeups/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>36C3</title>
@@ -37,14 +69,6 @@
     </item>
     
     <item>
-      <title>infosec</title>
-      <link>/tags/infosec/</link>
-      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
-      <guid>/tags/infosec/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>misc</title>
       <link>/tags/misc/</link>
       <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
@@ -53,26 +77,10 @@
     </item>
     
     <item>
-      <title>rev</title>
-      <link>/tags/rev/</link>
-      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
-      <guid>/tags/rev/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>wasm</title>
       <link>/tags/wasm/</link>
       <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
       <guid>/tags/wasm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>writeups</title>
-      <link>/tags/writeups/</link>
-      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
-      <guid>/tags/writeups/</guid>
       <description></description>
     </item>
     
@@ -161,14 +169,6 @@
       <link>/tags/nids/</link>
       <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
       <guid>/tags/nids/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>malware</title>
-      <link>/tags/malware/</link>
-      <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
-      <guid>/tags/malware/</guid>
       <description></description>
     </item>
     

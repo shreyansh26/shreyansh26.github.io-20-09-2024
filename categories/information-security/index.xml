@@ -5,12 +5,184 @@
     <link>/categories/information-security/</link>
       <atom:link href="/categories/information-security/index.xml" rel="self" type="application/rss+xml" />
     <description>Information Security</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Sat, 04 Jan 2020 17:24:28 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Information Security</title>
       <link>/categories/information-security/</link>
     </image>
+    
+    <item>
+      <title>MalwareTech&#39;s VM1 Reversing Challenge</title>
+      <link>/post/2020-01-04_malwaretech-vm1-challenge/</link>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
+      <guid>/post/2020-01-04_malwaretech-vm1-challenge/</guid>
+      <description>&lt;p&gt;Get the challenge from &lt;a href=&#34;https://www.malwaretech.com/vm1&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;vm1.exe implements a simple 8-bit virtual machine (VM) to try and stop reverse engineers from retrieving the flag. The VM’s RAM contains the encrypted flag and some bytecode to decrypt it. Can you figure out how the VM works and write your own to decrypt the flag? A copy of the VM’s RAM has been provided in ram.bin (this data is identical to the ram content of the malware’s VM before execution and contains both the custom assembly code and encrypted flag).&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Rules &amp;amp; Information&lt;/strong&gt;
+You are not require to run vm1.exe, this challenge is static analysis only.
+Do not use a debugger or dumper to retrieve the decrypted flag from memory, this is cheating.
+Analysis can be done using the free version of IDA Pro (you don’t need the debugger).&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We are given two files - &lt;em&gt;vm1.exe&lt;/em&gt; and &lt;em&gt;ram.bin&lt;/em&gt;, and according to the problem statement, &lt;em&gt;ram.bin&lt;/em&gt; contains the bytecode for the VM and the flag encrypted in it somwehow.&lt;/p&gt;
+&lt;p&gt;I used IDA Pro to analyse the binary. I started off with the &lt;code&gt;start&lt;/code&gt; function.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; &gt;
+&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;First, there are a few calls to some MD5 related functions, those are to display the MD5 hash of the flag when we run the program.&lt;/p&gt;
+&lt;p&gt;Then there is a call to &lt;code&gt;GetProcessHeap&lt;/code&gt; and &lt;code&gt;HeapAlloc&lt;/code&gt; which basically allocates a memory of size 0x1FB. After that we have a call to &lt;code&gt;memcpy&lt;/code&gt; that copies data from &lt;code&gt;unk_404040&lt;/code&gt; to the newly allocated memory (renamed to &lt;em&gt;bytecode&lt;/em&gt;). On taking a look at the bytes at that location, they are exactly the same as &lt;em&gt;ram.bin&lt;/em&gt; so this is the memory location that is mentioned in the problem statement.&lt;/p&gt;
+&lt;p&gt;We move straight to the &lt;code&gt;read_bytecode_from_memory&lt;/code&gt; function (&lt;code&gt;sub_4022E0&lt;/code&gt; before renaming).&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; &gt;
+&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here first eax is set to 1 and then there is a loop that runs until eax does not become 0. The body of the loop basically read 3 bytes of the bytecode sequentially, stores it and passes it to the function &lt;code&gt;evaluate&lt;/code&gt; (&lt;code&gt;sub_402270&lt;/code&gt; before renaming).&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; &gt;
+&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This is the function where the VM bytecode is interpreted. The function has 3 arguments, which are basically 3 bytes of the bytecode passed from the &lt;code&gt;read_bytecode_from_memory&lt;/code&gt; function. For evaluation, the first parameter is checked first -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If it is 1, then the memory location at offset param2 is assigned param3 and eax is set to 1.&lt;/li&gt;
+&lt;li&gt;If it is 2, then a variable, &lt;em&gt;byte_404240&lt;/em&gt; is set to the value at memory location at offset param2 and eax is set to 1.&lt;/li&gt;
+&lt;li&gt;If it is 3, then the value at offset param2 is XORed with the value of &lt;em&gt;byte_404240&lt;/em&gt; and stored back at the offset of param2.&lt;/li&gt;
+&lt;li&gt;Otherwise, if it is not 3 then al is set to 0, i.e. eax is now zero and the loop in &lt;code&gt;read_bytecode_from_memory&lt;/code&gt; should now stop.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After the loop in &lt;code&gt;read_bytecode_from_memory&lt;/code&gt; ends we know that now, the flag is in the memory, precisely at the location &lt;code&gt;unk_404040&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So, we can basically emulate the whole functionality with a python script and then get the flag from the converted data.&lt;/p&gt;
+&lt;p&gt;I wrote the following script.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0DE&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x7E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x7D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x55&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x9F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0A6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x50&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0FC&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0CB&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x60&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x41&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0A4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0BD&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x53&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x48&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x8A&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x47&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x16&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0A&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x15&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x98&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x18&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0D9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1A&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x57&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0AB&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1B&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x17&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x15&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x11&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x88&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0AE&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x59&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x91&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0AE&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0B&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x15&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0CC&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x20&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x22&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x23&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x24&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x25&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x26&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x27&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x28&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x29&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2A&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0A&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2B&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0B&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0C&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0D&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0E&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0F&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x30&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x31&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x11&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x32&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x12&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x33&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x13&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x34&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x14&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x35&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x15&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x36&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x16&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x37&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x17&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x38&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x18&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x19&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0&lt;/span&gt;]
+
+i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+bval &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+ret &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ret:
+	opcode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xFF&lt;/span&gt;]
+	op1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xFF&lt;/span&gt;]
+	op2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xFF&lt;/span&gt;]
+
+	&lt;span style=&#34;color:#75715e&#34;&gt;# print(&amp;#34;{}, {}, {}&amp;#34;.format(opcode, op1, op2))&lt;/span&gt;
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:
+		data[op1] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; op2
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;:
+		bval &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[op1]
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;:
+		data[op1] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[op1] &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; bval
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;:
+		ret &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+
+	i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The first few numbers look like ASCII, converting them,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;76&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;71&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;123&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;86&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;83&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;82&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;70&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;79&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;82&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;45&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;77&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;76&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;87&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;65&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;82&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;69&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;125&lt;/span&gt;]
+data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [chr(x) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; data]
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(data))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We get the flag - &lt;code&gt;FLAG{VMS-ARE-FOR-MALWARE}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>hxp 36C3 CTF Writeups</title>
@@ -78,8 +250,8 @@ Connection: nc 88.198.154.132 7002&lt;/p&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have to pay attenton to&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Math&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;pow&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;3&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; instance&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 2&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; 999983&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0d&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For 29th Decmember 2019, this value is a constant and equal to &lt;code&gt;76429&lt;/code&gt;. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app&#39;s code for this.&lt;/p&gt;
-&lt;p&gt;One thing I note is that on entering a wrong code, the following message is shown as a Toast - &amp;ldquo;Ungültiger Aktivierungscode&amp;rdquo;. So, I used Jadx&#39;s Text Search to find all instances of this. We find this&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For 29th December 2019, this value is a constant and equal to &lt;code&gt;76429&lt;/code&gt;. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app&amp;rsquo;s code for this.&lt;/p&gt;
+&lt;p&gt;One thing I note is that on entering a wrong code, the following message is shown as a Toast - &amp;ldquo;Ungültiger Aktivierungscode&amp;rdquo;. So, I used Jadx&amp;rsquo;s Text Search to find all instances of this. We find this&lt;/p&gt;
 
 
 
@@ -118,11 +290,11 @@ udh736
 activated!
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After this, we get the flag - &lt;code&gt;hxp{thx_f0r_4773nd1n6_70d4y}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
-&lt;h2 id=&#34;xmas-future---rev&#34;&gt;xmas_future - Rev&lt;/h2&gt;
+&lt;h2 id=&#34;xmas_future---rev&#34;&gt;xmas_future - Rev&lt;/h2&gt;
 &lt;p&gt;Files: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.&lt;/p&gt;
-&lt;p&gt;First I thought of converting the .wasm file into some readable code like in C. I used the official &lt;a href=&#34;https://github.com/WebAssembly/wabt&#34;&gt;WebAssembly binary toolkit (wabt)&lt;/a&gt; for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the &lt;code&gt;check&lt;/code&gt; function, specifically the &lt;code&gt;$hxp2019::check::h578f31d490e10a31&lt;/code&gt; fnction. But it was a lot of code and I couldn&#39;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.&lt;/p&gt;
-&lt;p&gt;Opening the html file directly in the browser wasn&#39;t loading the js file due to CORS. I copied the folder into my &lt;code&gt;/var/www/html&lt;/code&gt; folder and accessed it from there using localhost.&lt;/p&gt;
+&lt;p&gt;First I thought of converting the .wasm file into some readable code like in C. I used the official &lt;a href=&#34;https://github.com/WebAssembly/wabt&#34;&gt;WebAssembly binary toolkit (wabt)&lt;/a&gt; for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the &lt;code&gt;check&lt;/code&gt; function, specifically the &lt;code&gt;$hxp2019::check::h578f31d490e10a31&lt;/code&gt; fnction. But it was a lot of code and I couldn&amp;rsquo;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.&lt;/p&gt;
+&lt;p&gt;Opening the html file directly in the browser wasn&amp;rsquo;t loading the js file due to CORS. I copied the folder into my &lt;code&gt;/var/www/html&lt;/code&gt; folder and accessed it from there using localhost.&lt;/p&gt;
 &lt;p&gt;First I set a breakpoint at line 71 of the hxp2019.js file.&lt;/p&gt;
 
 
@@ -218,7 +390,7 @@ activated!
 
 &lt;/figure&gt;
 
-&lt;p&gt;Here, we see that the first character (&amp;lsquo;a&amp;rsquo; = 97) is to be compared with (109 = &amp;lsquo;m&amp;rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &amp;ldquo;flag&amp;rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to &lt;code&gt;br_if 1&lt;/code&gt; but that seemed to crash somewhere. Anyways, whatever works during the CTF 😛.&lt;/p&gt;
+&lt;p&gt;Here, we see that the first character (&amp;lsquo;a&amp;rsquo; = 97) is to be compared with (109 = &amp;lsquo;m&amp;rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &amp;ldquo;flag&amp;rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to &lt;code&gt;br_if 1&lt;/code&gt; but that seemed to crash somewhere. Anyways, whatever works during the CTF :stuck_out_tongue:.&lt;/p&gt;
 &lt;p&gt;The flag was - &lt;code&gt;hxp{merry_xmas___github.com/benediktwerner/rewasm}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This could probably be the author of the chllenge as the repo is wasm reverse engineering tool. Loved the challenge!&lt;/p&gt;
 &lt;hr&gt;
@@ -284,7 +456,7 @@ activated!
 
 &lt;/figure&gt;
 
-&lt;p&gt;Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &amp;ldquo;junior-totally_the_flag_or_maybe_not&amp;rdquo;. The rest of the computations don&#39;t mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &amp;ldquo;wrong!&amp;rdquo; and there does not seem to be any checking.&lt;/p&gt;
+&lt;p&gt;Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &amp;ldquo;junior-totally_the_flag_or_maybe_not&amp;rdquo;. The rest of the computations don&amp;rsquo;t mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &amp;ldquo;wrong!&amp;rdquo; and there does not seem to be any checking.&lt;/p&gt;
 &lt;p&gt;After this I opened up GDB to analyse the flow. I set a breakpoint at the main function, and observed something interesting.&lt;/p&gt;
 
 
@@ -378,7 +550,44 @@ b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;code&gt;junior-alles_nur_kuchenblech_mafia!!&lt;/code&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;I had great fun solving this CTF. Learnt a ton! This was my last CTF and blog post for 2019.&lt;/p&gt;
-&lt;p&gt;2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara 👋.&lt;/p&gt;
+&lt;p&gt;2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara.&lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
 </description>
@@ -496,7 +705,7 @@ b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#
 
 &lt;/figure&gt;
 
-&lt;p&gt;Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag 😛.&lt;/p&gt;
+&lt;p&gt;Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag :stuck_out_tongue:.&lt;/p&gt;
 &lt;p&gt;PS - Before the dynamic analysis, we patch the &lt;code&gt;PTRACE_TRACEME&lt;/code&gt; call to jump to the required function.&lt;/p&gt;
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -583,14 +792,14 @@ b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#
 &lt;/figure&gt;
 
 &lt;p&gt;&lt;code&gt;strtok&lt;/code&gt; is used here, which is used to split the string at some delimiter. And also, &lt;code&gt;atol&lt;/code&gt; is used to convert each such substring to a number. The delimiter here is 0x20, i.e. a space. So we have to supply our input &amp;ldquo;command&amp;rdquo; as space separated numbers.&lt;/p&gt;
-&lt;p&gt;We use dynamic analysis after we give our input, since all the precomputations are done, we don&#39;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of &lt;em&gt;10 11 12 13 14 15 16&lt;/em&gt;, the following parameters are passed -&lt;/p&gt;
+&lt;p&gt;We use dynamic analysis after we give our input, since all the precomputations are done, we don&amp;rsquo;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of &lt;em&gt;10 11 12 13 14 15 16&lt;/em&gt;, the following parameters are passed -&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;0x5555555551af (
    $rdi = 0x00007fffffffd370 → 0x000000000000000a,
    $rsi = 0x0000000000000040,
    $rdx = 0x0000000000000000,
    $rcx = 0x00007fffffffd350 → 0x000000000000008f
 )
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&#39;s pointer, with the first element as 0x8f.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&amp;rsquo;s pointer, with the first element as 0x8f.&lt;/p&gt;
 &lt;p&gt;Now I analysed FUN_001011af, it has two malloc calls to get the buffer to store the decrypted string. After some basic checks, there is a call to FUN_00100dc3.&lt;/p&gt;
 
 
@@ -708,7 +917,7 @@ b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#
 
 &lt;/figure&gt;
 
-&lt;p&gt;The offset of the crash is calculated using gef&#39;s pattern create and pattern search functionality.&lt;/p&gt;
+&lt;p&gt;The offset of the crash is calculated using gef&amp;rsquo;s pattern create and pattern search functionality.&lt;/p&gt;
 &lt;p&gt;My exploit code -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
@@ -731,7 +940,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
     f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU%7D&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;voting-machine-2&#34;&gt;Voting Machine 2&lt;/h2&gt;
 &lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
@@ -796,7 +1005,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
     f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(pad(exploit))
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{GOT_som3_fl4g_for_you_&lt;a href=&#34;https://www.youtube.com/watch?v=hYeFcSq7Mxg&#34;&gt;https://www.youtube.com/watch?v=hYeFcSq7Mxg&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{GOT_som3_fl4g_for_you_&lt;a href=&#34;https://www.youtube.com/watch?v=hYeFcSq7Mxg%7D&#34;&gt;https://www.youtube.com/watch?v=hYeFcSq7Mxg}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;other-categories&#34;&gt;Other categories&lt;/h1&gt;
 &lt;h2 id=&#34;misc---unspaellablle&#34;&gt;Misc - Unspaellablle&lt;/h2&gt;
@@ -835,7 +1044,44 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;p&gt;We see that the &lt;em&gt;Flag&lt;/em&gt; cookie is for 100$, so if we set the cookie to base64({&amp;ldquo;money&amp;rdquo;: 200, &amp;ldquo;history&amp;rdquo;: []}), i.e. &lt;strong&gt;eyJtb25leSI6IDIwMCwgImhpc3RvcnkiOiBbXX0=&lt;/strong&gt;.  With this our balance gets updated. Now we can buy the flag cookie and get the flag.&lt;/p&gt;
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{b64_15_4_6r347_3ncryp710n_m37h0d}&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;That&#39;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&#39;t solve. I will add my version of their writeups when I get to know their solution.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&amp;rsquo;t solve. I will add my version of their writeups when I get to know their solution.&lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;a id=&#34;openpopup&#34; class=&#34;example_a&#34; rel=&#34;nofollow noopener&#34;&gt;Subscribe to my posts!&lt;/a&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
 </description>
@@ -846,7 +1092,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
       <link>/post/2019-12-02_tuctf-pwn-2019/</link>
       <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
       <guid>/post/2019-12-02_tuctf-pwn-2019/</guid>
-      <description>&lt;p&gt;I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
+      <description>&lt;p&gt;I couldn&amp;rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
 &lt;h2 id=&#34;thefirst---379-pts&#34;&gt;thefirst - 379 pts&lt;/h2&gt;
@@ -974,7 +1220,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 
 &lt;/figure&gt;
 
-&lt;p&gt;We use &lt;a href=&#34;http://shell-storm.org/shellcode/files/shellcode-811.php&#34;&gt;shell-storm&lt;/a&gt; to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &amp;lsquo;A&#39;s and then provide the address to write to, i.e. the adress provided to us.&lt;/p&gt;
+&lt;p&gt;We use &lt;a href=&#34;http://shell-storm.org/shellcode/files/shellcode-811.php&#34;&gt;shell-storm&lt;/a&gt; to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &amp;lsquo;A&amp;rsquo;s and then provide the address to write to, i.e. the adress provided to us.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;shellcode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x50&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x73&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x62&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x69&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x6e&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xe3&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc1&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc2&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xb0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x0b&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x40&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
 len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;
 
@@ -1088,9 +1334,9 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 
 &lt;/figure&gt;
 
-&lt;p&gt;This is intereting as both these addresses are also present in the program&#39;s output with our input.&lt;/p&gt;
+&lt;p&gt;This is intereting as both these addresses are also present in the program&amp;rsquo;s output with our input.&lt;/p&gt;
 &lt;p&gt;So, all we have to do is overwrite the 6th and 7th &amp;ldquo;addresses&amp;rdquo; of the output to the same value so that the string comparison passes.&lt;/p&gt;
-&lt;p&gt;We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now ☹) -&lt;/p&gt;
+&lt;p&gt;We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now :frowning_face:) -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;printfun&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
@@ -1266,7 +1512,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag - &lt;code&gt;TUCTF{c0r3_dump?_N3v3r_h34rd_0f_y0u}&lt;/code&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;That&#39;s all for now 👋.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for now :wave:.&lt;/p&gt;
 </description>
     </item>
     
@@ -1286,7 +1532,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
       <guid>/post/2019-11-19_ritsec-ctf-2019/</guid>
       <description>&lt;p&gt;A bit late for writeups, but still here are the solutions to the challenges I solved during the CTF. The CTF was from 15 Nov. 2019, 22:30 IST — Mon, 18 Nov. 2019, 10:30 IST. It was a decent CTF with quality challenges, from both beginner to advanced level.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: The scripts to solve and the flags are present in &lt;a href=&#34;https://github.com/wr47h/CTF-Writeups/tree/master/2019/RITSEC%20CTF%202019&#34;&gt;this repo&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I&#39;ll do the writeups category-wise -&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll do the writeups category-wise -&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;crypto&#34;&gt;Crypto&lt;/h2&gt;
 &lt;p&gt; &lt;br&gt;
@@ -1390,7 +1636,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is — &lt;strong&gt;RITSEC{0n1On_L4y3R}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;br&gt;
 &lt;strong&gt;AlPhAbEtIcAl Challenge - 100pts&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I couldn&#39;t solve this during the CTF, but saw other writeups and found that it was actually pretty interesting. The cipher text that is provided is —&lt;/p&gt;
+&lt;p&gt;I couldn&amp;rsquo;t solve this during the CTF, but saw other writeups and found that it was actually pretty interesting. The cipher text that is provided is —&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;59:87:57:51:85:80{:40:50:56:08:82:58:81:08:18:85:57:87:48:85:88:40:50:56:59:15:56:11:18:85:59:51:}&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1400,7 +1646,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
 &lt;p&gt; &lt;br&gt;
 &lt;strong&gt;misdirection — 100 pts&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;We are given a URL — &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;http://ctfchallenges.ritsec.club:5000/&lt;/a&gt; However, on clicking it we see that we are directed to another webpage &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;http://ctfchallenges.ritsec.club:5000/n&lt;/a&gt; and the information that the webpage isn&#39;t redirecting properly. So, I decided to see what is happening, for that I did a simple &lt;em&gt;wget&lt;/em&gt; to the url.&lt;/p&gt;
+&lt;p&gt;We are given a URL — &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;http://ctfchallenges.ritsec.club:5000/&lt;/a&gt; However, on clicking it we see that we are directed to another webpage &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;http://ctfchallenges.ritsec.club:5000/n&lt;/a&gt; and the information that the webpage isn&amp;rsquo;t redirecting properly. So, I decided to see what is happening, for that I did a simple &lt;em&gt;wget&lt;/em&gt; to the url.&lt;/p&gt;
 
 
 

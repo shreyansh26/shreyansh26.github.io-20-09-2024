@@ -3,6 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/authors/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/information-security/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/infosec/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/malware/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-01-04_malwaretech-vm1-challenge/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rev/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/shreyansh-singh/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/writeups/</loc>
+    <lastmod>2020-01-04T17:24:28+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/36c3/</loc>
     <lastmod>2019-12-29T14:06:46+05:30</lastmod>
   </url>
@@ -13,22 +73,7 @@
   </url>
   
   <url>
-    <loc>/authors/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/2019-12-30_hxp-36c3-ctf/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/information-security/</loc>
     <lastmod>2019-12-29T14:06:46+05:30</lastmod>
   </url>
   
@@ -38,47 +83,12 @@
   </url>
   
   <url>
-    <loc>/tags/infosec/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/misc/</loc>
     <lastmod>2019-12-29T14:06:46+05:30</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/rev/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/shreyansh-singh/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/wasm/</loc>
-    <lastmod>2019-12-29T14:06:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/writeups/</loc>
     <lastmod>2019-12-29T14:06:46+05:30</lastmod>
   </url>
   
@@ -174,11 +184,6 @@
   
   <url>
     <loc>/project/linux-malware/</loc>
-    <lastmod>2019-01-03T18:07:13+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/malware/</loc>
     <lastmod>2019-01-03T18:07:13+05:30</lastmod>
   </url>
   

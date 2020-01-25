@@ -240,6 +240,8 @@ I was playing solo on this one and gave one day to this CTF. I managed to solve 
 </style>
 
 
+
+
   <title>hxp 36C3 CTF Writeups | Shreyansh Singh</title>
 
 </head>
@@ -642,8 +644,8 @@ Connection: nc 88.198.154.132 7002</p>
 <span style="color:#f92672">}</span>
 </code></pre></div><p>We have to pay attenton to</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">i <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">pow</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>3<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> instance<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> 2<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span> <span style="color:#f92672">%</span> 999983<span style="color:#f92672">.</span><span style="color:#a6e22e">0d</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
-</code></pre></div><p>For 29th Decmember 2019, this value is a constant and equal to <code>76429</code>. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app's code for this.</p>
-<p>One thing I note is that on entering a wrong code, the following message is shown as a Toast - &ldquo;Ungültiger Aktivierungscode&rdquo;. So, I used Jadx's Text Search to find all instances of this. We find this</p>
+</code></pre></div><p>For 29th December 2019, this value is a constant and equal to <code>76429</code>. Entering this, we get access to the app. Next on the top right corner of the app, there are options namely Sales, Leadership, Smart Profuction (the current page) and Service Roadmap. Each of these (except Smart Production) require their own activation codes. We deg deeper into the app&rsquo;s code for this.</p>
+<p>One thing I note is that on entering a wrong code, the following message is shown as a Toast - &ldquo;Ungültiger Aktivierungscode&rdquo;. So, I used Jadx&rsquo;s Text Search to find all instances of this. We find this</p>
 
 
 
@@ -682,11 +684,11 @@ udh736
 activated!
 </code></pre><p>After this, we get the flag - <code>hxp{thx_f0r_4773nd1n6_70d4y}</code></p>
 <p> </p>
-<h2 id="xmas-future---rev">xmas_future - Rev</h2>
+<h2 id="xmas_future---rev">xmas_future - Rev</h2>
 <p>Files: <a href="/post/2019-12-30_hxp-36c3-ctf/files/files.zip">files.zip</a></p>
 <p>This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.</p>
-<p>First I thought of converting the .wasm file into some readable code like in C. I used the official <a href="https://github.com/WebAssembly/wabt">WebAssembly binary toolkit (wabt)</a> for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the <code>check</code> function, specifically the <code>$hxp2019::check::h578f31d490e10a31</code> fnction. But it was a lot of code and I couldn't make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.</p>
-<p>Opening the html file directly in the browser wasn't loading the js file due to CORS. I copied the folder into my <code>/var/www/html</code> folder and accessed it from there using localhost.</p>
+<p>First I thought of converting the .wasm file into some readable code like in C. I used the official <a href="https://github.com/WebAssembly/wabt">WebAssembly binary toolkit (wabt)</a> for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the <code>check</code> function, specifically the <code>$hxp2019::check::h578f31d490e10a31</code> fnction. But it was a lot of code and I couldn&rsquo;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.</p>
+<p>Opening the html file directly in the browser wasn&rsquo;t loading the js file due to CORS. I copied the folder into my <code>/var/www/html</code> folder and accessed it from there using localhost.</p>
 <p>First I set a breakpoint at line 71 of the hxp2019.js file.</p>
 
 
@@ -782,7 +784,7 @@ activated!
 
 </figure>
 
-<p>Here, we see that the first character (&lsquo;a&rsquo; = 97) is to be compared with (109 = &lsquo;m&rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &ldquo;flag&rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to <code>br_if 1</code> but that seemed to crash somewhere. Anyways, whatever works during the CTF 😛.</p>
+<p>Here, we see that the first character (&lsquo;a&rsquo; = 97) is to be compared with (109 = &lsquo;m&rsquo;). What I did next, may not be the right way, but I was so excited that I had made progress was that I did this whole process 45 times, adding one character to my &ldquo;flag&rdquo; at a time until I had all characters of the flag. I had tried changing the code at line 288 to <code>br_if 1</code> but that seemed to crash somewhere. Anyways, whatever works during the CTF :stuck_out_tongue:.</p>
 <p>The flag was - <code>hxp{merry_xmas___github.com/benediktwerner/rewasm}</code></p>
 <p>This could probably be the author of the chllenge as the repo is wasm reverse engineering tool. Loved the challenge!</p>
 <hr>
@@ -848,7 +850,7 @@ activated!
 
 </figure>
 
-<p>Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &ldquo;junior-totally_the_flag_or_maybe_not&rdquo;. The rest of the computations don't mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &ldquo;wrong!&rdquo; and there does not seem to be any checking.</p>
+<p>Basically, if we see, the function is not doing anything, it is just taking our input of length 0x24 as a command line argument, then storing it at a +0x40 offset from a fixed string in memory, i.e. &ldquo;junior-totally_the_flag_or_maybe_not&rdquo;. The rest of the computations don&rsquo;t mean anything as uvar3, ivar1, all are keeping the input unchanged. But the program still outputs &ldquo;wrong!&rdquo; and there does not seem to be any checking.</p>
 <p>After this I opened up GDB to analyse the flow. I set a breakpoint at the main function, and observed something interesting.</p>
 
 
@@ -942,7 +944,44 @@ b <span style="color:#f92672">=</span> b[::<span style="color:#ae81ff">2</span>]
 </code></pre></div><p>The flag is - <code>junior-alles_nur_kuchenblech_mafia!!</code></p>
 <hr>
 <p>I had great fun solving this CTF. Learnt a ton! This was my last CTF and blog post for 2019.</p>
-<p>2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara 👋.</p>
+<p>2020 will see a lot more blog posts, writeups and some interesting security research too. Till then, sayonara.</p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
 <p> </p>
 <p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
 
@@ -1128,6 +1167,13 @@ b <span style="color:#f92672">=</span> b[::<span style="color:#ae81ff">2</span>]
   
   
   <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2020-01-04_malwaretech-vm1-challenge/" rel="next">MalwareTech&#39;s VM1 Reversing Challenge</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
     <a href="/post/2019-12-15_watevr-ctf-2019-writeups/" rel="prev">watevrCTF 2019 Writeups (Mainly Rev and Pwn)</a>
   </div>
@@ -1284,7 +1330,7 @@ b <span style="color:#f92672">=</span> b[::<span style="color:#ae81ff">2</span>]
   
 
   <p class="powered-by">
-    © Shreyansh Singh 2019 &middot; 
+    © Shreyansh Singh 2020 &middot; 
 
     Powered by 
     

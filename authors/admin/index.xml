@@ -5,12 +5,6 @@
     <link>/authors/admin/</link>
       <atom:link href="/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright>
-    <image>
-      <url>/img/Shreyansh.jpg</url>
-      <title>Shreyansh Singh</title>
-      <link>/authors/admin/</link>
-    </image>
-    
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright>
   </channel>
 </rss>

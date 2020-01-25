@@ -5,17 +5,11 @@
     <link>/authors/</link>
       <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
-    <image>
-      <url>/img/Shreyansh.jpg</url>
-      <title>Authors</title>
-      <link>/authors/</link>
-    </image>
-    
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Sat, 04 Jan 2020 17:24:28 +0530</lastBuildDate>
     <item>
       <title>Shreyansh Singh</title>
       <link>/authors/shreyansh-singh/</link>
-      <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
+      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
       <guid>/authors/shreyansh-singh/</guid>
       <description></description>
     </item>

