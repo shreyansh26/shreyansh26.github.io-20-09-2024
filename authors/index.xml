@@ -5,49 +5,12 @@
     <link>/authors/</link>
       <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Sat, 04 Jan 2020 17:24:28 +0530</lastBuildDate>
-    <item>
-      <title>Shreyansh Singh</title>
-      <link>/authors/shreyansh-singh/</link>
-      <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
-      <guid>/authors/shreyansh-singh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>A.K. Singh</title>
-      <link>/authors/a.k.-singh/</link>
-      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
-      <guid>/authors/a.k.-singh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Avi Chawla</title>
-      <link>/authors/avi-chawla/</link>
-      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
-      <guid>/authors/avi-chawla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ayush Sharma</title>
-      <link>/authors/ayush-sharma/</link>
-      <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
-      <guid>/authors/ayush-sharma/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/authors/admin/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/authors/admin/</guid>
-      <description>&lt;p&gt;I am currently in my final year pursuing B.Tech in Computer Science and Engineering from IIT (BHU) Varanasi.&lt;/p&gt;
-&lt;p&gt;My B.Tech advisor is &lt;a href=&#34;https://iitbhu.ac.in/dept/cse/people/kkshuklacse&#34;&gt;Prof. K.K. Shukla&lt;/a&gt;. Currently, I am working on privacy-preserving Machine Learning and its application in the medical industry. Previously I have also worked with him on Adversarial Machine Learning and Malware classification problems. In summer 2019, I was an intern at &lt;a href=&#34;https://research.samsung.com/sri-b&#34;&gt;Samsung Research Institute - Bangalore&lt;/a&gt;, working on mobility in 5G networks. I also worked as a research intern at the &lt;a href=&#34;https://security.cse.iitk.ac.in/&#34;&gt;C3i Institute, Indian Institute of Technology Kanpur&lt;/a&gt; on Malware Detection for Linux, in winter 2018.  In summer 2018, I was a Data Science intern at &lt;a href=&#34;https://www.innoplexus.com/&#34;&gt;Innoplexus, Pune (India)&lt;/a&gt;, working with the Computer Vision team. I have also worked with &lt;a href=&#34;https://www.iitbhu.ac.in/dept/cse/people/aksinghcse&#34;&gt;Dr. Anil Kumar Singh&lt;/a&gt;, on sentiment analysis on product reviews and natural language generation.&lt;/p&gt;
-&lt;p&gt;When not working on research, I enjoy playing CTFs (&lt;a href=&#34;https://ctftime.org/team/34870&#34;&gt;wr47h&lt;/a&gt;). I recently joined &lt;a href=&#34;https://ctftime.org/team/72103&#34;&gt;Abs0lut3Pwn4g3&lt;/a&gt;, currently the 8th ranked CTF team in India. I also enjoy writing, reading and competitive coding.&lt;/p&gt;
-</description>
-    </item>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Mon, 01 Jun 2020 12:32:46 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>Authors</title>
+      <link>/authors/</link>
+    </image>
     
   </channel>
 </rss>

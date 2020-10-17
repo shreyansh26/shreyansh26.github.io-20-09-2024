@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>crypto | Shreyansh Singh</title>
+    <link>/tags/crypto/</link>
+      <atom:link href="/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
+    <description>crypto</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Mon, 01 Jun 2020 12:32:46 +0530</lastBuildDate>
+    <image>
+      <url>/img/Shreyansh.jpg</url>
+      <title>crypto</title>
+      <link>/tags/crypto/</link>
+    </image>
+    
+    <item>
+      <title>Androids Encryption (Crypto) - Pwn2Win CTF 2020</title>
+      <link>/post/2020-06-01_androids_encryption-pwn2win-2020/</link>
+      <pubDate>Mon, 01 Jun 2020 12:32:46 +0530</pubDate>
+      <guid>/post/2020-06-01_androids_encryption-pwn2win-2020/</guid>
+      <description>&lt;h3 id=&#34;crypto-115---108-solves&#34;&gt;crypto 115 - 108 solves&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We intercept an algorithm that is used among Androids. There are many hidden variables. Is it possible to recover the message?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Author: andre_smaira&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Server: nc encryption.pwn2.win 1337&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://pwn2.win/NIZKCTF-js/challenges/androids_encryption&#34;&gt;Challenge link&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/files/server.py&#34;&gt;Challenge files&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;On connecting to the challenge service, we are given two options -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; &gt;
+&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Also, in the server.py file, we see there are two functions, &lt;code&gt;enc_plaintext&lt;/code&gt; and &lt;code&gt;enc_flag&lt;/code&gt;. Both these functions call the &lt;code&gt;encrypt&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;enc_plaintext&lt;/code&gt; functions calls &lt;code&gt;encrypt&lt;/code&gt; with the plaintext supplied by the user (encoded in base64), key1 and iv1 (which are secret values) as arguments.&lt;br&gt;
+The &lt;code&gt;enc_flag&lt;/code&gt; fucntion takes as arguments the secret flag and iv2 and key2 which are actually derived from iv1, key1 and the flag.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;iv2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key1, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(iv1)
+key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;encrypt&lt;/code&gt; function returns the base64 encoding of the (iv+ciphertext) string.&lt;/p&gt;
+&lt;h3 id=&#34;exploit&#34;&gt;Exploit&lt;/h3&gt;
+&lt;p&gt;We see that every time &lt;code&gt;encrypt&lt;/code&gt; is called, the key2 and iv2 values are updated. iv2 becomes the AES-ECB decryption of the old iv2 and key2 is now the first block of the ciphertext (since the xor function with one argument simply returns the first block of the argument). So, our goal is now to recover the key2 and iv2 values so we can then reverse the &lt;code&gt;encrypt_flag&lt;/code&gt; function and recover the flag.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; &gt;
+&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;If we call &lt;code&gt;encrypt_flag&lt;/code&gt; (Choice 2) the first time, then the new key2 value will be the first block of the ciphertext. Nnow during this, the iv2 has also been updated but we don&amp;rsquo;t know that value, since the first part of the returned value, is the old iv2.&lt;/p&gt;
+&lt;p&gt;So, what we do next is call the &lt;code&gt;encrypt_flag&lt;/code&gt; (Choice 2) function again, then we get the new iv2 value along with the ciphertext. This means taht now we know the iv2 and the key2 value taht was used to encrypt the flag to obtain the ciphertext. What remains now, is just to reverse the &lt;code&gt;encrypt&lt;/code&gt; function and call it with our values of the ciphertext, key2 and iv2. This will get us the flag.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;decrypt&lt;/code&gt; function can be written as -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(key) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; BLOCK_SIZE, f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid key size&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(iv) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; BLOCK_SIZE, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid IV size&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(txt) &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; BLOCK_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid plaintext size&amp;#39;&lt;/span&gt;
+    bs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(key)
+    blocks &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; to_blocks(txt)
+    ctxt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
+    curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The complete exploit code is shown below -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; base64
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Cipher &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; AES
+
+p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;encryption.pwn2.win&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1337&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+
+BUFF &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;256&lt;/span&gt;
+BLOCK_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;
+key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
+iv2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to_blocks&lt;/span&gt;(txt):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [txt[i&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;BLOCK_SIZE:(i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;BLOCK_SIZE] &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(len(txt)&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;BLOCK_SIZE)]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xor&lt;/span&gt;(b1, b2&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;None):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(b1, list) &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; b2 &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; None:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(set([len(b) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; b1])) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;xor() - Invalid input size&amp;#39;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; all([isinstance(b, bytes) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; b1]), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;xor() - Invalid input type&amp;#39;&lt;/span&gt;
+        x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [len(b) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; b1][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; b1:
+            x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(x, b)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; x
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; isinstance(b1, bytes) &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; isinstance(b2, bytes), &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;xor() - Invalid input type&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; bytes([a &lt;span style=&#34;color:#f92672&#34;&gt;^&lt;/span&gt; b &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; a, b &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; zip(b1, b2)])
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decrypt&lt;/span&gt;(txt, key, iv):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(key) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; BLOCK_SIZE, f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid key size&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(iv) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; BLOCK_SIZE, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid IV size&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; len(txt) &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; BLOCK_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Invalid plaintext size&amp;#39;&lt;/span&gt;
+    bs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; len(key)
+    blocks &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; to_blocks(txt)
+    ctxt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
+    curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;encrypt_flag&lt;/span&gt;(p):
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choice: &amp;#34;&lt;/span&gt;)
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;)
+	x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()
+	y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b64decode(x)
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;], y[&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;:]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;enc_plaintext&lt;/span&gt;(p, plaintext):
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choice: &amp;#34;&lt;/span&gt;)
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;)
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Plaintext: &amp;#34;&lt;/span&gt;)
+	p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(plaintext)
+	x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()
+	y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b64decode(x)
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;], y[&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;:]
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDecoding&lt;/span&gt;(s):
+	y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; base64&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;b64decode(s)
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; y[:&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;], y[&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;:]
+
+iv2_orig, flag_enc_orig &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; encrypt_flag(p)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(iv2_orig)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag_enc_orig)
+
+key2_new &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag_enc_orig))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Key2 :&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; key2_new)
+iv2_new, flag_enc_cipher_new &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; encrypt_flag(p)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;iv2 :&amp;#34;&lt;/span&gt;, iv2_new)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;flag_cipher_new :&amp;#34;&lt;/span&gt;, flag_enc_cipher_new)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(decrypt(flag_enc_cipher_new, key2_new, iv2_new)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Running this, prints the flag - &lt;strong&gt;CTF-BR{kn3W_7h4T_7hEr3_4r3_Pc8C_r3pe471ti0ns?!?}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;And yeah, after reading the flag, I realised it was actually AES in PCBC mode.&lt;/p&gt;
+&lt;hr&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

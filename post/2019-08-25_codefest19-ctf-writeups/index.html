@@ -656,7 +656,7 @@ Welcome to Codefest 19! (Intro Challenge — 100pts) This was the introducto
 </figure>
 
 <p>The hint was in the problem statement. You had to reverse the file to find the flag. A simple one-line script could do it</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">output2.txt</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">wb</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>write(open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">output.txt</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rb</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>read()[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">open(<span style="color:#e6db74">&#34;output2.txt&#34;</span>, <span style="color:#e6db74">&#34;wb&#34;</span>)<span style="color:#f92672">.</span>write(open(<span style="color:#e6db74">&#34;output.txt&#34;</span>, <span style="color:#e6db74">&#34;rb&#34;</span>)<span style="color:#f92672">.</span>read()[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
 </code></pre></div><p>The resulting had some text like</p>
 <blockquote>
 <p>𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ 𝝩𝗵𝙚 𝗳𝒍𝙖𝗴 𝒊𝙨 𝐋𝒊𝐓𝚬𝐫𝚨𝐋﹏𝕽𝜠𝓥Ｅℜ𝕊𝐢𝙣𝓖ꓸ</p>
@@ -1158,13 +1158,13 @@ Welcome to Codefest 19! (Intro Challenge — 100pts) This was the introducto
   <div class="media author-card content-widget-hr">
     
       
-      <img class="portrait mr-3" src="/authors/admin/avatar_huf7b68353d7bcc081ff7af0a8e00b9689_37035_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+      <img class="portrait mr-3" src="/authors/admin/avatar_huf5174f5dbe5058e60bb779cc52d8dfeb_1423398_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
     
 
     <div class="media-body">
       <h5 class="card-title"><a href="/">Shreyansh Singh</a></h5>
-      <h6 class="card-subtitle">Senior Undergraduate in Computer Science and Engineering</h6>
-      <p class="card-text">My research interests include information security, specially binary analysis and also application of Machine Learning in security.</p>
+      <h6 class="card-subtitle">AI Software Engineer</h6>
+      <p class="card-text">My research interests include information security, especially binary analysis and also the application of Machine Learning in security.</p>
       <ul class="network-icon" aria-hidden="true">
   
     
