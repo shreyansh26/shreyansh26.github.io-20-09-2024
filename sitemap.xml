@@ -3,17 +3,62 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/2020-06-01_androids_encryption-pwn2win-2020/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/authors/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/deployment/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/machine-learning/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ml/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-11-30_fast_api_docker_ml_deploy/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/shreyansh-singh/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/web/</loc>
+    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-06-01_androids_encryption-pwn2win-2020/</loc>
     <lastmod>2020-06-01T12:32:46+05:30</lastmod>
   </url>
   
@@ -29,26 +74,6 @@
   
   <url>
     <loc>/tags/infosec/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/shreyansh-singh/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-06-01T12:32:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-06-01T12:32:46+05:30</lastmod>
   </url>
   

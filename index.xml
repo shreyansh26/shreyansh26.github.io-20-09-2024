@@ -5,12 +5,201 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Mon, 01 Jun 2020 12:32:46 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2020</copyright><lastBuildDate>Mon, 30 Nov 2020 11:21:53 +0530</lastBuildDate>
     <image>
       <url>/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>/</link>
     </image>
+    
+    <item>
+      <title>Quick tutorial to deploy your ML models using FastAPI and Docker</title>
+      <link>/post/2020-11-30_fast_api_docker_ml_deploy/</link>
+      <pubDate>Mon, 30 Nov 2020 11:21:53 +0530</pubDate>
+      <guid>/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
+      <description>&lt;p&gt;The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using &lt;a href=&#34;https://fastapi.tiangolo.com/&#34;&gt;FastAPI&lt;/a&gt; and also be able to ship it using &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sepal Length&lt;/li&gt;
+&lt;li&gt;Sepal Width&lt;/li&gt;
+&lt;li&gt;Petal Length&lt;/li&gt;
+&lt;li&gt;Petal Width&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These lengths are in cm, and these fields are used to predict the type of the Iris, among 3 categories - Setosa, Versicolour and Virginica.&lt;/p&gt;
+&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;
+&lt;p&gt;Given below is the outline of the files and location of the files so that it is easier for one to follow the tutorial.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ml-deployment/
+│   .gitignore
+│   Dockerfile
+│   logs.log
+│   README.md
+│   request.py
+│   requirements.txt
+│   server.py
+│
+├───models
+        iris.py
+        model.pkl
+        model.py
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;model-training&#34;&gt;Model Training&lt;/h2&gt;
+&lt;p&gt;Since the goal here is just to make a POC deployment, we make a very simple model trained on the Iris dataset. Some very basic knowledge of Scikit-learn libraries will be needed to understnad the code.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/fcb121e5c428895be24e58edec1c3ebe.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The model is saved in a pickle format. We will load the saved model to do predictions later.&lt;/p&gt;
+&lt;p&gt;Now, along with this, we have to ensure that when the API will receive the paprameters, it recieves them in a proper format, for example, a list of lists in which each list has 4 float values for the features.&lt;/p&gt;
+&lt;p&gt;For that we use &lt;a href=&#34;https://github.com/samuelcolvin/pydantic&#34;&gt;Pydantic&lt;/a&gt;.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/f45af7bad35c6c75cc695dd8f209c2c7.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;creating-the-api&#34;&gt;Creating the API&lt;/h2&gt;
+&lt;p&gt;As mentioned earlier, we use FastAPI to make our API. From the website -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It also claims to have &lt;em&gt;Very high performance, on par with NodeJS and Go (thanks to Starlette and Pydantic). One of the fastest Python frameworks available.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The whole code is given below, I&amp;rsquo;ll explain the details below as well.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/3ccaafb643fb1d387137550c715610cc.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Here, we define the name of our app.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;app &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FastAPI(title&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Iris Classifier API&amp;#34;&lt;/span&gt;, description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;API for Iris classification using ML&amp;#34;&lt;/span&gt;, version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next, we set up loggong for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Initialize logging&lt;/span&gt;
+my_logger &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getLogger()
+my_logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG)
+logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG, filename&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;logs.log&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then we use a FastAPI decorator called &lt;code&gt;@app.on_event(&amp;quot;startup&amp;quot;)&lt;/code&gt; to specify the operation which we want to perform when the server starts up. Here we load our model so that once the model is loaded in the initial phase, the predictions can be served as fast as possible.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.on_event&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;startup&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;load_model&lt;/span&gt;():
+    model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pickle&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load(open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;models/model.pkl&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rb&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, our main logic of serving the predictions -&lt;/p&gt;
+&lt;p&gt;We get the data that the API receives from the server and require it to be in the &lt;code&gt;Iris&lt;/code&gt; format, which we specified using Pydantic.&lt;/p&gt;
+&lt;p&gt;We run the model on those examples, get the predictions and then map them to the flower type. The classification and the model probability of the prediction is returned as a JSON response.&lt;/p&gt;
+&lt;p&gt;We have a try-catch blog to make ensure any wrong input format or any other kinds of errors does not break the server.&lt;/p&gt;
+&lt;h2 id=&#34;lets-see-it-in-action&#34;&gt;Let&amp;rsquo;s see it in action&lt;/h2&gt;
+&lt;p&gt;The FastAPI provides a dashboard from where we send requests to the API. It is at &lt;code&gt;http://localhost:8000/docs&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
+&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Sending sample request to FastAPI
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
+&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Response from FastAPI
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;dockerise-everything&#34;&gt;Dockerise Everything!&lt;/h2&gt;
+&lt;p&gt;So now, if we have to ship it, we want to convert it into a Docker image.&lt;/p&gt;
+&lt;p&gt;For that we create a Dockerfile.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/f4d7a32e2790b32a8f18dbcb583cc817.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Basically , first we install the requirements (Python packages) we run the app on port 8000 in the Docker container, and expose that port to access it from our local machine.&lt;/p&gt;
+&lt;p&gt;Now, it is bascially just two commands -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker build -t iris-ml .
+$ docker run -d -p 8000:8000 --name iris-api iris-ml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The requirements.txt gor the project are also listed below -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;numpy==1.18.4
+pydantic==1.6.1
+requests==2.24.0
+fastapi==0.61.1
+scikit_learn==0.23.2
+uvicorn==0.11.8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now you can head to &lt;a href=&#34;%5Bhttp://localhost:8000/docs%5D&#34;&gt;http://localhost:8000/docs&lt;/a&gt; to test the API.&lt;/p&gt;
+&lt;p&gt;If you see something the dashboard and the responses similar to the screenhots above, you have most likely deployd it successfully.&lt;/p&gt;
+&lt;h3 id=&#34;congratulations&#34;&gt;Congratulations!!&lt;/h3&gt;
+&lt;p&gt;Now that you have the Docker image, the entire environment can be recreated on any other machine. You can push the image to DockerHub (&lt;a href=&#34;https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html&#34;&gt;refer here&lt;/a&gt;) or export as a &lt;a href=&#34;https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository&#34;&gt;tar file&lt;/a&gt; to share to another host.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;The entire code is also available on my Github - &lt;a href=&#34;https://github.com/shreyansh26/Weekend-Projects/tree/master/MLDeployment/v1&#34;&gt;https://github.com/shreyansh26/Weekend-Projects/tree/master/MLDeployment/v1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;/p&gt;
+&lt;p&gt;This is all for now. I will also be writing about few other approaches to deploy relatively heavier models and also scalable approaches to Model hosting. Thanks for reading!&lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Androids Encryption (Crypto) - Pwn2Win CTF 2020</title>
