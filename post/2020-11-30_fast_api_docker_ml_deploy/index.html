@@ -613,7 +613,7 @@ This method does not scale well as it does not support caching and cannot handle
 <script type="application/javascript" src="https://gist.github.com/shreyansh26/fcb121e5c428895be24e58edec1c3ebe.js"></script>
 
 <p>The model is saved in a pickle format. We will load the saved model to do predictions later.</p>
-<p>Now, along with this, we have to ensure that when the API will receive the paprameters, it recieves them in a proper format, for example, a list of lists in which each list has 4 float values for the features.</p>
+<p>Now, along with this, we have to ensure that when the API will receive the paprameters, it receives them in a proper format, for example, a list of lists in which each list has 4 float values for the features.</p>
 <p>For that we use <a href="https://github.com/samuelcolvin/pydantic">Pydantic</a>.</p>
 <script type="application/javascript" src="https://gist.github.com/shreyansh26/f45af7bad35c6c75cc695dd8f209c2c7.js"></script>
 
@@ -628,7 +628,7 @@ This method does not scale well as it does not support caching and cannot handle
 
 <p>Here, we define the name of our app.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">app <span style="color:#f92672">=</span> FastAPI(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Iris Classifier API&#34;</span>, description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;API for Iris classification using ML&#34;</span>, version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>)
-</code></pre></div><p>Next, we set up loggong for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.</p>
+</code></pre></div><p>Next, we set up logging for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Initialize logging</span>
 my_logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger()
 my_logger<span style="color:#f92672">.</span>setLevel(logging<span style="color:#f92672">.</span>DEBUG)
@@ -706,11 +706,11 @@ logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#
 <p>For that we create a Dockerfile.</p>
 <script type="application/javascript" src="https://gist.github.com/shreyansh26/f4d7a32e2790b32a8f18dbcb583cc817.js"></script>
 
-<p>Basically , first we install the requirements (Python packages) we run the app on port 8000 in the Docker container, and expose that port to access it from our local machine.</p>
-<p>Now, it is bascially just two commands -</p>
-<pre><code>$ docker build -t iris-ml .
-$ docker run -d -p 8000:8000 --name iris-api iris-ml
-</code></pre><p>The requirements.txt gor the project are also listed below -</p>
+<p>Basically, the Dockerfile instructs Docker to first create a <code>/app</code> folder inside the Docker <strong>python3.8</strong> base image, install the requirements (Python packages) and then run the app on port 8000 in the Docker container, and expose that port to access it from our local machine.</p>
+<p>Now, we just have to run two commands -</p>
+<pre><code>$ docker build -t iris-ml .  # Build the Docker image
+$ docker run -d -p 8000:8000 --name iris-api iris-ml   # Run the Docker image as container
+</code></pre><p>The requirements.txt for the project are also listed below -</p>
 <pre><code>numpy==1.18.4
 pydantic==1.6.1
 requests==2.24.0
@@ -718,7 +718,7 @@ fastapi==0.61.1
 scikit_learn==0.23.2
 uvicorn==0.11.8
 </code></pre><p>Now you can head to <a href="%5Bhttp://localhost:8000/docs%5D">http://localhost:8000/docs</a> to test the API.</p>
-<p>If you see something the dashboard and the responses similar to the screenhots above, you have most likely deployd it successfully.</p>
+<p>If you see the dashboard and the responses similar to the screenshots above, you have most likely deployed it successfully.</p>
 <h3 id="congratulations">Congratulations!!</h3>
 <p>Now that you have the Docker image, the entire environment can be recreated on any other machine. You can push the image to DockerHub (<a href="https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html">refer here</a>) or export as a <a href="https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository">tar file</a> to share to another host.</p>
 <hr>
