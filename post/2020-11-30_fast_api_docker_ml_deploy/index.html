@@ -29,7 +29,7 @@
     
   
   <meta name="description" content="The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using FastAPI and also be able to ship it using Docker.
-This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon">
+This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/2020-11-30_fast_api_docker_ml_deploy/">
@@ -76,7 +76,7 @@ This method does not scale well as it does not support caching and cannot handle
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7COpen+Sans&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
   
 
   
@@ -153,7 +153,7 @@ This method does not scale well as it does not support caching and cannot handle
   <meta property="og:url" content="/post/2020-11-30_fast_api_docker_ml_deploy/">
   <meta property="og:title" content="Quick tutorial to deploy your ML models using FastAPI and Docker | Shreyansh Singh">
   <meta property="og:description" content="The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using FastAPI and also be able to ship it using Docker.
-This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon"><meta property="og:image" content="/post/2020-11-30_fast_api_docker_ml_deploy/featured.png">
+This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon."><meta property="og:image" content="/post/2020-11-30_fast_api_docker_ml_deploy/featured.png">
   <meta property="twitter:image" content="/post/2020-11-30_fast_api_docker_ml_deploy/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -209,7 +209,7 @@ This method does not scale well as it does not support caching and cannot handle
       "url": "/img/shreyansh-icon-512.png"
     }
   },
-  "description": "The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using FastAPI and also be able to ship it using Docker.\nThis method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon"
+  "description": "The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using FastAPI and also be able to ship it using Docker.\nThis method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon."
 }
 </script>
 
@@ -584,7 +584,7 @@ This method does not scale well as it does not support caching and cannot handle
 
     <div class="article-style">
       <p>The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using <a href="https://fastapi.tiangolo.com/">FastAPI</a> and also be able to ship it using <a href="https://www.docker.com/">Docker</a>.</p>
-<p><em>This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon</em></p>
+<p><em>This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.</em></p>
 <p>In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -</p>
 <ul>
 <li>Sepal Length</li>
@@ -609,7 +609,7 @@ This method does not scale well as it does not support caching and cannot handle
         model.pkl
         model.py
 </code></pre><h2 id="model-training">Model Training</h2>
-<p>Since the goal here is just to make a POC deployment, we make a very simple model trained on the Iris dataset. Some very basic knowledge of Scikit-learn libraries will be needed to understnad the code.</p>
+<p>Since the goal here is just to make a POC deployment, we make a very simple model trained on the Iris dataset. Some very basic knowledge of Scikit-learn libraries will be needed to understand the code.</p>
 <script type="application/javascript" src="https://gist.github.com/shreyansh26/fcb121e5c428895be24e58edec1c3ebe.js"></script>
 
 <p>The model is saved in a pickle format. We will load the saved model to do predictions later.</p>
@@ -937,6 +937,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   
   
   <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2021-01-25_deep_learning_in_the_browser/" rel="next">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
     <a href="/post/2020-06-01_androids_encryption-pwn2win-2020/" rel="prev">Androids Encryption (Crypto) - Pwn2Win CTF 2020</a>
   </div>
@@ -979,6 +986,8 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
         
       
 
@@ -1076,7 +1085,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   
 
   <p class="powered-by">
-    © Shreyansh Singh 2020 &middot; 
+    © Shreyansh Singh 2021 &middot; 
 
     Powered by 
     

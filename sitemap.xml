@@ -4,22 +4,62 @@
   
   <url>
     <loc>/authors/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/deep-learning/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2021-01-25_deep_learning_in_the_browser/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>/tags/deployment/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/machine-learning/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/shreyansh-singh/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/web/</loc>
+    <lastmod>2021-01-25T12:53:13+05:30</lastmod>
   </url>
   
   <url>
@@ -28,32 +68,7 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/2020-11-30_fast_api_docker_ml_deploy/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/shreyansh-singh/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-11-30T11:21:53+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/web/</loc>
     <lastmod>2020-11-30T11:21:53+05:30</lastmod>
   </url>
   
@@ -148,11 +163,6 @@
   </url>
   
   <url>
-    <loc>/tags/deep-learning/</loc>
-    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/differential-privacy/</loc>
     <lastmod>2019-11-25T17:53:33+05:30</lastmod>
   </url>
@@ -194,11 +204,6 @@
   
   <url>
     <loc>/tags/deep-learing/</loc>
-    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/machine-learning/</loc>
     <lastmod>2019-05-05T17:28:30+05:30</lastmod>
   </url>
   
