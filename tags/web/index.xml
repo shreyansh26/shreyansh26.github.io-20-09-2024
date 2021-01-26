@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web | Shreyansh Singh</title>
-    <link>/tags/web/</link>
-      <atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/web/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
     <description>web</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 25 Jan 2021 12:53:13 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>web</title>
-      <link>/tags/web/</link>
+      <link>https://shreyansh26.github.io/tags/web/</link>
     </image>
     
     <item>
       <title>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</title>
-      <link>/post/2021-01-25_deep_learning_in_the_browser/</link>
+      <link>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</link>
       <pubDate>Mon, 25 Jan 2021 12:53:13 +0530</pubDate>
-      <guid>/post/2021-01-25_deep_learning_in_the_browser/</guid>
-      <description>&lt;p&gt;After my &lt;a href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy&#34;&gt;last post&lt;/a&gt; on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.&lt;/p&gt;
+      <guid>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</guid>
+      <description>&lt;p&gt;After my &lt;a href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy&#34;&gt;last post&lt;/a&gt; on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.&lt;/p&gt;
 &lt;p&gt;In this tutorial I will be giving an overview of three frameworks, &lt;a href=&#34;https://www.tensorflow.org/js&#34;&gt;Tensorflow.js&lt;/a&gt;, &lt;a href=&#34;https://mil-tokyo.github.io/webdnn/&#34;&gt;WebDNN&lt;/a&gt; and &lt;a href=&#34;https://microsoft.github.io/onnxjs-demo/#/&#34;&gt;ONNX.js&lt;/a&gt;. I will be a deploying a simple pretrained image classification model (ResNet or Mobilenet) on the three frameworks and also tell you the comparsion between them. In this tutorial, I haven&amp;rsquo;t deployed custom models of my own but I will be explaining how you can do it and the difficulties you could encounter.&lt;/p&gt;
 &lt;p&gt;The goal of this blog post is to introduce the three frameworks and how you can use them for deploying your models as well. Personally, I had not heard of WebDNN and ONNX.js before diving into this project, so I believe it can help some others like me to get familiar with these frameworks.&lt;/p&gt;
 &lt;h2 id=&#34;tensorflowjs&#34;&gt;Tensorflow.js&lt;/h2&gt;
@@ -47,8 +47,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; data-caption=&#34;Image loading and prediction&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; data-caption=&#34;Image loading and prediction&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -109,8 +109,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; data-caption=&#34;WebDNN model conversion flow&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; data-caption=&#34;WebDNN model conversion flow&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -147,8 +147,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; data-caption=&#34;WebDNN predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; data-caption=&#34;WebDNN predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -193,7 +193,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;With ONNX.js, web developers can score pre-trained ONNX models directly on browsers with various benefits of reducing server-client communication and protecting user privacy, as well as offering install-free and cross-platform in-browser ML experience.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;With ONNX.js, I used a pretrained &lt;a href=&#34;/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx&#34;&gt;ResNet50 model&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With ONNX.js, I used a pretrained &lt;a href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx&#34;&gt;ResNet50 model&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Loading the model is similar -&lt;/p&gt;
 &lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/07658e9b0b4dc759fb4f081cd9ea7b78.js&#34;&gt;&lt;/script&gt;
 
@@ -220,8 +220,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -249,8 +249,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -286,7 +286,7 @@
 &lt;p&gt;The best part about ONNX is that it is an open standard and allows easy conversion of models made in different frameworks to a &lt;code&gt;.onnx&lt;/code&gt; model. I would suggest going through &lt;a href=&#34;https://github.com/onnx/tutorials&#34;&gt;this tutorial&lt;/a&gt; for this.&lt;/p&gt;
 &lt;p&gt;The code for this section is present &lt;a href=&#34;https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/ONNX&#34;&gt;on my Github&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-end&#34;&gt;The End&lt;/h2&gt;
-&lt;p&gt;That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a broilerplate for setting up webapps of your own for deploying ML models using these frameworks.&lt;/p&gt;
+&lt;p&gt;That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a boilerplate for setting up webapps of your own for deploying ML models using these frameworks.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
@@ -333,9 +333,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>Quick tutorial to deploy your ML models using FastAPI and Docker</title>
-      <link>/post/2020-11-30_fast_api_docker_ml_deploy/</link>
+      <link>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</link>
       <pubDate>Mon, 30 Nov 2020 11:21:53 +0530</pubDate>
-      <guid>/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
       <description>&lt;p&gt;The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using &lt;a href=&#34;https://fastapi.tiangolo.com/&#34;&gt;FastAPI&lt;/a&gt; and also be able to ship it using &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -&lt;/p&gt;
@@ -412,8 +412,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -441,8 +441,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   

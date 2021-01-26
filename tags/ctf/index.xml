@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ctf | Shreyansh Singh</title>
-    <link>/tags/ctf/</link>
-      <atom:link href="/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/ctf/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <description>ctf</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 15 Dec 2019 11:44:06 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>ctf</title>
-      <link>/tags/ctf/</link>
+      <link>https://shreyansh26.github.io/tags/ctf/</link>
     </image>
     
     <item>
       <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn)</title>
-      <link>/post/2019-12-15_watevr-ctf-2019-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/</link>
       <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/post/2019-12-15_watevr-ctf-2019-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/</guid>
       <description>&lt;p&gt;This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, &lt;a href=&#34;https://ctftime.org/team/72103&#34;&gt;Abs0lut3Pwn4g3&lt;/a&gt;. Our final rank was 54th.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;rev-challeneges&#34;&gt;Rev Challeneges&lt;/h1&gt;
 &lt;h2 id=&#34;timeout&#34;&gt;Timeout&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout&#34;&gt;timeout&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout&#34;&gt;timeout&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.&lt;/p&gt;
 
 
@@ -39,8 +39,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -63,8 +63,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -74,7 +74,7 @@
 &lt;p&gt;We get the flag - &lt;strong&gt;watevr{3ncrytion_is_overrated_youtube.com/watch?v=OPf0YbXqDm0}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;hacking-for-vodka&#34;&gt;Hacking For Vodka&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka&#34;&gt;vodka&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka&#34;&gt;vodka&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The binary has different functionalities when run normally and when run in a debugger. We know this because of the &lt;em&gt;ptrace&lt;/em&gt; call.&lt;/p&gt;
 
 
@@ -92,8 +92,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -117,8 +117,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -129,7 +129,7 @@
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;esrever&#34;&gt;esreveR&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever&#34;&gt;esrever&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever&#34;&gt;esrever&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was a very fun challenge. When we open the binary, we see that the main function is heavily obfuscated. Not obfuscated in the true sense, but a lot is going on. For those using Ghidra, FUN_001018f3 is the main function. We see a lot of variables and a whole lot of precomputation. It is as late as in the 174th line that there is an fgets call to take our input.&lt;/p&gt;
 
 
@@ -147,8 +147,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -173,8 +173,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -184,7 +184,7 @@
 &lt;p&gt;Tha flag was - &lt;strong&gt;watevr{esrever_reversed_youtube.com/watch?v=I8ijb4Zee5E}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;watshell&#34;&gt;watshell&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell&#34;&gt;watshell&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell&#34;&gt;watshell&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In this problem, we have to send an input to the service, which will be decrypted, checked against a fixed string - &amp;ldquo;give_me_the_flag_please&amp;rdquo;, and only then do we get the flag.&lt;/p&gt;
 &lt;p&gt;So, I started at the main function FUN_0010178b. Again like, the first problem, Timeout, there are a few inital timeout checks, which I patched. There is some precomputation being done before we enter our input.&lt;/p&gt;
 
@@ -203,8 +203,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -236,8 +236,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -311,7 +311,7 @@
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
 &lt;h2 id=&#34;voting-machine-1&#34;&gt;Voting Machine 1&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze&#34;&gt;kamikaze&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze&#34;&gt;kamikaze&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This is a buffer overflow challenge as gets has been used. There is a function &lt;code&gt;super_secret_function&lt;/code&gt;. We basically have to jump there as it prints the flag. Pretty straightforward.&lt;/p&gt;
 
 
@@ -329,8 +329,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -362,7 +362,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU%7D&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;voting-machine-2&#34;&gt;Voting Machine 2&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This binary had a format string vulnerability, since printf is being used without any format specifiers.&lt;/p&gt;
 
 
@@ -380,8 +380,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -428,7 +428,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;hr&gt;
 &lt;h1 id=&#34;other-categories&#34;&gt;Other categories&lt;/h1&gt;
 &lt;h2 id=&#34;misc---unspaellablle&#34;&gt;Misc - Unspaellablle&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt&#34;&gt;orig.txt&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt&#34;&gt;orig.txt&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We are given a script for an episode of CHILDREN OF THE GODS by Jonathan Glassner &amp;amp; Brad Wright. Initially I had no clue how to proceed, but then I googled this episode and specifically for its transcript.&lt;/p&gt;
 &lt;p&gt;I found it at &lt;a href=&#34;https://www.imsdb.com/transcripts/Stargate-SG1-Children-Of-The-Gods.html&#34;&gt;IMSDb&lt;/a&gt;, and it was in the same format!!!&lt;/p&gt;
 &lt;p&gt;After this it was just a matter of diffing using vimdiff to get the changed characters which was oir flag.&lt;/p&gt;
@@ -448,8 +448,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -508,9 +508,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>TUCTF 2019 - Pwn &amp; Rev Challenges</title>
-      <link>/post/2019-12-02_tuctf-pwn-2019/</link>
+      <link>https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/</link>
       <pubDate>Mon, 02 Dec 2019 19:39:57 +0530</pubDate>
-      <guid>/post/2019-12-02_tuctf-pwn-2019/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/</guid>
       <description>&lt;p&gt;I couldn&amp;rsquo;t give much time to the CTF because of some college work, but I gave a shot at the PWN challenges. The challenges became offline later but I still decided to work on the exploit scripts to make them work locally.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
@@ -532,8 +532,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; data-caption=&#34;Disassembly of main&#34;&gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; data-caption=&#34;Disassembly of main&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/thefirst_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -562,8 +562,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/gef_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -585,8 +585,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/gef_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -632,8 +632,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/shellme32_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -720,8 +720,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/printfun_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -746,8 +746,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/printfun_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -785,8 +785,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -809,8 +809,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -833,8 +833,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/faker_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -913,8 +913,8 @@ printFlag(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;sp
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-02_tuctf-pwn-2019/images/core.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-02_tuctf-pwn-2019/images/core.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/core.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-02_tuctf-pwn-2019/images/core.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -937,9 +937,9 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
     
     <item>
       <title>RITSEC CTF 2019</title>
-      <link>/post/2019-11-19_ritsec-ctf-2019/</link>
+      <link>https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/</link>
       <pubDate>Tue, 19 Nov 2019 17:31:59 +0000</pubDate>
-      <guid>/post/2019-11-19_ritsec-ctf-2019/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/</guid>
       <description>&lt;p&gt;A bit late for writeups, but still here are the solutions to the challenges I solved during the CTF. The CTF was from 15 Nov. 2019, 22:30 IST — Mon, 18 Nov. 2019, 10:30 IST. It was a decent CTF with quality challenges, from both beginner to advanced level.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: The scripts to solve and the flags are present in &lt;a href=&#34;https://github.com/wr47h/CTF-Writeups/tree/master/2019/RITSEC%20CTF%202019&#34;&gt;this repo&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I&amp;rsquo;ll do the writeups category-wise -&lt;/p&gt;
@@ -1073,8 +1073,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; data-caption=&#34;Running wget&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; data-caption=&#34;Running wget&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1107,8 +1107,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; data-caption=&#34;The webpage&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; data-caption=&#34;The webpage&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1143,8 +1143,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; data-caption=&#34;The challenge&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1173,8 +1173,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; data-caption=&#34;exiftool output&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; data-caption=&#34;exiftool output&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1218,8 +1218,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; data-caption=&#34;The disassembly for main&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; data-caption=&#34;The disassembly for main&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1249,8 +1249,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(&lt;span styl
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; data-caption=&#34;Character mappings&#34;&gt;
-&lt;img src=&#34;/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; data-caption=&#34;Character mappings&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-11-19_ritsec-ctf-2019/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1318,9 +1318,9 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
     
     <item>
       <title>Codefest’19 CTF Writeups</title>
-      <link>/post/2019-08-25_codefest19-ctf-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/</link>
       <pubDate>Sun, 25 Aug 2019 19:13:05 +0000</pubDate>
-      <guid>/post/2019-08-25_codefest19-ctf-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/</guid>
       <description>&lt;p&gt;The Capture the Flag event for &lt;a href=&#34;http://codefest.tech&#34;&gt;Codefest’19&lt;/a&gt; was hosted from 8 pm, 23rd August 2019 to 12 noon, 24th August 2019 on Hackerrank.&lt;/p&gt;
 &lt;p&gt;The contest link can be found &lt;a href=&#34;https://www.hackerrank.com/codefest19-ctf&#34;&gt;here&lt;/a&gt;. There were a total of &lt;strong&gt;1532&lt;/strong&gt; registrations and &lt;strong&gt;518&lt;/strong&gt; people who were successful in solving atleast one challenge.&lt;/p&gt;
 &lt;p&gt;So, onto the writeups.&lt;/p&gt;
@@ -1342,8 +1342,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; data-caption=&#34;The challenge&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/13.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1385,8 +1385,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; data-caption=&#34;The challenge&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1425,8 +1425,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; data-caption=&#34;Hex view of the image&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; data-caption=&#34;Hex view of the image&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1458,8 +1458,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; data-caption=&#34;The correct file&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; data-caption=&#34;The correct file&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1495,8 +1495,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; data-caption=&#34;Challenge image&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; data-caption=&#34;Challenge image&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/5.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1529,8 +1529,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; &gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1556,8 +1556,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; data-caption=&#34;The challenge&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; data-caption=&#34;The challenge&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1604,8 +1604,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; data-caption=&#34;You may want to zoom in a bit&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; data-caption=&#34;You may want to zoom in a bit&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1643,8 +1643,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; data-caption=&#34;Decompiled main function&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; data-caption=&#34;Decompiled main function&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1673,8 +1673,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; data-caption=&#34;Decompiled rahasya function&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; data-caption=&#34;Decompiled rahasya function&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1704,8 +1704,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; data-caption=&#34;enc_int data&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; data-caption=&#34;enc_int data&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1733,8 +1733,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; data-caption=&#34;key_int data&#34;&gt;
-&lt;img src=&#34;/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; data-caption=&#34;key_int data&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1785,9 +1785,9 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
     
     <item>
       <title>AngstromCTF Writeups</title>
-      <link>/post/2018-03-23_angstromctf-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/</link>
       <pubDate>Fri, 23 Mar 2018 12:37:04 +0000</pubDate>
-      <guid>/post/2018-03-23_angstromctf-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/</guid>
       <description>&lt;p&gt;These are the writeups to the problems I solved during the AngstromCTF.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;misc&#34;&gt;MISC&lt;/h2&gt;
@@ -1810,8 +1810,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/2.png&#34; data-caption=&#34;Flag-Waldo1&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/2.png&#34; data-caption=&#34;Flag-Waldo1&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1850,8 +1850,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/3.png&#34; data-caption=&#34;Capture&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/3.png&#34; data-caption=&#34;Capture&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1880,8 +1880,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; data-caption=&#34;Flag — File Transfer&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; data-caption=&#34;Flag — File Transfer&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/4.jpeg&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1913,8 +1913,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/5.png&#34; data-caption=&#34;Flag — Gif&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/5.png&#34; data-caption=&#34;Flag — Gif&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1950,8 +1950,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/6.png&#34; data-caption=&#34;Ciphertext&#34;&gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/6.png&#34; data-caption=&#34;Ciphertext&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -2020,8 +2020,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/7.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/7.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/7.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2052,8 +2052,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/8.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/8.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/8.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2075,8 +2075,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/9.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/9.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/9.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2099,8 +2099,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/10.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/10.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/10.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2129,8 +2129,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/11.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/11.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2161,8 +2161,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/12.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/12.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2188,8 +2188,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; &gt;
-&lt;img src=&#34;/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/13.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-03-23_angstromctf-writeups/images/13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -2207,9 +2207,9 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
     
     <item>
       <title>NeverLAN CTF 2018 Writeups</title>
-      <link>/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
       <pubDate>Tue, 27 Feb 2018 08:55:58 +0000</pubDate>
-      <guid>/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
       <description>&lt;p&gt;These are the writeups of the problems I solved over the weekend for the NeverLAN CTF 2018.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;scripting-challenges&#34;&gt;&lt;strong&gt;Scripting Challenges&lt;/strong&gt;&lt;/h3&gt;
@@ -2232,8 +2232,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -2283,8 +2283,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -2338,8 +2338,8 @@ f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   

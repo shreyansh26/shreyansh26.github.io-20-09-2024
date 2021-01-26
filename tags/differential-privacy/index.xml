@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>differential privacy | Shreyansh Singh</title>
-    <link>/tags/differential-privacy/</link>
-      <atom:link href="/tags/differential-privacy/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/differential-privacy/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/differential-privacy/index.xml" rel="self" type="application/rss+xml" />
     <description>differential privacy</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 25 Nov 2019 17:53:33 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>differential privacy</title>
-      <link>/tags/differential-privacy/</link>
+      <link>https://shreyansh26.github.io/tags/differential-privacy/</link>
     </image>
     
     <item>
       <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
-      <link>/project/privacy-ml/</link>
+      <link>https://shreyansh26.github.io/project/privacy-ml/</link>
       <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
-      <guid>/project/privacy-ml/</guid>
+      <guid>https://shreyansh26.github.io/project/privacy-ml/</guid>
       <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
 </description>
     </item>

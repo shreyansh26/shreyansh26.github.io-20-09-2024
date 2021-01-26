@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>crypto | Shreyansh Singh</title>
-    <link>/tags/crypto/</link>
-      <atom:link href="/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/crypto/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
     <description>crypto</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 01 Jun 2020 12:32:46 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>crypto</title>
-      <link>/tags/crypto/</link>
+      <link>https://shreyansh26.github.io/tags/crypto/</link>
     </image>
     
     <item>
       <title>Androids Encryption (Crypto) - Pwn2Win CTF 2020</title>
-      <link>/post/2020-06-01_androids_encryption-pwn2win-2020/</link>
+      <link>https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/</link>
       <pubDate>Mon, 01 Jun 2020 12:32:46 +0530</pubDate>
-      <guid>/post/2020-06-01_androids_encryption-pwn2win-2020/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/</guid>
       <description>&lt;h3 id=&#34;crypto-115---108-solves&#34;&gt;crypto 115 - 108 solves&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;We intercept an algorithm that is used among Androids. There are many hidden variables. Is it possible to recover the message?&lt;/p&gt;
@@ -28,7 +28,7 @@
 &lt;p&gt;Server: nc encryption.pwn2.win 1337&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://pwn2.win/NIZKCTF-js/challenges/androids_encryption&#34;&gt;Challenge link&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/files/server.py&#34;&gt;Challenge files&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/files/server.py&#34;&gt;Challenge files&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;On connecting to the challenge service, we are given two options -&lt;/p&gt;
 
 
@@ -46,8 +46,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -77,8 +77,8 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 

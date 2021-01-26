@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>adversarial machine learning | Shreyansh Singh</title>
-    <link>/tags/adversarial-machine-learning/</link>
-      <atom:link href="/tags/adversarial-machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/adversarial-machine-learning/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/adversarial-machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>adversarial machine learning</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 05 May 2019 17:28:30 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>adversarial machine learning</title>
-      <link>/tags/adversarial-machine-learning/</link>
+      <link>https://shreyansh26.github.io/tags/adversarial-machine-learning/</link>
     </image>
     
     <item>
       <title>Network Intrusion Detection in an Adversarial setting</title>
-      <link>/project/nids/</link>
+      <link>https://shreyansh26.github.io/project/nids/</link>
       <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
-      <guid>/project/nids/</guid>
+      <guid>https://shreyansh26.github.io/project/nids/</guid>
       <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
 </description>
     </item>

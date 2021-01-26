@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>django | Shreyansh Singh</title>
-    <link>/tags/django/</link>
-      <atom:link href="/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/django/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/django/index.xml" rel="self" type="application/rss+xml" />
     <description>django</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Fri, 20 Oct 2017 18:14:20 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>django</title>
-      <link>/tags/django/</link>
+      <link>https://shreyansh26.github.io/tags/django/</link>
     </image>
     
     <item>
       <title>Worldlink - Social Networking Website</title>
-      <link>/project/worldlink/</link>
+      <link>https://shreyansh26.github.io/project/worldlink/</link>
       <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
-      <guid>/project/worldlink/</guid>
+      <guid>https://shreyansh26.github.io/project/worldlink/</guid>
       <description>&lt;p&gt;Created a social networking website (webapp) using the Django framework as a part of my curriculum
 project.&lt;/p&gt;
 &lt;p&gt;Implemented features like user authentication, profile creation and edit options, posts/blogs creation,

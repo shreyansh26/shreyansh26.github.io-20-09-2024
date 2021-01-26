@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>reverse engineering | Shreyansh Singh</title>
-    <link>/tags/reverse-engineering/</link>
-      <atom:link href="/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/reverse-engineering/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
     <description>reverse engineering</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Thu, 03 Jan 2019 18:07:13 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>reverse engineering</title>
-      <link>/tags/reverse-engineering/</link>
+      <link>https://shreyansh26.github.io/tags/reverse-engineering/</link>
     </image>
     
     <item>
       <title>Linux Malware detection using Machine Learning</title>
-      <link>/project/linux-malware/</link>
+      <link>https://shreyansh26.github.io/project/linux-malware/</link>
       <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
-      <guid>/project/linux-malware/</guid>
+      <guid>https://shreyansh26.github.io/project/linux-malware/</guid>
       <description>&lt;p&gt;Implemented various papers on Linux Malware detection, where I analysed the structure of ELF files to determine whether they were malicious or benign. Approaches included the analysis of -&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Symbol Table&lt;/li&gt;

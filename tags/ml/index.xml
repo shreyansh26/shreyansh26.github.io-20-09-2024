@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ml | Shreyansh Singh</title>
-    <link>/tags/ml/</link>
-      <atom:link href="/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/ml/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/ml/index.xml" rel="self" type="application/rss+xml" />
     <description>ml</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 30 Nov 2020 11:21:53 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>ml</title>
-      <link>/tags/ml/</link>
+      <link>https://shreyansh26.github.io/tags/ml/</link>
     </image>
     
     <item>
       <title>Quick tutorial to deploy your ML models using FastAPI and Docker</title>
-      <link>/post/2020-11-30_fast_api_docker_ml_deploy/</link>
+      <link>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</link>
       <pubDate>Mon, 30 Nov 2020 11:21:53 +0530</pubDate>
-      <guid>/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
       <description>&lt;p&gt;The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using &lt;a href=&#34;https://fastapi.tiangolo.com/&#34;&gt;FastAPI&lt;/a&gt; and also be able to ship it using &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -&lt;/p&gt;
@@ -93,8 +93,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -122,8 +122,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   

@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shreyansh Singh</title>
-    <link>/authors/admin/</link>
-      <atom:link href="/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/authors/admin/</link>
+      <atom:link href="https://shreyansh26.github.io/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
-      <link>/authors/admin/</link>
+      <link>https://shreyansh26.github.io/authors/admin/</link>
     </image>
     
   </channel>

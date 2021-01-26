@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shreyansh Singh</title>
-    <link>/authors/shreyansh-singh/</link>
-      <atom:link href="/authors/shreyansh-singh/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
+      <atom:link href="https://shreyansh26.github.io/authors/shreyansh-singh/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 25 Jan 2021 12:53:13 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
-      <link>/authors/shreyansh-singh/</link>
+      <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
     </image>
     
     <item>
       <title>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</title>
-      <link>/post/2021-01-25_deep_learning_in_the_browser/</link>
+      <link>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</link>
       <pubDate>Mon, 25 Jan 2021 12:53:13 +0530</pubDate>
-      <guid>/post/2021-01-25_deep_learning_in_the_browser/</guid>
-      <description>&lt;p&gt;After my &lt;a href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy&#34;&gt;last post&lt;/a&gt; on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.&lt;/p&gt;
+      <guid>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</guid>
+      <description>&lt;p&gt;After my &lt;a href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy&#34;&gt;last post&lt;/a&gt; on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.&lt;/p&gt;
 &lt;p&gt;In this tutorial I will be giving an overview of three frameworks, &lt;a href=&#34;https://www.tensorflow.org/js&#34;&gt;Tensorflow.js&lt;/a&gt;, &lt;a href=&#34;https://mil-tokyo.github.io/webdnn/&#34;&gt;WebDNN&lt;/a&gt; and &lt;a href=&#34;https://microsoft.github.io/onnxjs-demo/#/&#34;&gt;ONNX.js&lt;/a&gt;. I will be a deploying a simple pretrained image classification model (ResNet or Mobilenet) on the three frameworks and also tell you the comparsion between them. In this tutorial, I haven&amp;rsquo;t deployed custom models of my own but I will be explaining how you can do it and the difficulties you could encounter.&lt;/p&gt;
 &lt;p&gt;The goal of this blog post is to introduce the three frameworks and how you can use them for deploying your models as well. Personally, I had not heard of WebDNN and ONNX.js before diving into this project, so I believe it can help some others like me to get familiar with these frameworks.&lt;/p&gt;
 &lt;h2 id=&#34;tensorflowjs&#34;&gt;Tensorflow.js&lt;/h2&gt;
@@ -47,8 +47,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; data-caption=&#34;Image loading and prediction&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; data-caption=&#34;Image loading and prediction&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -109,8 +109,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; data-caption=&#34;WebDNN model conversion flow&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; data-caption=&#34;WebDNN model conversion flow&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -147,8 +147,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; data-caption=&#34;WebDNN predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; data-caption=&#34;WebDNN predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -193,7 +193,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;With ONNX.js, web developers can score pre-trained ONNX models directly on browsers with various benefits of reducing server-client communication and protecting user privacy, as well as offering install-free and cross-platform in-browser ML experience.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;With ONNX.js, I used a pretrained &lt;a href=&#34;/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx&#34;&gt;ResNet50 model&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With ONNX.js, I used a pretrained &lt;a href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx&#34;&gt;ResNet50 model&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Loading the model is similar -&lt;/p&gt;
 &lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/07658e9b0b4dc759fb4f081cd9ea7b78.js&#34;&gt;&lt;/script&gt;
 
@@ -220,8 +220,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -249,8 +249,8 @@
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
-&lt;img src=&#34;/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -286,7 +286,7 @@
 &lt;p&gt;The best part about ONNX is that it is an open standard and allows easy conversion of models made in different frameworks to a &lt;code&gt;.onnx&lt;/code&gt; model. I would suggest going through &lt;a href=&#34;https://github.com/onnx/tutorials&#34;&gt;this tutorial&lt;/a&gt; for this.&lt;/p&gt;
 &lt;p&gt;The code for this section is present &lt;a href=&#34;https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/ONNX&#34;&gt;on my Github&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-end&#34;&gt;The End&lt;/h2&gt;
-&lt;p&gt;That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a broilerplate for setting up webapps of your own for deploying ML models using these frameworks.&lt;/p&gt;
+&lt;p&gt;That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a boilerplate for setting up webapps of your own for deploying ML models using these frameworks.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
@@ -333,9 +333,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>Quick tutorial to deploy your ML models using FastAPI and Docker</title>
-      <link>/post/2020-11-30_fast_api_docker_ml_deploy/</link>
+      <link>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</link>
       <pubDate>Mon, 30 Nov 2020 11:21:53 +0530</pubDate>
-      <guid>/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
       <description>&lt;p&gt;The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using &lt;a href=&#34;https://fastapi.tiangolo.com/&#34;&gt;FastAPI&lt;/a&gt; and also be able to ship it using &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -&lt;/p&gt;
@@ -412,8 +412,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -441,8 +441,8 @@ logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
-&lt;img src=&#34;/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -522,9 +522,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>Androids Encryption (Crypto) - Pwn2Win CTF 2020</title>
-      <link>/post/2020-06-01_androids_encryption-pwn2win-2020/</link>
+      <link>https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/</link>
       <pubDate>Mon, 01 Jun 2020 12:32:46 +0530</pubDate>
-      <guid>/post/2020-06-01_androids_encryption-pwn2win-2020/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/</guid>
       <description>&lt;h3 id=&#34;crypto-115---108-solves&#34;&gt;crypto 115 - 108 solves&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;We intercept an algorithm that is used among Androids. There are many hidden variables. Is it possible to recover the message?&lt;/p&gt;
@@ -536,7 +536,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;Server: nc encryption.pwn2.win 1337&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://pwn2.win/NIZKCTF-js/challenges/androids_encryption&#34;&gt;Challenge link&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/files/server.py&#34;&gt;Challenge files&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/files/server.py&#34;&gt;Challenge files&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;On connecting to the challenge service, we are given two options -&lt;/p&gt;
 
 
@@ -554,8 +554,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/options.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -585,8 +585,8 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-06-01_androids_encryption-pwn2win-2020/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -726,9 +726,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>MalwareTech&#39;s VM1 Reversing Challenge</title>
-      <link>/post/2020-01-04_malwaretech-vm1-challenge/</link>
+      <link>https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/</link>
       <pubDate>Sat, 04 Jan 2020 17:24:28 +0530</pubDate>
-      <guid>/post/2020-01-04_malwaretech-vm1-challenge/</guid>
+      <guid>https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/</guid>
       <description>&lt;p&gt;Get the challenge from &lt;a href=&#34;https://www.malwaretech.com/vm1&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;vm1.exe implements a simple 8-bit virtual machine (VM) to try and stop reverse engineers from retrieving the flag. The VM’s RAM contains the encrypted flag and some bytecode to decrypt it. Can you figure out how the VM works and write your own to decrypt the flag? A copy of the VM’s RAM has been provided in ram.bin (this data is identical to the ram content of the malware’s VM before execution and contains both the custom assembly code and encrypted flag).&lt;/em&gt;&lt;/p&gt;
@@ -757,8 +757,8 @@ Analysis can be done using the free version of IDA Pro (you don’t need the deb
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/start.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -783,8 +783,8 @@ Analysis can be done using the free version of IDA Pro (you don’t need the deb
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/read_memory.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -807,8 +807,8 @@ Analysis can be done using the free version of IDA Pro (you don’t need the deb
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; &gt;
-&lt;img src=&#34;/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-01-04_malwaretech-vm1-challenge/images/evaluate.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -898,9 +898,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>hxp 36C3 CTF Writeups</title>
-      <link>/post/2019-12-30_hxp-36c3-ctf/</link>
+      <link>https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/</link>
       <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
-      <guid>/post/2019-12-30_hxp-36c3-ctf/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/</guid>
       <description>&lt;p&gt;The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of &lt;a href=&#34;https://www.oooverflow.io/dc-ctf-2020-quals/&#34;&gt;DEFCON 2020 CTF&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the &lt;a href=&#34;https://kuchenblech.xyz/&#34;&gt;Junior CTF&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here are the writeups for the challenges I solved.&lt;/p&gt;
@@ -929,8 +929,8 @@ Connection: nc 88.198.154.132 7002&lt;/p&gt;
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -980,8 +980,8 @@ Connection: nc 88.198.154.132 7002&lt;/p&gt;
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1003,7 +1003,7 @@ activated!
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After this, we get the flag - &lt;code&gt;hxp{thx_f0r_4773nd1n6_70d4y}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;xmas_future---rev&#34;&gt;xmas_future - Rev&lt;/h2&gt;
-&lt;p&gt;Files: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Files: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.&lt;/p&gt;
 &lt;p&gt;First I thought of converting the .wasm file into some readable code like in C. I used the official &lt;a href=&#34;https://github.com/WebAssembly/wabt&#34;&gt;WebAssembly binary toolkit (wabt)&lt;/a&gt; for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the &lt;code&gt;check&lt;/code&gt; function, specifically the &lt;code&gt;$hxp2019::check::h578f31d490e10a31&lt;/code&gt; fnction. But it was a lot of code and I couldn&amp;rsquo;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.&lt;/p&gt;
 &lt;p&gt;Opening the html file directly in the browser wasn&amp;rsquo;t loading the js file due to CORS. I copied the folder into my &lt;code&gt;/var/www/html&lt;/code&gt; folder and accessed it from there using localhost.&lt;/p&gt;
@@ -1024,8 +1024,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1048,8 +1048,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1072,8 +1072,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1095,8 +1095,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1108,7 +1108,7 @@ activated!
 &lt;hr&gt;
 &lt;h1 id=&#34;junior-ctf&#34;&gt;Junior CTF&lt;/h1&gt;
 &lt;h2 id=&#34;tracer---forensics&#34;&gt;tracer - Forensics&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/tracer&#34;&gt;file&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/tracer&#34;&gt;file&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The file looks like strace running on some process. I decided to scroll right to the very bottom and saw&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;541   write(1, &amp;quot;\&amp;quot;Flag\&amp;quot;&amp;quot;, 6)           = 6
 541   write(1, &amp;quot; [New] 1L, 24C written&amp;quot;, 22) = 22
@@ -1131,8 +1131,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1143,7 +1143,7 @@ activated!
 &lt;p&gt;The flag was - &lt;code&gt;junior-nanoiswayBETTER!&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;maybe---rev&#34;&gt;maybe - Rev&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/chal1&#34;&gt;chal1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/chal1&#34;&gt;chal1&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We open up the file in Ghidra and head to the main function.&lt;/p&gt;
 
 
@@ -1161,8 +1161,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1186,8 +1186,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1210,8 +1210,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1234,8 +1234,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1307,14 +1307,14 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>watevrCTF 2019 Writeups (Mainly Rev and Pwn)</title>
-      <link>/post/2019-12-15_watevr-ctf-2019-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/</link>
       <pubDate>Sun, 15 Dec 2019 11:44:06 +0530</pubDate>
-      <guid>/post/2019-12-15_watevr-ctf-2019-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/</guid>
       <description>&lt;p&gt;This was a very fun CTF. Kudos to the organizers. I loved the problems, very interesting as well as challenging. I played this CTF with my team, &lt;a href=&#34;https://ctftime.org/team/72103&#34;&gt;Abs0lut3Pwn4g3&lt;/a&gt;. Our final rank was 54th.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;rev-challeneges&#34;&gt;Rev Challeneges&lt;/h1&gt;
 &lt;h2 id=&#34;timeout&#34;&gt;Timeout&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout&#34;&gt;timeout&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/timeout&#34;&gt;timeout&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The binary is unstripped, so we can easily see the main function. The disassembly looks something like this.&lt;/p&gt;
 
 
@@ -1332,8 +1332,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1356,8 +1356,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/timeout_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1367,7 +1367,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;We get the flag - &lt;strong&gt;watevr{3ncrytion_is_overrated_youtube.com/watch?v=OPf0YbXqDm0}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;hacking-for-vodka&#34;&gt;Hacking For Vodka&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka&#34;&gt;vodka&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/vodka&#34;&gt;vodka&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The binary has different functionalities when run normally and when run in a debugger. We know this because of the &lt;em&gt;ptrace&lt;/em&gt; call.&lt;/p&gt;
 
 
@@ -1385,8 +1385,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1410,8 +1410,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vodka_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1422,7 +1422,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;The flag is - &lt;strong&gt;watevr{th4nk5_h4ck1ng_for_s0ju_hackingforsoju.team}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;esrever&#34;&gt;esreveR&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever&#34;&gt;esrever&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/esrever&#34;&gt;esrever&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This was a very fun challenge. When we open the binary, we see that the main function is heavily obfuscated. Not obfuscated in the true sense, but a lot is going on. For those using Ghidra, FUN_001018f3 is the main function. We see a lot of variables and a whole lot of precomputation. It is as late as in the 174th line that there is an fgets call to take our input.&lt;/p&gt;
 
 
@@ -1440,8 +1440,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1466,8 +1466,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/reverse_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1477,7 +1477,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;Tha flag was - &lt;strong&gt;watevr{esrever_reversed_youtube.com/watch?v=I8ijb4Zee5E}&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;watshell&#34;&gt;watshell&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell&#34;&gt;watshell&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/watshell&#34;&gt;watshell&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In this problem, we have to send an input to the service, which will be decrypted, checked against a fixed string - &amp;ldquo;give_me_the_flag_please&amp;rdquo;, and only then do we get the flag.&lt;/p&gt;
 &lt;p&gt;So, I started at the main function FUN_0010178b. Again like, the first problem, Timeout, there are a few inital timeout checks, which I patched. There is some precomputation being done before we enter our input.&lt;/p&gt;
 
@@ -1496,8 +1496,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1529,8 +1529,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/watshell_2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1604,7 +1604,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;hr&gt;
 &lt;h1 id=&#34;pwn-challenges&#34;&gt;Pwn Challenges&lt;/h1&gt;
 &lt;h2 id=&#34;voting-machine-1&#34;&gt;Voting Machine 1&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze&#34;&gt;kamikaze&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze&#34;&gt;kamikaze&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This is a buffer overflow challenge as gets has been used. There is a function &lt;code&gt;super_secret_function&lt;/code&gt;. We basically have to jump there as it prints the flag. Pretty straightforward.&lt;/p&gt;
 
 
@@ -1622,8 +1622,8 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1655,7 +1655,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;strong&gt;watevr{w3ll_th4t_w4s_pr3tty_tr1v1al_anyways_&lt;a href=&#34;https://www.youtube.com/watch?v=Va4aF6rRdqU%7D&#34;&gt;https://www.youtube.com/watch?v=Va4aF6rRdqU}&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;voting-machine-2&#34;&gt;Voting Machine 2&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/kamikaze2&#34;&gt;kamikaze2&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This binary had a format string vulnerability, since printf is being used without any format specifiers.&lt;/p&gt;
 
 
@@ -1673,8 +1673,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/vm2_1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1721,7 +1721,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;hr&gt;
 &lt;h1 id=&#34;other-categories&#34;&gt;Other categories&lt;/h1&gt;
 &lt;h2 id=&#34;misc---unspaellablle&#34;&gt;Misc - Unspaellablle&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt&#34;&gt;orig.txt&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/files/orig.txt&#34;&gt;orig.txt&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We are given a script for an episode of CHILDREN OF THE GODS by Jonathan Glassner &amp;amp; Brad Wright. Initially I had no clue how to proceed, but then I googled this episode and specifically for its transcript.&lt;/p&gt;
 &lt;p&gt;I found it at &lt;a href=&#34;https://www.imsdb.com/transcripts/Stargate-SG1-Children-Of-The-Gods.html&#34;&gt;IMSDb&lt;/a&gt;, and it was in the same format!!!&lt;/p&gt;
 &lt;p&gt;After this it was just a matter of diffing using vimdiff to get the changed characters which was oir flag.&lt;/p&gt;
@@ -1741,8 +1741,8 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-15_watevr-ctf-2019-writeups/images/spell.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -1801,27 +1801,27 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
-      <link>/project/privacy-ml/</link>
+      <link>https://shreyansh26.github.io/project/privacy-ml/</link>
       <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
-      <guid>/project/privacy-ml/</guid>
+      <guid>https://shreyansh26.github.io/project/privacy-ml/</guid>
       <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Network Intrusion Detection in an Adversarial setting</title>
-      <link>/project/nids/</link>
+      <link>https://shreyansh26.github.io/project/nids/</link>
       <pubDate>Sun, 05 May 2019 17:28:30 +0530</pubDate>
-      <guid>/project/nids/</guid>
+      <guid>https://shreyansh26.github.io/project/nids/</guid>
       <description>&lt;p&gt;A study on fooling Machine Learning/Deep Learning based Network Intrusion Detection systems to prevent them from detecting intrusions. We implement various adversarial machine learning attacks on network traffic data and analyze their effect on the accuracy of the model in detecting intrusions.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Linux Malware detection using Machine Learning</title>
-      <link>/project/linux-malware/</link>
+      <link>https://shreyansh26.github.io/project/linux-malware/</link>
       <pubDate>Thu, 03 Jan 2019 18:07:13 +0530</pubDate>
-      <guid>/project/linux-malware/</guid>
+      <guid>https://shreyansh26.github.io/project/linux-malware/</guid>
       <description>&lt;p&gt;Implemented various papers on Linux Malware detection, where I analysed the structure of ELF files to determine whether they were malicious or benign. Approaches included the analysis of -&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Symbol Table&lt;/li&gt;
@@ -1833,9 +1833,9 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     
     <item>
       <title>Multilingual Surface Realization for NLG</title>
-      <link>/project/msr-nlg/</link>
+      <link>https://shreyansh26.github.io/project/msr-nlg/</link>
       <pubDate>Mon, 23 Jul 2018 16:52:28 +0530</pubDate>
-      <guid>/project/msr-nlg/</guid>
+      <guid>https://shreyansh26.github.io/project/msr-nlg/</guid>
       <description>&lt;p&gt;A shared task organized at ACL 2018 (Association for Computational Linguistics, Melbourne, Australia). The task aims to determining the word order and inflecting words from given unordered Universal Dependencies (UD) structures from which word order information has been removed and the tokens have been lemmatized.
 Worked on techniques like Language Modelling and Neural Machine Translation methods to solve the problem of reinflection and correct word order generation.&lt;/p&gt;
 </description>
@@ -1843,17 +1843,17 @@ Worked on techniques like Language Modelling and Neural Machine Translation meth
     
     <item>
       <title>IIT (BHU) Varanasi at MSR-SRST 2018: A Language Model Based Approach for Natural Language Generation</title>
-      <link>/publication/singh-etal-2018-iit/</link>
+      <link>https://shreyansh26.github.io/publication/singh-etal-2018-iit/</link>
       <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
-      <guid>/publication/singh-etal-2018-iit/</guid>
+      <guid>https://shreyansh26.github.io/publication/singh-etal-2018-iit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>NeverLAN CTF 2018 Writeups</title>
-      <link>/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
+      <link>https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/</link>
       <pubDate>Tue, 27 Feb 2018 08:55:58 +0000</pubDate>
-      <guid>/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
+      <guid>https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/</guid>
       <description>&lt;p&gt;These are the writeups of the problems I solved over the weekend for the NeverLAN CTF 2018.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;scripting-challenges&#34;&gt;&lt;strong&gt;Scripting Challenges&lt;/strong&gt;&lt;/h3&gt;
@@ -1876,8 +1876,8 @@ Worked on techniques like Language Modelling and Neural Machine Translation meth
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; data-caption=&#34;File&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1927,8 +1927,8 @@ Worked on techniques like Language Modelling and Neural Machine Translation meth
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; data-caption=&#34;High Detection Ratio AV engines&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -1982,8 +1982,8 @@ Worked on techniques like Language Modelling and Neural Machine Translation meth
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
-&lt;img src=&#34;/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; data-caption=&#34;Wireshark Packets analysis&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2018-02-27_neverlan-ctf-2018-writeups/images/4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
   
@@ -2031,9 +2031,9 @@ Worked on techniques like Language Modelling and Neural Machine Translation meth
     
     <item>
       <title>Review Opinion Diversificatio&amp;shy;n</title>
-      <link>/project/revopid/</link>
+      <link>https://shreyansh26.github.io/project/revopid/</link>
       <pubDate>Mon, 20 Nov 2017 17:15:45 +0530</pubDate>
-      <guid>/project/revopid/</guid>
+      <guid>https://shreyansh26.github.io/project/revopid/</guid>
       <description>&lt;p&gt;Work done as a part of the organizing team of RevOpiD, a shared task organized at IJCNLP 2017 (International Joint Conference on Natural Language Processing, Taipei, Taiwan).
 The task aims to produce a top-k ranking of product reviews which can sufficiently represent the gist of opinions expressed in all the reviews of that product.
 Implemented the official baseline for Subtask-B of the shared task. Also volunteered to annotate gold dataset for the shared task.&lt;/p&gt;
@@ -2042,9 +2042,9 @@ Implemented the official baseline for Subtask-B of the shared task. Also volunte
     
     <item>
       <title>Worldlink - Social Networking Website</title>
-      <link>/project/worldlink/</link>
+      <link>https://shreyansh26.github.io/project/worldlink/</link>
       <pubDate>Fri, 20 Oct 2017 18:14:20 +0530</pubDate>
-      <guid>/project/worldlink/</guid>
+      <guid>https://shreyansh26.github.io/project/worldlink/</guid>
       <description>&lt;p&gt;Created a social networking website (webapp) using the Django framework as a part of my curriculum
 project.&lt;/p&gt;
 &lt;p&gt;Implemented features like user authentication, profile creation and edit options, posts/blogs creation,

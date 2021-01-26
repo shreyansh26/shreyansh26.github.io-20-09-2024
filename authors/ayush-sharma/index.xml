@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ayush Sharma | Shreyansh Singh</title>
-    <link>/authors/ayush-sharma/</link>
-      <atom:link href="/authors/ayush-sharma/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/authors/ayush-sharma/</link>
+      <atom:link href="https://shreyansh26.github.io/authors/ayush-sharma/index.xml" rel="self" type="application/rss+xml" />
     <description>Ayush Sharma</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 01 Jul 2018 00:00:00 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Ayush Sharma</title>
-      <link>/authors/ayush-sharma/</link>
+      <link>https://shreyansh26.github.io/authors/ayush-sharma/</link>
     </image>
     
     <item>
       <title>IIT (BHU) Varanasi at MSR-SRST 2018: A Language Model Based Approach for Natural Language Generation</title>
-      <link>/publication/singh-etal-2018-iit/</link>
+      <link>https://shreyansh26.github.io/publication/singh-etal-2018-iit/</link>
       <pubDate>Sun, 01 Jul 2018 00:00:00 +0530</pubDate>
-      <guid>/publication/singh-etal-2018-iit/</guid>
+      <guid>https://shreyansh26.github.io/publication/singh-etal-2018-iit/</guid>
       <description></description>
     </item>
     

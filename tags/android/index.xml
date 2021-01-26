@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>android | Shreyansh Singh</title>
-    <link>/tags/android/</link>
-      <atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shreyansh26.github.io/tags/android/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <description>android</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 29 Dec 2019 14:06:46 +0530</lastBuildDate>
     <image>
-      <url>/img/Shreyansh.jpg</url>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>android</title>
-      <link>/tags/android/</link>
+      <link>https://shreyansh26.github.io/tags/android/</link>
     </image>
     
     <item>
       <title>hxp 36C3 CTF Writeups</title>
-      <link>/post/2019-12-30_hxp-36c3-ctf/</link>
+      <link>https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/</link>
       <pubDate>Sun, 29 Dec 2019 14:06:46 +0530</pubDate>
-      <guid>/post/2019-12-30_hxp-36c3-ctf/</guid>
+      <guid>https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/</guid>
       <description>&lt;p&gt;The hxp CTF happens every year along with the Chaos Communication Congress (a top security conference). This year was the 36th edition. This CTF is a major CTF, you know this when the CTF has a rating weight of 63.0 on CTFTime. Also, it is one of the qualifier events of &lt;a href=&#34;https://www.oooverflow.io/dc-ctf-2020-quals/&#34;&gt;DEFCON 2020 CTF&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I was playing solo on this one and gave one day to this CTF. I managed to solve 2 problems in the main CTF and 2 in the &lt;a href=&#34;https://kuchenblech.xyz/&#34;&gt;Junior CTF&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here are the writeups for the challenges I solved.&lt;/p&gt;
@@ -45,8 +45,8 @@ Connection: nc 88.198.154.132 7002&lt;/p&gt;
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/manifest.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -96,8 +96,8 @@ Connection: nc 88.198.154.132 7002&lt;/p&gt;
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/codes.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -119,7 +119,7 @@ activated!
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After this, we get the flag - &lt;code&gt;hxp{thx_f0r_4773nd1n6_70d4y}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;xmas_future---rev&#34;&gt;xmas_future - Rev&lt;/h2&gt;
-&lt;p&gt;Files: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Files: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/files.zip&#34;&gt;files.zip&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This challenge is really close to my heart because this was the FIRST time ever I solved a WASM reveresing challenge. I literally had no clue on how to proceed, did a bit of researching and finally worked it out.&lt;/p&gt;
 &lt;p&gt;First I thought of converting the .wasm file into some readable code like in C. I used the official &lt;a href=&#34;https://github.com/WebAssembly/wabt&#34;&gt;WebAssembly binary toolkit (wabt)&lt;/a&gt; for this. I used both the wasm2c and wasm2wat to get readable code. In the C file, there was one interesting function which was being called from the hxp2019.js file, the &lt;code&gt;check&lt;/code&gt; function, specifically the &lt;code&gt;$hxp2019::check::h578f31d490e10a31&lt;/code&gt; fnction. But it was a lot of code and I couldn&amp;rsquo;t make anyting out of it. Then I decided to read few wasm related CTF writeups. I learnt that I could actually use the debugger in the Chrome DevTools to go through it.&lt;/p&gt;
 &lt;p&gt;Opening the html file directly in the browser wasn&amp;rsquo;t loading the js file due to CORS. I copied the folder into my &lt;code&gt;/var/www/html&lt;/code&gt; folder and accessed it from there using localhost.&lt;/p&gt;
@@ -140,8 +140,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -164,8 +164,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -188,8 +188,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -211,8 +211,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/debug4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -224,7 +224,7 @@ activated!
 &lt;hr&gt;
 &lt;h1 id=&#34;junior-ctf&#34;&gt;Junior CTF&lt;/h1&gt;
 &lt;h2 id=&#34;tracer---forensics&#34;&gt;tracer - Forensics&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/tracer&#34;&gt;file&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/tracer&#34;&gt;file&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The file looks like strace running on some process. I decided to scroll right to the very bottom and saw&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;541   write(1, &amp;quot;\&amp;quot;Flag\&amp;quot;&amp;quot;, 6)           = 6
 541   write(1, &amp;quot; [New] 1L, 24C written&amp;quot;, 22) = 22
@@ -247,8 +247,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/vim.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -259,7 +259,7 @@ activated!
 &lt;p&gt;The flag was - &lt;code&gt;junior-nanoiswayBETTER!&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;maybe---rev&#34;&gt;maybe - Rev&lt;/h2&gt;
-&lt;p&gt;File: &lt;a href=&#34;/post/2019-12-30_hxp-36c3-ctf/files/chal1&#34;&gt;chal1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;File: &lt;a href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/files/chal1&#34;&gt;chal1&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We open up the file in Ghidra and head to the main function.&lt;/p&gt;
 
 
@@ -277,8 +277,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/rev11.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -302,8 +302,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re12.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -326,8 +326,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re13.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
@@ -350,8 +350,8 @@ activated!
 &lt;figure&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; &gt;
-&lt;img src=&#34;/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2019-12-30_hxp-36c3-ctf/images/re14.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
 
 
 
