@@ -5,12 +5,331 @@
     <link>https://shreyansh26.github.io/categories/machine-learning/</link>
       <atom:link href="https://shreyansh26.github.io/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Machine Learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 25 Jan 2021 12:53:13 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 18 Apr 2021 16:57:49 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Machine Learning</title>
       <link>https://shreyansh26.github.io/categories/machine-learning/</link>
     </image>
+    
+    <item>
+      <title>Paper Notes #1 - Attention Is All You Need</title>
+      <link>https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/</link>
+      <pubDate>Sun, 18 Apr 2021 16:57:49 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: Attention Is All You Need&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://bit.ly/3aklLFY&#34;&gt;https://bit.ly/3aklLFY&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin&lt;br&gt;
+&lt;strong&gt;Code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/tensorflow/tensor2tensor&#34;&gt;https://github.com/tensorflow/tensor2tensor&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;what&#34;&gt;What?&lt;/h2&gt;
+&lt;p&gt;Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41.0 BLEU. Also beats the existing best results on the WMT 2014 English-to-German translation task with a score of 28.4 BLEU. The training cost is also much less than the best models chosen in the paper (at the time).&lt;/p&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;
+&lt;p&gt;Existing recurrent models like RNNs, LSTMs or GRUs work sequentially. They align the positions to steps in computation time. They generate a sequence of hidden states as a function of the previous hidden state and the input for the current position. But sequential computation has constraints. They are not easily parallelizable which is required when the sequence lengths become large. The Transformer model eschews recurrence and allows for more parallelization and requires less training time to achieve SOTA in the machine translation task.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/arch.PNG&#34; data-caption=&#34;Detailed Transformer Architecture&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Detailed Transformer Architecture
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The model is auto-regressive, it consumes the previously generated symbols as additional input when generating the next.&lt;/p&gt;
+&lt;h3 id=&#34;encoder&#34;&gt;Encoder&lt;/h3&gt;
+&lt;p&gt;The figure above shows just one layer of the encoder on the left. There are &lt;code&gt;N=6&lt;/code&gt; such layers. Each layer has two sub-layers - a multi-head self-attention layer and a position-wise fully connected feed-forward network. &lt;a href=&#34;https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf&#34;&gt;Residual connections&lt;/a&gt; and &lt;a href=&#34;https://arxiv.org/abs/1607.06450&#34;&gt;layer normalization&lt;/a&gt; is used for each sub-layer.&lt;/p&gt;
+&lt;h3 id=&#34;decoder&#34;&gt;Decoder&lt;/h3&gt;
+&lt;p&gt;This also has &lt;code&gt;N=6&lt;/code&gt; stacked layers. The architecture diagram shows one layer of the decoder on the right. Each layer has three sub-layers. Two of them are the same as the encoder. The third layer performs multi-head attention over the output of the encoder stack. This is modified to prevent positions from attending to subsequent positions. Additionally, the output embeddings are also offset by one position. These features ensure that the predictions for a position depend only on the known outputs for positions before it.&lt;/p&gt;
+&lt;h3 id=&#34;attention&#34;&gt;Attention&lt;/h3&gt;
+&lt;p&gt;The paper uses a modified dot product attention, and it is called &amp;ldquo;Scaled Dot Product Attention&amp;rdquo;. Given queries and keys of dimension d&lt;sub&gt;k&lt;/sub&gt; and values of dimension d&lt;sub&gt;v&lt;/sub&gt;, the attention matrix is calculated as shown below.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/attention.PNG&#34; data-caption=&#34;Attention Matrix Calculation&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/attention.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Attention Matrix Calculation
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Since, for large values of d&lt;sub&gt;k&lt;/sub&gt; the dot product grows large in magnitude, it pushes the softmax function into regions where it has extremely small gradients. The scaling of 1/sqrt(d&lt;sub&gt;k&lt;/sub&gt;) is done to avoid the problem of vanishing gradients.&lt;/p&gt;
+&lt;p&gt;Multi-Head attention allows computing this attention in parallel. This helps to focus on different positions. Secondly, it also helps to attend to information from different subspaces due to the more number of attention heads.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/multihead-attention.PNG&#34; data-caption=&#34;Multihead Attention Calculation&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/multihead-attention.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Multihead Attention Calculation
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The paper uses &lt;code&gt;h=8&lt;/code&gt; parallel attention layers or heads. The reduced dimension of each head compensates for the more number of heads and hence the computational cost remains the same as with single-head attention with full dimensionality.&lt;/p&gt;
+&lt;p&gt;Applications of multi-head attention in the paper are given below -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/application-attention.PNG&#34; data-caption=&#34;Application of multi-head attention in the model&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/application-attention.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Application of multi-head attention in the model
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/multihead-attention-fig.PNG&#34; data-caption=&#34;Pictorial representaion of Multi-head attention&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/multihead-attention-fig.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Pictorial representaion of Multi-head attention
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;position-wise-feed-forward-networks&#34;&gt;Position-wise Feed-Forward Networks&lt;/h3&gt;
+&lt;p&gt;The FFN sub-layer shown in the encoder and decoder architecture is a 2-hidden layer FC FNN with a ReLU activation in between.&lt;/p&gt;
+&lt;h3 id=&#34;positional-encodings&#34;&gt;Positional Encodings&lt;/h3&gt;
+&lt;p&gt;Positional encodings are injected (added) to the input embeddings at the bottom of the encoder and decoder stack to add some information about the relative order of the tokens in the sequence. The positional encodings have the same dimension as the input embeddings so that they can be added.
+For position &lt;em&gt;pos&lt;/em&gt; and dimension &lt;em&gt;i&lt;/em&gt; the paper uses the following positional embeddings -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/positional.PNG&#34; data-caption=&#34;Positional Encoding calculation&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/positional.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Positional Encoding calculation
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;This choice allows the model to easily learn by the relative positions. The learned positional embeddings also perform about the same as the sinusoidal version. The sinusoidal version may allow the model to extrapolate to sequence lengths longer than the ones encountered in training.&lt;/p&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/experiments.PNG&#34; data-caption=&#34;Experimental results when varying parameters&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/experiments.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Experimental results when varying parameters
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Form (A), it can be seen that single-head attention is slightly worse than the best setting. The quality also drops off with too many heads.&lt;/li&gt;
+&lt;li&gt;(B) shows that reducing the attention key size &lt;i&gt;d&lt;sub&gt;k&lt;/sub&gt;&lt;/i&gt; hurts model quality.&lt;/li&gt;
+&lt;li&gt;In (C) and (D), it is visible that bigger models are better and dropout helps in avoiding overfitting.&lt;/li&gt;
+&lt;li&gt;(E) shows that sinusoidal positional encoding when replaced with learned positional embeddings also does not lead to a loss in quality&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For the base models, the authors used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals. The big models were averaged over the last 20 checkpoints. Beam search with a beam size of 4 and length penalty α = 0.6. The maximum output length during inference is set to input length +50, but if it is possible, the model terminates early.&lt;/p&gt;
+&lt;p&gt;The performance comparison with the other models is shown below -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/results.PNG&#34; data-caption=&#34;Model performance&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/images/results.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Model performance
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Attention%20Is%20All%20You%20Need.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</title>

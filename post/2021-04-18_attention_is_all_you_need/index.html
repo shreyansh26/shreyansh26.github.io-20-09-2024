@@ -28,11 +28,14 @@
   
     
   
-  <meta name="description" content="After my last post on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.
-In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
+  <meta name="description" content="Paper: Attention Is All You Need
+Link: https://bit.ly/3aklLFY
+Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+Code: https://github.com/tensorflow/tensor2tensor
+ What? Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/">
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/">
 
   
 
@@ -135,7 +138,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
 
-  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/">
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/">
 
   
   
@@ -145,22 +148,25 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   
   
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/featured.png">
   
   <meta property="twitter:site" content="@shreyansh_26">
   <meta property="twitter:creator" content="@shreyansh_26">
   
   <meta property="og:site_name" content="Shreyansh Singh">
-  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/">
-  <meta property="og:title" content="Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js | Shreyansh Singh">
-  <meta property="og:description" content="After my last post on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.
-In this tutorial I will be giving an overview of three frameworks, Tensorflow."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/featured.png">
-  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/featured.png"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/">
+  <meta property="og:title" content="Paper Notes #1 - Attention Is All You Need | Shreyansh Singh">
+  <meta property="og:description" content="Paper: Attention Is All You Need
+Link: https://bit.ly/3aklLFY
+Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+Code: https://github.com/tensorflow/tensor2tensor
+ What? Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2021-01-25T12:53:13&#43;05:30">
+      <meta property="article:published_time" content="2021-04-18T16:57:49&#43;05:30">
     
-    <meta property="article:modified_time" content="2021-01-25T12:53:13&#43;05:30">
+    <meta property="article:modified_time" content="2021-04-18T16:57:49&#43;05:30">
   
 
   
@@ -186,16 +192,16 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/"
+    "@id": "https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/"
   },
-  "headline": "Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js",
+  "headline": "Paper Notes #1 - Attention Is All You Need",
   
   "image": [
-    "https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/featured.png"
+    "https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/featured.png"
   ],
   
-  "datePublished": "2021-01-25T12:53:13+05:30",
-  "dateModified": "2021-01-25T12:53:13+05:30",
+  "datePublished": "2021-04-18T16:57:49+05:30",
+  "dateModified": "2021-04-18T16:57:49+05:30",
   
   "author": {
     "@type": "Person",
@@ -210,7 +216,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
       "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
     }
   },
-  "description": "After my last post on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.\nIn this tutorial I will be giving an overview of three frameworks, Tensorflow."
+  "description": "Paper: Attention Is All You Need\nLink: https://bit.ly/3aklLFY\nAuthors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin\nCode: https://github.com/tensorflow/tensor2tensor\n What? Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41."
 }
 </script>
 
@@ -245,7 +251,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
 
 
 
-  <title>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js | Shreyansh Singh</title>
+  <title>Paper Notes #1 - Attention Is All You Need | Shreyansh Singh</title>
 
 </head>
 
@@ -496,10 +502,10 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
 
 
 <div class="article-container pt-3">
-  <h1>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</h1>
+  <h1>Paper Notes #1 - Attention Is All You Need</h1>
 
   
-  <p class="page-subtitle">Just a quick tutorial to set up a small scale deployment for your ML or DL model</p>
+  <p class="page-subtitle">The first of the paper notes series. This is where I briefly summarise the important papers that I read for my job or just for fun :P</p>
   
 
   
@@ -529,7 +535,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
     
       
     
-    Jan 25, 2021
+    Apr 18, 2021
   </span>
   
 
@@ -538,7 +544,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    5 min read
   </span>
   
 
@@ -546,7 +552,7 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   
   
   <span class="middot-divider"></span>
-  <a href="/post/2021-01-25_deep_learning_in_the_browser/#disqus_thread"></a>
+  <a href="/post/2021-04-18_attention_is_all_you_need/#disqus_thread"></a>
   
 
   
@@ -576,10 +582,10 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 263px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 435px;">
   <div style="position: relative">
-    <img src="/post/2021-01-25_deep_learning_in_the_browser/featured_hu68de34ad03968468f047d63670097f8a_92308_720x0_resize_lanczos_2.png" alt="" class="featured-image">
-    <span class="article-header-caption">Tensorflow.js, WebDNN, ONNX.js</span>
+    <img src="/post/2021-04-18_attention_is_all_you_need/featured_hu7e4749af920effda3d8f1f91cdf12223_59257_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <span class="article-header-caption">Attention Is All You Need</span>
   </div>
 </div>
 
@@ -588,277 +594,277 @@ In this tutorial I will be giving an overview of three frameworks, Tensorflow.">
   <div class="article-container">
 
     <div class="article-style">
-      <p>After my <a href="/post/2020-11-30_fast_api_docker_ml_deploy">last post</a> on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.</p>
-<p>In this tutorial I will be giving an overview of three frameworks, <a href="https://www.tensorflow.org/js">Tensorflow.js</a>, <a href="https://mil-tokyo.github.io/webdnn/">WebDNN</a> and <a href="https://microsoft.github.io/onnxjs-demo/#/">ONNX.js</a>. I will be a deploying a simple pretrained image classification model (ResNet or Mobilenet) on the three frameworks and also tell you the comparsion between them. In this tutorial, I haven&rsquo;t deployed custom models of my own but I will be explaining how you can do it and the difficulties you could encounter.</p>
-<p>The goal of this blog post is to introduce the three frameworks and how you can use them for deploying your models as well. Personally, I had not heard of WebDNN and ONNX.js before diving into this project, so I believe it can help some others like me to get familiar with these frameworks.</p>
-<h2 id="tensorflowjs">Tensorflow.js</h2>
-<p>I found Tensorflow.js to be the easiest to use. It already has a large collection of some <a href="https://github.com/tensorflow/tfjs-models">pretrained models</a>. With Tensorflow.js, we don&rsquo;t have a pretrained Resnet model because it is not exactly a lightweight model that can be deployed on a device with low compute power. So, I used <a href="https://arxiv.org/abs/1704.04861">Mobilenet</a> (which is trained on the Imagenet dataset). Mobilenet was available in the Tensorflow.js pretrained models repository so I decided to use that directly.</p>
-<p>Now, on to the fun part, actually using the model and making a webapp. For the webapp portion, I am using <a href="https://expressjs.com/">Express</a>, a web framework for Node.js. I have tried to keep the code structure and the webapp visually similar for all the three frameworks.</p>
-<p>Loading the model is as simple as -</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/dfedd9a445841a8bb963af9526a9f21c.js"></script>
-
-<p>Now after loading the model, we call the <code>imgSet</code> function which bascially loads the image from the path we specify and loads it onto a canvas. Details of this can be seen in the code which I will post at the end.</p>
-<p>Although the Mobilenet model in Tensoflow.js doesn&rsquo;t require a fixed size of the image, but for uniformity in all other frameworks (WebDNN, ONNX.js), I decided to resize the images to 224x224 size. The main code for running the model is shown below -</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/3b1bc92aa52a13cabae2f426b36c2576.js"></script>
-
-<p>The final webapp looks something like this -</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-
-
-  <a data-fancybox="" href="/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif" data-caption="Image loading and prediction">
-<img src="/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif" alt="" ></a>
-
-
-  
-  
-  <figcaption>
-    Image loading and prediction
-  </figcaption>
-
-
-</figure>
-
-<p>The model works well. It knows it is some kind of a water related animal, and given the Imagenet classes it has been trained on, it gies the closest result possible.</p>
-<p>The first prediction takes time (196ms) because the model is loaded and run for the first time. After that, the predictions take very little time (~80ms) mainly because the model is cached and predictions can be served faster.</p>
-<p>The average time taken by different backends (over 20 predictions) is also shown below -</p>
-<table>
-<thead>
-<tr>
-<th>Backend</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cpu</td>
-<td>2100ms</td>
-</tr>
-<tr>
-<td>wasm</td>
-<td>82ms</td>
-</tr>
-<tr>
-<td>webgl</td>
-<td>70ms</td>
-</tr>
-</tbody>
-</table>
-<p>If one wants to convert their own models to a Tensorflow.js compatible version, it is very easy to convert the model as well as load it into your web application. One can refer to <a href="https://github.com/tensorflow/tfjs/tree/master/tfjs-converter">tfjs-converter</a> and the documentation given <a href="https://www.tensorflow.org/js/guide/conversion">here</a>.</p>
-<p>The code for this section is present <a href="https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/TF">on my Github</a>.</p>
-<h2 id="webdnn">WebDNN</h2>
-<p><a href="https://mil-tokyo.github.io/webdnn/">WebDNN</a> was developed by the Machine Intellignece Laboratory at the University of Tokyo. From its website,</p>
-<blockquote>
-<p>WebDNN optimizes the trained DNN model to compress the model data and accelerate the execution, and executes it with novel JavaScript API such as WebAssembly and WebGPU to achieve zero-overhead execution. WebDNN supports 4 execution backend implementations: WebMetal, WebGL, WebAssembly, and fallback pure javascript implementation. By using these backends, WebDNN works all major browsers.</p>
-</blockquote>
-<p>More details are available on the website, but the image below accurately depicts the steps involved in this procedure.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-
-
-  <a data-fancybox="" href="/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG" data-caption="WebDNN model conversion flow">
-<img src="/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG" alt="" ></a>
-
-
-  
-  
-  <figcaption>
-    WebDNN model conversion flow
-  </figcaption>
-
-
-</figure>
-
-<p>WebDNN can be used to deploy tarined DNN models trained using popular DL frameworks like Tensorflow, Keras, PyTorch, Chainer, Kaffe. One disadvantage I found of using WebDNN is that the current model conversion module (as of writing the post) does not allow conversion using Tensorflow 2 and also does not support the latest versions of Keras (let alone <code>tensorflow.keras</code>).</p>
-<p>I used a pretrained ResNet50 model (trained on Imagnet dataset) for this. I am sharing the <a href="https://colab.research.google.com/drive/1pFdbZc5_Dd78twKshl-MH8T_EuVrH0Nw?usp=sharing">following Colab notebook</a> which contains the code to convert the ResNet50 Keras model.</p>
-<p>On to the web app coding part! The first thing the webapp does is to load the model.</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/a527987583919e53b237a7d1a312f3a8.js"></script>
-
-<p>Next, we write the code to run the model on the image input.</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/a7a9eb637f31e9dee0a2b39822ebc4b7.js"></script>
-
-<p>The final webapp looks something like this -</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-
-
-  <a data-fancybox="" href="/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif" data-caption="WebDNN predictions">
-<img src="/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif" alt="" ></a>
-
-
-  
-  
-  <figcaption>
-    WebDNN predictions
-  </figcaption>
-
-
-</figure>
-
-<p>The model does a very good job of identifying it is a bus. The top two predictions relate to it.</p>
-<p>Again, the first run takes a long time (~242ms) but the subsequent runs take quite less (~63ms average). Now one must note that ResNet50 is a relatively heavier model as compared to Mobilenet, but WebDNN manages to load it much faster than or at par with Mobilenet as we saw in the case with Tensorflow.js. Also, in the COlab notebook, we can see that for the same image, the ResNet50 model around 645ms to run the model. We easily see a ~10x improvement on converting the model to WebDNN.</p>
-<p>The average time taken by different backends (over 20 predictions) is also shown below -</p>
-<table>
-<thead>
-<tr>
-<th>Backend</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cpu</td>
-<td>10000ms</td>
-</tr>
-<tr>
-<td>webgl</td>
-<td>60ms</td>
-</tr>
-</tbody>
-</table>
-<p>WebDNN is quite optimised to run on futuristic hardware. The time it takes on a normal fallback vanilla-JS model version running on the CPU is around 10 seconds. But on WebGL, it takes much much less. I didn&rsquo;t have access to a WebMetal backend, which they claim is the fastest. I would like to know if anyone runs it on WebGPU (WebMetal) and the average time the model took to run on it.</p>
-<p>The code for this section is present <a href="https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/WebDNN">on my Github</a>.</p>
-<h2 id="onnx">ONNX</h2>
-<p><a href="https://onnx.ai/">Open Neural Network Exchange (ONNX)</a> is an open source format for AI models, both deep learning and traditional ML.</p>
-<p>From their website -</p>
-<blockquote>
-<p>ONNX defines a common set of operators - the building blocks of machine learning and deep learning models - and a common file format to enable AI developers to use models with a variety of frameworks, tools, runtimes, and compilers.</p>
-</blockquote>
-<p><a href="https://github.com/microsoft/onnxjs">ONNX.js</a> is an open source Javascript library by Microsoft for running ONNX models on browsers and on Node.js. Like Tensorflow.js and WebDNN, it also has support for WebGL and CPU. From theit Github</p>
-<blockquote>
-<p>With ONNX.js, web developers can score pre-trained ONNX models directly on browsers with various benefits of reducing server-client communication and protecting user privacy, as well as offering install-free and cross-platform in-browser ML experience.</p>
-</blockquote>
-<p>With ONNX.js, I used a pretrained <a href="/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx">ResNet50 model</a>.</p>
-<p>Loading the model is similar -</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/07658e9b0b4dc759fb4f081cd9ea7b78.js"></script>
-
-<p>The ONNX examples on their repository gives some nice code snippets to show basic image preprocessing. I have used it directly in my code.</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/1a2f6059395c60485e4d721c7afd761b.js"></script>
-
-<p>After that, the following code snippet loads the preprocessed image to an input tensor and then runs the model on it and then prints the predictions.</p>
-<script type="application/javascript" src="https://gist.github.com/shreyansh26/7e4366058eac9a8c1f05a82b569ff91a.js"></script>
-
-<p>A demo of the webapp using ONNX.js is shown below.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-
-
-  <a data-fancybox="" href="/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif" data-caption="ONNX.js predictions">
-<img src="/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif" alt="" ></a>
-
-
-  
-  
-  <figcaption>
-    ONNX.js predictions
-  </figcaption>
-
-
-</figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-
-
-  <a data-fancybox="" href="/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif" data-caption="ONNX.js predictions">
-<img src="/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif" alt="" ></a>
-
-
-  
-  
-  <figcaption>
-    ONNX.js predictions
-  </figcaption>
-
-
-</figure>
-
-<p>The Resnet model does an awesome job with the airline image and classifies it correctly. It also performs decently on the bus image giving the top prediction as <em>minibus</em>. However, the goal of this post is not to judge how well the model works, but the technique of deploying the models and receiving predictions from them.</p>
-<p>I used the WebGL model for testing. It takes an average of 70ms to serve the predictions. The CPU version takes a VERY long time ~15000ms (15 seconds).</p>
-<p>The average time taken by different backends (over 20 predictions) is also shown below. I had some trouble with the WASM version so I didn&rsquo;t include them in the results.</p>
-<table>
-<thead>
-<tr>
-<th>Backend</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cpu</td>
-<td>15000ms</td>
-</tr>
-<tr>
-<td>webgl</td>
-<td>71ms</td>
-</tr>
-</tbody>
-</table>
-<p>The best part about ONNX is that it is an open standard and allows easy conversion of models made in different frameworks to a <code>.onnx</code> model. I would suggest going through <a href="https://github.com/onnx/tutorials">this tutorial</a> for this.</p>
-<p>The code for this section is present <a href="https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/ONNX">on my Github</a>.</p>
-<h2 id="the-end">The End</h2>
-<p>That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a boilerplate for setting up webapps of your own for deploying ML models using these frameworks.</p>
+      <p><strong>Paper</strong>: Attention Is All You Need<br>
+<strong>Link</strong>: <a href="https://bit.ly/3aklLFY">https://bit.ly/3aklLFY</a><br>
+<strong>Authors</strong>: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin<br>
+<strong>Code</strong>: <a href="https://github.com/tensorflow/tensor2tensor">https://github.com/tensorflow/tensor2tensor</a></p>
 <hr>
+<h2 id="what">What?</h2>
+<p>Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41.0 BLEU. Also beats the existing best results on the WMT 2014 English-to-German translation task with a score of 28.4 BLEU. The training cost is also much less than the best models chosen in the paper (at the time).</p>
+<h2 id="why">Why?</h2>
+<p>Existing recurrent models like RNNs, LSTMs or GRUs work sequentially. They align the positions to steps in computation time. They generate a sequence of hidden states as a function of the previous hidden state and the input for the current position. But sequential computation has constraints. They are not easily parallelizable which is required when the sequence lengths become large. The Transformer model eschews recurrence and allows for more parallelization and requires less training time to achieve SOTA in the machine translation task.</p>
+<h2 id="how">How?</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/arch.PNG" data-caption="Detailed Transformer Architecture">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/arch.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Detailed Transformer Architecture
+  </figcaption>
+
+
+</figure>
+
+<p>The model is auto-regressive, it consumes the previously generated symbols as additional input when generating the next.</p>
+<h3 id="encoder">Encoder</h3>
+<p>The figure above shows just one layer of the encoder on the left. There are <code>N=6</code> such layers. Each layer has two sub-layers - a multi-head self-attention layer and a position-wise fully connected feed-forward network. <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf">Residual connections</a> and <a href="https://arxiv.org/abs/1607.06450">layer normalization</a> is used for each sub-layer.</p>
+<h3 id="decoder">Decoder</h3>
+<p>This also has <code>N=6</code> stacked layers. The architecture diagram shows one layer of the decoder on the right. Each layer has three sub-layers. Two of them are the same as the encoder. The third layer performs multi-head attention over the output of the encoder stack. This is modified to prevent positions from attending to subsequent positions. Additionally, the output embeddings are also offset by one position. These features ensure that the predictions for a position depend only on the known outputs for positions before it.</p>
+<h3 id="attention">Attention</h3>
+<p>The paper uses a modified dot product attention, and it is called &ldquo;Scaled Dot Product Attention&rdquo;. Given queries and keys of dimension d<sub>k</sub> and values of dimension d<sub>v</sub>, the attention matrix is calculated as shown below.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/attention.PNG" data-caption="Attention Matrix Calculation">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/attention.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Attention Matrix Calculation
+  </figcaption>
+
+
+</figure>
+
+<p>Since, for large values of d<sub>k</sub> the dot product grows large in magnitude, it pushes the softmax function into regions where it has extremely small gradients. The scaling of 1/sqrt(d<sub>k</sub>) is done to avoid the problem of vanishing gradients.</p>
+<p>Multi-Head attention allows computing this attention in parallel. This helps to focus on different positions. Secondly, it also helps to attend to information from different subspaces due to the more number of attention heads.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/multihead-attention.PNG" data-caption="Multihead Attention Calculation">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/multihead-attention.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Multihead Attention Calculation
+  </figcaption>
+
+
+</figure>
+
+<p>The paper uses <code>h=8</code> parallel attention layers or heads. The reduced dimension of each head compensates for the more number of heads and hence the computational cost remains the same as with single-head attention with full dimensionality.</p>
+<p>Applications of multi-head attention in the paper are given below -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/application-attention.PNG" data-caption="Application of multi-head attention in the model">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/application-attention.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Application of multi-head attention in the model
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/multihead-attention-fig.PNG" data-caption="Pictorial representaion of Multi-head attention">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/multihead-attention-fig.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Pictorial representaion of Multi-head attention
+  </figcaption>
+
+
+</figure>
+
+<h3 id="position-wise-feed-forward-networks">Position-wise Feed-Forward Networks</h3>
+<p>The FFN sub-layer shown in the encoder and decoder architecture is a 2-hidden layer FC FNN with a ReLU activation in between.</p>
+<h3 id="positional-encodings">Positional Encodings</h3>
+<p>Positional encodings are injected (added) to the input embeddings at the bottom of the encoder and decoder stack to add some information about the relative order of the tokens in the sequence. The positional encodings have the same dimension as the input embeddings so that they can be added.
+For position <em>pos</em> and dimension <em>i</em> the paper uses the following positional embeddings -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/positional.PNG" data-caption="Positional Encoding calculation">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/positional.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Positional Encoding calculation
+  </figcaption>
+
+
+</figure>
+
+<p>This choice allows the model to easily learn by the relative positions. The learned positional embeddings also perform about the same as the sinusoidal version. The sinusoidal version may allow the model to extrapolate to sequence lengths longer than the ones encountered in training.</p>
+<h2 id="results">Results</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/experiments.PNG" data-caption="Experimental results when varying parameters">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/experiments.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Experimental results when varying parameters
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Form (A), it can be seen that single-head attention is slightly worse than the best setting. The quality also drops off with too many heads.</li>
+<li>(B) shows that reducing the attention key size <i>d<sub>k</sub></i> hurts model quality.</li>
+<li>In (C) and (D), it is visible that bigger models are better and dropout helps in avoiding overfitting.</li>
+<li>(E) shows that sinusoidal positional encoding when replaced with learned positional embeddings also does not lead to a loss in quality</li>
+</ul>
+<p>For the base models, the authors used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals. The big models were averaged over the last 20 checkpoints. Beam search with a beam size of 4 and length penalty α = 0.6. The maximum output length during inference is set to input length +50, but if it is possible, the model terminates early.</p>
+<p>The performance comparison with the other models is shown below -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-18_attention_is_all_you_need/images/results.PNG" data-caption="Model performance">
+<img src="/post/2021-04-18_attention_is_all_you_need/images/results.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Model performance
+  </figcaption>
+
+
+</figure>
+
+<hr>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Attention%20Is%20All%20You%20Need.pdf">here</a>.</strong></p>
+<p>This is all for now!</p>
 <p> </p>
 <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
 <!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
@@ -910,13 +916,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
 
 <div class="article-tags">
   
+  <a class="badge badge-light" href="/tags/paper-reading/">paper reading</a>
+  
+  <a class="badge badge-light" href="/tags/transformers/">transformers</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
   <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
-  
-  <a class="badge badge-light" href="/tags/machine-learning/">machine learning</a>
-  
-  <a class="badge badge-light" href="/tags/deployment/">deployment</a>
-  
-  <a class="badge badge-light" href="/tags/web/">web</a>
   
 </div>
 
@@ -933,7 +939,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/&amp;text=Deep%20Learning%20in%20the%20Browser%20-%20Exploring%20TF.js,%20WebDNN%20and%20ONNX.js" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/&amp;text=Paper%20Notes%20#1%20-%20Attention%20Is%20All%20You%20Need" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -946,7 +952,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/&amp;t=Deep%20Learning%20in%20the%20Browser%20-%20Exploring%20TF.js,%20WebDNN%20and%20ONNX.js" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/&amp;t=Paper%20Notes%20#1%20-%20Attention%20Is%20All%20You%20Need" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -959,7 +965,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
       
       
       <li>
-        <a href="mailto:?subject=Deep%20Learning%20in%20the%20Browser%20-%20Exploring%20TF.js,%20WebDNN%20and%20ONNX.js&amp;body=https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Paper%20Notes%20#1%20-%20Attention%20Is%20All%20You%20Need&amp;body=https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -972,7 +978,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/&amp;title=Deep%20Learning%20in%20the%20Browser%20-%20Exploring%20TF.js,%20WebDNN%20and%20ONNX.js" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/&amp;title=Paper%20Notes%20#1%20-%20Attention%20Is%20All%20You%20Need" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -985,7 +991,7 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Deep%20Learning%20in%20the%20Browser%20-%20Exploring%20TF.js,%20WebDNN%20and%20ONNX.js%20https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Paper%20Notes%20#1%20-%20Attention%20Is%20All%20You%20Need%20https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1074,15 +1080,8 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   
   
   <div class="post-nav-item">
-    <div class="meta-nav">Next</div>
-    <a href="/post/2021-04-18_attention_is_all_you_need/" rel="next">Paper Notes #1 - Attention Is All You Need</a>
-  </div>
-  
-  
-  
-  <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/post/2020-11-30_fast_api_docker_ml_deploy/" rel="prev">Quick tutorial to deploy your ML models using FastAPI and Docker</a>
+    <a href="/post/2021-01-25_deep_learning_in_the_browser/" rel="prev">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a>
   </div>
   
 </div>
@@ -1097,15 +1096,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
     <h3>Related</h3>
     <ul>
       
-      <li><a href="/post/2020-11-30_fast_api_docker_ml_deploy/">Quick tutorial to deploy your ML models using FastAPI and Docker</a></li>
+      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      
+      <li><a href="/post/2021-01-25_deep_learning_in_the_browser/">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a></li>
       
       <li><a href="/project/privacy-ml/">Privacy-preserving Machine Learning using Secure Multiparty Computation</a></li>
       
-      <li><a href="/project/nids/">Network Intrusion Detection in an Adversarial setting</a></li>
-      
-      <li><a href="/project/linux-malware/">Linux Malware detection using Machine Learning</a></li>
-      
-      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      <li><a href="/project/revopid/">Review Opinion Diversificatio&amp;shy;n</a></li>
       
     </ul>
   </div>
