@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: Deep contextualized word representations
+Link: https://arxiv.org/abs/1802.05365 Authors: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer
+Code: https://bit.ly/3xpHNAI
+ Note - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.
+What? The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/featured.png">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/">
+  <meta property="og:title" content="Paper Notes #2 - Deep contextualized word representations | Shreyansh Singh">
+  <meta property="og:description" content="Paper: Deep contextualized word representations
+Link: https://arxiv.org/abs/1802.05365 Authors: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer
+Code: https://bit.ly/3xpHNAI
+ Note - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.
+What? The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-04-25T15:13:13&#43;05:30">
+    
+    <meta property="article:modified_time" content="2021-04-25T15:13:13&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/"
+  },
+  "headline": "Paper Notes #2 - Deep contextualized word representations",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/featured.png"
+  ],
+  
+  "datePublished": "2021-04-25T15:13:13+05:30",
+  "dateModified": "2021-04-25T15:13:13+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: Deep contextualized word representations\nLink: https://arxiv.org/abs/1802.05365 Authors: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer\nCode: https://bit.ly/3xpHNAI\n Note - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.\nWhat? The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Notes #2 - Deep contextualized word representations | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Notes #2 - Deep contextualized word representations</h1>
+
+  
+  <p class="page-subtitle">The second post in the paper notes series. This time we take a look at ELMo.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Apr 25, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 274px;">
+  <div style="position: relative">
+    <img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/featured_hu24e91e6af002e880a2e8033c15e800b9_55961_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <span class="article-header-caption">Deep contextualized word representations</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: Deep contextualized word representations<br>
+<strong>Link</strong>: <a href="https://arxiv.org/abs/1802.05365">https://arxiv.org/abs/1802.05365</a> <br>
+<strong>Authors</strong>: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer<br>
+<strong>Code</strong>: <a href="https://github.com/allenai/allennlp/blob/main/allennlp/modules/elmo.py">https://bit.ly/3xpHNAI</a></p>
+<hr>
+<p><strong>Note</strong> - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.</p>
+<h2 id="what">What?</h2>
+<p>The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word. It can help differentiate the same word being used in different contexts with different meanings. The representations (embeddings) are learned from the internal states of a deep bidirectional language model (biLM). The embeddings, when used with the existing models, significantly improved the state of the art in six NLP problems - Question Answering, Natural Language Inference, Semantic Role Labeling, Coreference Resolution, Named Entity Recognition and Sentiment Analysis.</p>
+<h2 id="why">Why?</h2>
+<p>The existing word representations commonly in use were Word2Vec and GloVe. However, there was a need to capture even richer word representations. The paper states that the two main requirements of a good representation should be that they should be able to capture the complex characteristics of the word use and at the same time capture polysemy as well. This is the idea behind using ELMo (Embeddings from Language Models) representations.</p>
+<h2 id="how">How?</h2>
+<p>As a high-level overview, it can be said that the ELMo representations are a function of the entire input sequence. A two-layer biLM model with character-level convolutions is trained on a text corpus. The ELMo word representations are computed as a linear function of the internal network states of the biLM. The biLM is pretrained on a large scale and the ELMo representations can be incorporated into several deep learning-based NLP architectures.</p>
+<h3 id="bilm-bidirectional-language-model">biLM (Bidirectional Language Model)</h3>
+<p>A forward language model computes the probability of the sequence by modelling the probability of a token t<sub>k</sub> given the history (t<sub>1</sub>, &hellip;, t<sub>k-1</sub>). Similarly, a backward language model predicts the previous token given the nature context i.e., it performs the same function but in reverse order.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG" data-caption="Forward LM probability modelling">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Forward LM probability modelling
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG" data-caption="Backward LM probability modelling">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Backward LM probability modelling
+  </figcaption>
+
+
+</figure>
+
+<p>In a forward LM, a context-independent token representation x<sub>k</sub><sup>LM</sup> is obtained from a character-level CNN and then passed through <em>L</em> layers of LSTMs. At each position <em>k</em>, the LSTM layer outputs a context-dependent representation h<sub><i>k,j</i></sub><sup>LM</sup>, where <em>j</em> = 1, &hellip;, <em>L</em>. the top layer of the LSTM output is used to predict the next token t<sub>k+1</sub> with a Softmax layer. The same procedure is applied to the backward LM as well.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG" data-caption="biLM probability modelling">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    biLM probability modelling
+  </figcaption>
+
+
+</figure>
+
+<p>A biLM combines both the forward and backward LM. The above formulation jointly optimizes the log-likelihood of the forward and backward directions.</p>
+<p>The formulation ties both the token representation Θ<sub>x<sub> and the Softmax layer Θ<sub>s</sub> Separate paremeters are maintained for the forward and backward LSTMs.</p>
+<p>Next, we look at getting the word representations using ELMo.</p>
+<h3 id="elmo">ELMo</h3>
+<p>ELMo is a task-specific combination of the intermediate layer representations of the biLM model. If we have <em>L</em> LSTM layers, then for each token t<sub>k</sub> we have 2L + 1 representations.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG" >
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Now to get one single vector for each token, all the representations in <em>R</em> are merged to one. Usually, task-specific weighting is performed.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG" >
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>The <i>s</i><sup><i>task</i></sup> are softmax normalized weights and the scale parameter γ<sup><i>task</i></sup> allows te task model to scale the entire ELMo vector. In spme cases, applying LayerNorm to each biLM layer before weighting also helped.</p>
+<h3 id="using-elmo-for-supervised-nlp-tasks">Using ELMo for supervised NLP tasks</h3>
+<p>We start with a pretrained biLM model, The biLM is run to record the layer representations for each word. When using any supervised deep learning MLP model have a common architecture for the lowest layers. They usually use a context-independent token representation x<sub>k</sub> for each token position using pre-trained embeddings and optionally also using character-based representations. Then, in the higher layers, the model forms context-sensitive representations using RNNs, CNNs or whatever, as per the task and the model.
+For using ELMo, we can start in the same manner. We obtain the embeddings from the freezed weights of the biLM. Now instead of passing just x<sub>k</sub> to the above layers, we will pass </br> [x<sub>k</sub>; <strong>ELMo</strong><sub>k</sub><sup>task</sup> ] into the task model layers. For some tasks like SNLI (Natural language Inference) and SQuAD (Question-Answering), it was also seen that including ELMo at the output of the task model by introducing another set of output specific linear weights and replacing h<sub>k</sub> with [h<sub>k</sub>; <strong>ELMo</strong><sub>k</sub><sup>task</sup> ] led to an improvement.</p>
+<p>Additionally, in some cases, regularizing the ELMo weights with λ||<strong>w</strong>||<sub>2</sub><sup>2</sup> helped introduce an inductive bias on the ELMo weights to make it stay close to the average of all biLM layers.</p>
+<h3 id="pre-trained-bidirectional-language-model-architecture">Pre-trained bidirectional language model architecture</h3>
+<p>The pre-trained biLM used in the paper is similar to the architecture in <a href="https://arxiv.org/abs/1602.02410">Józefowicz et al.</a>. It is modified to support joint training of both directions and a residual connection is added between the LSTM layers. The size of the embeddings and layers were from what was in the <code>CNN-BIG-LSTM</code> architecture in <a href="https://arxiv.org/abs/1602.02410">Józefowicz et al.</a>. The final model has <em>L</em>=2 biLSTM layers with 4096 units and 512-dimensional embeddings and a residual connection from the first to the second layer. The context insensitive type representation uses 2048 character n-gram convolutional filters followed by two highway layers and a linear projection down to a 512 representation. As a result, the biLM provides three layers of representations for each input token, including those outside the training set due to the purely
+character input.</p>
+<h2 id="results">Results</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG" data-caption="Results comparison of the baseline models with the ones used along with ELMo">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Results comparison of the baseline models with the ones used along with ELMo
+  </figcaption>
+
+
+</figure>
+
+<p>The details of the baseline models are given in the paper. In all the tasks, the use of the ELMo representations led to improvement in the state-of-the-art results.</p>
+<p>Key points from the analysis section -</p>
+<ul>
+<li>Regularization parameter λ is important. λ=1 means that we are effectively reducing the weighting function to a simple average over the layers, while smaller values like λ=0.001 allows the layer weights to vary.</li>
+<li>The fact that we take the representations from all the layers gives a better performance as compared to just taking the topmost layer. Taking just the last layer is still better than the baseline.</li>
+<li>A small λ is preferred in most cases with ELMo, although for NER, a task with a smaller training set, the results are insensitive to λ.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG" data-caption="Baseline vs ELMo last layer vs All the layers">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Baseline vs ELMo last layer vs All the layers
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Including ELMo at both the input and output layers for SNLI and SQuAD improves over just the input layer. This is because SNLI and SQuAD use an attention layer after the biRNN and using ELMo at the output layer would allow the model to attend directly to the internal representations of the biLM. But for SRL (and coreference resolution) performance is highest when it is included at just the input layer. Probably because the task-specific context representations are more important than those from the biLM.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG" >
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>The higher-level LSTM states of the biLM capture context-dependent aspects of word meaning (e.g., they can be used without modification to perform well on supervised word sense disambiguation tasks) while lower-level states model aspects of syntax (e.g., they can be used to do part-of-speech tagging).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG" data-caption="biLM captures the context of the word &lsquo;play&rsquo; effectively from the source sentences">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    biLM captures the context of the word &lsquo;play&rsquo; effectively from the source sentences
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>
+<p>Different layers in the biLM represent different types of information and explains why including all biLM layers are important for the highest performance in downstream
+tasks.</p>
+</li>
+<li>
+<p>Using ELMo with a model also improves the sample efficiency. The model now requires a fewer number of epochs (parameter updates) and less amount of training data as well. For eg., the baseline SRL model requires 486 epochs to reach the maximum F1 score. The model with the ELMo representations only requires 10 epochs to exceed the baseline. In addition, ELMo-enhanced models use smaller training sets more efficiently than models without ELMo. Again, if we consider the SRL case, the ELMo model with 1% of the training set has about the same F1 as the baseline model with 10% of the training set.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG" data-caption="biLM captures the context of the word &lsquo;play&rsquo; effectively from the source sentences">
+<img src="/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    biLM captures the context of the word &lsquo;play&rsquo; effectively from the source sentences
+  </figcaption>
+
+
+</figure>
+
+<hr>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ELMo.pdf">here</a>.</strong></p>
+<p>This is all for now!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/paper-reading/">paper reading</a>
+  
+  <a class="badge badge-light" href="/tags/word-representations/">word representations</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/language-model/">language model</a>
+  
+  <a class="badge badge-light" href="/tags/lstm/">lstm</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/&amp;text=Paper%20Notes%20#2%20-%20Deep%20contextualized%20word%20representations" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/&amp;t=Paper%20Notes%20#2%20-%20Deep%20contextualized%20word%20representations" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Notes%20#2%20-%20Deep%20contextualized%20word%20representations&amp;body=https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/&amp;title=Paper%20Notes%20#2%20-%20Deep%20contextualized%20word%20representations" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Notes%20#2%20-%20Deep%20contextualized%20word%20representations%20https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2021-04-18_attention_is_all_you_need/" rel="prev">Paper Notes #1 - Attention Is All You Need</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Notes #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      
+      <li><a href="/post/2021-01-25_deep_learning_in_the_browser/">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a></li>
+      
+      <li><a href="/project/privacy-ml/">Privacy-preserving Machine Learning using Secure Multiparty Computation</a></li>
+      
+      <li><a href="/project/revopid/">Review Opinion Diversificatio&amp;shy;n</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2021 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

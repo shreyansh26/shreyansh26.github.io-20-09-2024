@@ -632,7 +632,7 @@ This method does not scale well as it does not support caching and cannot handle
 <p>Here, we define the name of our app.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">app <span style="color:#f92672">=</span> FastAPI(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Iris Classifier API&#34;</span>, description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;API for Iris classification using ML&#34;</span>, version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span>)
 </code></pre></div><p>Next, we set up logging for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Initialize logging</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Initialize logging</span>
 my_logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger()
 my_logger<span style="color:#f92672">.</span>setLevel(logging<span style="color:#f92672">.</span>DEBUG)
 logging<span style="color:#f92672">.</span>basicConfig(level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>DEBUG, filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;logs.log&#39;</span>)

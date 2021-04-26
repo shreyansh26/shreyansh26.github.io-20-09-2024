@@ -5,12 +5,387 @@
     <link>https://shreyansh26.github.io/tags/nlp/</link>
       <atom:link href="https://shreyansh26.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     <description>nlp</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 18 Apr 2021 16:57:49 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 25 Apr 2021 15:13:13 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>nlp</title>
       <link>https://shreyansh26.github.io/tags/nlp/</link>
     </image>
+    
+    <item>
+      <title>Paper Notes #2 - Deep contextualized word representations</title>
+      <link>https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/</link>
+      <pubDate>Sun, 25 Apr 2021 15:13:13 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: Deep contextualized word representations&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://arxiv.org/abs/1802.05365&#34;&gt;https://arxiv.org/abs/1802.05365&lt;/a&gt; &lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer&lt;br&gt;
+&lt;strong&gt;Code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/allenai/allennlp/blob/main/allennlp/modules/elmo.py&#34;&gt;https://bit.ly/3xpHNAI&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.&lt;/p&gt;
+&lt;h2 id=&#34;what&#34;&gt;What?&lt;/h2&gt;
+&lt;p&gt;The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word. It can help differentiate the same word being used in different contexts with different meanings. The representations (embeddings) are learned from the internal states of a deep bidirectional language model (biLM). The embeddings, when used with the existing models, significantly improved the state of the art in six NLP problems - Question Answering, Natural Language Inference, Semantic Role Labeling, Coreference Resolution, Named Entity Recognition and Sentiment Analysis.&lt;/p&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;
+&lt;p&gt;The existing word representations commonly in use were Word2Vec and GloVe. However, there was a need to capture even richer word representations. The paper states that the two main requirements of a good representation should be that they should be able to capture the complex characteristics of the word use and at the same time capture polysemy as well. This is the idea behind using ELMo (Embeddings from Language Models) representations.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+&lt;p&gt;As a high-level overview, it can be said that the ELMo representations are a function of the entire input sequence. A two-layer biLM model with character-level convolutions is trained on a text corpus. The ELMo word representations are computed as a linear function of the internal network states of the biLM. The biLM is pretrained on a large scale and the ELMo representations can be incorporated into several deep learning-based NLP architectures.&lt;/p&gt;
+&lt;h3 id=&#34;bilm-bidirectional-language-model&#34;&gt;biLM (Bidirectional Language Model)&lt;/h3&gt;
+&lt;p&gt;A forward language model computes the probability of the sequence by modelling the probability of a token t&lt;sub&gt;k&lt;/sub&gt; given the history (t&lt;sub&gt;1&lt;/sub&gt;, &amp;hellip;, t&lt;sub&gt;k-1&lt;/sub&gt;). Similarly, a backward language model predicts the previous token given the nature context i.e., it performs the same function but in reverse order.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG&#34; data-caption=&#34;Forward LM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Forward LM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG&#34; data-caption=&#34;Backward LM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Backward LM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;In a forward LM, a context-independent token representation x&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;LM&lt;/sup&gt; is obtained from a character-level CNN and then passed through &lt;em&gt;L&lt;/em&gt; layers of LSTMs. At each position &lt;em&gt;k&lt;/em&gt;, the LSTM layer outputs a context-dependent representation h&lt;sub&gt;&lt;i&gt;k,j&lt;/i&gt;&lt;/sub&gt;&lt;sup&gt;LM&lt;/sup&gt;, where &lt;em&gt;j&lt;/em&gt; = 1, &amp;hellip;, &lt;em&gt;L&lt;/em&gt;. the top layer of the LSTM output is used to predict the next token t&lt;sub&gt;k+1&lt;/sub&gt; with a Softmax layer. The same procedure is applied to the backward LM as well.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG&#34; data-caption=&#34;biLM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;A biLM combines both the forward and backward LM. The above formulation jointly optimizes the log-likelihood of the forward and backward directions.&lt;/p&gt;
+&lt;p&gt;The formulation ties both the token representation Θ&lt;sub&gt;x&lt;sub&gt; and the Softmax layer Θ&lt;sub&gt;s&lt;/sub&gt; Separate paremeters are maintained for the forward and backward LSTMs.&lt;/p&gt;
+&lt;p&gt;Next, we look at getting the word representations using ELMo.&lt;/p&gt;
+&lt;h3 id=&#34;elmo&#34;&gt;ELMo&lt;/h3&gt;
+&lt;p&gt;ELMo is a task-specific combination of the intermediate layer representations of the biLM model. If we have &lt;em&gt;L&lt;/em&gt; LSTM layers, then for each token t&lt;sub&gt;k&lt;/sub&gt; we have 2L + 1 representations.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now to get one single vector for each token, all the representations in &lt;em&gt;R&lt;/em&gt; are merged to one. Usually, task-specific weighting is performed.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The &lt;i&gt;s&lt;/i&gt;&lt;sup&gt;&lt;i&gt;task&lt;/i&gt;&lt;/sup&gt; are softmax normalized weights and the scale parameter γ&lt;sup&gt;&lt;i&gt;task&lt;/i&gt;&lt;/sup&gt; allows te task model to scale the entire ELMo vector. In spme cases, applying LayerNorm to each biLM layer before weighting also helped.&lt;/p&gt;
+&lt;h3 id=&#34;using-elmo-for-supervised-nlp-tasks&#34;&gt;Using ELMo for supervised NLP tasks&lt;/h3&gt;
+&lt;p&gt;We start with a pretrained biLM model, The biLM is run to record the layer representations for each word. When using any supervised deep learning MLP model have a common architecture for the lowest layers. They usually use a context-independent token representation x&lt;sub&gt;k&lt;/sub&gt; for each token position using pre-trained embeddings and optionally also using character-based representations. Then, in the higher layers, the model forms context-sensitive representations using RNNs, CNNs or whatever, as per the task and the model.
+For using ELMo, we can start in the same manner. We obtain the embeddings from the freezed weights of the biLM. Now instead of passing just x&lt;sub&gt;k&lt;/sub&gt; to the above layers, we will pass &lt;/br&gt; [x&lt;sub&gt;k&lt;/sub&gt;; &lt;strong&gt;ELMo&lt;/strong&gt;&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;task&lt;/sup&gt; ] into the task model layers. For some tasks like SNLI (Natural language Inference) and SQuAD (Question-Answering), it was also seen that including ELMo at the output of the task model by introducing another set of output specific linear weights and replacing h&lt;sub&gt;k&lt;/sub&gt; with [h&lt;sub&gt;k&lt;/sub&gt;; &lt;strong&gt;ELMo&lt;/strong&gt;&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;task&lt;/sup&gt; ] led to an improvement.&lt;/p&gt;
+&lt;p&gt;Additionally, in some cases, regularizing the ELMo weights with λ||&lt;strong&gt;w&lt;/strong&gt;||&lt;sub&gt;2&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; helped introduce an inductive bias on the ELMo weights to make it stay close to the average of all biLM layers.&lt;/p&gt;
+&lt;h3 id=&#34;pre-trained-bidirectional-language-model-architecture&#34;&gt;Pre-trained bidirectional language model architecture&lt;/h3&gt;
+&lt;p&gt;The pre-trained biLM used in the paper is similar to the architecture in &lt;a href=&#34;https://arxiv.org/abs/1602.02410&#34;&gt;Józefowicz et al.&lt;/a&gt;. It is modified to support joint training of both directions and a residual connection is added between the LSTM layers. The size of the embeddings and layers were from what was in the &lt;code&gt;CNN-BIG-LSTM&lt;/code&gt; architecture in &lt;a href=&#34;https://arxiv.org/abs/1602.02410&#34;&gt;Józefowicz et al.&lt;/a&gt;. The final model has &lt;em&gt;L&lt;/em&gt;=2 biLSTM layers with 4096 units and 512-dimensional embeddings and a residual connection from the first to the second layer. The context insensitive type representation uses 2048 character n-gram convolutional filters followed by two highway layers and a linear projection down to a 512 representation. As a result, the biLM provides three layers of representations for each input token, including those outside the training set due to the purely
+character input.&lt;/p&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG&#34; data-caption=&#34;Results comparison of the baseline models with the ones used along with ELMo&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Results comparison of the baseline models with the ones used along with ELMo
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The details of the baseline models are given in the paper. In all the tasks, the use of the ELMo representations led to improvement in the state-of-the-art results.&lt;/p&gt;
+&lt;p&gt;Key points from the analysis section -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Regularization parameter λ is important. λ=1 means that we are effectively reducing the weighting function to a simple average over the layers, while smaller values like λ=0.001 allows the layer weights to vary.&lt;/li&gt;
+&lt;li&gt;The fact that we take the representations from all the layers gives a better performance as compared to just taking the topmost layer. Taking just the last layer is still better than the baseline.&lt;/li&gt;
+&lt;li&gt;A small λ is preferred in most cases with ELMo, although for NER, a task with a smaller training set, the results are insensitive to λ.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG&#34; data-caption=&#34;Baseline vs ELMo last layer vs All the layers&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Baseline vs ELMo last layer vs All the layers
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Including ELMo at both the input and output layers for SNLI and SQuAD improves over just the input layer. This is because SNLI and SQuAD use an attention layer after the biRNN and using ELMo at the output layer would allow the model to attend directly to the internal representations of the biLM. But for SRL (and coreference resolution) performance is highest when it is included at just the input layer. Probably because the task-specific context representations are more important than those from the biLM.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The higher-level LSTM states of the biLM capture context-dependent aspects of word meaning (e.g., they can be used without modification to perform well on supervised word sense disambiguation tasks) while lower-level states model aspects of syntax (e.g., they can be used to do part-of-speech tagging).&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG&#34; data-caption=&#34;biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Different layers in the biLM represent different types of information and explains why including all biLM layers are important for the highest performance in downstream
+tasks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using ELMo with a model also improves the sample efficiency. The model now requires a fewer number of epochs (parameter updates) and less amount of training data as well. For eg., the baseline SRL model requires 486 epochs to reach the maximum F1 score. The model with the ELMo representations only requires 10 epochs to exceed the baseline. In addition, ELMo-enhanced models use smaller training sets more efficiently than models without ELMo. Again, if we consider the SRL case, the ELMo model with 1% of the training set has about the same F1 as the baseline model with 10% of the training set.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG&#34; data-caption=&#34;biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ELMo.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Notes #1 - Attention Is All You Need</title>

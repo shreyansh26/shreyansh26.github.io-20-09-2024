@@ -675,7 +675,7 @@ key2 <span style="color:#f92672">=</span> xor(to_blocks(flag))
     aes <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_ECB)
     curr <span style="color:#f92672">=</span> iv
     <span style="color:#66d9ef">for</span> block <span style="color:#f92672">in</span> blocks:
-        ctxt <span style="color:#f92672">+=</span> xor(curr, aes<span style="color:#f92672">.</span>decrypt(block)) <span style="color:#75715e"># Inverse of the encrypt function</span>
+        ctxt <span style="color:#f92672">+=</span> xor(curr, aes<span style="color:#f92672">.</span>decrypt(block)) <span style="color:#75715e"># Inverse of the encrypt function</span>
         curr <span style="color:#f92672">=</span> xor(ctxt[<span style="color:#f92672">-</span>bs:], block)
     <span style="color:#66d9ef">return</span> ctxt
 </code></pre></div><p>The complete exploit code is shown below -</p>
@@ -684,7 +684,7 @@ key2 <span style="color:#f92672">=</span> xor(to_blocks(flag))
 <span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
 
 p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;encryption.pwn2.win&#34;</span>, <span style="color:#ae81ff">1337</span>)
-<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
 
 BUFF <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span>
 BLOCK_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>
@@ -715,7 +715,7 @@ iv2 <span style="color:#f92672">=</span> None
     aes <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_ECB)
     curr <span style="color:#f92672">=</span> iv
     <span style="color:#66d9ef">for</span> block <span style="color:#f92672">in</span> blocks:
-        ctxt <span style="color:#f92672">+=</span> xor(curr, aes<span style="color:#f92672">.</span>decrypt(block)) <span style="color:#75715e"># Inverse of the encrypt function</span>
+        ctxt <span style="color:#f92672">+=</span> xor(curr, aes<span style="color:#f92672">.</span>decrypt(block)) <span style="color:#75715e"># Inverse of the encrypt function</span>
         curr <span style="color:#f92672">=</span> xor(ctxt[<span style="color:#f92672">-</span>bs:], block)
     <span style="color:#66d9ef">return</span> ctxt
 

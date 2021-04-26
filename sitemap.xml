@@ -4,56 +4,76 @@
   
   <url>
     <loc>https://shreyansh26.github.io/authors/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/categories/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/deep-learning/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/language-model/</loc>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/lstm/</loc>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/nlp/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <loc>https://shreyansh26.github.io/post/2021-04-25_deep_contextualized_word_representations_elmo/</loc>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/paper-reading/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/post/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/word-representations/</loc>
+    <lastmod>2021-04-25T15:13:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/</loc>
     <lastmod>2021-04-18T16:57:49+05:30</lastmod>
   </url>
   
@@ -254,11 +274,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/tags/ai/</loc>
-    <lastmod>2018-07-23T16:52:28+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/language-model/</loc>
     <lastmod>2018-07-23T16:52:28+05:30</lastmod>
   </url>
   
