@@ -32,7 +32,7 @@
 Link: https://bit.ly/3xITvGP
 Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
 Code: https://bit.ly/3gUFrUX
- What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task.">
+ What? The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/">
@@ -160,7 +160,7 @@ Code: https://bit.ly/3gUFrUX
 Link: https://bit.ly/3xITvGP
 Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
 Code: https://bit.ly/3gUFrUX
- What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG">
+ What? The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG">
   <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG"><meta property="og:locale" content="en-us">
   
     
@@ -216,7 +216,7 @@ Code: https://bit.ly/3gUFrUX
       "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
     }
   },
-  "description": "Paper: Improving Language Understanding by Generative Pre-Training\nLink: https://bit.ly/3xITvGP\nBlog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever\nCode: https://bit.ly/3gUFrUX\n What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."
+  "description": "Paper: Improving Language Understanding by Generative Pre-Training\nLink: https://bit.ly/3xITvGP\nBlog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever\nCode: https://bit.ly/3gUFrUX\n What? The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."
 }
 </script>
 
@@ -638,13 +638,13 @@ Code: https://bit.ly/3gUFrUX
 <strong>Code</strong>: <a href="https://github.com/openai/finetune-transformer-lm">https://bit.ly/3gUFrUX</a></p>
 <hr>
 <h2 id="what">What?</h2>
-<p>The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task. The pretraining model remains the same for all the tasks. Only a small, task-aware input adaptation is required when performing the fine-tuning. The model significantly improved the state-of-the-art (at the time) in 9 of the 12 tasks studied.</p>
+<p>The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task. The pretraining model remains the same for all the tasks. Only a small, task-aware input adaptation is required when performing the fine-tuning. The model significantly improved the state-of-the-art (at the time) in 9 of the 12 tasks studied.</p>
 <h2 id="why">Why?</h2>
-<p>Most deep learning models require a substantial amount of data, which makes them difficult to train for tasks in which there is a dearth of good quallity annotated data. Historically, pre-trained word embeddings have been used for such cases but the word-level information in itself is sometimes not enough for many of the complex tasks.</p>
+<p>Most deep learning models require a substantial amount of data, which makes them difficult to train for tasks in which there is a dearth of good quality annotated data. Historically, pre-trained word embeddings have been used for such cases but the word-level information in itself is sometimes not enough for many of the complex tasks.</p>
 <h2 id="how">How?</h2>
 <p>The goal of the model is to learn a universal representation that transfers with little adaptation to a wide range of tasks. The paper assumes access to a large corpus of unlabeled text and several datasets with manually annotated training examples (the target tasks). The unlabeled corpus and the annotated datasets need not be in the same domain.</p>
-<p>A two-stage training procedure is used. First, a language modeling (LM) objective is used on the unlabeled data to learn the initial parameters of the model. Next, these parameters are adapted to a target task using the corresponding supervised objective.</p>
-<p>A Tansformer (specifically a Transfomer decoder) is used as the underlying architecture. Transformers work better than LSTMs (shown in the results as well) because they can capture long-term dependencies well which results in robust transfer performance across diverse tasks.  Furthermore, during the transfer, as mentioned above, task-specific input adaptations are used which process the structured text input as a single contiguous sequence of tokens. This is something very interesting, and will be shown in the subsequent sections.</p>
+<p>A two-stage training procedure is used. First, a language modelling (LM) objective is used on the unlabeled data to learn the initial parameters of the model. Next, these parameters are adapted to a target task using the corresponding supervised objective.</p>
+<p>A Transformer (specifically a Transfomer decoder) is used as the underlying architecture. Transformers work better than LSTMs (shown in the results as well) because they can capture long-term dependencies well which results in robust transfer performance across diverse tasks.  Furthermore, during the transfer, as mentioned above, task-specific input adaptations are used which process the structured text input as a single contiguous sequence of tokens. This is something very interesting and will be shown in the subsequent sections.</p>
 <h3 id="unsupervised-pre-training">Unsupervised pre-training</h3>
 <p>A standard forward LM objective is used to maximise the likelihood -</p>
 
@@ -670,7 +670,7 @@ Code: https://bit.ly/3gUFrUX
 
 </figure>
 
-<p>Here, , <em>U</em> is the corpus of tokens {<em>u</em><sub>1</sub>,&hellip; <em>u</em><sub>n</sub>}, <em>k</em> is the context window size and the conditional probability <em>P</em>  is modeled using a network with parameters Θ. SGD is used to learn the parameters. The model uses a multi-layer Transformer decoder. The multi-head self-attention is appled over the input context tokens. This is followed by a position-wise feedforward layers to produce a oouput probability distribution over the target tokens.</p>
+<p>Here, , <em>U</em> is the corpus of tokens {<em>u</em><sub>1</sub>,&hellip; <em>u</em><sub>n</sub>}, <em>k</em> is the context window size and the conditional probability <em>P</em>  is modeled using a network with parameters Θ. SGD is used to learn the parameters. The model uses a multi-layer Transformer decoder. The multi-head self-attention is applied over the input context tokens. This is followed by position-wise feedforward layers to produce an output probability distribution over the target tokens.</p>
 
 
 
@@ -696,7 +696,7 @@ Code: https://bit.ly/3gUFrUX
 
 <p>Here <em>U</em> is (u<sub>-k</sub>,&hellip;, u<sub>-1</sub>) which is the context vector of tokens, <em>n</em> is the number of layers, <em>W</em><sub>e</sub> is the token embedding matrix and <em>W</em><sub>p</sub> is the position embedding matrix.</p>
 <h3 id="supervised-fine-tuning">Supervised fine-tuning</h3>
-<p>After the training of the model with optimization <em>L</em><sub>1</sub>, the parameters are now adapted to the supervised target task. The labeled dataset is denoted by <em>C</em>, where each instance is a sequence of input tokens, <em>x</em><sup>1</sup>,&hellip;,<em>x</em><sup>m</sup>, along with a label <em>y</em>. The inputs are passed through the pre-trained model to obtain the final transformer block&rsquo;s activation <em>h</em><sub>l</sub><sup>m</sup>, which is then fed into an added linear output layer with parameters <em>W</em><sub>y</sub> to predict <em>y</em>.</p>
+<p>After the training of the model with optimization <em>L</em><sub>1</sub>, the parameters are now adapted to the supervised target task. The labelled dataset is denoted by <em>C</em>, where each instance is a sequence of input tokens, <em>x</em><sup>1</sup>,&hellip;,<em>x</em><sup>m</sup>, along with a label <em>y</em>. The inputs are passed through the pre-trained model to obtain the final transformer block&rsquo;s activation <em>h</em><sub>l</sub><sup>m</sup>, which is then fed into an added linear output layer with parameters <em>W</em><sub>y</sub> to predict <em>y</em>.</p>
 
 
 
@@ -744,7 +744,7 @@ Code: https://bit.ly/3gUFrUX
 
 </figure>
 
-<p>Using a LM objective as an auxilliary objective to the finetuning helped to improve the generalization of the supervised model and make it converge faster.</p>
+<p>Using an LM objective as an auxiliary objective to the finetuning helped to improve the generalization of the supervised model and make it converge faster.</p>
 <p>The overall objective can be written as -</p>
 
 
@@ -793,13 +793,13 @@ Code: https://bit.ly/3gUFrUX
 
 </figure>
 
-<p>Since the pretrained model is trained on contiguous sequence of texts, to handle the inputs of the various tasks, certain input transformations is needed as shown above. These transformations help to avoid making extensive changes to the architecture across tasks.</p>
+<p>Since the pretrained model is trained on a contiguous sequence of texts, to handle the inputs of the various tasks, certain input transformations are needed as shown above. These transformations help to avoid making extensive changes to the architecture across tasks.</p>
 <ul>
 <li><strong>Textual Entailment</strong> - The premise (<em>p</em>) and the hypothesis (<em>h</em>) sequences are concatenated with a delimiter token in between.</li>
-<li><strong>Similarity</strong> - Since there is no inherent ordering of the two sequences being compared, the input sequence is modified to contain both possible sentence orderings (with a delimiter in between). Each of these concatentaed sequences is processed independently to produce two sequence representartions <em>h</em><sub>l</sub><sup>m</sup> which are then element-wise added before feeding to the linear output layer.</li>
-<li><strong>Question Answering</strong> - This one is interesting. For a given context document <em>z</em>, question <em>q</em> and a set of possible answers {<em>a</em><sub>k</sub>}. The document and question is concatenated with each of the possible answers, with a delimiter token in between [<em>z</em>; <em>q</em>;$;<em>a</em><sub>k</sub>]. Each of these sequences are processed independently by the model and then normalized by a softmax layer to produce an output distribution over possible answers.</li>
+<li><strong>Similarity</strong> - Since there is no inherent ordering of the two sequences being compared, the input sequence is modified to contain both possible sentence orderings (with a delimiter in between). Each of these concatenated sequences is processed independently to produce two sequence representations <em>h</em><sub>l</sub><sup>m</sup> which are then element-wise added before feeding to the linear output layer.</li>
+<li><strong>Question Answering</strong> - This one is interesting. For a given context document <em>z</em>, question <em>q</em> and a set of possible answers {<em>a</em><sub>k</sub>}. The document and question are concatenated with each of the possible answers, with a delimiter token in between [<em>z</em>; <em>q</em>;$;<em>a</em><sub>k</sub>]. Each of these sequences is processed independently by the model and then normalized by a softmax layer to produce an output distribution over possible answers.</li>
 </ul>
-<p>The model specifications for the experiment setup are shown below -</p>
+<p>The model specifications for the experimental setup are shown below -</p>
 
 
 
@@ -881,7 +881,7 @@ Code: https://bit.ly/3gUFrUX
 </figure>
 
 <ul>
-<li><strong>Question Answering and Commonsense Reasoning</strong> - The RACE dataset (passages with associated questions from middle and high school exams) and Story Cloze dataset (selecting correct ending to multi-sentence stories from two options) were used. The model outperformed on the basline on both these datasets.</li>
+<li><strong>Question Answering and Commonsense Reasoning</strong> - The RACE dataset (passages with associated questions from middle and high school exams) and Story Cloze dataset (selecting correct ending to multi-sentence stories from two options) were used. The model outperformed the baseline on both these datasets.</li>
 </ul>
 
 
@@ -908,10 +908,10 @@ Code: https://bit.ly/3gUFrUX
 
 <ul>
 <li>
-<p><strong>Semantic Similarity</strong> - The challenges in this task are recognizing reprhasing, negation, and handling ambiguity. The model performs better on 2 (QQP and STS-B) of the 3 datasets.</p>
+<p><strong>Semantic Similarity</strong> - The challenges in this task are recognizing rephrasing, negation, and handling ambiguity. The model performs better on 2 (QQP and STS-B) of the 3 datasets.</p>
 </li>
 <li>
-<p><strong>Classification</strong> - The model performs better on both Corpus of Linguistic Accepttability (CoLA) dataset and is at-par with the state-of-the-art results on the Stanford Sentiment Teebank dataset.</p>
+<p><strong>Classification</strong> - The model performs better on both Corpus of Linguistic Accepttability (CoLA) dataset and is at par with the state-of-the-art results on the Stanford Sentiment Treebank dataset.</p>
 </li>
 </ul>
 
@@ -940,7 +940,7 @@ Code: https://bit.ly/3gUFrUX
 <p>Key points from the analysis section -</p>
 <ul>
 <li>More the number of layers that are transferred from the pretrained model to the supervised target task, the better is the performance on the target tasks.</li>
-<li>To understand whether the unsupervised pre-training is effective or not, zero shot testing was also perfomed i.e., using the pre-trained model directly without any finetuning. The model performance is stable with and staedily increases over training suggesting that the generative pre-training supports the learning of a wide variety of task relevant functionality. LSTMs exhibit higher variance in its zero-shot performance.
+<li>To understand whether the unsupervised pre-training is effective or not, zero-shot testing was also performed i.e., using the pre-trained model directly without any finetuning. The model performance is stable and steadily increases over training suggesting that the generative pre-training supports the learning of a wide variety of task-relevant functionality. LSTMs exhibit higher variance in their zero-shot performance.
 The testing and input transformations for using the pretrained model directly are explained below -
 
 
@@ -991,8 +991,8 @@ The testing and input transformations for using the pretrained model directly ar
 
 <ul>
 <li>From the ablation studies, the authors show that the auxiliary LM objective helps on the NLI tasks and QQP (Quora Question Pairs data).</li>
-<li>Overall, larger datasets benefit from the auxiliary objective more than the samller datasets.</li>
-<li>In general, the Transformer architecture performs better than a 2048 unit single layer LSTM model (if the Transformer in the pretraining model is replaced by a LSTM) on all datasets except the MRPC (Microsoft Paraphrase Corpus for semantic similarity) dataset.</li>
+<li>Overall, larger datasets benefit from the auxiliary objective more than the smaller datasets.</li>
+<li>In general, the Transformer architecture performs better than a 2048 unit single layer LSTM model (if the Transformer in the pretraining model is replaced by an LSTM) on all datasets except the MRPC (Microsoft Paraphrase Corpus for semantic similarity) dataset.</li>
 <li>On comparing this model with the same transformer architecture trained in a supervised manner, it is observed that the model with pre-training performs better. This consistent for all the tasks mentioned in the paper, suggesting that pre-training helps to capture important linguistic information which is not captured when training with a supervised approach alone.</li>
 </ul>
 <hr>
