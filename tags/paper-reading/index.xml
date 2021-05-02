@@ -5,12 +5,427 @@
     <link>https://shreyansh26.github.io/tags/paper-reading/</link>
       <atom:link href="https://shreyansh26.github.io/tags/paper-reading/index.xml" rel="self" type="application/rss+xml" />
     <description>paper reading</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 25 Apr 2021 15:13:13 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 02 May 2021 13:42:14 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>paper reading</title>
       <link>https://shreyansh26.github.io/tags/paper-reading/</link>
     </image>
+    
+    <item>
+      <title>Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</title>
+      <link>https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/</link>
+      <pubDate>Sun, 02 May 2021 13:42:14 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: Improving Language Understanding by Generative Pre-Training&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf&#34;&gt;https://bit.ly/3xITvGP&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Blog&lt;/strong&gt;: &lt;a href=&#34;https://openai.com/blog/language-unsupervised/&#34;&gt;https://openai.com/blog/language-unsupervised/&lt;/a&gt; &lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever&lt;br&gt;
+&lt;strong&gt;Code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/openai/finetune-transformer-lm&#34;&gt;https://bit.ly/3gUFrUX&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;what&#34;&gt;What?&lt;/h2&gt;
+&lt;p&gt;The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task. The pretraining model remains the same for all the tasks. Only a small, task-aware input adaptation is required when performing the fine-tuning. The model significantly improved the state-of-the-art (at the time) in 9 of the 12 tasks studied.&lt;/p&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;
+&lt;p&gt;Most deep learning models require a substantial amount of data, which makes them difficult to train for tasks in which there is a dearth of good quallity annotated data. Historically, pre-trained word embeddings have been used for such cases but the word-level information in itself is sometimes not enough for many of the complex tasks.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+&lt;p&gt;The goal of the model is to learn a universal representation that transfers with little adaptation to a wide range of tasks. The paper assumes access to a large corpus of unlabeled text and several datasets with manually annotated training examples (the target tasks). The unlabeled corpus and the annotated datasets need not be in the same domain.&lt;/p&gt;
+&lt;p&gt;A two-stage training procedure is used. First, a language modeling (LM) objective is used on the unlabeled data to learn the initial parameters of the model. Next, these parameters are adapted to a target task using the corresponding supervised objective.&lt;/p&gt;
+&lt;p&gt;A Tansformer (specifically a Transfomer decoder) is used as the underlying architecture. Transformers work better than LSTMs (shown in the results as well) because they can capture long-term dependencies well which results in robust transfer performance across diverse tasks.  Furthermore, during the transfer, as mentioned above, task-specific input adaptations are used which process the structured text input as a single contiguous sequence of tokens. This is something very interesting, and will be shown in the subsequent sections.&lt;/p&gt;
+&lt;h3 id=&#34;unsupervised-pre-training&#34;&gt;Unsupervised pre-training&lt;/h3&gt;
+&lt;p&gt;A standard forward LM objective is used to maximise the likelihood -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/unsupervised-lm.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/unsupervised-lm.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here, , &lt;em&gt;U&lt;/em&gt; is the corpus of tokens {&lt;em&gt;u&lt;/em&gt;&lt;sub&gt;1&lt;/sub&gt;,&amp;hellip; &lt;em&gt;u&lt;/em&gt;&lt;sub&gt;n&lt;/sub&gt;}, &lt;em&gt;k&lt;/em&gt; is the context window size and the conditional probability &lt;em&gt;P&lt;/em&gt;  is modeled using a network with parameters Θ. SGD is used to learn the parameters. The model uses a multi-layer Transformer decoder. The multi-head self-attention is appled over the input context tokens. This is followed by a position-wise feedforward layers to produce a oouput probability distribution over the target tokens.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/probcalc.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/probcalc.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here &lt;em&gt;U&lt;/em&gt; is (u&lt;sub&gt;-k&lt;/sub&gt;,&amp;hellip;, u&lt;sub&gt;-1&lt;/sub&gt;) which is the context vector of tokens, &lt;em&gt;n&lt;/em&gt; is the number of layers, &lt;em&gt;W&lt;/em&gt;&lt;sub&gt;e&lt;/sub&gt; is the token embedding matrix and &lt;em&gt;W&lt;/em&gt;&lt;sub&gt;p&lt;/sub&gt; is the position embedding matrix.&lt;/p&gt;
+&lt;h3 id=&#34;supervised-fine-tuning&#34;&gt;Supervised fine-tuning&lt;/h3&gt;
+&lt;p&gt;After the training of the model with optimization &lt;em&gt;L&lt;/em&gt;&lt;sub&gt;1&lt;/sub&gt;, the parameters are now adapted to the supervised target task. The labeled dataset is denoted by &lt;em&gt;C&lt;/em&gt;, where each instance is a sequence of input tokens, &lt;em&gt;x&lt;/em&gt;&lt;sup&gt;1&lt;/sup&gt;,&amp;hellip;,&lt;em&gt;x&lt;/em&gt;&lt;sup&gt;m&lt;/sup&gt;, along with a label &lt;em&gt;y&lt;/em&gt;. The inputs are passed through the pre-trained model to obtain the final transformer block&amp;rsquo;s activation &lt;em&gt;h&lt;/em&gt;&lt;sub&gt;l&lt;/sub&gt;&lt;sup&gt;m&lt;/sup&gt;, which is then fed into an added linear output layer with parameters &lt;em&gt;W&lt;/em&gt;&lt;sub&gt;y&lt;/sub&gt; to predict &lt;em&gt;y&lt;/em&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/fintune1.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/fintune1.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The objective to be maximized is as follows&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/fintune2.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/fintune2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Using a LM objective as an auxilliary objective to the finetuning helped to improve the generalization of the supervised model and make it converge faster.&lt;/p&gt;
+&lt;p&gt;The overall objective can be written as -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/objective-fin.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/objective-fin.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;task-specific-input-transformations&#34;&gt;Task-specific input transformations&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/input-transform.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/input-transform.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Since the pretrained model is trained on contiguous sequence of texts, to handle the inputs of the various tasks, certain input transformations is needed as shown above. These transformations help to avoid making extensive changes to the architecture across tasks.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Textual Entailment&lt;/strong&gt; - The premise (&lt;em&gt;p&lt;/em&gt;) and the hypothesis (&lt;em&gt;h&lt;/em&gt;) sequences are concatenated with a delimiter token in between.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Similarity&lt;/strong&gt; - Since there is no inherent ordering of the two sequences being compared, the input sequence is modified to contain both possible sentence orderings (with a delimiter in between). Each of these concatentaed sequences is processed independently to produce two sequence representartions &lt;em&gt;h&lt;/em&gt;&lt;sub&gt;l&lt;/sub&gt;&lt;sup&gt;m&lt;/sup&gt; which are then element-wise added before feeding to the linear output layer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Question Answering&lt;/strong&gt; - This one is interesting. For a given context document &lt;em&gt;z&lt;/em&gt;, question &lt;em&gt;q&lt;/em&gt; and a set of possible answers {&lt;em&gt;a&lt;/em&gt;&lt;sub&gt;k&lt;/sub&gt;}. The document and question is concatenated with each of the possible answers, with a delimiter token in between [&lt;em&gt;z&lt;/em&gt;; &lt;em&gt;q&lt;/em&gt;;$;&lt;em&gt;a&lt;/em&gt;&lt;sub&gt;k&lt;/sub&gt;]. Each of these sequences are processed independently by the model and then normalized by a softmax layer to produce an output distribution over possible answers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The model specifications for the experiment setup are shown below -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/setup.PNG&#34; data-caption=&#34;Experimental Setup&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/setup.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Experimental Setup
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+&lt;p&gt;The datasets that were used are listed below -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/datasets.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/datasets.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Natural Language Inference&lt;/strong&gt; - This task is challenging due to the presence of a wide variety of phenomena like lexical entailment, coreference, and lexical and syntactic ambiguity. The model performs better than the state-of-the-art in 4 (MNLI, QNLI, SNLI, SciTail) out of 5 datasets.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/nli.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/nli.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Question Answering and Commonsense Reasoning&lt;/strong&gt; - The RACE dataset (passages with associated questions from middle and high school exams) and Story Cloze dataset (selecting correct ending to multi-sentence stories from two options) were used. The model outperformed on the basline on both these datasets.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/qa.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/qa.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Semantic Similarity&lt;/strong&gt; - The challenges in this task are recognizing reprhasing, negation, and handling ambiguity. The model performs better on 2 (QQP and STS-B) of the 3 datasets.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Classification&lt;/strong&gt; - The model performs better on both Corpus of Linguistic Accepttability (CoLA) dataset and is at-par with the state-of-the-art results on the Stanford Sentiment Teebank dataset.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/classification.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/classification.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Key points from the analysis section -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;More the number of layers that are transferred from the pretrained model to the supervised target task, the better is the performance on the target tasks.&lt;/li&gt;
+&lt;li&gt;To understand whether the unsupervised pre-training is effective or not, zero shot testing was also perfomed i.e., using the pre-trained model directly without any finetuning. The model performance is stable with and staedily increases over training suggesting that the generative pre-training supports the learning of a wide variety of task relevant functionality. LSTMs exhibit higher variance in its zero-shot performance.
+The testing and input transformations for using the pretrained model directly are explained below -
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/zeroshot.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/zeroshot.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/trend.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/images/trend.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;From the ablation studies, the authors show that the auxiliary LM objective helps on the NLI tasks and QQP (Quora Question Pairs data).&lt;/li&gt;
+&lt;li&gt;Overall, larger datasets benefit from the auxiliary objective more than the samller datasets.&lt;/li&gt;
+&lt;li&gt;In general, the Transformer architecture performs better than a 2048 unit single layer LSTM model (if the Transformer in the pretraining model is replaced by a LSTM) on all datasets except the MRPC (Microsoft Paraphrase Corpus for semantic similarity) dataset.&lt;/li&gt;
+&lt;li&gt;On comparing this model with the same transformer architecture trained in a supervised manner, it is observed that the model with pre-training performs better. This consistent for all the tasks mentioned in the paper, suggesting that pre-training helps to capture important linguistic information which is not captured when training with a supervised approach alone.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/GPT1.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Notes #2 - Deep contextualized word representations</title>

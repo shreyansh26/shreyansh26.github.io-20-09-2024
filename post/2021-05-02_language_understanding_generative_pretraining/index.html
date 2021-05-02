@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: Improving Language Understanding by Generative Pre-Training
+Link: https://bit.ly/3xITvGP
+Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
+Code: https://bit.ly/3gUFrUX
+ What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/">
+  <meta property="og:title" content="Paper Notes #3 - Improving Language Understanding by Generative Pre-Training | Shreyansh Singh">
+  <meta property="og:description" content="Paper: Improving Language Understanding by Generative Pre-Training
+Link: https://bit.ly/3xITvGP
+Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
+Code: https://bit.ly/3gUFrUX
+ What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-05-02T13:42:14&#43;05:30">
+    
+    <meta property="article:modified_time" content="2021-05-02T13:42:14&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/"
+  },
+  "headline": "Paper Notes #3 - Improving Language Understanding by Generative Pre-Training",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/featured.PNG"
+  ],
+  
+  "datePublished": "2021-05-02T13:42:14+05:30",
+  "dateModified": "2021-05-02T13:42:14+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: Improving Language Understanding by Generative Pre-Training\nLink: https://bit.ly/3xITvGP\nBlog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever\nCode: https://bit.ly/3gUFrUX\n What? The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Notes #3 - Improving Language Understanding by Generative Pre-Training | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</h1>
+
+  
+  <p class="page-subtitle">The first paper in the GPT set of models. This is OpenAI&rsquo;s GPT-1.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 2, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2021-05-02_language_understanding_generative_pretraining/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 263px;">
+  <div style="position: relative">
+    <img src="/post/2021-05-02_language_understanding_generative_pretraining/featured_hu9a3f9a86545b59a889b36ded4319e439_33121_720x0_resize_lanczos_2.PNG" alt="" class="featured-image">
+    <span class="article-header-caption">Improving Language Understanding by Generative Pre-Training</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: Improving Language Understanding by Generative Pre-Training<br>
+<strong>Link</strong>: <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">https://bit.ly/3xITvGP</a><br>
+<strong>Blog</strong>: <a href="https://openai.com/blog/language-unsupervised/">https://openai.com/blog/language-unsupervised/</a> <br>
+<strong>Authors</strong>: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever<br>
+<strong>Code</strong>: <a href="https://github.com/openai/finetune-transformer-lm">https://bit.ly/3gUFrUX</a></p>
+<hr>
+<h2 id="what">What?</h2>
+<p>The paper proposes a smi-supervised technique which shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of small amount of annotated data for these specific tasks by performing a unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task. The pretraining model remains the same for all the tasks. Only a small, task-aware input adaptation is required when performing the fine-tuning. The model significantly improved the state-of-the-art (at the time) in 9 of the 12 tasks studied.</p>
+<h2 id="why">Why?</h2>
+<p>Most deep learning models require a substantial amount of data, which makes them difficult to train for tasks in which there is a dearth of good quallity annotated data. Historically, pre-trained word embeddings have been used for such cases but the word-level information in itself is sometimes not enough for many of the complex tasks.</p>
+<h2 id="how">How?</h2>
+<p>The goal of the model is to learn a universal representation that transfers with little adaptation to a wide range of tasks. The paper assumes access to a large corpus of unlabeled text and several datasets with manually annotated training examples (the target tasks). The unlabeled corpus and the annotated datasets need not be in the same domain.</p>
+<p>A two-stage training procedure is used. First, a language modeling (LM) objective is used on the unlabeled data to learn the initial parameters of the model. Next, these parameters are adapted to a target task using the corresponding supervised objective.</p>
+<p>A Tansformer (specifically a Transfomer decoder) is used as the underlying architecture. Transformers work better than LSTMs (shown in the results as well) because they can capture long-term dependencies well which results in robust transfer performance across diverse tasks.  Furthermore, during the transfer, as mentioned above, task-specific input adaptations are used which process the structured text input as a single contiguous sequence of tokens. This is something very interesting, and will be shown in the subsequent sections.</p>
+<h3 id="unsupervised-pre-training">Unsupervised pre-training</h3>
+<p>A standard forward LM objective is used to maximise the likelihood -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/unsupervised-lm.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/unsupervised-lm.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here, , <em>U</em> is the corpus of tokens {<em>u</em><sub>1</sub>,&hellip; <em>u</em><sub>n</sub>}, <em>k</em> is the context window size and the conditional probability <em>P</em>  is modeled using a network with parameters Θ. SGD is used to learn the parameters. The model uses a multi-layer Transformer decoder. The multi-head self-attention is appled over the input context tokens. This is followed by a position-wise feedforward layers to produce a oouput probability distribution over the target tokens.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/probcalc.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/probcalc.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here <em>U</em> is (u<sub>-k</sub>,&hellip;, u<sub>-1</sub>) which is the context vector of tokens, <em>n</em> is the number of layers, <em>W</em><sub>e</sub> is the token embedding matrix and <em>W</em><sub>p</sub> is the position embedding matrix.</p>
+<h3 id="supervised-fine-tuning">Supervised fine-tuning</h3>
+<p>After the training of the model with optimization <em>L</em><sub>1</sub>, the parameters are now adapted to the supervised target task. The labeled dataset is denoted by <em>C</em>, where each instance is a sequence of input tokens, <em>x</em><sup>1</sup>,&hellip;,<em>x</em><sup>m</sup>, along with a label <em>y</em>. The inputs are passed through the pre-trained model to obtain the final transformer block&rsquo;s activation <em>h</em><sub>l</sub><sup>m</sup>, which is then fed into an added linear output layer with parameters <em>W</em><sub>y</sub> to predict <em>y</em>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/fintune1.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/fintune1.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>The objective to be maximized is as follows</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/fintune2.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/fintune2.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Using a LM objective as an auxilliary objective to the finetuning helped to improve the generalization of the supervised model and make it converge faster.</p>
+<p>The overall objective can be written as -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/objective-fin.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/objective-fin.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<h3 id="task-specific-input-transformations">Task-specific input transformations</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/input-transform.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/input-transform.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Since the pretrained model is trained on contiguous sequence of texts, to handle the inputs of the various tasks, certain input transformations is needed as shown above. These transformations help to avoid making extensive changes to the architecture across tasks.</p>
+<ul>
+<li><strong>Textual Entailment</strong> - The premise (<em>p</em>) and the hypothesis (<em>h</em>) sequences are concatenated with a delimiter token in between.</li>
+<li><strong>Similarity</strong> - Since there is no inherent ordering of the two sequences being compared, the input sequence is modified to contain both possible sentence orderings (with a delimiter in between). Each of these concatentaed sequences is processed independently to produce two sequence representartions <em>h</em><sub>l</sub><sup>m</sup> which are then element-wise added before feeding to the linear output layer.</li>
+<li><strong>Question Answering</strong> - This one is interesting. For a given context document <em>z</em>, question <em>q</em> and a set of possible answers {<em>a</em><sub>k</sub>}. The document and question is concatenated with each of the possible answers, with a delimiter token in between [<em>z</em>; <em>q</em>;$;<em>a</em><sub>k</sub>]. Each of these sequences are processed independently by the model and then normalized by a softmax layer to produce an output distribution over possible answers.</li>
+</ul>
+<p>The model specifications for the experiment setup are shown below -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/setup.PNG" data-caption="Experimental Setup">
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/setup.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Experimental Setup
+  </figcaption>
+
+
+</figure>
+
+<h2 id="results">Results</h2>
+<p>The datasets that were used are listed below -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/datasets.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/datasets.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li><strong>Natural Language Inference</strong> - This task is challenging due to the presence of a wide variety of phenomena like lexical entailment, coreference, and lexical and syntactic ambiguity. The model performs better than the state-of-the-art in 4 (MNLI, QNLI, SNLI, SciTail) out of 5 datasets.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/nli.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/nli.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li><strong>Question Answering and Commonsense Reasoning</strong> - The RACE dataset (passages with associated questions from middle and high school exams) and Story Cloze dataset (selecting correct ending to multi-sentence stories from two options) were used. The model outperformed on the basline on both these datasets.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/qa.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/qa.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>
+<p><strong>Semantic Similarity</strong> - The challenges in this task are recognizing reprhasing, negation, and handling ambiguity. The model performs better on 2 (QQP and STS-B) of the 3 datasets.</p>
+</li>
+<li>
+<p><strong>Classification</strong> - The model performs better on both Corpus of Linguistic Accepttability (CoLA) dataset and is at-par with the state-of-the-art results on the Stanford Sentiment Teebank dataset.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/classification.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/classification.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Key points from the analysis section -</p>
+<ul>
+<li>More the number of layers that are transferred from the pretrained model to the supervised target task, the better is the performance on the target tasks.</li>
+<li>To understand whether the unsupervised pre-training is effective or not, zero shot testing was also perfomed i.e., using the pre-trained model directly without any finetuning. The model performance is stable with and staedily increases over training suggesting that the generative pre-training supports the learning of a wide variety of task relevant functionality. LSTMs exhibit higher variance in its zero-shot performance.
+The testing and input transformations for using the pretrained model directly are explained below -
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/zeroshot.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/zeroshot.PNG" alt="" ></a>
+
+
+
+</figure>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-02_language_understanding_generative_pretraining/images/trend.PNG" >
+<img src="/post/2021-05-02_language_understanding_generative_pretraining/images/trend.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>From the ablation studies, the authors show that the auxiliary LM objective helps on the NLI tasks and QQP (Quora Question Pairs data).</li>
+<li>Overall, larger datasets benefit from the auxiliary objective more than the samller datasets.</li>
+<li>In general, the Transformer architecture performs better than a 2048 unit single layer LSTM model (if the Transformer in the pretraining model is replaced by a LSTM) on all datasets except the MRPC (Microsoft Paraphrase Corpus for semantic similarity) dataset.</li>
+<li>On comparing this model with the same transformer architecture trained in a supervised manner, it is observed that the model with pre-training performs better. This consistent for all the tasks mentioned in the paper, suggesting that pre-training helps to capture important linguistic information which is not captured when training with a supervised approach alone.</li>
+</ul>
+<hr>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/GPT1.pdf">here</a>.</strong></p>
+<p>This is all for now!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/paper-reading/">paper reading</a>
+  
+  <a class="badge badge-light" href="/tags/word-representations/">word representations</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/language-model/">language model</a>
+  
+  <a class="badge badge-light" href="/tags/gpt/">gpt</a>
+  
+  <a class="badge badge-light" href="/tags/transformer/">transformer</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/&amp;text=Paper%20Notes%20#3%20-%20Improving%20Language%20Understanding%20by%20Generative%20Pre-Training" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/&amp;t=Paper%20Notes%20#3%20-%20Improving%20Language%20Understanding%20by%20Generative%20Pre-Training" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Notes%20#3%20-%20Improving%20Language%20Understanding%20by%20Generative%20Pre-Training&amp;body=https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/&amp;title=Paper%20Notes%20#3%20-%20Improving%20Language%20Understanding%20by%20Generative%20Pre-Training" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Notes%20#3%20-%20Improving%20Language%20Understanding%20by%20Generative%20Pre-Training%20https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/" rel="prev">Paper Notes #2 - Deep contextualized word representations</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/">Paper Notes #2 - Deep contextualized word representations</a></li>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Notes #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      
+      <li><a href="/post/2021-01-25_deep_learning_in_the_browser/">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a></li>
+      
+      <li><a href="/project/privacy-ml/">Privacy-preserving Machine Learning using Secure Multiparty Computation</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2021 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
