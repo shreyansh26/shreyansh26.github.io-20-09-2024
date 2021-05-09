@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding
+Link: https://bit.ly/3bdTUra Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+Code: https://bit.ly/3vRXlM7
+ What? The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/featured.PNG">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">
+  <meta property="og:title" content="Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding | Shreyansh Singh">
+  <meta property="og:description" content="Paper: BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding
+Link: https://bit.ly/3bdTUra Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+Code: https://bit.ly/3vRXlM7
+ What? The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/featured.PNG">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/featured.PNG"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-05-09T17:01:02&#43;05:30">
+    
+    <meta property="article:modified_time" content="2021-05-09T17:01:02&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/"
+  },
+  "headline": "Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/featured.PNG"
+  ],
+  
+  "datePublished": "2021-05-09T17:01:02+05:30",
+  "dateModified": "2021-05-09T17:01:02+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding\nLink: https://bit.ly/3bdTUra Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova\nCode: https://bit.ly/3vRXlM7\n What? The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</h1>
+
+  
+  <p class="page-subtitle">The ground breaking paper that introduced the famous BERT model. This started the inflow of a large number of BERT-based lnaguegae understanding models.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 9, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    15 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 240px;">
+  <div style="position: relative">
+    <img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/featured_hu4569c2a89010b452bc9e71ffde60e7f2_37728_720x0_resize_lanczos_2.PNG" alt="" class="featured-image">
+    <span class="article-header-caption">BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding<br>
+<strong>Link</strong>: <a href="https://www.aclweb.org/anthology/N19-1423.pdf">https://bit.ly/3bdTUra</a>    <br>
+<strong>Authors</strong>: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova<br>
+<strong>Code</strong>: <a href="https://github.com/google-research/bert">https://bit.ly/3vRXlM7</a></p>
+<hr>
+<h2 id="what">What?</h2>
+<p>The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i.e., without substantial task-specific architecture modifications. BERT achieves SOTA results on eleven NLP tasks such as natural language inference, question answering textual similarity, text classification, etc.</p>
+<h2 id="why">Why?</h2>
+<p>The existing strategies for the pre-trained language representations are mostly based on unidirectional language models and hence are not very effective in capturing the entire context for sentence-level tasks. These are also harmful when applying fine-tuning based approaches to token-level tasks such as question answering, where it is crucial to capture context from both directions.
+BERT aims to generate deep bidirectional representations by using maked language models.</p>
+<h2 id="how">How?</h2>
+<p>Two main steps in the BERT framework are - pre-training and fine-tuning. Pre-training involves training the model on unlabeled data over different pretraining tasks. During fine-tuning, all the BERT parameters are fine-tuned using the labelled data from the downstream tasks. The fine-tuned model is different for each task, however, they share the same pre-trained parameters.</p>
+<h3 id="model-architecture">Model Architecture</h3>
+<p>The underlying architecture of BERT is a multi-layer Transformer encoder, which is inherently bidirectional in nature. Two models are proposed in the paper.</p>
+<ul>
+<li>BERT<sub>BASE</sub> - 12 Transformer blocks, 12 self-attention heads, 768 is the hidden size</li>
+<li>BERT<sub>LARGE</sub> - 24 transformer blocks, 16 self-attention heads, 1024 is the hidden size</li>
+</ul>
+<p><i>The model size of BERT<sub>BASE</sub> and Open AI&rsquo;s GPT was chosen to be the same.</i></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/model.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/model.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<h3 id="input-output-representations">Input-Output Representations</h3>
+<p>BERT uses WordPiece embeddings with a 30,000 token vocabulary. The first token of every sequence is ([CLS]). The final hidden state corresponding to the [CLS] token is used as the aggregate sequence representation.<br>
+To deal with sentence pairs, BERT uses a special token [SEP] to separate the two sentences. A learned embedding is added to every token indicating whether it is the first or the second sentence. The input embedding for each token is obtained by adding the corresponding token embedding (WordPiece embedding), segment embedding (first / second sentence) and position embedding (as in Transformers).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/inputembeds.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/inputembeds.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<h3 id="bert-pre-training">BERT pre-training</h3>
+<p>BERT is pre-trained using two unsupervised tasks.</p>
+<h4 id="masked-lm">Masked LM</h4>
+<p>The bidirectional model is more powerful than either a left-to-right model or the shallow concatenation of a left-to-right and right-to-left model.<br>
+In order to train a deep bidirectional representation, some percentage (15% in the paper) of the input tokens are masked at random, and those masked tokens are predicted using an output softmax over the vocabulary. This is called a masked LM. The masking is performed by replacing the token with a [MASK] token. Now since the [MASK] token does not appear during fine-tuning, the [MASK] token is used 80% of the time. For 10% of the selected tokens (from the 15%) a random token is used to replace it and the token is kept unchanged for the rest 10%. The token is then predicted using cross-entropy loss.</p>
+<h4 id="next-sentence-prediction-nsp">Next Sentence Prediction (NSP)</h4>
+<p>To understand the relationship between two sentences (which is not captured by language modelling), a binarized NSP task is formulated. Here, when choosing the sentences A and B (refer to the model pre-training figure above) for each pre-training example, 50% of the time B is the actual next sentence and the rest 50% of the time, a random sentence from the corpus is used. The vector C (without fine-tuning) is used for NSP. This is helpful for tasks like Question Answering and Natural Language Inference.</p>
+<h4 id="pre-training-data">Pre-training data</h4>
+<p>It is useful for BERT to use a document-level corpus rather than a shuffled sentence-level corpus. BERT 9as in the paper) uses the BookCorpus (800M words) and English Wikipedia (2500M words).</p>
+<h3 id="fine-tuning-bert">Fine-tuning BERT</h3>
+<p>Instead of independently encoding text (sentence) pairs and then applying bidirectional cross attention, BERT uses the Transformer model architecture&rsquo;s self-attention mechanism. Encoding the concatenated text (sentence) pair with self-attention effectively incorporates bidirectional cross attention between the two sentences.</p>
+<p>The fine-tuning is performed for all the parameters and the task-specific inputs and outputs of the downstream task are plugged for fine-tuning.</p>
+<ul>
+<li>A and B are the sentence pairs in case of paraphrasing</li>
+<li>A and B are hypothesis-premise pairs in the entailment task</li>
+<li>A and B are question-passage pairs in question answering</li>
+<li>A and B are the text and Φ in text classification or sequence tagging task</li>
+</ul>
+<p>At the output, for the token-level tasks (sequence tagging, question answering), the token representations are fed into the output layer. For the sentence-level tasks, the representation of the [CLS] token is fed to the output layer for classification.</p>
+<hr>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<hr>
+<h2 id="results">Results</h2>
+<p><strong>GLUE</strong> - The General Language Understanding Evaluation benchmark is a collection of a number of diverse NLP tasks. The 8 datasets the paper evaluates on, are shown below. For these tasks, the [CLS] representation (hidden vector associated with it) is used. The classification layer (a single layer is used) and its weights are the only new parameters introduced. Standard log softmax loss is used.
+The model used a batch size of 32 and was fine-tuned for 3 epochs. The learning rate was chosen from a list based on performance on the validation set.
+BERT<sub>LARGE</sub> was unstable on small datasets so random restarts were done with data shuffling and classification layer initialization. It was found that BERT<sub>LARGE</sub> significantly outperforms BERT<sub>BASE</sub> (and all other models) across all tasks, especially those with very little training data.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/glue.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/glue.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SQuAD v1.1</strong> - A collection of 100k question-answer pairs. Given a question and a passage, the task is to predict the answer span in the text. The question and the passage are represented using A and B embedding respectively. A start vector S and end vector E is introduced in the output. The probability of token <em>i</em> being the start of the answer is given as</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/start.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/start.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>and similarly for the end token. The score of a candidate span from position <em>i</em> to position <em>j</em> is decided to be -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/etend.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/etend.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>This objective is maximised to get the answer range. 
+Batch size of 32, learning rate of 5e-5 was used and the model was fine-tuned for 3 epochs. 
+Also, for enhanced performance, a prior fine-tuning on the Trivia-QA dataset was done before the fine-tuning on SQuAD.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad1.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad1.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SQuAD v2.0</strong> - This task allows for the possibility of no short answer existing in the passage for the question, to present a more realistic situation. So, in this case, for the questions which don&rsquo;t have an answer, the start and end is set to be the [CLS] token. So, now there is also a s<sub>null</sub> = S•C + E•C as the no-answer span score. 
+For a non-null answer, a s<sub>i,j</sub> = S•T<sub>i</sub> + E•T<sub>j</sub> is defined. A non-null answer is predicted when s<sub>i,j</sub> &gt; s<sub>null</sub> + τ. τ is decided on the basis of the performance of the model on the validation set. TriviaQA data was not used for this model. The model was fine-tuned for 2 epochs with a learning rate of 5e-5 and a batch size of 48.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad2.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad2.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SWAG</strong> - The Situations With Adversarial Generations (SWAG) dataset contains 113k sentence-pair completion examples that evaluate grounded commonsense inference. Given a sentence, the task is to choose the most correct continuation of the sentence among four choices. Scoring is performed for the four sentence pairs, the given sentence A and the possible continuation B. Here a vector is introduced whose dot product with the [CLS] token representation C denotes the score for each of the four choices and a softmax layer is used to get the probability distribution. The model was fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/swag.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/swag.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Key points from the analysis/ablation studies section -</p>
+<ul>
+<li>
+<p>Two additional modes of pre-training were performed.</p>
+<ul>
+<li><strong>No NSP</strong> - The model is pre-trained with mask LM but not with the NSP task.</li>
+<li><strong>LTR and No NSP</strong> - Instead of a masked LM, a standard left-to-right LM is used and the NSP task is again not performed.</li>
+</ul>
+</li>
+<li>
+<p>The LTR model performs worse than the MLM model on all tasks, with large drops on MRPC and SQuAD.</p>
+</li>
+<li>
+<p>An LTR model performs poorly on token predictions and hence doesn&rsquo;t perform well on SQuAD.</p>
+</li>
+<li>
+<p>For strengthening the LTR models, a randomly initialized BiLSTM model is added on the top. This improves the results on SQuAD but does not perform well on the GLUE tasks.</p>
+</li>
+<li>
+<p>Separately training LTR (left-to-right) and RTL (right-to-left) models and concatenating them for the token representations is an approach similar to ELMo. But the authors mention that this is twice as expensive as a single bidirectional model. Also, this is unintuitive for tasks like Question Answering since the RTL model would not be able to condition the answer on the question. Furthermore, it is less powerful than a deep bidirectional model, since it can use both left and right context at every layer.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation1.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation1.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>BERT<sub>BASE</sub> contains 110M parameters and BERT<sub>LARGE</sub> contains 340M parameters.</li>
+<li>Larger models lead to a strict accuracy improvement across all four datasets, even for MRPC (paraphrasing) which only has 3,600 labelled training examples.</li>
+<li>BERT claims to be the first model to demonstrate convincingly
+that scaling to extreme model sizes also leads to large improvements on very small scale tasks, provided that the model has been sufficiently pre-trained.</li>
+<li>When the model is fine-tuned directly on the downstream task and uses only a very small number of randomly initialized additional parameters, the task-specific models can benefit from the larger, more expressive pre-trained representations even when downstream task data is very small.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation2.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation2.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>The feature-based model, in which fixed features are obtained from the model, has some advantages. Firstly, not all tasks can be modelled using a Transformer encoder and require task-specific model architecture to be added.</li>
+<li>Secondly, pre-computing the expensive representations and using them for multiple experiments with cheaper models is a computational benefit.</li>
+<li>The authors compare the feature-based approach for the BERT inference and the normal BERT for the NER task. In the inference part of the feature-based approach, the activations from one or more layers are taken <em>without</em> any fine-tuning of the BERT parameters for the NER task. These contextual embeddings are used as input to a randomly initialized two-layer 768-dimensional BiLSTM before the classification layer.</li>
+<li>Although this does not perform better than the fine-tuned approach, the best performing method used the concatenation of the last four hidden layers&rsquo; representation of the pre-trained Transformer as the token representation is only 0.3 F1 behind the fine-tuning approach. So, the authors conclude that BERT is effective for both fine-tuning and feature-based approaches.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation3.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation3.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<hr>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<hr>
+<h2 id="results-1">Results</h2>
+<p><strong>GLUE</strong> - The General Language Understanding Evaluation benchamrk is a collection of a number of diverse NLP tasks. The 8 datasets the paper evaluates on, are shown below. For these tasks, the [CLS] representation (hidden vector associated with it) is used. The classification layer (a single layer is used) and its weights are the only new parameters introduced. Standard log softmax loss is used.
+Model used batch size of 32 and was fine tuned for 3 epochs. Learning rate was chosen from a list based on performance on validation set.
+BERT<sub>LARGE</sub> was unstable on small datasets so random restarts were done with data shuffling and classification layer initialization. It was found that BERT<sub>LARGE</sub> significantly outperforms BERT<sub>BASE</sub> (and all other models) across all tasks, especially those with very little training data.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/glue.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/glue.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SQuAD v1.1</strong> - A collection of 100k question-answer pairs. Given a question and a passage, the task is to predict the answer span in the text. The question and the passage are represneted using A and B embedding respectively. A start vector S and end vector E is introduced in the output. The probability of token <em>i</em> being the start of the answer is given as</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/start.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/start.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>and similarly for the end token. The score of a candidate span form position <em>i</em> to position <em>j</em> is decided to be -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/etend.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/etend.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>This objective is maximised to get the answer range. 
+Batch size of 32, learning rate of 5e-5 was used and the model was fine-tuned for 3 epochs. 
+Also, for enhanced performance, a prior fine-tunig on the Trivia-QA dataset was done before the fine-tuning on SQuAD.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad1.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad1.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SQuAD v2.0</strong> - Thsi task allows for the possibilty of no short answer existing in the passage for the question, to present a more realistic situation. So, in this case, for the questions which don&rsquo;t have a answer, the start and end is set to be the [CLS] token. So, now there is also a s<sub>null</sub> = S•C + E•C as the no-answer span score. 
+For a non-null answer, a s<sub>i,j</sub> = S•T<sub>i</sub> + E•T<sub>j</sub> is defined. A non-null answer is predicted when s<sub>i,j</sub> &gt; s<sub>null</sub> + τ. τ is decided on the basis of the performance of the model on the validation set. TriviaQA data was not used for this model. The model was fine-tuned for 2 epochs with a learning rate of 5e-5 and a batch size of 48.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad2.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/squad2.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p><strong>SWAG</strong> - The Situations With Adversarial Generations (SWAG) dataset contains 113k sentence-pair completion examples that evaluate grounded commonsense inference. Given a sentence, the task is to choose the most correct continuation of the sentence among four choices. A scoring is performed for the four sentence pairs, the given sentence A and the possible continuation B. Here a vector is introduiced whose dot product with the [CLS] token representation C denotes the score for each of the four choices and a softmax ayer is used to get the probabilty distribution. The model was fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/swag.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/swag.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Key points from the analysis/ablation studies section -</p>
+<ul>
+<li>
+<p>Two additional modes of pre-training were performed.</p>
+<ul>
+<li><strong>No NSP</strong> - The model is pre-trained with mask LM but not with the NSP task.</li>
+<li><strong>LTR and No NSP</strong> - Instead of a masked LM, a standard left-to-right LM is used and the NSP task is again not performed.</li>
+</ul>
+</li>
+<li>
+<p>The LTR model performs worse than the MLM model on all tasks, with large drops on MRPC and SQuAD.</p>
+</li>
+<li>
+<p>An LTR model perofrms poorly on token predictions, and hence doesn&rsquo;t perform well on SQuAD.</p>
+</li>
+<li>
+<p>For strengthening the LTR models, a randomly initialized BiLSTM model is added on the top. This improves the results on SQuAD but does not perform well on the GLUE tasks.</p>
+</li>
+<li>
+<p>Separately training LTR (left-to-right) and RTL (right-to-left) models and concatenating them for the token representations is an approach similar to ELMo. But the authors mention that this is twice as expensive as a single bidirectional model. Also, this is unintuitve for tasks like Question Answering since the RTL model would not be able to condition the answer on the question. Furthermore, it is less powerful than a deep bidirectional model, since it can use both left and right context at every layer.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation1.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation1.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>BERT<sub>BASE</sub> contains 110M parameters and BERT<sub>LARGE</sub> contains 340M parameters.</li>
+<li>Larger models lead to a strict accuracy improvement across all four datasets, even for MRPC (paraphrasing) which only has 3,600 labeled training examples.</li>
+<li>BERT claims to be the first model to demonstrate convincingly
+that scaling to extreme model sizes also leads to large improvements on very small scale tasks, provided that the model has been sufficiently pre-trained.</li>
+<li>When the model is fine-tuned directly on the downstream task and uses only a very small number of randomly initialized additional parameters,the task specific models can benefit from the larger, more expressive pre-trained representations even when downstream task data is very small.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation2.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation2.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>The feature based model, in which fixed features are obtainned from the model, has some advantages. Firstly, not all tasks can be modeled using a Transformer encoder and require task-specific model architecture to be added.</li>
+<li>Secondly, pre-computing the expensive representations and using them for multiple experiments with cheaper models is a computational benefit.</li>
+<li>The authors compare the feature-based approach for the BERT inference and the normal BERT for the NER task. In the inference part of the feature-based aapproach the activations from one or more layers are taken <em>without</em> any fine-tuning of the BERT paramaetrs for the NER task. These contextual embeddings are used as input to a randomly initialized a two-layer 768-dimensional BiLSTM before the classification layer.</li>
+<li>Although this does not perform better than the the fine-tuned approach, but the best performing method which used the concatenation of the last four hidden layers&rsquo; representaion of the pre-trained Transformer as the token represnetation is only 0.3 F1 behind the fine-tuning approach. So, the authors conclude that BERT is effective for both fine-tunign and feature-based approaches.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation3.PNG" >
+<img src="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/images/ablation3.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<hr>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/BERT.pdf">here</a>.</strong></p>
+<p>This is all for now!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/paper-reading/">paper reading</a>
+  
+  <a class="badge badge-light" href="/tags/language-model/">language model</a>
+  
+  <a class="badge badge-light" href="/tags/language-understanding/">language understanding</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/language-model/">language model</a>
+  
+  <a class="badge badge-light" href="/tags/gpt/">gpt</a>
+  
+  <a class="badge badge-light" href="/tags/transformer/">transformer</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/&amp;text=Paper%20Notes%20#4%20-%20BERT:%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/&amp;t=Paper%20Notes%20#4%20-%20BERT:%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Notes%20#4%20-%20BERT:%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&amp;body=https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/&amp;title=Paper%20Notes%20#4%20-%20BERT:%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Notes%20#4%20-%20BERT:%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding%20https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2021-05-02_language_understanding_generative_pretraining/" rel="prev">Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</a></li>
+      
+      <li><a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/">Paper Notes #2 - Deep contextualized word representations</a></li>
+      
+      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Notes #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/post/2021-01-25_deep_learning_in_the_browser/">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2021 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
