@@ -562,7 +562,7 @@ For a non-null answer, a s&lt;sub&gt;i,j&lt;/sub&gt; = S•T&lt;sub&gt;i&lt;/sub
 
 &lt;/figure&gt;
 
-&lt;p&gt;&lt;strong&gt;SWAG&lt;/strong&gt; - The Situations With Adversarial Generations (SWAG) dataset contains 113k sentence-pair completion examples that evaluate grounded commonsense inference. Given a sentence, the task is to choose the most correct continuation of the sentence among four choices. A scoring is performed for the four sentence pairs, the given sentence A and the possible continuation B. Here a vector is introduiced whose dot product with the [CLS] token representation C denotes the score for each of the four choices and a softmax ayer is used to get the probabilty distribution. The model was fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SWAG&lt;/strong&gt; - The Situations With Adversarial Generations (SWAG) dataset contains 113k sentence-pair completion examples that evaluate grounded commonsense inference. Given a sentence, the task is to choose the most correct continuation of the sentence among four choices. A scoring is performed for the four sentence pairs, the given sentence A and the possible continuation B. Here a vector is introduiced whose dot product with the [CLS] token representation C denotes the score for each of the four choices and a softmax layer is used to get the probabilty distribution. The model was fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.&lt;/p&gt;
 
 
 
