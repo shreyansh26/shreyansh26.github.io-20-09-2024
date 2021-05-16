@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: XLNet: Generalized Autoregressive Pretraining for Language Understanding
+Link: https://arxiv.org/pdf/1906.08237.pdf
+Authors: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le
+Code: https://github.com/zihangdai/xlnet
+ What? The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/featured.PNG">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">
+  <meta property="og:title" content="Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | Shreyansh Singh">
+  <meta property="og:description" content="Paper: XLNet: Generalized Autoregressive Pretraining for Language Understanding
+Link: https://arxiv.org/pdf/1906.08237.pdf
+Authors: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le
+Code: https://github.com/zihangdai/xlnet
+ What? The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking."><meta property="og:image" content="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/featured.PNG">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/featured.PNG"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-05-16T14:25:04&#43;05:30">
+    
+    <meta property="article:modified_time" content="2021-05-16T14:25:04&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/"
+  },
+  "headline": "Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/featured.PNG"
+  ],
+  
+  "datePublished": "2021-05-16T14:25:04+05:30",
+  "dateModified": "2021-05-16T14:25:04+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: XLNet: Generalized Autoregressive Pretraining for Language Understanding\nLink: https://arxiv.org/pdf/1906.08237.pdf\nAuthors: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le\nCode: https://github.com/zihangdai/xlnet\n What? The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</h1>
+
+  
+  <p class="page-subtitle">XLNet tries to overcome the limitations of BERT by having a autoregressive component while also capturing the bidirectional context.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 16, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    11 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 305px;">
+  <div style="position: relative">
+    <img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/featured_hu13072b033a474eeb637b70326d988187_46576_720x0_resize_lanczos_2.PNG" alt="" class="featured-image">
+    <span class="article-header-caption">XLNet: Generalized Autoregressive Pretraining for Language Understanding</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: XLNet: Generalized Autoregressive Pretraining for Language Understanding<br>
+<strong>Link</strong>: <a href="https://arxiv.org/pdf/1906.08237.pdf">https://arxiv.org/pdf/1906.08237.pdf</a><br>
+<strong>Authors</strong>: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le<br>
+<strong>Code</strong>: <a href="https://github.com/zihangdai/xlnet">https://github.com/zihangdai/xlnet</a></p>
+<hr>
+<h2 id="what">What?</h2>
+<p>The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking.</p>
+<h2 id="why">Why?</h2>
+<p>The existing unsupervised representation learning approaches can be divided into two types - autoregressive language modeling and autoencoding approaches. The autoregressive methods like ELMo and GPT tried to estimate the probability distribution of a text corpus with an autoregressive model. They had a limitation in that they only captured the unidirectional context. BERT aimed to solve this problem by aiming to reconstruct the original data from the corrupted input. So BERT could capture the bidirectional context, but by converting this into a prediction problem, BERT assumed that the predicted tokens are independent of each other. However, that is not the case in natural language where long term dependency is prevalent. Moreover, the use of the [MASK] tokens also created a pretrain-finetune discrepancy as there are no [MASK] tokens available during finetuning.</p>
+<p>XLNet tries to leverage the best of both worlds. The qualities of XLNet are -</p>
+<ul>
+<li>XLNet computes the maximum likelihood of a sequence w.r.t. all possible permutations of the factorization order. So when calculating the expectation, each position learns to capture the context from all positions, hence capturing bidirectional context.</li>
+<li>XLNet does not rely on data corruption as in BERT and hence does not suffer from the pretrain-finetune discrepancy.</li>
+<li>XLNet integrates the novelties from Transformer-XL like recurrence mechanism and relative encoding scheme (explained later as well). This improves the performance of tasks that utilise a longer text sequence.</li>
+</ul>
+<h2 id="how">How?</h2>
+<p>Autoregressive language modeling performs pretraining by maximizing the likelihood under the forward autoregressive factorization -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arobjective.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arobjective.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here <em>x</em> is the given text sequence. h<sub>Θ</sub>(x<sub>1:t-1</sub>) is the context representation produced by the model and <em>e</em>(x) is the embedding of <em>x</em>.</p>
+<p>Denoising autoencoding approach like BERT first constructs a corrupt version <em>x</em>(cap) by randomly masking a fraction (15%) of tokens of <em>x</em> to a special symbol [MASK]. The masked tokens are denoted by <em>x</em>(bar). So, the training objective in the case of BERT becomes -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/aeobjective.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/aeobjective.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here <em>m</em><sub>t</sub> is 1 when <em>x</em><sub>t</sub> is masked. Here H<sub>Θ</sub> is a Transformer that maps each token to a sequence of length <em>T</em> to hidden vectors [H<sub>Θ</sub>(x)<sub>1</sub>, H<sub>Θ</sub>(x)<sub>2</sub>, &hellip;, H<sub>Θ</sub>(x)<sub>T</sub>].</p>
+<p>In BERT, the conditional probability is taken when the input is masked, denoted using <em>m</em><sub>t</sub>. Hence denoting the independence assumption among the targets.</p>
+<h3 id="objective-permutation-language-modeling">Objective: Permutation Language Modeling</h3>
+<p>Both autoregressive and autoencoding approaches have their benefits over each other. XLNet tries to bring both their advantages into the picture while avoiding their weaknesses.</p>
+<p>XLNet proposes the use of permutation language modeling objective that looks like the general autoregressive language modeling approach but it allows the model to capture bidirectional context as well. Here, the training is performed for each valid autoregressive factorization order (permutations) of the sequence. The model parameters are shared across all the factorization orders, and hence the model learns to capture information from all positions on both sides.</p>
+<p>The proposed permutation language modeling approach is -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/xlnetobjective.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/xlnetobjective.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here <em>Z</em><sub>T</sub> is the set of all possible permutations of the length-<em>T</em> index sequence [1, 2, 3&hellip;, T]. <em>z</em><sub>t</sub> and z<sub>&lt;t</sub> denote the t-th element and the first <em>t-1</em> elements of the permutation. So, basically the autoregressive formulation is applied for each factorization order z.</p>
+<p>Since this is based on the autoregressive framework, the independence assumption of BERT is no longer present in this case and the pretrain-finetune discrepancy is also not present.</p>
+<p>* One must note that here the objective does not permute the sequence order. The sequence order remains as it is and the positional encodings correspond to the original sequence itself. Here, the attention mask in Transformers is used to achieve the permutation of the factorization order. This is done because permuting the sequence itself can cause problems as during finetuning, the natural order will always be preserved. The authors do not want to include any other pretrain-finetune discrepancy.</p>
+<h3 id="architecture-two-stream-self-attention-for-target-aware-representations">Architecture: Two-Stream Self-Attention for Target-Aware Representations</h3>
+<p>Using the Transformer(-XL) directly with the permutation language modeling objective will not work. This is because, say we have two sequences, in which z<sub>&lt;t</sub> sequence is same but the z<sub>t</sub> token is different. And in the current formulation using transformers(-XL) the z<sub>&lt;t</sub> sequence determines z<sub>t</sub> but that would not be correct if we predict the same distribution for both the sequences while they have two different tokens as the target.</p>
+<p>To solve this, a re-parameterization of the next-token distribution with the target-position (z<sub>t</sub>) is required.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/rexlnetobjective.png" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/rexlnetobjective.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Here, g<sub>Θ</sub>(x<sub>z<sub>&lt;t</sub></sub>, <i>z</i><sub></sub>) is a new type of representation that takes in the z<sub>t</sub> as input as well.</p>
+<h4 id="two-stream-self-attention">Two-Stream Self-Attention</h4>
+<p>Now, there is a contradiction here. If we want to predict x<sub>z<sub>t</sub></sub>, g<sub>Θ</sub>(x<sub>z<sub>&lt;t</sub></sub>, <i>z</i><sub>t</sub>) should only use position z<sub>t</sub> and not x<sub>z<sub>t</sub></sub> itself. Also, to predict the future tokens x<sub>z<sub>j</sub></sub> with j &gt; t, we need  x<sub>z<sub>t</sub></sub> to provide the full context information.</p>
+<p>So, to resolve this, XLNet uses two hidden representations -</p>
+<ul>
+<li>Content representation h<sub>Θ</sub>(x<sub>z<sub>&lt;=t</sub></sub>) abbreviated as h<sub>z<sub>t</sub></sub>, which is similar to the general Transformer hidden state. This encodes both the context and the token x<sub>z<sub>t</sub></sub>.</li>
+<li>Query representation g<sub>Θ</sub>(x<sub>z<sub>&lt;t</sub></sub>, <i>z</i><sub>t</sub>) , abbreviated as g<sub>z<sub>t</sub></sub>, which only has access to the contextual information x<sub>z<sub>&lt;t</sub></sub> and the position z<sub>t</sub> but not the contents x<sub>z<sub>t</sub></sub>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arch.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arch.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>The above diagram shows the flow of the two streams. The two streams are updated with a set of shared parameters as follows -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/update.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/update.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>The update rule of the content representations is exactly the same as the standard self-attention. During finetuning, the query stream can be dropped and the content stream can be used as a normal Transformer(-XL). And in the end, the last-layer query representation g<sub>z<sub>t</sub></sub> is used to compute the likelihood.</p>
+<hr>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<hr>
+<h4 id="partial-prediction">Partial Prediction</h4>
+<p>For a given factorization order <em><strong>z</strong></em>,  cutting point <em>c</em> is chosen which splits the sequence into two subsequences. <em><strong>z</strong></em><sub>&lt;=c</sub> is the non-target subsequence and <em><strong>z</strong></em><sub>&gt;c</sub> is the target sequence. The objective to maximize the log-likelihood of the target subsequence conditioned on the non-target subsequence is written as -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/partial.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/partial.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>A hyperparameter <em>K</em> is chosen to determine what fraction of the sequence length will be the target sequence. This is done so that sufficient sequence length is present for the model to learn the context.</p>
+<p>Here again, XLNet differs from BERT. Let us consider an example [New, York, is, a city]. If both BERT and XLNet take two tokens [New, York] as the prediction task and so they have to maximize p(New York | is a city). Here BERT and XLNet get the following objectives -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/bertxlnet.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/bertxlnet.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>XLNet considers the dependency in the target subsequence as well i.e., how &ldquo;York&rdquo; depends on &ldquo;New&rdquo; as well. XLNet always learns more dependency pairs given the same target and contains “denser” effective training signals.</p>
+<h3 id="ideas-from-transformer-xl">Ideas from Transformer-XL</h3>
+<p>Transformer-XL introduced the segment recurrence mechanism for caching and reuse of the previous segment knowledge. For a long sequence <strong>s</strong>, if we take two segments <em>z</em>(bar) and <em>z</em> which are permutations of the segment, then the obtained representations from the first segment h(bar)<sup>(m)</sup> for each layer <em>m</em> can be cached and reused for the next segment. This can be written as -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/recur.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/recur.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>Also since the positional embeddings depend on the actual positions in the original sequence, the above attention update is independent of the previous segment once the hidden representations have been calculated. So the factorization order of the previous segment need not be known. Subsequently, the model learns to utilize the memory over all factorization orders of the last segment. The same is done for the query stream as well.</p>
+<h3 id="modeling-multiple-segments">Modeling Multiple Segments</h3>
+<p>Like BERT, XLNet randomly samples two segments (either from the same context or not) and treats the concatenation of two segments as one sequence to perform permutation language modeling.</p>
+<p>XLNET introduces Relative Segment Encodings. Unlike BERT which had absolute segment embeddings that were added to the word embedding at each position, here, rather than giving the entire segment an encoding, relative encoding is used between positions to denote whether they belong to the same segment or not.
+The segment encoding of the positions is used to compute the attention weight. So, when position <em>i</em> attends to <em>j</em>, the segment encoding s<sub><i>ij</i></sub> is used to compute an attention weight a<sub>ij</sub> = (q<sub>i</sub> + b)<sup>T</sup>s<sub>ij</sub> , where q<sub>i</sub> is the query vector as in a standard attention operation and <em>b</em> is a learnable head-specific bias vector.</p>
+<p>Relative segment encodings help because -</p>
+<ul>
+<li>Inductive bias of the relative encodings improves the generalization.</li>
+<li>Opens up the possibility of finetuning on tasks that have more than two input segments, which is not possible when using absolute segment encodings.</li>
+</ul>
+<h2 id="results">Results</h2>
+<p>Two datasets were the same as the ones BERT used i.e., BooksCorpus and English Wikipedia. Furthermore, Giga5, ClueWeb 2012-B and CommonCrawl datasets were also used. SentencePiece tokenization was used.</p>
+<p>XLNet had the same architecture hyperparameters as BERT-Base and XLNet-Large had the same hyperparameters as BERT-Large. this resulted in similar model size and hence a fair comparison.</p>
+<p>XLNet was trained on 512 TPU v3 chips for 500K steps with an Adam weight decay
+optimizer, linear learning rate decay, and a batch size of 8192, which took about 5.5 days. And even after using so much compute and time, the model still underfitted on the data at the end of the training.</p>
+<p>Since the recurrence mechanism is introduced, XLNet uses a bidirectional data input pipeline where each of the forward and backward directions takes half of the batch size. The idea of span-based prediction, where first, a sample length <em>L</em> from [1, &hellip;, 5] is chosen and then a consecutive span of <em>L</em> tokens is randomly selected as prediction targets within a context of (<em>KL</em>) tokens.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comparisonwithbert.PNG" >
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comparisonwithbert.PNG" alt="" ></a>
+
+
+
+</figure>
+
+<p>As seen above, trained on the same data with an almost identical training recipe,
+XLNet outperforms BERT by a sizable margin on all the considered datasets.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp1.PNG" data-caption="Performance on reading comprehension and document ranking tasks. Comparison with GPT, BERT, RoBERTa and a BERT ensemble">
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp1.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Performance on reading comprehension and document ranking tasks. Comparison with GPT, BERT, RoBERTa and a BERT ensemble
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp2.PNG" data-caption="Performance on question answering tasks - SQuADv1.1 and SQuADv2.0">
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp2.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Performance on question answering tasks - SQuADv1.1 and SQuADv2.0
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp3.PNG" data-caption="Performance on text classification task.">
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp3.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Performance on text classification task.
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp4.PNG" data-caption="Performance on natural language understanding tasks - the GLUE benchmark.">
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp4.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Performance on natural language understanding tasks - the GLUE benchmark.
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>For explicit reasoning tasks like SQuAD and RACE that involve longer context, the performance gain of XLNet is larger. The use of Transformer-XL could be the main reason behind this.</li>
+<li>For classification tasks that already have abundant supervised examples such as MNLI (&gt;390K), Yelp (&gt;560K) and Amazon (&gt;3M), XLNet still lead to substantial gains.</li>
+</ul>
+<p><strong>Ablation study</strong> was also performed to understand the importance and effect of introducing each component. The points of the study were -</p>
+<ul>
+<li>The effectiveness of the permutation language modeling objective alone, especially compared to the denoising auto-encoding objective used by BERT.</li>
+<li>The importance of using Transformer-XL as the backbone neural architecture. For this, a DAE + Transformer-XL model was used.</li>
+<li>The necessity of some implementation details including span-based prediction, the bidirectional input pipeline, and next-sentence prediction.</li>
+</ul>
+<p>For a fair comparison, all models were based on a 12-layer architecture with the same model hyper-parameters as BERT-Base and were trained on only Wikipedia and the BooksCorpus. All results reported are the median of 5 runs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/ablation.PNG" data-caption="Performance on natural language understanding tasks - the GLUE benchmark.">
+<img src="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/ablation.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Performance on natural language understanding tasks - the GLUE benchmark.
+  </figcaption>
+
+
+</figure>
+
+<p>From the table -</p>
+<ul>
+<li>Transformer-XL and the permutation LM (the basis of XLNet) are big factors in the superior performance of XLNet over BERT.</li>
+<li>On removing the memory caching mechanism, the performance drops especially for RACE where long context understanding is needed.</li>
+<li>Span-based prediction and bidirectional input pipeline also help in the performance of XLNet.</li>
+<li>The next-sentence prediction objective does not lead to an improvement. Hence the next-sentence prediction objective is excluded from XLNet.</li>
+</ul>
+<hr>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/XLNet.pdf">here</a>.</strong></p>
+<p>This is all for now!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/paper-reading/">paper reading</a>
+  
+  <a class="badge badge-light" href="/tags/autoregressive/">autoregressive</a>
+  
+  <a class="badge badge-light" href="/tags/transformer/">transformer</a>
+  
+  <a class="badge badge-light" href="/tags/transformer-xl/">transformer-xl</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/language-model/">language model</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/&amp;text=Paper%20Notes%20#5%20-%20XLNet:%20Generalized%20Autoregressive%20Pretraining%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/&amp;t=Paper%20Notes%20#5%20-%20XLNet:%20Generalized%20Autoregressive%20Pretraining%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Notes%20#5%20-%20XLNet:%20Generalized%20Autoregressive%20Pretraining%20for%20Language%20Understanding&amp;body=https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/&amp;title=Paper%20Notes%20#5%20-%20XLNet:%20Generalized%20Autoregressive%20Pretraining%20for%20Language%20Understanding" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Notes%20#5%20-%20XLNet:%20Generalized%20Autoregressive%20Pretraining%20for%20Language%20Understanding%20https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/" rel="prev">Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</a></li>
+      
+      <li><a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/">Paper Notes #2 - Deep contextualized word representations</a></li>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Notes #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/project/msr-nlg/">Multilingual Surface Realization for NLG</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2021 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

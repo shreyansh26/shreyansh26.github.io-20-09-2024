@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>autoregressive | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/tags/autoregressive/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/autoregressive/index.xml" rel="self" type="application/rss+xml" />
+    <description>autoregressive</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 16 May 2021 14:25:04 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>autoregressive</title>
+      <link>https://shreyansh26.github.io/tags/autoregressive/</link>
+    </image>
+    
+    <item>
+      <title>Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</title>
+      <link>https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/</link>
+      <pubDate>Sun, 16 May 2021 14:25:04 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: XLNet: Generalized Autoregressive Pretraining for Language Understanding&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://arxiv.org/pdf/1906.08237.pdf&#34;&gt;https://arxiv.org/pdf/1906.08237.pdf&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le&lt;br&gt;
+&lt;strong&gt;Code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/zihangdai/xlnet&#34;&gt;https://github.com/zihangdai/xlnet&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;what&#34;&gt;What?&lt;/h2&gt;
+&lt;p&gt;The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking.&lt;/p&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;
+&lt;p&gt;The existing unsupervised representation learning approaches can be divided into two types - autoregressive language modeling and autoencoding approaches. The autoregressive methods like ELMo and GPT tried to estimate the probability distribution of a text corpus with an autoregressive model. They had a limitation in that they only captured the unidirectional context. BERT aimed to solve this problem by aiming to reconstruct the original data from the corrupted input. So BERT could capture the bidirectional context, but by converting this into a prediction problem, BERT assumed that the predicted tokens are independent of each other. However, that is not the case in natural language where long term dependency is prevalent. Moreover, the use of the [MASK] tokens also created a pretrain-finetune discrepancy as there are no [MASK] tokens available during finetuning.&lt;/p&gt;
+&lt;p&gt;XLNet tries to leverage the best of both worlds. The qualities of XLNet are -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;XLNet computes the maximum likelihood of a sequence w.r.t. all possible permutations of the factorization order. So when calculating the expectation, each position learns to capture the context from all positions, hence capturing bidirectional context.&lt;/li&gt;
+&lt;li&gt;XLNet does not rely on data corruption as in BERT and hence does not suffer from the pretrain-finetune discrepancy.&lt;/li&gt;
+&lt;li&gt;XLNet integrates the novelties from Transformer-XL like recurrence mechanism and relative encoding scheme (explained later as well). This improves the performance of tasks that utilise a longer text sequence.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+&lt;p&gt;Autoregressive language modeling performs pretraining by maximizing the likelihood under the forward autoregressive factorization -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arobjective.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arobjective.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here &lt;em&gt;x&lt;/em&gt; is the given text sequence. h&lt;sub&gt;Θ&lt;/sub&gt;(x&lt;sub&gt;1:t-1&lt;/sub&gt;) is the context representation produced by the model and &lt;em&gt;e&lt;/em&gt;(x) is the embedding of &lt;em&gt;x&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Denoising autoencoding approach like BERT first constructs a corrupt version &lt;em&gt;x&lt;/em&gt;(cap) by randomly masking a fraction (15%) of tokens of &lt;em&gt;x&lt;/em&gt; to a special symbol [MASK]. The masked tokens are denoted by &lt;em&gt;x&lt;/em&gt;(bar). So, the training objective in the case of BERT becomes -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/aeobjective.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/aeobjective.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here &lt;em&gt;m&lt;/em&gt;&lt;sub&gt;t&lt;/sub&gt; is 1 when &lt;em&gt;x&lt;/em&gt;&lt;sub&gt;t&lt;/sub&gt; is masked. Here H&lt;sub&gt;Θ&lt;/sub&gt; is a Transformer that maps each token to a sequence of length &lt;em&gt;T&lt;/em&gt; to hidden vectors [H&lt;sub&gt;Θ&lt;/sub&gt;(x)&lt;sub&gt;1&lt;/sub&gt;, H&lt;sub&gt;Θ&lt;/sub&gt;(x)&lt;sub&gt;2&lt;/sub&gt;, &amp;hellip;, H&lt;sub&gt;Θ&lt;/sub&gt;(x)&lt;sub&gt;T&lt;/sub&gt;].&lt;/p&gt;
+&lt;p&gt;In BERT, the conditional probability is taken when the input is masked, denoted using &lt;em&gt;m&lt;/em&gt;&lt;sub&gt;t&lt;/sub&gt;. Hence denoting the independence assumption among the targets.&lt;/p&gt;
+&lt;h3 id=&#34;objective-permutation-language-modeling&#34;&gt;Objective: Permutation Language Modeling&lt;/h3&gt;
+&lt;p&gt;Both autoregressive and autoencoding approaches have their benefits over each other. XLNet tries to bring both their advantages into the picture while avoiding their weaknesses.&lt;/p&gt;
+&lt;p&gt;XLNet proposes the use of permutation language modeling objective that looks like the general autoregressive language modeling approach but it allows the model to capture bidirectional context as well. Here, the training is performed for each valid autoregressive factorization order (permutations) of the sequence. The model parameters are shared across all the factorization orders, and hence the model learns to capture information from all positions on both sides.&lt;/p&gt;
+&lt;p&gt;The proposed permutation language modeling approach is -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/xlnetobjective.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/xlnetobjective.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here &lt;em&gt;Z&lt;/em&gt;&lt;sub&gt;T&lt;/sub&gt; is the set of all possible permutations of the length-&lt;em&gt;T&lt;/em&gt; index sequence [1, 2, 3&amp;hellip;, T]. &lt;em&gt;z&lt;/em&gt;&lt;sub&gt;t&lt;/sub&gt; and z&lt;sub&gt;&amp;lt;t&lt;/sub&gt; denote the t-th element and the first &lt;em&gt;t-1&lt;/em&gt; elements of the permutation. So, basically the autoregressive formulation is applied for each factorization order z.&lt;/p&gt;
+&lt;p&gt;Since this is based on the autoregressive framework, the independence assumption of BERT is no longer present in this case and the pretrain-finetune discrepancy is also not present.&lt;/p&gt;
+&lt;p&gt;* One must note that here the objective does not permute the sequence order. The sequence order remains as it is and the positional encodings correspond to the original sequence itself. Here, the attention mask in Transformers is used to achieve the permutation of the factorization order. This is done because permuting the sequence itself can cause problems as during finetuning, the natural order will always be preserved. The authors do not want to include any other pretrain-finetune discrepancy.&lt;/p&gt;
+&lt;h3 id=&#34;architecture-two-stream-self-attention-for-target-aware-representations&#34;&gt;Architecture: Two-Stream Self-Attention for Target-Aware Representations&lt;/h3&gt;
+&lt;p&gt;Using the Transformer(-XL) directly with the permutation language modeling objective will not work. This is because, say we have two sequences, in which z&lt;sub&gt;&amp;lt;t&lt;/sub&gt; sequence is same but the z&lt;sub&gt;t&lt;/sub&gt; token is different. And in the current formulation using transformers(-XL) the z&lt;sub&gt;&amp;lt;t&lt;/sub&gt; sequence determines z&lt;sub&gt;t&lt;/sub&gt; but that would not be correct if we predict the same distribution for both the sequences while they have two different tokens as the target.&lt;/p&gt;
+&lt;p&gt;To solve this, a re-parameterization of the next-token distribution with the target-position (z&lt;sub&gt;t&lt;/sub&gt;) is required.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/rexlnetobjective.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/rexlnetobjective.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Here, g&lt;sub&gt;Θ&lt;/sub&gt;(x&lt;sub&gt;z&lt;sub&gt;&amp;lt;t&lt;/sub&gt;&lt;/sub&gt;, &lt;i&gt;z&lt;/i&gt;&lt;sub&gt;&lt;/sub&gt;) is a new type of representation that takes in the z&lt;sub&gt;t&lt;/sub&gt; as input as well.&lt;/p&gt;
+&lt;h4 id=&#34;two-stream-self-attention&#34;&gt;Two-Stream Self-Attention&lt;/h4&gt;
+&lt;p&gt;Now, there is a contradiction here. If we want to predict x&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt;, g&lt;sub&gt;Θ&lt;/sub&gt;(x&lt;sub&gt;z&lt;sub&gt;&amp;lt;t&lt;/sub&gt;&lt;/sub&gt;, &lt;i&gt;z&lt;/i&gt;&lt;sub&gt;t&lt;/sub&gt;) should only use position z&lt;sub&gt;t&lt;/sub&gt; and not x&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt; itself. Also, to predict the future tokens x&lt;sub&gt;z&lt;sub&gt;j&lt;/sub&gt;&lt;/sub&gt; with j &amp;gt; t, we need  x&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt; to provide the full context information.&lt;/p&gt;
+&lt;p&gt;So, to resolve this, XLNet uses two hidden representations -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Content representation h&lt;sub&gt;Θ&lt;/sub&gt;(x&lt;sub&gt;z&lt;sub&gt;&amp;lt;=t&lt;/sub&gt;&lt;/sub&gt;) abbreviated as h&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt;, which is similar to the general Transformer hidden state. This encodes both the context and the token x&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt;.&lt;/li&gt;
+&lt;li&gt;Query representation g&lt;sub&gt;Θ&lt;/sub&gt;(x&lt;sub&gt;z&lt;sub&gt;&amp;lt;t&lt;/sub&gt;&lt;/sub&gt;, &lt;i&gt;z&lt;/i&gt;&lt;sub&gt;t&lt;/sub&gt;) , abbreviated as g&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt;, which only has access to the contextual information x&lt;sub&gt;z&lt;sub&gt;&amp;lt;t&lt;/sub&gt;&lt;/sub&gt; and the position z&lt;sub&gt;t&lt;/sub&gt; but not the contents x&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arch.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The above diagram shows the flow of the two streams. The two streams are updated with a set of shared parameters as follows -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/update.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/update.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The update rule of the content representations is exactly the same as the standard self-attention. During finetuning, the query stream can be dropped and the content stream can be used as a normal Transformer(-XL). And in the end, the last-layer query representation g&lt;sub&gt;z&lt;sub&gt;t&lt;/sub&gt;&lt;/sub&gt; is used to compute the likelihood.&lt;/p&gt;
+&lt;hr&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;partial-prediction&#34;&gt;Partial Prediction&lt;/h4&gt;
+&lt;p&gt;For a given factorization order &lt;em&gt;&lt;strong&gt;z&lt;/strong&gt;&lt;/em&gt;,  cutting point &lt;em&gt;c&lt;/em&gt; is chosen which splits the sequence into two subsequences. &lt;em&gt;&lt;strong&gt;z&lt;/strong&gt;&lt;/em&gt;&lt;sub&gt;&amp;lt;=c&lt;/sub&gt; is the non-target subsequence and &lt;em&gt;&lt;strong&gt;z&lt;/strong&gt;&lt;/em&gt;&lt;sub&gt;&amp;gt;c&lt;/sub&gt; is the target sequence. The objective to maximize the log-likelihood of the target subsequence conditioned on the non-target subsequence is written as -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/partial.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/partial.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;A hyperparameter &lt;em&gt;K&lt;/em&gt; is chosen to determine what fraction of the sequence length will be the target sequence. This is done so that sufficient sequence length is present for the model to learn the context.&lt;/p&gt;
+&lt;p&gt;Here again, XLNet differs from BERT. Let us consider an example [New, York, is, a city]. If both BERT and XLNet take two tokens [New, York] as the prediction task and so they have to maximize p(New York | is a city). Here BERT and XLNet get the following objectives -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/bertxlnet.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/bertxlnet.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;XLNet considers the dependency in the target subsequence as well i.e., how &amp;ldquo;York&amp;rdquo; depends on &amp;ldquo;New&amp;rdquo; as well. XLNet always learns more dependency pairs given the same target and contains “denser” effective training signals.&lt;/p&gt;
+&lt;h3 id=&#34;ideas-from-transformer-xl&#34;&gt;Ideas from Transformer-XL&lt;/h3&gt;
+&lt;p&gt;Transformer-XL introduced the segment recurrence mechanism for caching and reuse of the previous segment knowledge. For a long sequence &lt;strong&gt;s&lt;/strong&gt;, if we take two segments &lt;em&gt;z&lt;/em&gt;(bar) and &lt;em&gt;z&lt;/em&gt; which are permutations of the segment, then the obtained representations from the first segment h(bar)&lt;sup&gt;(m)&lt;/sup&gt; for each layer &lt;em&gt;m&lt;/em&gt; can be cached and reused for the next segment. This can be written as -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/recur.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/recur.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Also since the positional embeddings depend on the actual positions in the original sequence, the above attention update is independent of the previous segment once the hidden representations have been calculated. So the factorization order of the previous segment need not be known. Subsequently, the model learns to utilize the memory over all factorization orders of the last segment. The same is done for the query stream as well.&lt;/p&gt;
+&lt;h3 id=&#34;modeling-multiple-segments&#34;&gt;Modeling Multiple Segments&lt;/h3&gt;
+&lt;p&gt;Like BERT, XLNet randomly samples two segments (either from the same context or not) and treats the concatenation of two segments as one sequence to perform permutation language modeling.&lt;/p&gt;
+&lt;p&gt;XLNET introduces Relative Segment Encodings. Unlike BERT which had absolute segment embeddings that were added to the word embedding at each position, here, rather than giving the entire segment an encoding, relative encoding is used between positions to denote whether they belong to the same segment or not.
+The segment encoding of the positions is used to compute the attention weight. So, when position &lt;em&gt;i&lt;/em&gt; attends to &lt;em&gt;j&lt;/em&gt;, the segment encoding s&lt;sub&gt;&lt;i&gt;ij&lt;/i&gt;&lt;/sub&gt; is used to compute an attention weight a&lt;sub&gt;ij&lt;/sub&gt; = (q&lt;sub&gt;i&lt;/sub&gt; + b)&lt;sup&gt;T&lt;/sup&gt;s&lt;sub&gt;ij&lt;/sub&gt; , where q&lt;sub&gt;i&lt;/sub&gt; is the query vector as in a standard attention operation and &lt;em&gt;b&lt;/em&gt; is a learnable head-specific bias vector.&lt;/p&gt;
+&lt;p&gt;Relative segment encodings help because -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Inductive bias of the relative encodings improves the generalization.&lt;/li&gt;
+&lt;li&gt;Opens up the possibility of finetuning on tasks that have more than two input segments, which is not possible when using absolute segment encodings.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+&lt;p&gt;Two datasets were the same as the ones BERT used i.e., BooksCorpus and English Wikipedia. Furthermore, Giga5, ClueWeb 2012-B and CommonCrawl datasets were also used. SentencePiece tokenization was used.&lt;/p&gt;
+&lt;p&gt;XLNet had the same architecture hyperparameters as BERT-Base and XLNet-Large had the same hyperparameters as BERT-Large. this resulted in similar model size and hence a fair comparison.&lt;/p&gt;
+&lt;p&gt;XLNet was trained on 512 TPU v3 chips for 500K steps with an Adam weight decay
+optimizer, linear learning rate decay, and a batch size of 8192, which took about 5.5 days. And even after using so much compute and time, the model still underfitted on the data at the end of the training.&lt;/p&gt;
+&lt;p&gt;Since the recurrence mechanism is introduced, XLNet uses a bidirectional data input pipeline where each of the forward and backward directions takes half of the batch size. The idea of span-based prediction, where first, a sample length &lt;em&gt;L&lt;/em&gt; from [1, &amp;hellip;, 5] is chosen and then a consecutive span of &lt;em&gt;L&lt;/em&gt; tokens is randomly selected as prediction targets within a context of (&lt;em&gt;KL&lt;/em&gt;) tokens.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comparisonwithbert.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comparisonwithbert.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;As seen above, trained on the same data with an almost identical training recipe,
+XLNet outperforms BERT by a sizable margin on all the considered datasets.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp1.PNG&#34; data-caption=&#34;Performance on reading comprehension and document ranking tasks. Comparison with GPT, BERT, RoBERTa and a BERT ensemble&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp1.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Performance on reading comprehension and document ranking tasks. Comparison with GPT, BERT, RoBERTa and a BERT ensemble
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp2.PNG&#34; data-caption=&#34;Performance on question answering tasks - SQuADv1.1 and SQuADv2.0&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Performance on question answering tasks - SQuADv1.1 and SQuADv2.0
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp3.PNG&#34; data-caption=&#34;Performance on text classification task.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp3.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Performance on text classification task.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp4.PNG&#34; data-caption=&#34;Performance on natural language understanding tasks - the GLUE benchmark.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/comp4.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Performance on natural language understanding tasks - the GLUE benchmark.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;For explicit reasoning tasks like SQuAD and RACE that involve longer context, the performance gain of XLNet is larger. The use of Transformer-XL could be the main reason behind this.&lt;/li&gt;
+&lt;li&gt;For classification tasks that already have abundant supervised examples such as MNLI (&amp;gt;390K), Yelp (&amp;gt;560K) and Amazon (&amp;gt;3M), XLNet still lead to substantial gains.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Ablation study&lt;/strong&gt; was also performed to understand the importance and effect of introducing each component. The points of the study were -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The effectiveness of the permutation language modeling objective alone, especially compared to the denoising auto-encoding objective used by BERT.&lt;/li&gt;
+&lt;li&gt;The importance of using Transformer-XL as the backbone neural architecture. For this, a DAE + Transformer-XL model was used.&lt;/li&gt;
+&lt;li&gt;The necessity of some implementation details including span-based prediction, the bidirectional input pipeline, and next-sentence prediction.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a fair comparison, all models were based on a 12-layer architecture with the same model hyper-parameters as BERT-Base and were trained on only Wikipedia and the BooksCorpus. All results reported are the median of 5 runs.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/ablation.PNG&#34; data-caption=&#34;Performance on natural language understanding tasks - the GLUE benchmark.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/images/ablation.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Performance on natural language understanding tasks - the GLUE benchmark.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;From the table -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Transformer-XL and the permutation LM (the basis of XLNet) are big factors in the superior performance of XLNet over BERT.&lt;/li&gt;
+&lt;li&gt;On removing the memory caching mechanism, the performance drops especially for RACE where long context understanding is needed.&lt;/li&gt;
+&lt;li&gt;Span-based prediction and bidirectional input pipeline also help in the performance of XLNet.&lt;/li&gt;
+&lt;li&gt;The next-sentence prediction objective does not lead to an improvement. Hence the next-sentence prediction objective is excluded from XLNet.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/XLNet.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
