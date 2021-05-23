@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Paper Notes #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</title>
+      <title>Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</title>
       <link>https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/</link>
       <pubDate>Sun, 16 May 2021 14:25:04 +0530</pubDate>
       <guid>https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/</guid>
@@ -563,7 +563,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     </item>
     
     <item>
-      <title>Paper Notes #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
+      <title>Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
       <link>https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/</link>
       <pubDate>Sun, 09 May 2021 17:01:02 +0530</pubDate>
       <guid>https://shreyansh26.github.io/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/</guid>
@@ -1288,7 +1288,7 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     </item>
     
     <item>
-      <title>Paper Notes #3 - Improving Language Understanding by Generative Pre-Training</title>
+      <title>Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</title>
       <link>https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/</link>
       <pubDate>Sun, 02 May 2021 13:42:14 +0530</pubDate>
       <guid>https://shreyansh26.github.io/post/2021-05-02_language_understanding_generative_pretraining/</guid>
