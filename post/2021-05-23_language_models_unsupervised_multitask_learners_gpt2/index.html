@@ -544,7 +544,7 @@ What? The paper demonstrates that language models begin to learn NLP tasks like 
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    10 min read
   </span>
   
 
@@ -675,6 +675,45 @@ What? The paper demonstrates that language models begin to learn NLP tasks like 
 <h3 id="input-representation">Input Representation</h3>
 <p>BytePair encoding, which effectively interpolates between word level inputs for frequent symbol sequences and character level inputs for infrequent symbol sequences was used for tokenizing the corpus. The encoding in the paper was not performed on bytes but Unicode points. This increases the base vocabulary from 256 (in byte mode) to 130,000 (with Unicode).</p>
 <p>The BPE encoding allowed the authors to combine the benefits of word-level LMs with the generality of byte-level approaches. Also, since now the model can assign a probability to any Unicode string, so the LM will be able to be evaluated on any dataset regardless of the pre-processing, tokenization or vocabulary size.</p>
+<hr>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<hr>
 <h3 id="model">Model</h3>
 <p>The model is a Transformer decoder architecture, very similar to GPT-1. You can find details <a href="http://localhost:1313/post/2021-05-02_language_understanding_generative_pretraining/#task-specific-input-transformations">here</a>. Some modifications include</p>
 <ul>

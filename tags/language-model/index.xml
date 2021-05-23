@@ -61,6 +61,45 @@
 &lt;h3 id=&#34;input-representation&#34;&gt;Input Representation&lt;/h3&gt;
 &lt;p&gt;BytePair encoding, which effectively interpolates between word level inputs for frequent symbol sequences and character level inputs for infrequent symbol sequences was used for tokenizing the corpus. The encoding in the paper was not performed on bytes but Unicode points. This increases the base vocabulary from 256 (in byte mode) to 130,000 (with Unicode).&lt;/p&gt;
 &lt;p&gt;The BPE encoding allowed the authors to combine the benefits of word-level LMs with the generality of byte-level approaches. Also, since now the model can assign a probability to any Unicode string, so the LM will be able to be evaluated on any dataset regardless of the pre-processing, tokenization or vocabulary size.&lt;/p&gt;
+&lt;hr&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;hr&gt;
 &lt;h3 id=&#34;model&#34;&gt;Model&lt;/h3&gt;
 &lt;p&gt;The model is a Transformer decoder architecture, very similar to GPT-1. You can find details &lt;a href=&#34;http://localhost:1313/post/2021-05-02_language_understanding_generative_pretraining/#task-specific-input-transformations&#34;&gt;here&lt;/a&gt;. Some modifications include&lt;/p&gt;
 &lt;ul&gt;
