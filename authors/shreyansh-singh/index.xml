@@ -5,12 +5,36 @@
     <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
       <atom:link href="https://shreyansh26.github.io/authors/shreyansh-singh/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 23 May 2021 16:44:32 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 26 Sep 2021 19:52:05 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
     </image>
+    
+    <item>
+      <title>MeTGAN: Memory efficient Tabular GAN for high cardinality categorical datasets</title>
+      <link>https://shreyansh26.github.io/publication/metgan/</link>
+      <pubDate>Sun, 26 Sep 2021 19:52:05 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/publication/metgan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CuRL: Coupled Representation Learning of Cards and Merchants to Detect Transaction Frauds</title>
+      <link>https://shreyansh26.github.io/publication/curl-fraud/</link>
+      <pubDate>Sun, 26 Sep 2021 19:34:07 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/publication/curl-fraud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML Optimizers in JAX</title>
+      <link>https://shreyansh26.github.io/project/jax-optimizers/</link>
+      <pubDate>Sun, 26 Sep 2021 19:19:28 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/project/jax-optimizers/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Paper Summary #6 - Language Models are Unsupervised Multitask Learners</title>
@@ -4537,11 +4561,13 @@ document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPo
     </item>
     
     <item>
-      <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
+      <title>Privacy-preserving Deep Learning for Medical Image Classification</title>
       <link>https://shreyansh26.github.io/project/privacy-ml/</link>
       <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
       <guid>https://shreyansh26.github.io/project/privacy-ml/</guid>
-      <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
+      <description>&lt;p&gt;Privacy Preserving Deep Learning for Medical Image Classification to detect chest pneumonia in chest X-ray images.&lt;/p&gt;
+&lt;p&gt;Uses TF-Encrypted to implement Secure Multiparty Computation (SMPC) and Differential Privacy. SMPC helps to provide secure predictions and Differential Privacy is used to enhance privacy.&lt;/p&gt;
+&lt;p&gt;The base model is a VGG16 model which is made secure and privacy-preserving.&lt;/p&gt;
 </description>
     </item>
     

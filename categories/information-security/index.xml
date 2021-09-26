@@ -1721,11 +1721,13 @@ flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
     </item>
     
     <item>
-      <title>Privacy-preserving Machine Learning using Secure Multiparty Computation</title>
+      <title>Privacy-preserving Deep Learning for Medical Image Classification</title>
       <link>https://shreyansh26.github.io/project/privacy-ml/</link>
       <pubDate>Mon, 25 Nov 2019 17:53:33 +0530</pubDate>
       <guid>https://shreyansh26.github.io/project/privacy-ml/</guid>
-      <description>&lt;p&gt;Details coming soon!&lt;/p&gt;
+      <description>&lt;p&gt;Privacy Preserving Deep Learning for Medical Image Classification to detect chest pneumonia in chest X-ray images.&lt;/p&gt;
+&lt;p&gt;Uses TF-Encrypted to implement Secure Multiparty Computation (SMPC) and Differential Privacy. SMPC helps to provide secure predictions and Differential Privacy is used to enhance privacy.&lt;/p&gt;
+&lt;p&gt;The base model is a VGG16 model which is made secure and privacy-preserving.&lt;/p&gt;
 </description>
     </item>
     

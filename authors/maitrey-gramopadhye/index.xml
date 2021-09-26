@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maitrey Gramopadhye | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/authors/maitrey-gramopadhye/</link>
+      <atom:link href="https://shreyansh26.github.io/authors/maitrey-gramopadhye/index.xml" rel="self" type="application/rss+xml" />
+    <description>Maitrey Gramopadhye</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 26 Sep 2021 19:34:07 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>Maitrey Gramopadhye</title>
+      <link>https://shreyansh26.github.io/authors/maitrey-gramopadhye/</link>
+    </image>
+    
+    <item>
+      <title>CuRL: Coupled Representation Learning of Cards and Merchants to Detect Transaction Frauds</title>
+      <link>https://shreyansh26.github.io/publication/curl-fraud/</link>
+      <pubDate>Sun, 26 Sep 2021 19:34:07 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/publication/curl-fraud/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
