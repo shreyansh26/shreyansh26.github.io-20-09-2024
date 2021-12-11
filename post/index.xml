@@ -5,12 +5,163 @@
     <link>https://shreyansh26.github.io/post/</link>
       <atom:link href="https://shreyansh26.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sun, 23 May 2021 16:44:32 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sat, 11 Dec 2021 16:17:16 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Posts</title>
       <link>https://shreyansh26.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>PPML Series #1 - An introduction to Federated Learning</title>
+      <link>https://shreyansh26.github.io/post/2021-12-11_intro_to_federated_learning/</link>
+      <pubDate>Sat, 11 Dec 2021 16:17:16 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-12-11_intro_to_federated_learning/</guid>
+      <description>&lt;hr&gt;
+&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Privacy-preserving Machine Learning had always been exciting for me. Since my B.Tech. thesis involving PPML (SMPC + Computer Vision), I didn&amp;rsquo;t get a chance to work on it after that. So, after about 2 years, I have started to read about it again, and sharing it with the community.&lt;/p&gt;
+&lt;p&gt;Federated Learning is a domain that I had somewhat eluded during my thesis. I had some idea about the topic but didn&amp;rsquo;t get into it much. So, I decided to start with FL this time. There is a ton of literature out there and is a field of active interest right now.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Modern mobile devices have abundance of data, majorly textual data, image data. Applying machine learning to these can definitely help improve user experience. For example - your mobile keyboard uses language models can improve speech recognition and text entry, your photos apps (Google Photos, say) has image models that can automatically select good photos.&lt;/p&gt;
+&lt;p&gt;However, we have two problems here. Firstly, if we consider millions of devices, then this data is large in quantity. Secondly, this dataset may have personal pictures, textual information written by the device owners,among other things.  Hence, this data is privacy sensitive in most cases. This creates problems to store this data in a database. It can be both infeasible as well as cause privacy violations.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Federated Learning&lt;/em&gt; is a decentralised machine learning approach which allows to leave the training data on the individual devices and learns a shared model by aggregating locally computed gradient updates. Federated Learning can significantly reduce privacy and security risks by limiting the attack surface to only the device, rather than the device and the cloud. Obviously, some level of trust on the server coordinating the training is still required.&lt;/p&gt;
+&lt;h2 id=&#34;why-fl&#34;&gt;Why FL?&lt;/h2&gt;
+&lt;p&gt;Federated Learning usually helps in three contexts -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Training on real-world data from mobile devices provides advantage over training on proxy data stored in data centres. The distributions from which these examples are drawn are likely to differ substantially from easily available proxy datasets: the use of language in chat and text messages is generally much different than standard language corpora, e.g., chat messages are not like Wikipedia articles. Images taken through the camera are also not like Flickr images.&lt;/li&gt;
+&lt;li&gt;The  data is privacy sensitive or large in size (compared to the size of the model), so it is preferable not to log it to the data centre purely for the purpose of model training.&lt;/li&gt;
+&lt;li&gt;Sometimes, labels for tasks can naturally be obtained from user interaction. Entered text is self-labeled for learning a language model, and photo labels can be defined by natural user interaction with their photo app (which photos are deleted, shared, or viewed).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Applications of FL could include image classification, predicting which images will be viewed multiple times in the future, language modelling, next word/phrase prediction.&lt;/p&gt;
+&lt;h3 id=&#34;how-does-fl-provide-privacy-upto-a-certain-extent&#34;&gt;How does FL provide privacy (upto a certain extent)?&lt;/h3&gt;
+&lt;p&gt;Handling even anonymized data can lead to privacy concerns. What better way than to use the data itself to train the models but at the same time, not risk its privacy. In contrast, the information transmitted for federated learning is the minimal update necessary to improve a particular model. They will generally contain much less information about the raw data. Further, the source of the updates is not needed by the aggregation algorithm, so updates can be transmitted without identifying meta-data over a mix network such as Tor or trusted third-parties.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;h2 id=&#34;federated-optimization&#34;&gt;Federated Optimization&lt;/h2&gt;
+&lt;p&gt;The optimization problem implicit in federated learning as federated optimization, drawing a connection (and contrast) to distributed optimization.&lt;/p&gt;
+&lt;h3 id=&#34;how-is-fl-different-from-any-other-distributed-optimization-problem&#34;&gt;How is FL different from any other distributed optimization problem?&lt;/h3&gt;
+&lt;p&gt;In federated optimization, there are a few key properties that differentiate from a typical distributed optimization problem.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Non-IID&lt;/strong&gt; - Training data will vary from user to user and will not have properties that are similar to the population.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Unbalanced&lt;/strong&gt; - Some users use a device more and generate more data, some less.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Massively distributed&lt;/strong&gt; - Number of users are much more than the average number of examples per client.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Limited communication&lt;/strong&gt; - Devices are frequently offline and are on slow or expensive connections.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;how-to-perform-federated-optimization&#34;&gt;How to perform Federated Optimization?&lt;/h3&gt;
+&lt;p&gt;In this blog post, I won&amp;rsquo;t go into the mathematical details regarding the optimization techniques used in Federated Learning. However, we will be discussing the high-level overview of how training is performed. The steps are as follows -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;There is a fixed set of &lt;em&gt;K&lt;/em&gt; clients, each with a fixed local dataset.&lt;/li&gt;
+&lt;li&gt;At the beginning of each round, a random fraction &lt;em&gt;C&lt;/em&gt; of clients is selected, and the server sends the current global algorithm state to each of these clients (e.g., the current model parameters).&lt;/li&gt;
+&lt;li&gt;Only a fraction of clients is selected for efficiency, as experiments show diminishing returns for adding more clients beyond a certain point.&lt;/li&gt;
+&lt;li&gt;Each selected client then performs local computation based on the global state and its local dataset, and sends an update to the server.&lt;/li&gt;
+&lt;li&gt;The server then applies these updates to its global state, and the process repeats.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;challenges&#34;&gt;Challenges&lt;/h2&gt;
+&lt;p&gt;In general, for ML tasks, and in data centres, the costs of compute is what is the most important - GPUs are used to lower the computation cost.
+In Federated Learning, the communication costs somewhat dominate.&lt;/p&gt;
+&lt;p&gt;But what do communication costs mean here?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Upload bandwidths in mobiles (globally) is limited to 1 MB/s or less.&lt;/li&gt;
+&lt;li&gt;Clients volunteer only if the charged, plugged-in and on free/unmetered WiFi connections.&lt;/li&gt;
+&lt;li&gt;Each client participates in only a small number of rounds per day.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In Federated Learning, computation is not much of an issue because the dataset size on each device will be relatively much less and modern smartphones now have processors fast enough to do those computations locally. So, the goal becomes to use additional computation in order to decrease the number of rounds of communication needed to train a model.&lt;/p&gt;
+&lt;p&gt;So, the goal becomes to use additional computation in order to lower the number of rounds of communication needed to train the model.&lt;/p&gt;
+&lt;p&gt;There are two approaches which can be adopted for this -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Increased parallelism&lt;/em&gt; -  More clients are used which work independently between each communication round.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Increased computation on each client&lt;/em&gt; - Rather than performing a simple computation like gradient calculation, each client performs a more complex calculation between each communication round.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In practice, major speedups are obtained when computation on each client is improved, once a minimum level of parallelism over clients is achieved.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I wrote a Twitter thread on this topic as well - do give it a like/follow me if you liked the article.&lt;/p&gt;
+&lt;!-- https://twitter.com/shreyansh_26/status/1462262151209381888?s=20 --&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;I recently started reading about Privacy-preserving ML, as this has been a topic that has always interested me.&lt;br&gt;I hope to share my learnings here on Twitter.&lt;br&gt;&lt;br&gt;I started with Federated Learning and here&amp;#39;s a detailed thread that will give you a high-level idea of FL🧵&lt;/p&gt;&amp;mdash; Shreyansh Singh (@shreyansh_26) &lt;a href=&#34;https://twitter.com/shreyansh_26/status/1462262151209381888?ref_src=twsrc%5Etfw&#34;&gt;November 21, 2021&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;This is all for now. Thanks for reading!&lt;/p&gt;
+&lt;p&gt;In my next post, I&amp;rsquo;ll share a mathematical explanation as to how optimization (learning) is done in a Federated Learning setting. I will also explain some experimental results that have been published.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Summary #6 - Language Models are Unsupervised Multitask Learners</title>

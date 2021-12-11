@@ -3,17 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shreyansh26.github.io/authors/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/federated-learning/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/ppml/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/2021-12-11_intro_to_federated_learning/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/privacy/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2021-12-11T16:17:16+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shreyansh26.github.io/publication_types/1/</loc>
     <lastmod>2021-09-26T19:52:05+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/authors/and-gaurav-dhama/</loc>
-    <lastmod>2021-09-26T19:52:05+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/authors/</loc>
     <lastmod>2021-09-26T19:52:05+05:30</lastmod>
   </url>
   
@@ -39,16 +89,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/publication/</loc>
-    <lastmod>2021-09-26T19:52:05+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2021-09-26T19:52:05+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/</loc>
     <lastmod>2021-09-26T19:52:05+05:30</lastmod>
   </url>
   
@@ -83,22 +123,12 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/categories/</loc>
-    <lastmod>2021-09-26T19:19:28+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/jax/</loc>
     <lastmod>2021-09-26T19:19:28+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/linear-regression/</loc>
-    <lastmod>2021-09-26T19:19:28+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
     <lastmod>2021-09-26T19:19:28+05:30</lastmod>
   </url>
   
@@ -119,11 +149,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/project/</loc>
-    <lastmod>2021-09-26T19:19:28+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/</loc>
     <lastmod>2021-09-26T19:19:28+05:30</lastmod>
   </url>
   
@@ -154,11 +179,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/</loc>
-    <lastmod>2021-05-23T16:44:32+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/post/</loc>
     <lastmod>2021-05-23T16:44:32+05:30</lastmod>
   </url>
   
