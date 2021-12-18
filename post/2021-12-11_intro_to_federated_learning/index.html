@@ -601,43 +601,6 @@ Federated Learning is a domain that I had somewhat eluded during my thesis. I ha
 
 
 
-<div class="btn-links mb-3">
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
 
 </div>
 
@@ -670,7 +633,7 @@ Federated Learning is a domain that I had somewhat eluded during my thesis. I ha
 <li>Sometimes, labels for tasks can naturally be obtained from user interaction. Entered text is self-labeled for learning a language model, and photo labels can be defined by natural user interaction with their photo app (which photos are deleted, shared, or viewed).</li>
 </ul>
 <p>Applications of FL could include image classification, predicting which images will be viewed multiple times in the future, language modelling, next word/phrase prediction.</p>
-<h3 id="how-does-fl-provide-privacy-upto-a-certain-extent">How does FL provide privacy (upto a certain extent)?</h3>
+<h3 id="how-does-fl-provide-privacy-up-to-a-certain-extent">How does FL provide privacy (up to a certain extent)?</h3>
 <p>Handling even anonymized data can lead to privacy concerns. What better way than to use the data itself to train the models but at the same time, not risk its privacy. In contrast, the information transmitted for federated learning is the minimal update necessary to improve a particular model. They will generally contain much less information about the raw data. Further, the source of the updates is not needed by the aggregation algorithm, so updates can be transmitted without identifying meta-data over a mix network such as Tor or trusted third-parties.</p>
 <p> </p>
 <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
@@ -750,7 +713,6 @@ In Federated Learning, the communication costs somewhat dominate.</p>
 <p>In practice, major speedups are obtained when computation on each client is improved, once a minimum level of parallelism over clients is achieved.</p>
 <hr>
 <p>I wrote a Twitter thread on this topic as well - do give it a like/follow me if you liked the article.</p>
-<!-- https://twitter.com/shreyansh_26/status/1462262151209381888?s=20 -->
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I recently started reading about Privacy-preserving ML, as this has been a topic that has always interested me.<br>I hope to share my learnings here on Twitter.<br><br>I started with Federated Learning and here&#39;s a detailed thread that will give you a high-level idea of FL🧵</p>&mdash; Shreyansh Singh (@shreyansh_26) <a href="https://twitter.com/shreyansh_26/status/1462262151209381888?ref_src=twsrc%5Etfw">November 21, 2021</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -811,8 +773,6 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   <a class="badge badge-light" href="/tags/federated-learning/">federated-learning</a>
   
   <a class="badge badge-light" href="/tags/ppml/">ppml</a>
-  
-  <a class="badge badge-light" href="/tags/privacy/">privacy</a>
   
 </div>
 
@@ -970,6 +930,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   
   
   <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2021-12-18_federated_optimization_fedavg/" rel="next">PPML Series #2 - Federated Optimization Algorithms - FedSGD and FedAvg</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
     <a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/" rel="prev">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a>
   </div>
@@ -1108,13 +1075,6 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
   
   <div class="container">
     <footer class="site-footer">
-  
-  <p class="powered-by">
-    
-      <a href="/tags/privacy/">privacy</a>
-    
-    
-  </p>
   
 
   <p class="powered-by">
