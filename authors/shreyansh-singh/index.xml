@@ -5,12 +5,304 @@
     <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
       <atom:link href="https://shreyansh26.github.io/authors/shreyansh-singh/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Sat, 18 Dec 2021 00:16:23 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2021</copyright><lastBuildDate>Mon, 27 Dec 2021 00:00:57 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>https://shreyansh26.github.io/authors/shreyansh-singh/</link>
     </image>
+    
+    <item>
+      <title>PPML Series #3 - Federated Learning for Mobile Keyboard Prediction</title>
+      <link>https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/</link>
+      <pubDate>Mon, 27 Dec 2021 00:00:57 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Gboard — the Google keyboard, is a virtual keyboard for smartphones with support for more than 900+ language varieties and over 1 billion installs. In addition to decoding noisy signals from input modalities including tap and word-gesture typing, Gboard provides auto-correction, word completion, and next-word prediction features.&lt;/p&gt;
+&lt;p&gt;Next-word predictions provide a tool for facilitating text entry and is plays an important role in improving user experience. Based on a small amount of user-generated preceding text, language models (LMs) can predict the most probable
+next word or phrase.&lt;/p&gt;
+&lt;p&gt;The above figure shows an example: given the text, &amp;ldquo;I love you&amp;rdquo;, Gboard predicts the user is likely to type &amp;ldquo;and&amp;rdquo;, &amp;ldquo;too&amp;rdquo;, or &amp;ldquo;so much&amp;rdquo; next. The centre position
+in the suggestion strip is reserved for the highest-probability candidate, while the second and third most likely candidates occupy the left and right positions, respectively.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Important&lt;/strong&gt; -  The technical details shared in this post are based on the &lt;a href=&#34;https://arxiv.org/abs/1811.03604&#34;&gt;paper&lt;/a&gt; which was published by Google in 2019.  So, some details may be out-of-date, but the core idea behind the solution should still pretty much be the same. Checkout may annotated version of the paper &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/PPML/Federated%20Learning/Federated%20Learning%20for%20Mobile%20Keyboard%20Prediction.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The primary (static) language model for the English language in Gboard is a Katz smoothed Bayesian interpolated 5-gram LM containing 1.25 million n-grams, including 164,000 unigrams. You can read more about it in &lt;a href=&#34;https://research.google/pubs/pub37567/&#34;&gt;this paper&lt;/a&gt;. We won;t go into this much as the focus of the post is on the next-word prediction task.&lt;/p&gt;
+&lt;p&gt;Another important point one should keep in mind is that mobile keyboard models are constrained in multiple ways - the models should be small, the inference time should be low. Users typically expect a visible keyboard response within 20 milliseconds of an input event. And, given the frequency with which mobile keyboard apps are used, client device batteries could be quickly depleted if CPU consumption were not constrained. As a result, language models are usually limited to tens of megabytes in size with vocabularies of hundreds of thousands of words.&lt;/p&gt;
+&lt;p&gt;In the paper, the authors also discussed about how RNNs and more specifically LSTMs can be used for language modeling since they can utilize an arbitrary and dynamically-sized context window.&lt;/p&gt;
+&lt;h2 id=&#34;where-does-federated-learning-come-in&#34;&gt;Where does Federated Learning come in?&lt;/h2&gt;
+&lt;p&gt;For the task of next-word prediction, publicly available datasets could have been used. However, the training distribution of those datasets does not match the population distribution. Using sample user-generated text will require efforts such as logging, infrastructure, dedicated storage and security. And even still, some users might not be comfortable with the collection and remote storage of their personal data.&lt;/p&gt;
+&lt;p&gt;For these reasons, the authors use federated learning. The federated learning environment gives users greater control over the use of their data and simplifies the task of incorporating privacy by default with distributed training and aggregation across a population of client devices. An RNN model is trained from scratch in the server and federated environments and achieves recall improvements with respect to the baseline, which is a &lt;a href=&#34;https://dl.acm.org/doi/10.5555/972695.972698&#34;&gt;n-gram finite state transducer (FST)&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;model-architecture-and-training&#34;&gt;Model Architecture and Training&lt;/h2&gt;
+&lt;p&gt;A variant of LSTM called Coupled Input and Forget Gate (CIFG) is used. The coupled input and forget gate variant uses only one gate for modulating the input and the cell recurrent self-connections, i.e., &lt;i&gt;f&lt;/i&gt; = 1 - &lt;i&gt;i&lt;/i&gt;. Read more about CIFG in &lt;a href=&#34;https://arxiv.org/abs/1804.04849&#34;&gt;this paper&lt;/a&gt;. Since CIFG uses a single gate to control both the input and recurrent cell self-connections,  the number of parameters per cell is reduced by 25%.
+For time step &lt;em&gt;t&lt;/em&gt;, input gate &lt;i&gt;i&lt;sub&gt;t&lt;/sub&gt;&lt;/i&gt; and forget gate &lt;i&gt;f&lt;sub&gt;t&lt;/sub&gt;&lt;/i&gt; have the relation&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/cifg.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/cifg.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The CIFG architecture is advantageous for the mobile device environment because the number of computations and the parameter set size are reduced with no impact on model performance. The model is trained using Tensorflow and on-device inference is supported by Tensorflow Lite. Client device requirements limit the dictionary size to 10,000 words. CIFG&amp;rsquo;s input and output embedding size is 96. A single layer of CIFG with 670 units is used. Overall, 1.4 million parameters comprise the network. After weight quantization, the model shipped to Gboard devices is 1.4 megabytes in size.&lt;/p&gt;
+&lt;p&gt;The training of the model was done using the FederatedAveraging (FedAvg) algorithm, which I wrote about in my &lt;a href=&#34;https://shreyansh26.github.io/post/2021-12-11_intro_to_federated_learning/&#34;&gt;previous blog post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;experiments&#34;&gt;Experiments&lt;/h2&gt;
+&lt;p&gt;The paper shows the performance of the CIFG and the FST model on three datasets -  server-hosted logs data, client-held data and in live production experiments.&lt;/p&gt;
+&lt;h4 id=&#34;server-based-logs&#34;&gt;Server-based logs&lt;/h4&gt;
+&lt;p&gt;Server-based training of the CIFG next-word prediction model relies on data logged from Gboard users who have opted to share snippets of text while typing in &lt;em&gt;Google apps&lt;/em&gt;. The text is truncated to contain short phrases of a few words, and snippets are only sporadically logged from individual users. Prior to training, logs are anonymized and stripped of personally identifiable information. Additionally, snippets are only used for training if they begin with a start of sentence token.&lt;/p&gt;
+&lt;p&gt;Asynchronous stochastic gradient descent with a learning rate equal to 10&lt;sup&gt;-3&lt;/sup&gt; and no weight decay or momentum is used to train the server CIFG. Adaptive gradient methods like Adam and AdaGrad do not improve convergence. The network converges after 150 million steps of SGD.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/server-sgd.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/server-sgd.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h4 id=&#34;federated-training-with-client-caches&#34;&gt;Federated training with client caches&lt;/h4&gt;
+&lt;p&gt;As with the logs data, each client cache stores text belonging to the device owner, as well as prediction candidates generated by the decoder. Devices must have at least 2 gigabytes of memory available. Additionally, the clients are
+only allowed to participate if they are charging, connected to an un-metered network, and idle.&lt;/p&gt;
+&lt;p&gt;The FedAvg algorithm is used here. Between 100 and 500 client updates are required to close each round of federated training in Gboard. The server update is achieved via the Momentum optimizer, using Nesterov accelerated gradient, a momentum hyperparameter of 0.9, and a server learning rate of 1.0 .&lt;/p&gt;
+&lt;p&gt;On average, each client processes approximately 400 example sentences during a single training epoch. The federated CIFG converges after 3000 training rounds, over the course of which 600 million sentences are processed by 1.5 million clients.&lt;/p&gt;
+&lt;p&gt;N-gram model recall is measured by comparing the decoder candidates stored in the on-device training cache to the actual user-entered text.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/cache-sgd.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/cache-sgd.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
+&lt;p&gt;Recall (metric) for the highest likelihood candidate is important for Gboard because users are more prone to read and utilize predictions in the centre suggestion spot. Both top-1 and top-3 recall are of interest here.&lt;/p&gt;
+&lt;p&gt;Server-hosted logs data and client device-owned caches are used to measure prediction recall. Although each contain snippets of data from actual users, the client caches are believed to more accurately represent the true typing data distribution. Cache data, unlike logs, are not truncated in length and are not restricted to keyboard usage in Google-owned apps.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab3.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab4.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab4.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Prediction impression recall is measured by dividing the number of predictions that match the user-entered text by the number of times users are shown prediction candidates. The prediction impression recall metric is typically lower than the standard recall metric. Zero-state prediction events (in which users open the Gboard app but do not commit any text) increase the number of impressions but not matches.&lt;/p&gt;
+&lt;p&gt;The prediction click-through rate (CTR), defined as the ratio of the number of clicks on prediction candidates to the number of proposed prediction candidates.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab5.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab5.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab6.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/images/tab6.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;For both the server training and the federated training, the CIFG model improves the top-1 and top-3 recall with respect to the baseline n-gram FST model.&lt;/p&gt;
+&lt;p&gt;These gains are impressive given that the n-gram model uses an order of magnitude larger vocabulary and includes personalized components such as user history and contacts language models.&lt;/p&gt;
+&lt;p&gt;The results also demonstrate that the federated CIFG performs better on recall metrics than the server-trained CIFG. Comparisons on server-hosted logs data show the recall of the two models is comparable, though the logs are not as representative of the true typing distribution.&lt;/p&gt;
+&lt;p&gt;Different flavors of SGD are used in each training context—the results show that federated learning provides a preferable alternative to server-based training of neural language models.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;CIFG language model trained from scratch using federated learning can outperform an identical server trained CIFG model and baseline n-gram model on the keyboard next-word prediction task.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/PPML/Federated%20Learning/Federated%20Learning%20for%20Mobile%20Keyboard%20Prediction.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for now!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>PPML Series #2 - Federated Optimization Algorithms - FedSGD and FedAvg</title>
