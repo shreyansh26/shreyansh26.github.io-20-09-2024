@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>model deployment | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/tags/model-deployment/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/model-deployment/index.xml" rel="self" type="application/rss+xml" />
+    <description>model deployment</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 23 Jan 2022 21:15:03 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>model deployment</title>
+      <link>https://shreyansh26.github.io/tags/model-deployment/</link>
+    </image>
+    
+    <item>
+      <title>Deploying Machine Learning models using AWS Lambda and Github Actions - A Detailed Tutorial</title>
+      <link>https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/</link>
+      <pubDate>Sun, 23 Jan 2022 21:15:03 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;Quite a while back, I had written a &lt;a href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/&#34;&gt;post&lt;/a&gt; in which I described how to package your Machine Learning models using Docker and deploy them using Flask.&lt;/p&gt;
+&lt;p&gt;This post, through a PoC, describes -&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;How to package your model using Docker (similar as last &lt;a href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/&#34;&gt;post&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;How to push the Docker container to Amazon ECR&lt;/li&gt;
+&lt;li&gt;Add a Lambda Function for your model&lt;/li&gt;
+&lt;li&gt;Make a REST API using Amazon API Gateway to access your model&lt;/li&gt;
+&lt;li&gt;Automate the whole process using Github Actions, so that any updates to the model can take effect immediately&lt;/li&gt;
+&lt;li&gt;Make a Streamlit app to make a UI to access the REST API (for the model deployed on AWS)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;All the code can be found in my &lt;a href=&#34;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC&#34;&gt;Github repository&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The repository also contains the code to train, save and test a simple ML model on the Iris Dataset.&lt;/p&gt;
+&lt;p&gt;The Iris dataset is a small dataset which contains attributes of the flower - Sepal length, Sepal width, Petal length and Petal width.
+The goal of the task is to classify based on these dimensions, the type of the Iris, which in the dataset is among three classes - Setosa, Versicolour and Virginica.&lt;/p&gt;
+&lt;h2 id=&#34;package-requirements&#34;&gt;Package Requirements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;An Amazon Web Services account (I intentionally use a simple ML model to deploy as it remains in the AWS Free tier constraints across all the services I mention above. Larger models will require more storage and hence could be chargeable.)&lt;/li&gt;
+&lt;li&gt;Python 3.6+&lt;/li&gt;
+&lt;li&gt;A simple 
+&lt;code&gt;pip install -r requirements.txt&lt;/code&gt; from the &lt;a href=&#34;iris_classification&#34;&gt;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC/tree/master/iris_classification&lt;/a&gt; directory will install the other Python packages required.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;steps-to-follow&#34;&gt;Steps to follow&lt;/h2&gt;
+&lt;p&gt;In this PoC, I will be training and deploying a simple ML model. If you follow this tutorial, deploying complex models should be fairly easy as well. (I had to scratch my head a lot though!)&lt;/p&gt;
+&lt;h3 id=&#34;1-training-and-deploying-the-model-locally&#34;&gt;1. Training and Deploying the model locally&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Clone this repo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Create a virtual environment - I use &lt;a href=&#34;https://docs.conda.io/en/latest/miniconda.html&#34;&gt;Miniconda&lt;/a&gt;, but you can use any method (virtualenv, venv)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;conda create -n iris_project python=3.8
+conda activate iris_project
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Install the required dependencies&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;pip install -r requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Train the model&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;cd iris_classification/src
+python train.py
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Verify the model trained correctly using pytest&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;pytest
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Activate Streamlit and run &lt;code&gt;app.py&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;streamlit run app.py
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/ini-streamlit.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/ini-streamlit.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Right now, the &lt;code&gt;Predict AWS&lt;/code&gt; button will give an error on clicking. It is required to set up an API of your own that the code will send the POST request to.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;main.py&lt;/code&gt; file contains the event handler which will be used by Lambda later.&lt;/p&gt;
+&lt;h3 id=&#34;2-packaging-the-model&#34;&gt;2. Packaging the model&lt;/h3&gt;
+&lt;p&gt;I have included a Dockerfile which is used to package the model. Later I will automate all this using Github Actions.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd iris_classification
+docker build --tag iris_classification:latest .
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;3-push-the-docker-container-to-amazon-ecr&#34;&gt;3. Push the Docker container to Amazon ECR&lt;/h3&gt;
+&lt;p&gt;First, create a private repository. The free tier only allows for 500MB of storage in a month in a private repository.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/ecr1.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/ecr1.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Use the following set of commands to push the local Docker container to the created repository.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 863244415814.dkr.ecr.us-east-1.amazonaws.com
+
+docker tag iris_classification:latest 863244415814.dkr.ecr.us-east-1.amazonaws.com/iris_classification:latest
+
+docker push 863244415814.dkr.ecr.us-east-1.amazonaws.com/iris_classification:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You may have to run&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;aws configure
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and provide your AWS Access Key ID and your AWS Secret Access Key to run the above commands successfully.&lt;/p&gt;
+&lt;h3 id=&#34;4-create-a-lambda-function&#34;&gt;4. Create a Lambda function&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda1.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda1.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The container image URI can be selected from the AWS console itself.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda2.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;5-test-the-lambda&#34;&gt;5. Test the Lambda&lt;/h3&gt;
+&lt;p&gt;We can now test that the Lambda is correctly handling the request as we want it to. AWS allows for that. When we click on the Lambda function, it allows a Test option as well.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda3.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda3.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The test works and gives the correct result!!&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda4.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/lambda4.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;6-create-an-api-from-the-amazon-api-gateway&#34;&gt;6. Create an API from the Amazon API Gateway&lt;/h3&gt;
+&lt;p&gt;Make sure to make a REST API.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api1.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api1.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api2.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Add a &lt;code&gt;/classify&lt;/code&gt; resource to the API and and add a &lt;code&gt;POST&lt;/code&gt; method to the API.
+Add a POST request to the API under a &lt;code&gt;/classify&lt;/code&gt; resource.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api3.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api3.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Integrate the Lambda function with the API.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api4.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api4.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now, if you head back to the Lambda functions page, you will see that a Trigger has been added to the function.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api5.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/api5.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The endpoint is clearly visible in the screenshot.
+It will be something like &lt;code&gt;https://{SOME_ID}.execute-api.us-east-1.amazonaws.com/test/classify&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;7-test-the-rest-api&#34;&gt;7. Test the REST API&lt;/h3&gt;
+&lt;p&gt;We use a client like Postman to check the API.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/postman.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/postman.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h4 id=&#34;and-it-works&#34;&gt;AND IT WORKS!&lt;/h4&gt;
+&lt;p&gt;Programmatically, we can also check that the API works.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; requests
+
+url &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://ti53furxkb.execute-api.us-east-1.amazonaws.com/test/classify&amp;#39;&lt;/span&gt;
+
+myobj &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;: [
+        [&lt;span style=&#34;color:#ae81ff&#34;&gt;6.5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3.0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5.8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2.2&lt;/span&gt;],
+        [&lt;span style=&#34;color:#ae81ff&#34;&gt;6.1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2.8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4.7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1.2&lt;/span&gt;]
+    ]
+}
+
+x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;post(url, json &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; myobj)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(x&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;text)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;{&amp;quot;prediction&amp;quot;: [&amp;quot;virginica&amp;quot;, &amp;quot;versicolor&amp;quot;], &amp;quot;log_proba&amp;quot;: [[-35.82910355985537, -1.5907654693356144, -0.22786665344763715], [-26.20011949521101, -0.0783441410298827, -2.585560434227453]]}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;this-works-too&#34;&gt;THIS WORKS TOO!&lt;/h4&gt;
+&lt;p&gt;&lt;b&gt; The above API URL and endpoint will not work for you. You should replace it with your own endpoint URL. &lt;/b&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h2 id=&#34;streamlit-app-to-test-the-model&#34;&gt;Streamlit app to test the model&lt;/h2&gt;
+&lt;p&gt;After making the appropriate changes to the configuration, running&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;streamlit run app.py
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;allows you to get the predictions from the AWS hosted model as well.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/fin-streamlit.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/images/fin-streamlit.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;time-to-automate-the-whole-thing-using-github-actions&#34;&gt;Time to automate the whole thing using Github Actions&lt;/h2&gt;
+&lt;p&gt;We use Github Actions to automate this whole process i.e. pushing the container to ECR, updating the Lambda function. The API then points to updated Lambda function automatically.&lt;/p&gt;
+&lt;p&gt;First, we will need to add the &lt;code&gt;AWS_ACCESS_KEY_ID&lt;/code&gt; and &lt;code&gt;AWS_SECRET_ACCESS_KEY&lt;/code&gt; to Github secrets (in the Github repo settings).&lt;/p&gt;
+&lt;p&gt;You can refer to the yml file in &lt;a href=&#34;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC/tree/master/.github/workflows&#34;&gt;.github/workflows&lt;/a&gt; to see how the automation works. The Github Action is triggered when a pull request is made to the &lt;code&gt;master&lt;/code&gt; branch.&lt;/p&gt;
+&lt;p&gt;If required, you can also restrict any pushes to the master branch from Github (&lt;a href=&#34;https://stackoverflow.com/questions/46146491/prevent-pushing-to-master-on-github&#34;&gt;link&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;and-we-are-done&#34;&gt;AND WE ARE DONE!&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;That&amp;rsquo;s all for now!
+I hope this tutorial helps you deploy your own models to AWS Lambda easily. Make sure to read the pricing for each AWS product you use to avoid being charged unknowingly.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,27 +3,77 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shreyansh26.github.io/tags/api/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shreyansh26.github.io/authors/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/aws/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/categories/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/tags/federated-learning/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
+    <loc>https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/github-actions/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/model-deployment/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/postman/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/post/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/streamlit/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/federated-learning/</loc>
     <lastmod>2021-12-27T00:00:57+05:30</lastmod>
   </url>
   
@@ -34,21 +84,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/post/2021-12-27_federated_learning_mobile_keyboard/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/</loc>
     <lastmod>2021-12-27T00:00:57+05:30</lastmod>
   </url>
   
