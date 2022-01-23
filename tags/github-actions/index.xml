@@ -37,7 +37,7 @@ The goal of the task is to classify based on these dimensions, the type of the I
 &lt;li&gt;An Amazon Web Services account (I intentionally use a simple ML model to deploy as it remains in the AWS Free tier constraints across all the services I mention above. Larger models will require more storage and hence could be chargeable.)&lt;/li&gt;
 &lt;li&gt;Python 3.6+&lt;/li&gt;
 &lt;li&gt;A simple 
-&lt;code&gt;pip install -r requirements.txt&lt;/code&gt; from the &lt;a href=&#34;iris_classification&#34;&gt;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC/tree/master/iris_classification&lt;/a&gt; directory will install the other Python packages required.&lt;/li&gt;
+&lt;code&gt;pip install -r requirements.txt&lt;/code&gt; from the &lt;a href=&#34;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC/tree/master/iris_classification&#34;&gt;https://github.com/shreyansh26/Iris_classification-AWS-Lambda-PoC/tree/master/iris_classification&lt;/a&gt; directory will install the other Python packages required.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;steps-to-follow&#34;&gt;Steps to follow&lt;/h2&gt;
 &lt;p&gt;In this PoC, I will be training and deploying a simple ML model. If you follow this tutorial, deploying complex models should be fairly easy as well. (I had to scratch my head a lot though!)&lt;/p&gt;
