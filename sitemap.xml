@@ -3,13 +3,68 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shreyansh26.github.io/tags/adversarial-machine-learning/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shreyansh26.github.io/authors/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/categories/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/cnn/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/computer-vision/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/project/convnext-adversarial/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/machine-learning/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/project/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/transformer/</loc>
+    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
   </url>
   
   <url>
@@ -19,11 +74,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/tags/gcp/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
     <lastmod>2022-03-06T00:37:30+05:30</lastmod>
   </url>
   
@@ -43,22 +93,7 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/streamlit/</loc>
-    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/</loc>
     <lastmod>2022-03-06T00:37:30+05:30</lastmod>
   </url>
   
@@ -183,22 +218,12 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/tags/machine-learning/</loc>
-    <lastmod>2021-09-26T19:19:28+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/project/jax-optimizers/</loc>
     <lastmod>2021-09-26T19:19:28+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://shreyansh26.github.io/tags/optimizers/</loc>
-    <lastmod>2021-09-26T19:19:28+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/project/</loc>
     <lastmod>2021-09-26T19:19:28+05:30</lastmod>
   </url>
   
@@ -239,11 +264,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/</loc>
-    <lastmod>2021-05-16T14:25:04+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/transformer/</loc>
     <lastmod>2021-05-16T14:25:04+05:30</lastmod>
   </url>
   
@@ -408,11 +428,6 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/tags/computer-vision/</loc>
-    <lastmod>2019-11-25T17:53:33+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/differential-privacy/</loc>
     <lastmod>2019-11-25T17:53:33+05:30</lastmod>
   </url>
@@ -435,11 +450,6 @@
   <url>
     <loc>https://shreyansh26.github.io/post/2019-08-25_codefest19-ctf-writeups/</loc>
     <lastmod>2019-11-29T21:04:46+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/adversarial-machine-learning/</loc>
-    <lastmod>2019-05-05T17:28:30+05:30</lastmod>
   </url>
   
   <url>

@@ -5,12 +5,22 @@
     <link>https://shreyansh26.github.io/tags/adversarial-machine-learning/</link>
       <atom:link href="https://shreyansh26.github.io/tags/adversarial-machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>adversarial machine learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 05 May 2019 17:28:30 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 20:40:05 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>adversarial machine learning</title>
       <link>https://shreyansh26.github.io/tags/adversarial-machine-learning/</link>
     </image>
+    
+    <item>
+      <title>ConvNeXt - Adversarial images generation</title>
+      <link>https://shreyansh26.github.io/project/convnext-adversarial/</link>
+      <pubDate>Sun, 06 Mar 2022 20:40:05 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/project/convnext-adversarial/</guid>
+      <description>&lt;p&gt;I implemented &lt;a href=&#34;https://twitter.com/stanislavfort/status/1481263565998805002?s=20&#34;&gt;Stanislav Fort&amp;rsquo;s project&lt;/a&gt; in Pytorch. The Github repo has a notebook which looks at generating adversarial images to &amp;ldquo;fool&amp;rdquo; the ConvNeXt model&amp;rsquo;s image classification capabilities. ConvNeXt came out earlier this year (2022) from Meta AI.&lt;/p&gt;
+&lt;p&gt;The FGSM (Fast Gradient Sign Method) is a great algorithm to attack models in a white-box fashion with the goal of misclassification. Noise is added to the input image (not randomly) but in a manner such that the direction is the same as the gradient of the cost function with respect to the data.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Network Intrusion Detection in an Adversarial setting</title>
