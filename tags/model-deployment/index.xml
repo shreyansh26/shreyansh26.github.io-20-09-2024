@@ -5,12 +5,548 @@
     <link>https://shreyansh26.github.io/tags/model-deployment/</link>
       <atom:link href="https://shreyansh26.github.io/tags/model-deployment/index.xml" rel="self" type="application/rss+xml" />
     <description>model deployment</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 23 Jan 2022 21:15:03 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 00:37:30 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>model deployment</title>
       <link>https://shreyansh26.github.io/tags/model-deployment/</link>
     </image>
+    
+    <item>
+      <title>Deploying Machine Learning models using GCP&#39;s Google AI Platform - A Detailed Tutorial</title>
+      <link>https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/</link>
+      <pubDate>Sun, 06 Mar 2022 00:37:30 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/</guid>
+      <description>&lt;hr&gt;
+&lt;p&gt;In my &lt;a href=&#34;https://shreyansh26.github.io/post/2022-01-23_model_deployment_using_aws_lambda/&#34;&gt;last post&lt;/a&gt; I had written about deploying models on AWS. So, I though it would only be fitting to write one for GCP, for all the GCP lovers out there.&lt;/p&gt;
+&lt;p&gt;GCP has a service called the AI Platform which, as the name suggest, is responsible for training and hosting ML/AI models.&lt;/p&gt;
+&lt;p&gt;Just like the last post, this post, through a PoC, describes -&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;How to add a trained model to a Google Cloud bucket&lt;/li&gt;
+&lt;li&gt;Host the saved model on the AI Platform&lt;/li&gt;
+&lt;li&gt;Create a Service Account to use the model hosted on AI Platform externally&lt;/li&gt;
+&lt;li&gt;Make a Streamlit app to make a UI to access the hosted model&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;All the code can be found in my &lt;a href=&#34;https://github.com/shreyansh26/Iris_classification-GCP-AI-Platform-PoC&#34;&gt;Github repository&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The repository also contains the code to train, save and test a simple ML model on the Iris Dataset.&lt;/p&gt;
+&lt;p&gt;The Iris dataset is a small dataset which contains attributes of the flower - Sepal length, Sepal width, Petal length and Petal width.
+The goal of the task is to classify based on these dimensions, the type of the Iris, which in the dataset is among three classes - Setosa, Versicolour and Virginica.&lt;/p&gt;
+&lt;h2 id=&#34;package-requirements&#34;&gt;Package Requirements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A Google Cloud account and a Google Cloud Project (using GCP will cause money if you don&amp;rsquo;t have any of the free $300 credits you get when you first sign up)&lt;/li&gt;
+&lt;li&gt;Python 3.6+&lt;/li&gt;
+&lt;li&gt;A simple 
+&lt;code&gt;pip install -r requirements.txt&lt;/code&gt; from the &lt;a href=&#34;https://github.com/shreyansh26/Iris_classification-GCP-AI-Platform-PoC/tree/master/iris_classification&#34;&gt;iris_classification&lt;/a&gt; directory will install the other Python packages required.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;steps-to-follow&#34;&gt;Steps to follow&lt;/h2&gt;
+&lt;p&gt;In this PoC, I will be training and deploying a simple ML model. If you follow this tutorial, deploying complex models should be fairly easy as well.&lt;/p&gt;
+&lt;h3 id=&#34;1-training-and-deploying-the-model-locally&#34;&gt;1. Training and Deploying the model locally&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Clone this repo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/shreyansh26/Iris_classification-GCP-AI-Platform-PoC
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Create a virtual environment - I use &lt;a href=&#34;https://docs.conda.io/en/latest/miniconda.html&#34;&gt;Miniconda&lt;/a&gt;, but you can use any method (virtualenv, venv)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;conda create -n iris_project python=3.8
+conda activate iris_project
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Install the required dependencies&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;pip install -r requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Train the model&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;cd iris_classification/src
+python train.py
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Verify the model trained correctly using pytest&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;pytest
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Activate Streamlit and run &lt;code&gt;app.py&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;streamlit run app.py
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/ini-streamlit.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/ini-streamlit.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Right now, the &lt;code&gt;Predict GCP&lt;/code&gt; button will give an error on clicking. It requires a json configuration file which we will obtain when we deploy our model. To get the &lt;code&gt;Predict AWS&lt;/code&gt; button working for your model, refer to a separate &lt;a href=&#34;https://shreyansh26.github.io/post/2021-12-28_model_deployment_using_aws_lambda/&#34;&gt;tutorial&lt;/a&gt; I made on that.&lt;/p&gt;
+&lt;h3 id=&#34;2-storing-the-model-in-a-gcp-bucket&#34;&gt;2. Storing the model in a GCP Bucket&lt;/h3&gt;
+&lt;p&gt;The saved &lt;code&gt;model.pkl&lt;/code&gt; has to be stored in a Google Storage Bucket. First, create a bucket.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/gcp-bucket.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/gcp-bucket.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The rest of the inputs can be kept as default.&lt;/p&gt;
+&lt;p&gt;And then upload the &lt;code&gt;model.pkl&lt;/code&gt; to the bucket.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/bucket-upload.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/bucket-upload.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;h3 id=&#34;3-hosting-the-model-on-ai-platform&#34;&gt;3. Hosting the model on AI Platform&lt;/h3&gt;
+&lt;p&gt;Using the AI Platform, we need to create a model&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/aiplatform-models.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/aiplatform-models.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/aiplatfrom-create.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/aiplatfrom-create.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Next, create a version of the model.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Choose the bucket location which has the &lt;code&gt;model.pkl&lt;/code&gt; file.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version2.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version3.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version3.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The model will take some time to be hosted.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version4.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/version4.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;4-creating-a-service-account&#34;&gt;4. Creating a Service Account&lt;/h3&gt;
+&lt;p&gt;Finally, head to &lt;code&gt;IAM -&amp;gt; Service Accounts&lt;/code&gt; and add a Service Account which basically allows to use the model hosted on AI Platform externally.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Next, select &lt;code&gt;AI Platform Developer&lt;/code&gt; as the role and click &lt;code&gt;Done&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service2.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service2.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Now, in the &lt;code&gt;Service Accounts&lt;/code&gt; console, we see that there are no keys. Yet.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service3.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service3.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;We go to &lt;code&gt;Manage Keys&lt;/code&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service4.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service4.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Creating the key downloads a JSON file which basically has the key our code will be using.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service5.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/service5.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The following configurations should be updated in the &lt;code&gt;app.py&lt;/code&gt; file.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/code.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/code.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;testing-the-hosted-model&#34;&gt;Testing the hosted model&lt;/h2&gt;
+&lt;p&gt;After making the appropriate changes to the configuration, running&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;streamlit run app.py
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;allows you to get the predictions from the GCP hosted model as well.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/fin-streamlit.PNG&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/images/fin-streamlit.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;and-we-are-done&#34;&gt;AND WE ARE DONE!&lt;/h3&gt;
+&lt;p&gt;Hope this gives you a good idea on how to deploy ML models on GCP. Obviously, there can be extensions which can be done.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github Actions could be used to automate the whole deployment process.&lt;/li&gt;
+&lt;li&gt;Google App Engine could be used to deploy and host the Streamlit app.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;That&amp;rsquo;s all for now!
+I hope this tutorial helps you deploy your own models to Google Cloud Platform easily. Make sure to read the pricing for each GCP product (if you are not using the initial free credits) you use to avoid being charged unknowingly.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Deploying Machine Learning models using AWS Lambda and Github Actions - A Detailed Tutorial</title>

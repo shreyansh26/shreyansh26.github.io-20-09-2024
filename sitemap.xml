@@ -3,22 +3,72 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shreyansh26.github.io/authors/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/gcp/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/model-deployment/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/postman/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/streamlit/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2022-03-06T00:37:30+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shreyansh26.github.io/tags/api/</loc>
     <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/authors/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/aws/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/categories/</loc>
     <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
@@ -29,46 +79,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/tags/github-actions/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/model-deployment/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/postman/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/post/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/streamlit/</loc>
-    <lastmod>2022-01-23T21:15:03+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/</loc>
     <lastmod>2022-01-23T21:15:03+05:30</lastmod>
   </url>
   
