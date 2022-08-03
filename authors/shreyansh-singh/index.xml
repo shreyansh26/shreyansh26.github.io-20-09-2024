@@ -41,8 +41,8 @@
 &lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2112.14569&#34;&gt;Fine-Tuning Transformers: Vocabulary Transfer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2104.09667&#34;&gt;Manipulating SGD with Data Ordering Attacks&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://openreview.net/forum?id=Q42f0dfjECO&#34;&gt;Differentially Private Fine-tuning of Language Models&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2012.07805&#34;&gt;Extracting Training Data from Large Language Models&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Extracting-Training-Data-from-Large-Langauge-Models&#34;&gt;[Paper Re-Implementation]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.03040&#34;&gt;Learning Backward Compatible Embeddings&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Learning%20Backward%20Compatible%20Embeddings.pdf&#34;&gt;[Annoatated Paper]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2012.07805&#34;&gt;Extracting Training Data from Large Language Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.03040&#34;&gt;Learning Backward Compatible Embeddings&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2106.04647&#34;&gt;Compacter: Efficient Low-Rank Hypercomplex Adapter Layers&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.13089&#34;&gt;Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2205.10770&#34;&gt;Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models&lt;/a&gt;&lt;/li&gt;
