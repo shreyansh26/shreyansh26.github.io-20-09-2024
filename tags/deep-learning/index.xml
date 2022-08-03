@@ -5,12 +5,62 @@
     <link>https://shreyansh26.github.io/tags/deep-learning/</link>
       <atom:link href="https://shreyansh26.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>deep learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 23 May 2021 16:44:32 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Thu, 04 Aug 2022 00:27:33 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>deep learning</title>
       <link>https://shreyansh26.github.io/tags/deep-learning/</link>
     </image>
+    
+    <item>
+      <title>Academic Log | June/July 2022</title>
+      <link>https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/</link>
+      <pubDate>Thu, 04 Aug 2022 00:27:33 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/</guid>
+      <description>&lt;p&gt;A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.&lt;/p&gt;
+&lt;h2 id=&#34;personal-projects&#34;&gt;Personal Projects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - &amp;ldquo;Extracting Training Data from Large Language Models&amp;rdquo; by Carlini et al., 2021. - &lt;a href=&#34;https://github.com/shreyansh26/Extracting-Training-Data-from-Large-Langauge-Models&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;annotated-papers&#34;&gt;Annotated Papers&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Learning%20Backward%20Compatible%20Embeddings.pdf&#34;&gt;Learning Backward Compatible Embeddings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/Memorization%20Without%20Overfitting%20-%20Analyzing%20the%20Training%20Dynamics%20of%20Large%20Language%20Models.pdf&#34;&gt;Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/Tracing%20Knowledge%20in%20Language%20Models%20Back%20to%20the%20Training%20Data.pdf&#34;&gt;Tracing Knowledge in Language Models Back to the Training Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;papers-i-read&#34;&gt;Papers I read&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2111.12128&#34;&gt;On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2204.02311&#34;&gt;PaLM: Scaling Language Modeling with Pathways&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cdn.openai.com/papers/dall-e-2.pdf&#34;&gt;Hierarchical Text-Conditional Image Generation with CLIP Latents&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2204.00598&#34;&gt;Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2204.03610v1&#34;&gt;Unified Contrastive Learning in Image-Text-Label Space&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2204.07496&#34;&gt;Improving Passage Retrieval with Zero-Shot Question Generation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2204.07120&#34;&gt;Exploring Dual Encoder Architectures for Question Answering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2205.01541&#34;&gt;Efficient Fine-Tuning of BERT Models on the Edge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2112.14569&#34;&gt;Fine-Tuning Transformers: Vocabulary Transfer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2104.09667&#34;&gt;Manipulating SGD with Data Ordering Attacks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://openreview.net/forum?id=Q42f0dfjECO&#34;&gt;Differentially Private Fine-tuning of Language Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2012.07805&#34;&gt;Extracting Training Data from Large Language Models&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Extracting-Training-Data-from-Large-Langauge-Models&#34;&gt;[Paper Re-Implementation]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.03040&#34;&gt;Learning Backward Compatible Embeddings&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Learning%20Backward%20Compatible%20Embeddings.pdf&#34;&gt;[Annoatated Paper]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2106.04647&#34;&gt;Compacter: Efficient Low-Rank Hypercomplex Adapter Layers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.13089&#34;&gt;Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2205.10770&#34;&gt;Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2205.11482&#34;&gt;Tracing Knowledge in Language Models Back to the Training Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;blogs-i-read&#34;&gt;Blogs I read&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.pinecone.io/learn/gpl/&#34;&gt;Domain Adaptation with Generative Pseudo-Labeling (GPL)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://horace.io/brrr_intro.html&#34;&gt;Making Deep Learning Go Brrrr From First Principles&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html&#34;&gt;Introduction to TorchScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://openai.com/blog/nonlinear-computation-in-linear-networks/&#34;&gt;Nonlinear Computation in Deep Linear Networks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;talks-i-watched&#34;&gt;Talks I watched&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/&#34;&gt;How GPU Computing Works&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Summary #6 - Language Models are Unsupervised Multitask Learners</title>

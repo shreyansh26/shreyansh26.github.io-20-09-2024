@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.
+Personal Projects  Paper re-implementation - &ldquo;Extracting Training Data from Large Language Models&rdquo; by Carlini et al., 2021. - [Github]  Annotated Papers  Learning Backward Compatible Embeddings Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Papers I read  On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features PaLM: Scaling Language Modeling with Pathways Hierarchical Text-Conditional Image Generation with CLIP Latents Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language Unified Contrastive Learning in Image-Text-Label Space Improving Passage Retrieval with Zero-Shot Question Generation Exploring Dual Encoder Architectures for Question Answering Efficient Fine-Tuning of BERT Models on the Edge Fine-Tuning Transformers: Vocabulary Transfer Manipulating SGD with Data Ordering Attacks Differentially Private Fine-tuning of Language Models Extracting Training Data from Large Language Models [Paper Re-Implementation] Learning Backward Compatible Embeddings [Annoatated Paper] Compacter: Efficient Low-Rank Hypercomplex Adapter Layers Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Blogs I read  Domain Adaptation with Generative Pseudo-Labeling (GPL) Making Deep Learning Go Brrrr From First Principles Introduction to TorchScript Nonlinear Computation in Deep Linear Networks  Talks I watched  How GPU Computing Works  ">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/featured.jpg">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/">
+  <meta property="og:title" content="Academic Log | June/July 2022 | Shreyansh Singh">
+  <meta property="og:description" content="A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.
+Personal Projects  Paper re-implementation - &ldquo;Extracting Training Data from Large Language Models&rdquo; by Carlini et al., 2021. - [Github]  Annotated Papers  Learning Backward Compatible Embeddings Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Papers I read  On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features PaLM: Scaling Language Modeling with Pathways Hierarchical Text-Conditional Image Generation with CLIP Latents Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language Unified Contrastive Learning in Image-Text-Label Space Improving Passage Retrieval with Zero-Shot Question Generation Exploring Dual Encoder Architectures for Question Answering Efficient Fine-Tuning of BERT Models on the Edge Fine-Tuning Transformers: Vocabulary Transfer Manipulating SGD with Data Ordering Attacks Differentially Private Fine-tuning of Language Models Extracting Training Data from Large Language Models [Paper Re-Implementation] Learning Backward Compatible Embeddings [Annoatated Paper] Compacter: Efficient Low-Rank Hypercomplex Adapter Layers Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Blogs I read  Domain Adaptation with Generative Pseudo-Labeling (GPL) Making Deep Learning Go Brrrr From First Principles Introduction to TorchScript Nonlinear Computation in Deep Linear Networks  Talks I watched  How GPU Computing Works  "><meta property="og:image" content="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/featured.jpg">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/featured.jpg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-08-04T00:27:33&#43;05:30">
+    
+    <meta property="article:modified_time" content="2022-08-04T00:27:33&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/"
+  },
+  "headline": "Academic Log | June/July 2022",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/featured.jpg"
+  ],
+  
+  "datePublished": "2022-08-04T00:27:33+05:30",
+  "dateModified": "2022-08-04T00:27:33+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.\nPersonal Projects  Paper re-implementation - \u0026ldquo;Extracting Training Data from Large Language Models\u0026rdquo; by Carlini et al., 2021. - [Github]  Annotated Papers  Learning Backward Compatible Embeddings Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Papers I read  On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features PaLM: Scaling Language Modeling with Pathways Hierarchical Text-Conditional Image Generation with CLIP Latents Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language Unified Contrastive Learning in Image-Text-Label Space Improving Passage Retrieval with Zero-Shot Question Generation Exploring Dual Encoder Architectures for Question Answering Efficient Fine-Tuning of BERT Models on the Edge Fine-Tuning Transformers: Vocabulary Transfer Manipulating SGD with Data Ordering Attacks Differentially Private Fine-tuning of Language Models Extracting Training Data from Large Language Models [Paper Re-Implementation] Learning Backward Compatible Embeddings [Annoatated Paper] Compacter: Efficient Low-Rank Hypercomplex Adapter Layers Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Blogs I read  Domain Adaptation with Generative Pseudo-Labeling (GPL) Making Deep Learning Go Brrrr From First Principles Introduction to TorchScript Nonlinear Computation in Deep Linear Networks  Talks I watched  How GPU Computing Works  "
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Academic Log | June/July 2022 | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Academic Log | June/July 2022</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Aug 4, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2022-08-04-academic_log_june_july_22/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a>, <a href="/categories/computer-science/">Computer Science</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 480px; max-height: 260px;">
+  <div style="position: relative">
+    <img src="/post/2022-08-04-academic_log_june_july_22/featured.jpg" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.</p>
+<h2 id="personal-projects">Personal Projects</h2>
+<ul>
+<li><strong>Paper re-implementation</strong> - &ldquo;Extracting Training Data from Large Language Models&rdquo; by Carlini et al., 2021. - <a href="https://github.com/shreyansh26/Extracting-Training-Data-from-Large-Langauge-Models">[Github]</a></li>
+</ul>
+<h2 id="annotated-papers">Annotated Papers</h2>
+<ul>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Learning%20Backward%20Compatible%20Embeddings.pdf">Learning Backward Compatible Embeddings</a></li>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/Memorization%20Without%20Overfitting%20-%20Analyzing%20the%20Training%20Dynamics%20of%20Large%20Language%20Models.pdf">Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models</a></li>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/Tracing%20Knowledge%20in%20Language%20Models%20Back%20to%20the%20Training%20Data.pdf">Tracing Knowledge in Language Models Back to the Training Data</a></li>
+</ul>
+<h2 id="papers-i-read">Papers I read</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2111.12128">On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features</a></li>
+<li><a href="https://arxiv.org/abs/2204.02311">PaLM: Scaling Language Modeling with Pathways</a></li>
+<li><a href="https://cdn.openai.com/papers/dall-e-2.pdf">Hierarchical Text-Conditional Image Generation with CLIP Latents</a></li>
+<li><a href="https://arxiv.org/abs/2204.00598">Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language</a></li>
+<li><a href="https://arxiv.org/abs/2204.03610v1">Unified Contrastive Learning in Image-Text-Label Space</a></li>
+<li><a href="https://arxiv.org/abs/2204.07496">Improving Passage Retrieval with Zero-Shot Question Generation</a></li>
+<li><a href="https://arxiv.org/abs/2204.07120">Exploring Dual Encoder Architectures for Question Answering</a></li>
+<li><a href="https://arxiv.org/abs/2205.01541">Efficient Fine-Tuning of BERT Models on the Edge</a></li>
+<li><a href="https://arxiv.org/abs/2112.14569">Fine-Tuning Transformers: Vocabulary Transfer</a></li>
+<li><a href="https://arxiv.org/abs/2104.09667">Manipulating SGD with Data Ordering Attacks</a></li>
+<li><a href="https://openreview.net/forum?id=Q42f0dfjECO">Differentially Private Fine-tuning of Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2012.07805">Extracting Training Data from Large Language Models</a> <a href="https://github.com/shreyansh26/Extracting-Training-Data-from-Large-Langauge-Models">[Paper Re-Implementation]</a></li>
+<li><a href="https://arxiv.org/abs/2206.03040">Learning Backward Compatible Embeddings</a> <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Learning%20Backward%20Compatible%20Embeddings.pdf">[Annoatated Paper]</a></li>
+<li><a href="https://arxiv.org/abs/2106.04647">Compacter: Efficient Low-Rank Hypercomplex Adapter Layers</a></li>
+<li><a href="https://arxiv.org/abs/2206.13089">Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift</a></li>
+<li><a href="https://arxiv.org/abs/2205.10770">Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2205.11482">Tracing Knowledge in Language Models Back to the Training Data</a></li>
+</ul>
+<h2 id="blogs-i-read">Blogs I read</h2>
+<ul>
+<li><a href="https://www.pinecone.io/learn/gpl/">Domain Adaptation with Generative Pseudo-Labeling (GPL)</a></li>
+<li><a href="https://horace.io/brrr_intro.html">Making Deep Learning Go Brrrr From First Principles</a></li>
+<li><a href="https://pytorch.org/tutorials/beginner/Intro_to_TorchScript_tutorial.html">Introduction to TorchScript</a></li>
+<li><a href="https://openai.com/blog/nonlinear-computation-in-linear-networks/">Nonlinear Computation in Deep Linear Networks</a></li>
+</ul>
+<h2 id="talks-i-watched">Talks I watched</h2>
+<ul>
+<li><a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/">How GPU Computing Works</a></li>
+</ul>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/reading-list/">reading-list</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/annotated-paper/">annotated paper</a>
+  
+  <a class="badge badge-light" href="/tags/gpu/">gpu</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/&amp;text=Academic%20Log%20%7c%20June/July%202022" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/&amp;t=Academic%20Log%20%7c%20June/July%202022" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Academic%20Log%20%7c%20June/July%202022&amp;body=https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/&amp;title=Academic%20Log%20%7c%20June/July%202022" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Academic%20Log%20%7c%20June/July%202022%20https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/" rel="prev">Deploying Machine Learning models using GCP&#39;s Google AI Platform - A Detailed Tutorial</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></li>
+      
+      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></li>
+      
+      <li><a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/">Paper Summary #2 - Deep contextualized word representations</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2022 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
