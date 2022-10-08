@@ -31,7 +31,7 @@
   <meta name="description" content="AI Software Engineer">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/tags/model-deployment/">
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/tags/paper-summaries/">
 
   
 
@@ -129,14 +129,14 @@
 
 
   
-  <link rel="alternate" href="/tags/model-deployment/index.xml" type="application/rss+xml" title="Shreyansh Singh">
+  <link rel="alternate" href="/tags/paper-summaries/index.xml" type="application/rss+xml" title="Shreyansh Singh">
   
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
 
-  <link rel="canonical" href="https://shreyansh26.github.io/tags/model-deployment/">
+  <link rel="canonical" href="https://shreyansh26.github.io/tags/paper-summaries/">
 
   
   
@@ -152,12 +152,12 @@
   <meta property="twitter:creator" content="@shreyansh_26">
   
   <meta property="og:site_name" content="Shreyansh Singh">
-  <meta property="og:url" content="https://shreyansh26.github.io/tags/model-deployment/">
-  <meta property="og:title" content="model-deployment | Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/tags/paper-summaries/">
+  <meta property="og:title" content="paper-summaries | Shreyansh Singh">
   <meta property="og:description" content="AI Software Engineer"><meta property="og:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg">
   <meta property="twitter:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2022-03-06T00:37:30&#43;05:30">
+    <meta property="og:updated_time" content="2021-12-27T00:00:57&#43;05:30">
   
 
   
@@ -191,7 +191,7 @@
 
 
 
-  <title>model-deployment | Shreyansh Singh</title>
+  <title>paper-summaries | Shreyansh Singh</title>
 
 </head>
 
@@ -462,7 +462,7 @@
     
   
 <div class="universal-wrapper pt-3">
-  <h1>model-deployment</h1>
+  <h1>paper-summaries</h1>
 
   
 
@@ -477,44 +477,109 @@
   
   
   <div>
-    <h2><a href="/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/">Deploying Machine Learning models using GCP&#39;s Google AI Platform - A Detailed Tutorial</a></h2>
+    <h2><a href="/post/2021-12-27_federated_learning_mobile_keyboard/">PPML Series #3 - Federated Learning for Mobile Keyboard Prediction</a></h2>
     <div class="article-style">
       
-      In my last post I had written about deploying models on AWS. So, I though it would only be fitting to write one for GCP, for all the GCP lovers out there.
-GCP has a service called the AI Platform which, as the name suggest, is responsible for training and hosting ML/AI models.
-Just like the last post, this post, through a PoC, describes -
- How to add a trained model to a Google Cloud bucket Host the saved model on the AI Platform Create a Service Account to use the model hosted on AI Platform externally Make a Streamlit app to make a UI to access the hosted model  All the code can be found in my Github repository.
+      Introduction Gboard — the Google keyboard, is a virtual keyboard for smartphones with support for more than 900+ language varieties and over 1 billion installs. In addition to decoding noisy signals from input modalities including tap and word-gesture typing, Gboard provides auto-correction, word completion, and next-word prediction features.
+Next-word predictions provide a tool for facilitating text entry and is plays an important role in improving user experience. Based on a small amount of user-generated preceding text, language models (LMs) can predict the most probable next word or phrase.
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/2022-01-23_model_deployment_using_aws_lambda/">Deploying Machine Learning models using AWS Lambda and Github Actions - A Detailed Tutorial</a></h2>
+    <h2><a href="/post/2021-12-18_federated_optimization_fedavg/">PPML Series #2 - Federated Optimization Algorithms - FedSGD and FedAvg</a></h2>
     <div class="article-style">
       
-      Quite a while back, I had written a post in which I described how to package your Machine Learning models using Docker and deploy them using Flask.
-This post, through a PoC, describes -
- How to package your model using Docker (similar as last post) How to push the Docker container to Amazon ECR Add a Lambda Function for your model Make a REST API using Amazon API Gateway to access your model Automate the whole process using Github Actions, so that any updates to the model can take effect immediately Make a Streamlit app to make a UI to access the REST API (for the model deployed on AWS)  All the code can be found in my Github repository.
+      In my last post, I covered a high-level overview of Federated Learning, its applications, advantages &amp; challenges.
+We also went through a high-level overview of how Federated Optimization algorithms work. But from a mathematical sense, how is Federated Learning training actually performed? That&rsquo;s what we will be looking at in this post.
+ There was a paper, Communication-Efficient Learning of Deep Networks from Decentralized Data by Google (3637 citations!!!), in which the authors had proposed a federated optimization algorithm called FedAvg and compared it with a naive baseline, FedSGD.
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/2021-01-25_deep_learning_in_the_browser/">Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</a></h2>
+    <h2><a href="/post/2021-12-11_intro_to_federated_learning/">PPML Series #1 - An introduction to Federated Learning</a></h2>
     <div class="article-style">
       
-      After my last post on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.
-In this tutorial I will be giving an overview of three frameworks, Tensorflow.
+      Motivation Privacy-preserving Machine Learning had always been exciting for me. Since my B.Tech. thesis involving PPML (SMPC + Computer Vision), I didn&rsquo;t get a chance to work on it after that. So, after about 2 years, I have started to read about it again, and sharing it with the community.
+Federated Learning is a domain that I had somewhat eluded during my thesis. I had some idea about the topic but didn&rsquo;t get into it much.
       
     </div>
   </div>
   
   <div>
-    <h2><a href="/post/2020-11-30_fast_api_docker_ml_deploy/">Quick tutorial to deploy your ML models using FastAPI and Docker</a></h2>
+    <h2><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></h2>
     <div class="article-style">
       
-      The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using FastAPI and also be able to ship it using Docker.
-This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.
+      Paper: Language Models are Unsupervised Multitask Learners
+Link: https://bit.ly/3vgaVJc
+Authors: Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever Code: https://github.com/openai/gpt-2
+ I also made an annotated version of the paper which you can find here
+What? The paper demonstrates that language models begin to learn NLP tasks like question answering, machine translation, reading comprehension and summarization without any explicit supervision. The results shown are obtained after training the model on a new dataset of millions of web pages called WebText.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></h2>
+    <div class="article-style">
+      
+      Paper: XLNet: Generalized Autoregressive Pretraining for Language Understanding
+Link: https://arxiv.org/pdf/1906.08237.pdf
+Authors: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V. Le
+Code: https://github.com/zihangdai/xlnet
+ What? The paper proposes XLNet, a generalized autoregressive pretraining method that enables learning bidirectional contexts over all permutations of the factorization order and overcomes the limitations of BERT due to the autoregressive formulation of XLNet. XLNet incorporates Transformer-XL as the underlying model. It outperforms BERT in 20 NLP tasks like question answering, natural language inference, sentiment analysis and document ranking.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></h2>
+    <div class="article-style">
+      
+      Paper: BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding
+Link: https://bit.ly/3bdTUra Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+Code: https://bit.ly/3vRXlM7
+ What? The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></h2>
+    <div class="article-style">
+      
+      Paper: Improving Language Understanding by Generative Pre-Training
+Link: https://bit.ly/3xITvGP
+Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
+Code: https://bit.ly/3gUFrUX
+ What? The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2021-04-25_deep_contextualized_word_representations_elmo/">Paper Summary #2 - Deep contextualized word representations</a></h2>
+    <div class="article-style">
+      
+      Paper: Deep contextualized word representations
+Link: https://arxiv.org/abs/1802.05365 Authors: Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer
+Code: https://bit.ly/3xpHNAI
+ Note - Since this is a relatively old paper, all the performance comparisons and state-of-the-art claims mentioned below should only be considered for the models at the time the paper was published.
+What? The paper proposes a new type of deep contextualized word representation that helps to effectively capture the syntactic and semantic characteristics of the word along with the linguistic context of the word.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Summary #1 - Attention Is All You Need</a></h2>
+    <div class="article-style">
+      
+      Paper: Attention Is All You Need
+Link: https://bit.ly/3aklLFY
+Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+Code: https://github.com/tensorflow/tensor2tensor
+ What? Proposes Transformers, a new simple architecture for sequence transduction that uses only an attention mechanism and does not use any kind of recurrence or convolution. This model achieves SOTA (at the time) on the WMT 2014 English-to-French translation task with a score of 41.
       
     </div>
   </div>

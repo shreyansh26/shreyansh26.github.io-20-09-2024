@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>model deployment | Shreyansh Singh</title>
+    <title>model-deployment | Shreyansh Singh</title>
     <link>https://shreyansh26.github.io/tags/model-deployment/</link>
       <atom:link href="https://shreyansh26.github.io/tags/model-deployment/index.xml" rel="self" type="application/rss+xml" />
-    <description>model deployment</description>
+    <description>model-deployment</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Sun, 06 Mar 2022 00:37:30 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
-      <title>model deployment</title>
+      <title>model-deployment</title>
       <link>https://shreyansh26.github.io/tags/model-deployment/</link>
     </image>
     
@@ -1008,6 +1008,516 @@ x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span styl
 &lt;p&gt;That&amp;rsquo;s all for now!
 I hope this tutorial helps you deploy your own models to AWS Lambda easily. Make sure to read the pricing for each AWS product you use to avoid being charged unknowingly.&lt;/p&gt;
 &lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning in the Browser - Exploring TF.js, WebDNN and ONNX.js</title>
+      <link>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</link>
+      <pubDate>Mon, 25 Jan 2021 12:53:13 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/</guid>
+      <description>&lt;p&gt;After my &lt;a href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy&#34;&gt;last post&lt;/a&gt; on deploying Machine Learning and Deep Learning models using FastAPI and Docker, I wanted to explore a bit more on deploying deep learning models. My last post discussed a server-side method for deploying the model. This post will discuss client side frameworks and techniques to deploy those models such that they work directly on the client side.&lt;/p&gt;
+&lt;p&gt;In this tutorial I will be giving an overview of three frameworks, &lt;a href=&#34;https://www.tensorflow.org/js&#34;&gt;Tensorflow.js&lt;/a&gt;, &lt;a href=&#34;https://mil-tokyo.github.io/webdnn/&#34;&gt;WebDNN&lt;/a&gt; and &lt;a href=&#34;https://microsoft.github.io/onnxjs-demo/#/&#34;&gt;ONNX.js&lt;/a&gt;. I will be a deploying a simple pretrained image classification model (ResNet or Mobilenet) on the three frameworks and also tell you the comparsion between them. In this tutorial, I haven&amp;rsquo;t deployed custom models of my own but I will be explaining how you can do it and the difficulties you could encounter.&lt;/p&gt;
+&lt;p&gt;The goal of this blog post is to introduce the three frameworks and how you can use them for deploying your models as well. Personally, I had not heard of WebDNN and ONNX.js before diving into this project, so I believe it can help some others like me to get familiar with these frameworks.&lt;/p&gt;
+&lt;h2 id=&#34;tensorflowjs&#34;&gt;Tensorflow.js&lt;/h2&gt;
+&lt;p&gt;I found Tensorflow.js to be the easiest to use. It already has a large collection of some &lt;a href=&#34;https://github.com/tensorflow/tfjs-models&#34;&gt;pretrained models&lt;/a&gt;. With Tensorflow.js, we don&amp;rsquo;t have a pretrained Resnet model because it is not exactly a lightweight model that can be deployed on a device with low compute power. So, I used &lt;a href=&#34;https://arxiv.org/abs/1704.04861&#34;&gt;Mobilenet&lt;/a&gt; (which is trained on the Imagenet dataset). Mobilenet was available in the Tensorflow.js pretrained models repository so I decided to use that directly.&lt;/p&gt;
+&lt;p&gt;Now, on to the fun part, actually using the model and making a webapp. For the webapp portion, I am using &lt;a href=&#34;https://expressjs.com/&#34;&gt;Express&lt;/a&gt;, a web framework for Node.js. I have tried to keep the code structure and the webapp visually similar for all the three frameworks.&lt;/p&gt;
+&lt;p&gt;Loading the model is as simple as -&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/dfedd9a445841a8bb963af9526a9f21c.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Now after loading the model, we call the &lt;code&gt;imgSet&lt;/code&gt; function which bascially loads the image from the path we specify and loads it onto a canvas. Details of this can be seen in the code which I will post at the end.&lt;/p&gt;
+&lt;p&gt;Although the Mobilenet model in Tensoflow.js doesn&amp;rsquo;t require a fixed size of the image, but for uniformity in all other frameworks (WebDNN, ONNX.js), I decided to resize the images to 224x224 size. The main code for running the model is shown below -&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/3b1bc92aa52a13cabae2f426b36c2576.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The final webapp looks something like this -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; data-caption=&#34;Image loading and prediction&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/tfapp.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Image loading and prediction
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The model works well. It knows it is some kind of a water related animal, and given the Imagenet classes it has been trained on, it gies the closest result possible.&lt;/p&gt;
+&lt;p&gt;The first prediction takes time (196ms) because the model is loaded and run for the first time. After that, the predictions take very little time (~80ms) mainly because the model is cached and predictions can be served faster.&lt;/p&gt;
+&lt;p&gt;The average time taken by different backends (over 20 predictions) is also shown below -&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cpu&lt;/td&gt;
+&lt;td&gt;2100ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;wasm&lt;/td&gt;
+&lt;td&gt;82ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;webgl&lt;/td&gt;
+&lt;td&gt;70ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;If one wants to convert their own models to a Tensorflow.js compatible version, it is very easy to convert the model as well as load it into your web application. One can refer to &lt;a href=&#34;https://github.com/tensorflow/tfjs/tree/master/tfjs-converter&#34;&gt;tfjs-converter&lt;/a&gt; and the documentation given &lt;a href=&#34;https://www.tensorflow.org/js/guide/conversion&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The code for this section is present &lt;a href=&#34;https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/TF&#34;&gt;on my Github&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;webdnn&#34;&gt;WebDNN&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://mil-tokyo.github.io/webdnn/&#34;&gt;WebDNN&lt;/a&gt; was developed by the Machine Intellignece Laboratory at the University of Tokyo. From its website,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WebDNN optimizes the trained DNN model to compress the model data and accelerate the execution, and executes it with novel JavaScript API such as WebAssembly and WebGPU to achieve zero-overhead execution. WebDNN supports 4 execution backend implementations: WebMetal, WebGL, WebAssembly, and fallback pure javascript implementation. By using these backends, WebDNN works all major browsers.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;More details are available on the website, but the image below accurately depicts the steps involved in this procedure.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; data-caption=&#34;WebDNN model conversion flow&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn-arch.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    WebDNN model conversion flow
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;WebDNN can be used to deploy tarined DNN models trained using popular DL frameworks like Tensorflow, Keras, PyTorch, Chainer, Kaffe. One disadvantage I found of using WebDNN is that the current model conversion module (as of writing the post) does not allow conversion using Tensorflow 2 and also does not support the latest versions of Keras (let alone &lt;code&gt;tensorflow.keras&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;I used a pretrained ResNet50 model (trained on Imagnet dataset) for this. I am sharing the &lt;a href=&#34;https://colab.research.google.com/drive/1pFdbZc5_Dd78twKshl-MH8T_EuVrH0Nw?usp=sharing&#34;&gt;following Colab notebook&lt;/a&gt; which contains the code to convert the ResNet50 Keras model.&lt;/p&gt;
+&lt;p&gt;On to the web app coding part! The first thing the webapp does is to load the model.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/a527987583919e53b237a7d1a312f3a8.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Next, we write the code to run the model on the image input.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/a7a9eb637f31e9dee0a2b39822ebc4b7.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The final webapp looks something like this -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; data-caption=&#34;WebDNN predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/webdnn.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    WebDNN predictions
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The model does a very good job of identifying it is a bus. The top two predictions relate to it.&lt;/p&gt;
+&lt;p&gt;Again, the first run takes a long time (~242ms) but the subsequent runs take quite less (~63ms average). Now one must note that ResNet50 is a relatively heavier model as compared to Mobilenet, but WebDNN manages to load it much faster than or at par with Mobilenet as we saw in the case with Tensorflow.js. Also, in the COlab notebook, we can see that for the same image, the ResNet50 model around 645ms to run the model. We easily see a ~10x improvement on converting the model to WebDNN.&lt;/p&gt;
+&lt;p&gt;The average time taken by different backends (over 20 predictions) is also shown below -&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cpu&lt;/td&gt;
+&lt;td&gt;10000ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;webgl&lt;/td&gt;
+&lt;td&gt;60ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;WebDNN is quite optimised to run on futuristic hardware. The time it takes on a normal fallback vanilla-JS model version running on the CPU is around 10 seconds. But on WebGL, it takes much much less. I didn&amp;rsquo;t have access to a WebMetal backend, which they claim is the fastest. I would like to know if anyone runs it on WebGPU (WebMetal) and the average time the model took to run on it.&lt;/p&gt;
+&lt;p&gt;The code for this section is present &lt;a href=&#34;https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/WebDNN&#34;&gt;on my Github&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;onnx&#34;&gt;ONNX&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://onnx.ai/&#34;&gt;Open Neural Network Exchange (ONNX)&lt;/a&gt; is an open source format for AI models, both deep learning and traditional ML.&lt;/p&gt;
+&lt;p&gt;From their website -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ONNX defines a common set of operators - the building blocks of machine learning and deep learning models - and a common file format to enable AI developers to use models with a variety of frameworks, tools, runtimes, and compilers.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/microsoft/onnxjs&#34;&gt;ONNX.js&lt;/a&gt; is an open source Javascript library by Microsoft for running ONNX models on browsers and on Node.js. Like Tensorflow.js and WebDNN, it also has support for WebGL and CPU. From theit Github&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;With ONNX.js, web developers can score pre-trained ONNX models directly on browsers with various benefits of reducing server-client communication and protecting user privacy, as well as offering install-free and cross-platform in-browser ML experience.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;With ONNX.js, I used a pretrained &lt;a href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/files/resnet50_8.onnx&#34;&gt;ResNet50 model&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Loading the model is similar -&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/07658e9b0b4dc759fb4f081cd9ea7b78.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The ONNX examples on their repository gives some nice code snippets to show basic image preprocessing. I have used it directly in my code.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/1a2f6059395c60485e4d721c7afd761b.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;After that, the following code snippet loads the preprocessed image to an input tensor and then runs the model on it and then prints the predictions.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/7e4366058eac9a8c1f05a82b569ff91a.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;A demo of the webapp using ONNX.js is shown below.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx1.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    ONNX.js predictions
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; data-caption=&#34;ONNX.js predictions&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2021-01-25_deep_learning_in_the_browser/images/onnx2.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    ONNX.js predictions
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The Resnet model does an awesome job with the airline image and classifies it correctly. It also performs decently on the bus image giving the top prediction as &lt;em&gt;minibus&lt;/em&gt;. However, the goal of this post is not to judge how well the model works, but the technique of deploying the models and receiving predictions from them.&lt;/p&gt;
+&lt;p&gt;I used the WebGL model for testing. It takes an average of 70ms to serve the predictions. The CPU version takes a VERY long time ~15000ms (15 seconds).&lt;/p&gt;
+&lt;p&gt;The average time taken by different backends (over 20 predictions) is also shown below. I had some trouble with the WASM version so I didn&amp;rsquo;t include them in the results.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;cpu&lt;/td&gt;
+&lt;td&gt;15000ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;webgl&lt;/td&gt;
+&lt;td&gt;71ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The best part about ONNX is that it is an open standard and allows easy conversion of models made in different frameworks to a &lt;code&gt;.onnx&lt;/code&gt; model. I would suggest going through &lt;a href=&#34;https://github.com/onnx/tutorials&#34;&gt;this tutorial&lt;/a&gt; for this.&lt;/p&gt;
+&lt;p&gt;The code for this section is present &lt;a href=&#34;https://github.com/shreyansh26/DeepLearning-in-the-Browser/tree/main/ONNX&#34;&gt;on my Github&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;the-end&#34;&gt;The End&lt;/h2&gt;
+&lt;p&gt;That is all for now. I hope that this tutorial will help the reader get an idea of these frameworks for client-side model deployment and one can also use my code as a boilerplate for setting up webapps of your own for deploying ML models using these frameworks.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Quick tutorial to deploy your ML models using FastAPI and Docker</title>
+      <link>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</link>
+      <pubDate>Mon, 30 Nov 2020 11:21:53 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/</guid>
+      <description>&lt;p&gt;The goal of this blog post is to make an API to get predictions from a pre-trained ML model and how we can do that in a fast manner using &lt;a href=&#34;https://fastapi.tiangolo.com/&#34;&gt;FastAPI&lt;/a&gt; and also be able to ship it using &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;This method does not scale well as it does not support caching and cannot handle much load. However, this can be a good instructional post on how you can deploy those models and use them for small low-scale projects, say a hackathon.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the tutorial we will use the very famous Iris dataset. The dataset has 4 features -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sepal Length&lt;/li&gt;
+&lt;li&gt;Sepal Width&lt;/li&gt;
+&lt;li&gt;Petal Length&lt;/li&gt;
+&lt;li&gt;Petal Width&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These lengths are in cm, and these fields are used to predict the type of the Iris, among 3 categories - Setosa, Versicolour and Virginica.&lt;/p&gt;
+&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;
+&lt;p&gt;Given below is the outline of the files and location of the files so that it is easier for one to follow the tutorial.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ml-deployment/
+│   .gitignore
+│   Dockerfile
+│   logs.log
+│   README.md
+│   request.py
+│   requirements.txt
+│   server.py
+│
+├───models
+        iris.py
+        model.pkl
+        model.py
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;model-training&#34;&gt;Model Training&lt;/h2&gt;
+&lt;p&gt;Since the goal here is just to make a POC deployment, we make a very simple model trained on the Iris dataset. Some very basic knowledge of Scikit-learn libraries will be needed to understand the code.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/fcb121e5c428895be24e58edec1c3ebe.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The model is saved in a pickle format. We will load the saved model to do predictions later.&lt;/p&gt;
+&lt;p&gt;Now, along with this, we have to ensure that when the API will receive the paprameters, it receives them in a proper format, for example, a list of lists in which each list has 4 float values for the features.&lt;/p&gt;
+&lt;p&gt;For that we use &lt;a href=&#34;https://github.com/samuelcolvin/pydantic&#34;&gt;Pydantic&lt;/a&gt;.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/f45af7bad35c6c75cc695dd8f209c2c7.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;creating-the-api&#34;&gt;Creating the API&lt;/h2&gt;
+&lt;p&gt;As mentioned earlier, we use FastAPI to make our API. From the website -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It also claims to have &lt;em&gt;Very high performance, on par with NodeJS and Go (thanks to Starlette and Pydantic). One of the fastest Python frameworks available.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The whole code is given below, I&amp;rsquo;ll explain the details below as well.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/3ccaafb643fb1d387137550c715610cc.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Here, we define the name of our app.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;app &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FastAPI(title&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Iris Classifier API&amp;#34;&lt;/span&gt;, description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;API for Iris classification using ML&amp;#34;&lt;/span&gt;, version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next, we set up logging for our API as well, to ensure we can see WHEN something went wrong, in case something does go wrong.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Initialize logging&lt;/span&gt;
+my_logger &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getLogger()
+my_logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG)
+logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;basicConfig(level&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DEBUG, filename&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;logs.log&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then we use a FastAPI decorator called &lt;code&gt;@app.on_event(&amp;quot;startup&amp;quot;)&lt;/code&gt; to specify the operation which we want to perform when the server starts up. Here we load our model so that once the model is loaded in the initial phase, the predictions can be served as fast as possible.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.on_event&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;startup&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;load_model&lt;/span&gt;():
+    model &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pickle&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load(open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;models/model.pkl&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rb&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, our main logic of serving the predictions -&lt;/p&gt;
+&lt;p&gt;We get the data that the API receives from the server and require it to be in the &lt;code&gt;Iris&lt;/code&gt; format, which we specified using Pydantic.&lt;/p&gt;
+&lt;p&gt;We run the model on those examples, get the predictions and then map them to the flower type. The classification and the model probability of the prediction is returned as a JSON response.&lt;/p&gt;
+&lt;p&gt;We have a try-catch blog to make ensure any wrong input format or any other kinds of errors does not break the server.&lt;/p&gt;
+&lt;h2 id=&#34;lets-see-it-in-action&#34;&gt;Let&amp;rsquo;s see it in action&lt;/h2&gt;
+&lt;p&gt;The FastAPI provides a dashboard from where we send requests to the API. It is at &lt;code&gt;http://localhost:8000/docs&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; data-caption=&#34;Sending sample request to FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/docs.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Sending sample request to FastAPI
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; data-caption=&#34;Response from FastAPI&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2020-11-30_fast_api_docker_ml_deploy/images/response.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Response from FastAPI
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;dockerise-everything&#34;&gt;Dockerise Everything!&lt;/h2&gt;
+&lt;p&gt;So now, if we have to ship it, we want to convert it into a Docker image.&lt;/p&gt;
+&lt;p&gt;For that we create a Dockerfile.&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/f4d7a32e2790b32a8f18dbcb583cc817.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Basically, the Dockerfile instructs Docker to first create a &lt;code&gt;/app&lt;/code&gt; folder inside the Docker &lt;strong&gt;python3.8&lt;/strong&gt; base image, install the requirements (Python packages) and then run the app on port 8000 in the Docker container, and expose that port to access it from our local machine.&lt;/p&gt;
+&lt;p&gt;Now, we just have to run two commands -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ docker build -t iris-ml .  # Build the Docker image
+$ docker run -d -p 8000:8000 --name iris-api iris-ml   # Run the Docker image as container
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The requirements.txt for the project are also listed below -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;numpy==1.18.4
+pydantic==1.6.1
+requests==2.24.0
+fastapi==0.61.1
+scikit_learn==0.23.2
+uvicorn==0.11.8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now you can head to &lt;a href=&#34;%5Bhttp://localhost:8000/docs%5D&#34;&gt;http://localhost:8000/docs&lt;/a&gt; to test the API.&lt;/p&gt;
+&lt;p&gt;If you see the dashboard and the responses similar to the screenshots above, you have most likely deployed it successfully.&lt;/p&gt;
+&lt;h3 id=&#34;congratulations&#34;&gt;Congratulations!!&lt;/h3&gt;
+&lt;p&gt;Now that you have the Docker image, the entire environment can be recreated on any other machine. You can push the image to DockerHub (&lt;a href=&#34;https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html&#34;&gt;refer here&lt;/a&gt;) or export as a &lt;a href=&#34;https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository&#34;&gt;tar file&lt;/a&gt; to share to another host.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;The entire code is also available on my Github - &lt;a href=&#34;https://github.com/shreyansh26/Weekend-Projects/tree/master/MLDeployment/v1&#34;&gt;https://github.com/shreyansh26/Weekend-Projects/tree/master/MLDeployment/v1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;/p&gt;
+&lt;p&gt;This is all for now. I will also be writing about few other approaches to deploy relatively heavier models and also scalable approaches to Model hosting. Thanks for reading!&lt;/p&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
 &lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
 &lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
