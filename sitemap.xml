@@ -3,6 +3,71 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shreyansh26.github.io/authors/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/deep-learning/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/efficient-ml/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/paper-summaries/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/post/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/transformer/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shreyansh26.github.io/tags/transformers/</loc>
+    <lastmod>2022-10-10T14:57:33+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shreyansh26.github.io/post/2022-08-04-academic_log_june_july_22/</loc>
     <lastmod>2022-08-04T00:27:33+05:30</lastmod>
   </url>
@@ -13,22 +78,7 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/authors/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/categories/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/categories/computer-science/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/deep-learning/</loc>
     <lastmod>2022-08-04T00:27:33+05:30</lastmod>
   </url>
   
@@ -38,37 +88,12 @@
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/categories/machine-learning/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/nlp/</loc>
     <lastmod>2022-08-04T00:27:33+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://shreyansh26.github.io/post/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://shreyansh26.github.io/tags/reading-list/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/authors/shreyansh-singh/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/</loc>
-    <lastmod>2022-08-04T00:27:33+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/</loc>
     <lastmod>2022-08-04T00:27:33+05:30</lastmod>
   </url>
   
@@ -99,11 +124,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/project/</loc>
-    <lastmod>2022-03-06T20:40:05+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/transformer/</loc>
     <lastmod>2022-03-06T20:40:05+05:30</lastmod>
   </url>
   
@@ -154,11 +174,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/tags/federated-learning/</loc>
-    <lastmod>2021-12-27T00:00:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/paper-summaries/</loc>
     <lastmod>2021-12-27T00:00:57+05:30</lastmod>
   </url>
   
@@ -334,11 +349,6 @@
   
   <url>
     <loc>https://shreyansh26.github.io/post/2021-04-18_attention_is_all_you_need/</loc>
-    <lastmod>2021-04-18T16:57:49+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shreyansh26.github.io/tags/transformers/</loc>
     <lastmod>2021-04-18T16:57:49+05:30</lastmod>
   </url>
   

@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: Efficient Transformers: A Survey
+Link: https://arxiv.org/abs/2009.06732
+Authors: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler
+ I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the Cohere For AI community for having a session on this paper which made me revisit this.
+What? This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/featured.png">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/">
+  <meta property="og:title" content="Paper Summary #7 - Efficient Transformers: A Survey | Shreyansh Singh">
+  <meta property="og:description" content="Paper: Efficient Transformers: A Survey
+Link: https://arxiv.org/abs/2009.06732
+Authors: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler
+ I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the Cohere For AI community for having a session on this paper which made me revisit this.
+What? This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al."><meta property="og:image" content="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-10-10T14:57:33&#43;05:30">
+    
+    <meta property="article:modified_time" content="2022-10-10T14:57:33&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/"
+  },
+  "headline": "Paper Summary #7 - Efficient Transformers: A Survey",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/featured.png"
+  ],
+  
+  "datePublished": "2022-10-10T14:57:33+05:30",
+  "dateModified": "2022-10-10T14:57:33+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: Efficient Transformers: A Survey\nLink: https://arxiv.org/abs/2009.06732\nAuthors: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler\n I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the Cohere For AI community for having a session on this paper which made me revisit this.\nWhat? This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Summary #7 - Efficient Transformers: A Survey | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Summary #7 - Efficient Transformers: A Survey</h1>
+
+  
+  <p class="page-subtitle">A survey paper of improvements over the original Transformer architecture in terms of memory-efficiency.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 10, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2022-10-10_efficient_transformers_survey/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 350px;">
+  <div style="position: relative">
+    <img src="/post/2022-10-10_efficient_transformers_survey/featured_hu0aa8afc844f53f8893943a07b1d44727_57989_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: Efficient Transformers: A Survey<br>
+<strong>Link</strong>: <a href="https://arxiv.org/abs/2009.06732">https://arxiv.org/abs/2009.06732</a><br>
+<strong>Authors</strong>: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler</p>
+<hr>
+<p>I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the <a href="https://cohere.for.ai/">Cohere For AI</a> community for having a session on this paper which made me revisit this.</p>
+<h1 id="what">What?</h1>
+<p>This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al. But wait, for those unaware, how is the Transformers architecture inefficient?</p>
+<ul>
+<li>The attention operation has a quadratic complexity over the sequence length L, also sometimes represented using N (since each token attends to other set of tokens in the sequence)</li>
+<li>The Attention operation of Q*K<sup>T</sup> uses N<sup>2</sup> time and memory. Here (in no-batching case) Q, K, V (query, key and value matrices) have dimensions <i>N x d </i> where d is the dimension of query, key and value vectors.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/attention.PNG" data-caption="Attention calculation">
+<img src="/post/2022-10-10_efficient_transformers_survey/images/attention.PNG" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Attention calculation
+  </figcaption>
+
+
+</figure>
+
+<h1 id="glossary">Glossary</h1>
+<ul>
+<li><a href="#low-rank-methods">Low-rank Methods</a>
+<ul>
+<li><a href="#linformer---httpsarxivorgabs200604768httpsarxivorgabs200604768">Linformer</a></li>
+<li><a href="#performer---httpsarxivorgabs200914794httpsarxivorgabs200914794">Perfomer</a></li>
+</ul>
+</li>
+<li><a href="#learnable-patterns">Learnable Patterns based methods</a>
+<ul>
+<li><a href="#clustered-attention---httpsarxivorgabs200704825httpsarxivorgabs200704825--httpsclustered-transformersgithubiobloghttpsclustered-transformersgithubioblog">Clustered Attention</a></li>
+<li><a href="#reformer---httpsarxivorgabs200104451httpsarxivorgabs200104451">Reformer</a></li>
+</ul>
+</li>
+<li><a href="#memory-based">Memory-based methods</a>
+<ul>
+<li><a href="#big-bird-httpsarxivorgabs200714062httpsarxivorgabs200714062--httpshuggingfacecoblogbig-birdhttpshuggingfacecoblogbig-bird">Big Bird</a></li>
+</ul>
+</li>
+<li><a href="#complexity-summary-of-various-models">Complexity summary of various models</a></li>
+</ul>
+<h1 id="memory-efficient-transformers">Memory-Efficient Transformers</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/arch-vaswani.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/arch-vaswani.png" alt="" ></a>
+
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/summary.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/summary.png" alt="" ></a>
+
+
+
+</figure>
+
+<h2 id="low-rank-methods">Low-Rank methods</h2>
+<h3 id="linformer---httpsarxivorgabs200604768httpsarxivorgabs200604768">Linformer - <a href="https://arxiv.org/abs/2006.04768">https://arxiv.org/abs/2006.04768</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/linformer.png" data-caption="Left and bottom-right show architecture and example of our proposed multihead linear self-attention. Top right shows inference time vs. sequence length for various Linformer models.">
+<img src="/post/2022-10-10_efficient_transformers_survey/images/linformer.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Left and bottom-right show architecture and example of our proposed multihead linear self-attention. Top right shows inference time vs. sequence length for various Linformer models.
+  </figcaption>
+
+
+</figure>
+
+<p>In Linformer, the original Key and Value matrices are projected from <i>(N x d)</i> to a reduced <i>(k x d)</i>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/linformer-dets.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/linformer-dets.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The above operations only require <code>O(n*k)</code> time and space complexity. Thus, if we can choose a very small projected dimension k, such that k &lt; &lt; N, then we can significantly reduce the memory and space consumption.</p>
+<h3 id="performer---httpsarxivorgabs200914794httpsarxivorgabs200914794">Performer - <a href="https://arxiv.org/abs/2009.14794">https://arxiv.org/abs/2009.14794</a></h3>
+<p>The goal in the Performer paper was to reduce the complexity of attention calculation (Q * K<sup>T</sup>) * V of O(L<sup>2</sup> * d) to O (L * d<sup>2</sup>) by transforming the order of operations and using a kernel operation to approximate the softmax operation so that the order of operations can be changed.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/performer.png" data-caption="An overview from the paper">
+<img src="/post/2022-10-10_efficient_transformers_survey/images/performer.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    An overview from the paper
+  </figcaption>
+
+
+</figure>
+
+<p>From, a <a href="https://chiaracampagnola.io/2020/10/29/from-transformers-to-performers/">great blog on the Performer paper</a> -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/performer-dets.png" data-caption="Change of operation order">
+<img src="/post/2022-10-10_efficient_transformers_survey/images/performer-dets.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Change of operation order
+  </figcaption>
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/performer-dets2.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/performer-dets2.png" alt="" ></a>
+
+
+
+</figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/performer-dets3.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/performer-dets3.png" alt="" ></a>
+
+
+
+</figure>
+
+<h2 id="learnable-patterns">Learnable Patterns</h2>
+<h3 id="clustered-attention---httpsarxivorgabs200704825httpsarxivorgabs200704825--httpsclustered-transformersgithubiobloghttpsclustered-transformersgithubioblog">Clustered Attention - <a href="https://arxiv.org/abs/2007.04825">https://arxiv.org/abs/2007.04825</a> + <a href="https://clustered-transformers.github.io/blog/">https://clustered-transformers.github.io/blog/</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/clusteredatt.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/clusteredatt.png" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>First cluster the queries into  non-overlapping clusters.</li>
+<li>Attention weights A<sup>c</sup> are computed using the centroids instead of computing them for every query</li>
+<li>Use clustered attention weights A<sup>c</sup> to compute new Values V<sup>c</sup></li>
+<li>Use the same attention weights and new values for queries that belong to same cluster.</li>
+<li>Computational complexity becomes <code>O(N * C * max (D<sub>k</sub> * D<sub>v</sub>))</code></li>
+</ul>
+<p>They also propose an Improved Clustered Attention in their blog. The complexity comaprisons are here -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/clusteredatt-dets.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/clusteredatt-dets.png" alt="" ></a>
+
+
+
+</figure>
+
+<h3 id="reformer---httpsarxivorgabs200104451httpsarxivorgabs200104451">Reformer - <a href="https://arxiv.org/abs/2001.04451">https://arxiv.org/abs/2001.04451</a></h3>
+<p>Uses the concept of Locality sensitive hashing (LSH) attention, where the goal is to not store the entire Q * K<sup>T</sup> matrix but only the softmax(Q * K<sup>T</sup>), which is dominated by the largest elements in a typically sparse matrix. For each query q we only need to pay attention to the keys k that are closest to q. For example, if K is of length 64K, for each q we could only consider a small subset of the 32 or 64 closest keys. So the attention mechanism finds the nearest neighbor keys of a query but in an inefficient manner.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/reformer-lsh.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/reformer-lsh.png" alt="" ></a>
+
+
+
+</figure>
+
+<ul>
+<li>Calcluate LSH hashes of Queries and Keys (Q and K)</li>
+<li>Make chunks and compute attention only for vectors in the same bucket</li>
+</ul>
+<p>The paper also introduces the concept of Reversible residual networks (RevNets). In the residual connections in Transformers, one needs to store the activations in each layer in memory in order to calculate gradients during backpropagation. RevNets are composed of a series of reversible blocks. In RevNet, each layer’s activations can be reconstructed exactly from the subsequent layer’s activations, which enables us to perform backpropagation without storing the activations in memory.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Reformer applies the RevNet idea to the Transformer by combining the attention and feed-forward layers inside the RevNet block. Now F becomes an attention layer and G becomes the feed-forward layer:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet2.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The reversible residual layers allows storing activations only once during the training process instead of N times.</p>
+<p>The memory complexity of Reformer is <code>O(N log N)</code>.</p>
+<h2 id="memory-based">Memory-based</h2>
+<h3 id="big-bird-httpsarxivorgabs200714062httpsarxivorgabs200714062--httpshuggingfacecoblogbig-birdhttpshuggingfacecoblogbig-bird">Big Bird <a href="https://arxiv.org/abs/2007.14062">https://arxiv.org/abs/2007.14062</a> + <a href="https://huggingface.co/blog/big-bird">https://huggingface.co/blog/big-bird</a></h3>
+<p>BigBird relies on block sparse attention and can handle sequences up to a length of 4096 at a much lower computational cost compared to BERT. It has achieved SOTA on various tasks involving very long sequences such as long documents summarization, question-answering with long contexts.</p>
+<p>BigBird proposes three ways of allowing long-term attention dependencies while staying computationally efficient -</p>
+<ul>
+<li><strong>Global attention</strong> - Introduce some tokens which will attend to every token and which are attended by every token. The authors call this the &lsquo;internal transformer construction (ITC)&rsquo; in which a subset of indices is selected as global tokens. This can be interpreted as a model-memory-based approach.</li>
+<li><strong>Sliding attention</strong> - Tokens close to each other, attend together. In BigBird, each query attends to w/2 tokens to the left and w/2 tokens to the right. This corresponds to a fixed pattern (FP) approach.</li>
+<li><strong>Random attention</strong> - Select some tokens randomly which will transfer information by transferring to other tokens which in turn can transfer to other tokens. This may reduce the cost of information travel from one token to other. Each query attends to r random keys. This pattern is fixed</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/bigbird-graph.gif" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/bigbird-graph.gif" alt="" ></a>
+
+
+
+</figure>
+
+<p>BigBird block sparse attention is a combination of sliding, global &amp; random connections (total 10 connections) as shown in gif above. While a graph of normal attention (bottom) will have all 15 connections (note: total 6 nodes are present). One can simply think of normal attention as all the tokens attending globally.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/bigbird-full.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/bigbird-full.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>The attention calculation in BigBird is slightly complex and I would refer to the <a href="https://huggingface.co/blog/big-bird#bigbird-block-sparse-attention">Huggingface blog</a> for it -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/bigbird-attention-gif.gif" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/bigbird-attention-gif.gif" alt="" ></a>
+
+
+
+</figure>
+
+<p><i>blue -&gt; global blocks, red -&gt; random blocks, orange -&gt; sliding blocks</i></p>
+<p>The memory complexity of the self-attention is linear, i.e., <code>O(n)</code>. The BigBird model does not introduce new parameters beyond the Transformer model.</p>
+<h2 id="complexity-summary-of-various-models">Complexity Summary of various models</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2022-10-10_efficient_transformers_survey/images/complexity-summary.png" >
+<img src="/post/2022-10-10_efficient_transformers_survey/images/complexity-summary.png" alt="" ></a>
+
+
+
+</figure>
+
+<hr>
+<p>There are many more papers discussed in the survey. I will add their summaries here as I go through them.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/transformers/">transformers</a>
+  
+  <a class="badge badge-light" href="/tags/efficient-ml/">efficient-ml</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+  <a class="badge badge-light" href="/tags/paper-summaries/">paper-summaries</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/&amp;text=Paper%20Summary%20#7%20-%20Efficient%20Transformers:%20A%20Survey" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/&amp;t=Paper%20Summary%20#7%20-%20Efficient%20Transformers:%20A%20Survey" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Summary%20#7%20-%20Efficient%20Transformers:%20A%20Survey&amp;body=https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/&amp;title=Paper%20Summary%20#7%20-%20Efficient%20Transformers:%20A%20Survey" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Summary%20#7%20-%20Efficient%20Transformers:%20A%20Survey%20https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2022-08-04-academic_log_june_july_22/" rel="prev">Academic Log | June/July 2022</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Summary #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></li>
+      
+      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2022 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

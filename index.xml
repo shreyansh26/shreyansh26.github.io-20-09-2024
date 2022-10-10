@@ -5,12 +5,534 @@
     <link>https://shreyansh26.github.io/</link>
       <atom:link href="https://shreyansh26.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Thu, 04 Aug 2022 00:27:33 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Mon, 10 Oct 2022 14:57:33 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>https://shreyansh26.github.io/</link>
     </image>
+    
+    <item>
+      <title>Paper Summary #7 - Efficient Transformers: A Survey</title>
+      <link>https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/</link>
+      <pubDate>Mon, 10 Oct 2022 14:57:33 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paper&lt;/strong&gt;: Efficient Transformers: A Survey&lt;br&gt;
+&lt;strong&gt;Link&lt;/strong&gt;: &lt;a href=&#34;https://arxiv.org/abs/2009.06732&#34;&gt;https://arxiv.org/abs/2009.06732&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Authors&lt;/strong&gt;: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the &lt;a href=&#34;https://cohere.for.ai/&#34;&gt;Cohere For AI&lt;/a&gt; community for having a session on this paper which made me revisit this.&lt;/p&gt;
+&lt;h1 id=&#34;what&#34;&gt;What?&lt;/h1&gt;
+&lt;p&gt;This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al. But wait, for those unaware, how is the Transformers architecture inefficient?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The attention operation has a quadratic complexity over the sequence length L, also sometimes represented using N (since each token attends to other set of tokens in the sequence)&lt;/li&gt;
+&lt;li&gt;The Attention operation of Q*K&lt;sup&gt;T&lt;/sup&gt; uses N&lt;sup&gt;2&lt;/sup&gt; time and memory. Here (in no-batching case) Q, K, V (query, key and value matrices) have dimensions &lt;i&gt;N x d &lt;/i&gt; where d is the dimension of query, key and value vectors.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/attention.PNG&#34; data-caption=&#34;Attention calculation&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/attention.PNG&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Attention calculation
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h1 id=&#34;glossary&#34;&gt;Glossary&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#low-rank-methods&#34;&gt;Low-rank Methods&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#linformer---httpsarxivorgabs200604768httpsarxivorgabs200604768&#34;&gt;Linformer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#performer---httpsarxivorgabs200914794httpsarxivorgabs200914794&#34;&gt;Perfomer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#learnable-patterns&#34;&gt;Learnable Patterns based methods&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#clustered-attention---httpsarxivorgabs200704825httpsarxivorgabs200704825--httpsclustered-transformersgithubiobloghttpsclustered-transformersgithubioblog&#34;&gt;Clustered Attention&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#reformer---httpsarxivorgabs200104451httpsarxivorgabs200104451&#34;&gt;Reformer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#memory-based&#34;&gt;Memory-based methods&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#big-bird-httpsarxivorgabs200714062httpsarxivorgabs200714062--httpshuggingfacecoblogbig-birdhttpshuggingfacecoblogbig-bird&#34;&gt;Big Bird&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#complexity-summary-of-various-models&#34;&gt;Complexity summary of various models&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;memory-efficient-transformers&#34;&gt;Memory-Efficient Transformers&lt;/h1&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/arch-vaswani.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/arch-vaswani.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/summary.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/summary.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;low-rank-methods&#34;&gt;Low-Rank methods&lt;/h2&gt;
+&lt;h3 id=&#34;linformer---httpsarxivorgabs200604768httpsarxivorgabs200604768&#34;&gt;Linformer - &lt;a href=&#34;https://arxiv.org/abs/2006.04768&#34;&gt;https://arxiv.org/abs/2006.04768&lt;/a&gt;&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/linformer.png&#34; data-caption=&#34;Left and bottom-right show architecture and example of our proposed multihead linear self-attention. Top right shows inference time vs. sequence length for various Linformer models.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/linformer.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Left and bottom-right show architecture and example of our proposed multihead linear self-attention. Top right shows inference time vs. sequence length for various Linformer models.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;In Linformer, the original Key and Value matrices are projected from &lt;i&gt;(N x d)&lt;/i&gt; to a reduced &lt;i&gt;(k x d)&lt;/i&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/linformer-dets.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/linformer-dets.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The above operations only require &lt;code&gt;O(n*k)&lt;/code&gt; time and space complexity. Thus, if we can choose a very small projected dimension k, such that k &amp;lt; &amp;lt; N, then we can significantly reduce the memory and space consumption.&lt;/p&gt;
+&lt;h3 id=&#34;performer---httpsarxivorgabs200914794httpsarxivorgabs200914794&#34;&gt;Performer - &lt;a href=&#34;https://arxiv.org/abs/2009.14794&#34;&gt;https://arxiv.org/abs/2009.14794&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The goal in the Performer paper was to reduce the complexity of attention calculation (Q * K&lt;sup&gt;T&lt;/sup&gt;) * V of O(L&lt;sup&gt;2&lt;/sup&gt; * d) to O (L * d&lt;sup&gt;2&lt;/sup&gt;) by transforming the order of operations and using a kernel operation to approximate the softmax operation so that the order of operations can be changed.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer.png&#34; data-caption=&#34;An overview from the paper&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    An overview from the paper
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;From, a &lt;a href=&#34;https://chiaracampagnola.io/2020/10/29/from-transformers-to-performers/&#34;&gt;great blog on the Performer paper&lt;/a&gt; -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets.png&#34; data-caption=&#34;Change of operation order&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Change of operation order
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets3.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/performer-dets3.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;learnable-patterns&#34;&gt;Learnable Patterns&lt;/h2&gt;
+&lt;h3 id=&#34;clustered-attention---httpsarxivorgabs200704825httpsarxivorgabs200704825--httpsclustered-transformersgithubiobloghttpsclustered-transformersgithubioblog&#34;&gt;Clustered Attention - &lt;a href=&#34;https://arxiv.org/abs/2007.04825&#34;&gt;https://arxiv.org/abs/2007.04825&lt;/a&gt; + &lt;a href=&#34;https://clustered-transformers.github.io/blog/&#34;&gt;https://clustered-transformers.github.io/blog/&lt;/a&gt;&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/clusteredatt.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/clusteredatt.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First cluster the queries into  non-overlapping clusters.&lt;/li&gt;
+&lt;li&gt;Attention weights A&lt;sup&gt;c&lt;/sup&gt; are computed using the centroids instead of computing them for every query&lt;/li&gt;
+&lt;li&gt;Use clustered attention weights A&lt;sup&gt;c&lt;/sup&gt; to compute new Values V&lt;sup&gt;c&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;Use the same attention weights and new values for queries that belong to same cluster.&lt;/li&gt;
+&lt;li&gt;Computational complexity becomes &lt;code&gt;O(N * C * max (D&lt;sub&gt;k&lt;/sub&gt; * D&lt;sub&gt;v&lt;/sub&gt;))&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;They also propose an Improved Clustered Attention in their blog. The complexity comaprisons are here -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/clusteredatt-dets.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/clusteredatt-dets.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;reformer---httpsarxivorgabs200104451httpsarxivorgabs200104451&#34;&gt;Reformer - &lt;a href=&#34;https://arxiv.org/abs/2001.04451&#34;&gt;https://arxiv.org/abs/2001.04451&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Uses the concept of Locality sensitive hashing (LSH) attention, where the goal is to not store the entire Q * K&lt;sup&gt;T&lt;/sup&gt; matrix but only the softmax(Q * K&lt;sup&gt;T&lt;/sup&gt;), which is dominated by the largest elements in a typically sparse matrix. For each query q we only need to pay attention to the keys k that are closest to q. For example, if K is of length 64K, for each q we could only consider a small subset of the 32 or 64 closest keys. So the attention mechanism finds the nearest neighbor keys of a query but in an inefficient manner.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-lsh.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-lsh.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Calcluate LSH hashes of Queries and Keys (Q and K)&lt;/li&gt;
+&lt;li&gt;Make chunks and compute attention only for vectors in the same bucket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The paper also introduces the concept of Reversible residual networks (RevNets). In the residual connections in Transformers, one needs to store the activations in each layer in memory in order to calculate gradients during backpropagation. RevNets are composed of a series of reversible blocks. In RevNet, each layer’s activations can be reconstructed exactly from the subsequent layer’s activations, which enables us to perform backpropagation without storing the activations in memory.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Reformer applies the RevNet idea to the Transformer by combining the attention and feed-forward layers inside the RevNet block. Now F becomes an attention layer and G becomes the feed-forward layer:&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet2.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/reformer-revnet2.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The reversible residual layers allows storing activations only once during the training process instead of N times.&lt;/p&gt;
+&lt;p&gt;The memory complexity of Reformer is &lt;code&gt;O(N log N)&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;memory-based&#34;&gt;Memory-based&lt;/h2&gt;
+&lt;h3 id=&#34;big-bird-httpsarxivorgabs200714062httpsarxivorgabs200714062--httpshuggingfacecoblogbig-birdhttpshuggingfacecoblogbig-bird&#34;&gt;Big Bird &lt;a href=&#34;https://arxiv.org/abs/2007.14062&#34;&gt;https://arxiv.org/abs/2007.14062&lt;/a&gt; + &lt;a href=&#34;https://huggingface.co/blog/big-bird&#34;&gt;https://huggingface.co/blog/big-bird&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;BigBird relies on block sparse attention and can handle sequences up to a length of 4096 at a much lower computational cost compared to BERT. It has achieved SOTA on various tasks involving very long sequences such as long documents summarization, question-answering with long contexts.&lt;/p&gt;
+&lt;p&gt;BigBird proposes three ways of allowing long-term attention dependencies while staying computationally efficient -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Global attention&lt;/strong&gt; - Introduce some tokens which will attend to every token and which are attended by every token. The authors call this the &amp;lsquo;internal transformer construction (ITC)&amp;rsquo; in which a subset of indices is selected as global tokens. This can be interpreted as a model-memory-based approach.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sliding attention&lt;/strong&gt; - Tokens close to each other, attend together. In BigBird, each query attends to w/2 tokens to the left and w/2 tokens to the right. This corresponds to a fixed pattern (FP) approach.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Random attention&lt;/strong&gt; - Select some tokens randomly which will transfer information by transferring to other tokens which in turn can transfer to other tokens. This may reduce the cost of information travel from one token to other. Each query attends to r random keys. This pattern is fixed&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-graph.gif&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-graph.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;BigBird block sparse attention is a combination of sliding, global &amp;amp; random connections (total 10 connections) as shown in gif above. While a graph of normal attention (bottom) will have all 15 connections (note: total 6 nodes are present). One can simply think of normal attention as all the tokens attending globally.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-full.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-full.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The attention calculation in BigBird is slightly complex and I would refer to the &lt;a href=&#34;https://huggingface.co/blog/big-bird#bigbird-block-sparse-attention&#34;&gt;Huggingface blog&lt;/a&gt; for it -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-attention-gif.gif&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/bigbird-attention-gif.gif&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;i&gt;blue -&amp;gt; global blocks, red -&amp;gt; random blocks, orange -&amp;gt; sliding blocks&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;The memory complexity of the self-attention is linear, i.e., &lt;code&gt;O(n)&lt;/code&gt;. The BigBird model does not introduce new parameters beyond the Transformer model.&lt;/p&gt;
+&lt;h2 id=&#34;complexity-summary-of-various-models&#34;&gt;Complexity Summary of various models&lt;/h2&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/complexity-summary.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/images/complexity-summary.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;There are many more papers discussed in the survey. I will add their summaries here as I go through them.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Academic Log | June/July 2022</title>
