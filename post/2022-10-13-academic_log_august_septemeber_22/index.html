@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.
+Personal Projects  VAE-Implementation - A simple implementation fo Autoencoder and Variational Autoencoder - [Github] MinHash-Implemenation - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - [Github] Paper re-implementation - Sentence VAE paper, &ldquo;Generating Sentences from a Continuous Space&rdquo; by Bowman et al.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/featured.jpg">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/">
+  <meta property="og:title" content="Academic Log | August/September 2022 | Shreyansh Singh">
+  <meta property="og:description" content="A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.
+Personal Projects  VAE-Implementation - A simple implementation fo Autoencoder and Variational Autoencoder - [Github] MinHash-Implemenation - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - [Github] Paper re-implementation - Sentence VAE paper, &ldquo;Generating Sentences from a Continuous Space&rdquo; by Bowman et al."><meta property="og:image" content="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/featured.jpg">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/featured.jpg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-10-13T13:11:04&#43;05:30">
+    
+    <meta property="article:modified_time" content="2022-10-13T13:11:04&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/"
+  },
+  "headline": "Academic Log | August/September 2022",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/featured.jpg"
+  ],
+  
+  "datePublished": "2022-10-13T13:11:04+05:30",
+  "dateModified": "2022-10-13T13:11:04+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.\nPersonal Projects  VAE-Implementation - A simple implementation fo Autoencoder and Variational Autoencoder - [Github] MinHash-Implemenation - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - [Github] Paper re-implementation - Sentence VAE paper, \u0026ldquo;Generating Sentences from a Continuous Space\u0026rdquo; by Bowman et al."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Academic Log | August/September 2022 | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Academic Log | August/September 2022</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 13, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2022-10-13-academic_log_august_septemeber_22/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a>, <a href="/categories/computer-science/">Computer Science</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 480px; max-height: 260px;">
+  <div style="position: relative">
+    <img src="/post/2022-10-13-academic_log_august_septemeber_22/featured.jpg" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.</p>
+<h2 id="personal-projects">Personal Projects</h2>
+<ul>
+<li><strong>VAE-Implementation</strong> - A simple implementation fo Autoencoder and Variational Autoencoder - <a href="https://github.com/shreyansh26/VAE-Implementation">[Github]</a></li>
+<li><strong>MinHash-Implemenation</strong> - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - <a href="https://github.com/shreyansh26/MinHash-Implemenation">[Github]</a></li>
+<li><strong>Paper re-implementation</strong> - Sentence VAE paper, &ldquo;Generating Sentences from a Continuous Space&rdquo; by Bowman et al., 2016 - <a href="https://github.com/shreyansh26/Sentence-VAE">[Github]</a></li>
+<li><strong>Protohackers</strong> - Started the Protohackers set of challenges to create servers for network protocols <a href="https://protohackers.com">[Website]</a> <a href="https://github.com/shreyansh26/Protohackers-Solutions">[Solutions]</a></li>
+</ul>
+<h2 id="annotated-papers">Annotated Papers</h2>
+<ul>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Large-Scale%20High-Precision%20Topic%20Modeling%20on%20Twitter.pdf">Large-Scale High-Precision Topic Modeling on Twitter</a></li>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/BadNets%20-%20Identifying%20Vulnerabilities%20in%20the%20Machine%20Learning%20Model%20Supply%20Chain.pdf">BadNets - Identifying Vulnerabilities in the Machine Learning Model Supply Chain</a></li>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/Detecting%20AI%20Trojans%20Using%20Meta%20Neural%20Analysis.pdf">Detecting AI Trojans Using Meta Neural Analysis</a></li>
+<li><a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/Trojaning%20Attack%20on%20Neural%20Networks.pdf">Trojaning Attack on Neural Networks</a></li>
+</ul>
+<h2 id="papers-i-read">Papers I read</h2>
+<ul>
+<li><a href="https://dl.acm.org/doi/pdf/10.1145/3523227.3547394">Rethinking personalized ranking at Pinterest</a></li>
+<li><a href="https://arxiv.org/abs/2209.05310">On the Factory Floor: ML Engineering for Industrial-Scale Ads Recommendation Models</a></li>
+<li><a href="https://arxiv.org/abs/2206.07137">Prioritized Training on Points that are Learnable, Worth Learning, and Not Yet Learnt</a></li>
+<li><a href="http://cobweb.cs.uga.edu/~squinn/mmd_s15/papers/p1907-yang.pdf">Large-Scale High-Precision Topic Modeling on Twitter</a></li>
+<li><a href="https://arxiv.org/abs/1910.03137">Detecting AI Trojans Using Meta Neural Analysis</a></li>
+<li><a href="https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=2782&amp;context=cstech">Trojaning Attack on Neural Networks</a></li>
+<li><a href="https://arxiv.org/abs/1708.06733">BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain</a></li>
+<li><a href="https://people.cs.uchicago.edu/~ravenben/publications/pdf/backdoor-sp19.pdf">Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks</a></li>
+</ul>
+<h2 id="blogs-i-read">Blogs I read</h2>
+<ul>
+<li><a href="https://aslvrstn.com/posts/transformer_precision_loss/">Transformer Precision Loss</a> + <a href="https://twitter.com/NeelNanda5/status/1570217238799720454">Neel Nanda&rsquo; Twitter thread on the same</a></li>
+<li><a href="https://www.lesswrong.com/posts/kyvCNgx9oAwJCuevo/deep-q-networks-explained">Deep Q-Networks Explained - LessWrong</a></li>
+<li><a href="https://www.lesswrong.com/posts/qLqyPMfc8epav72JF/learning-how-to-learn">Learning How to Learn - LessWrong</a></li>
+<li><a href="https://www.neelnanda.io/blog/43-making-friends">Making Friends - Neel Nanda&rsquo;s Blog</a></li>
+<li><a href="https://www.neelnanda.io/blog/47-inside-views">Inside Views - Neel Nanda&rsquo;s Blog</a></li>
+<li><a href="https://www.neelnanda.io/blog/34-learning">Learning - Neel Nanda&rsquo;s Blog</a></li>
+<li><a href="https://mccormickml.com/2015/06/12/minhash-tutorial-with-python-code/">MinHash Tutorial</a></li>
+<li><a href="https://www.lesswrong.com/posts/7cHgjJR2H5e4w4rxT/alignment-papers-roundup-week-1">Alignment Papers Roundup (week 1) - LessWrong</a></li>
+<li><a href="https://kipp.ly/blog/jits-intro/">Intro to JIT - Kipply&rsquo;s Blog</a></li>
+<li><a href="https://www.lesswrong.com/posts/6Fpvch8RR29qLEWNH/chinchilla-s-wild-implications">Chinchilla&rsquo;s Wild Implications - LessWrong</a></li>
+<li><a href="https://ppwwyyxx.com/blog/2022/TorchScript-Tracing-vs-Scripting/">TorchScript - Tracing vs Scripting</a></li>
+<li><a href="https://paulbridger.com/posts/mastering-torchscript/">Mastering TorchScript</a></li>
+<li><a href="https://pytorch.org/tutorials/advanced/cpp_export.html">Loading a TorchScript Model in C++</a></li>
+<li><a href="https://shough.me/neural-trojans/">Neural Trojans</a></li>
+</ul>
+<h2 id="podcasts-i-listened-to">Podcasts I listened to</h2>
+<ul>
+<li><a href="https://open.spotify.com/episode/3fpxxuxexS4redIfAbwHEE?si=548c6f88b1374f9a">Engineering an ML-Powered Developer First Search Engine with Richard Socher</a></li>
+<li><a href="https://open.spotify.com/episode/7C4Zoy90rGq8VvRVglk9Dj?si=57c21856617544cb">Spotify&rsquo;s Gustav Söderström on machine learning to personalize user experiences</a></li>
+<li><a href="https://open.spotify.com/episode/0pphUkLfK6A5ZynmsaznRm?si=78b7c40abdfb4b5e">George Netscher of SafelyYou on the role of AI for fall detection</a></li>
+<li><a href="https://open.spotify.com/episode/5X67hz2ssR2FcZ6jxh7jMP?si=af12a52c7c7d4e7a">Andrew Song of Whisper AI on solving hearing loss with AI</a></li>
+<li><a href="https://open.spotify.com/episode/3gFoeQ7hXLQ3xOmFDLKsPo?si=e2a49a7956ec4d17">How Wayve is teaching cars to drive</a></li>
+<li><a href="https://open.spotify.com/episode/1m7V84DdplFczUD7mLgRdW?si=c7e52c1d3dbf4266">David Rolnick on how machine learning can help tackle climate change</a></li>
+<li><a href="https://open.spotify.com/episode/3sr5TEzdhXT0pq3uk84U4Y?si=1249169b3ddc4948">Mike Fisher of Etsy talks AI and E-commerce</a></li>
+<li><a href="https://open.spotify.com/episode/4tj1krRWAiw7SSrB43PDcj?si=800b1dfa6ebf4589">It&rsquo;s All About the Data - NerdOut@Spotify</a></li>
+</ul>
+<h2 id="talksvideos-i-watched">Talks/Videos I watched</h2>
+<ul>
+<li><a href="https://youtu.be/ABmRCdnVq3E">How We&rsquo;re Reverse Engineering the Human Brain in the Lab | Sergiu P. Pasca | TED</a></li>
+<li><a href="https://www.youtube.com/watch?v=W7O1xLlsSVs&amp;ab_channel=ScaleAI">Creating Personalized Listening Experiences with Spotify</a></li>
+<li><a href="https://www.youtube.com/watch?v=spUNpyF58BY&amp;ab_channel=3Blue1Brown">But what is the Fourier Transform? A visual introduction</a></li>
+<li><a href="https://www.youtube.com/watch?v=cUqoHQDinCM&amp;t=0s&amp;ab_channel=Mathemaniac">The weirdest paradox in statistics (and machine learning)</a></li>
+<li><a href="https://www.youtube.com/watch?v=nra0Tt3a-Oc">Continual Learning - Full Stack Deep Learning</a></li>
+</ul>
+<hr>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/reading-list/">reading-list</a>
+  
+  <a class="badge badge-light" href="/tags/nlp/">nlp</a>
+  
+  <a class="badge badge-light" href="/tags/annotated-paper/">annotated paper</a>
+  
+  <a class="badge badge-light" href="/tags/neural-trojans/">neural-trojans</a>
+  
+  <a class="badge badge-light" href="/tags/torchscript/">torchscript</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/&amp;text=Academic%20Log%20%7c%20August/September%202022" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/&amp;t=Academic%20Log%20%7c%20August/September%202022" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Academic%20Log%20%7c%20August/September%202022&amp;body=https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/&amp;title=Academic%20Log%20%7c%20August/September%202022" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Academic%20Log%20%7c%20August/September%202022%20https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2022-10-10_efficient_transformers_survey/" rel="prev">Paper Summary #7 - Efficient Transformers: A Survey</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2022-08-04-academic_log_june_july_22/">Academic Log | June/July 2022</a></li>
+      
+      <li><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></li>
+      
+      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2022 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

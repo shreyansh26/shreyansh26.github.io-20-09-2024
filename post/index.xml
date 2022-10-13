@@ -5,12 +5,122 @@
     <link>https://shreyansh26.github.io/post/</link>
       <atom:link href="https://shreyansh26.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Mon, 10 Oct 2022 14:57:33 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Thu, 13 Oct 2022 13:11:04 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Posts</title>
       <link>https://shreyansh26.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>Academic Log | August/September 2022</title>
+      <link>https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/</link>
+      <pubDate>Thu, 13 Oct 2022 13:11:04 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2022-10-13-academic_log_august_septemeber_22/</guid>
+      <description>&lt;p&gt;A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.&lt;/p&gt;
+&lt;h2 id=&#34;personal-projects&#34;&gt;Personal Projects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;VAE-Implementation&lt;/strong&gt; - A simple implementation fo Autoencoder and Variational Autoencoder - &lt;a href=&#34;https://github.com/shreyansh26/VAE-Implementation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MinHash-Implemenation&lt;/strong&gt; - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - &lt;a href=&#34;https://github.com/shreyansh26/MinHash-Implemenation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - Sentence VAE paper, &amp;ldquo;Generating Sentences from a Continuous Space&amp;rdquo; by Bowman et al., 2016 - &lt;a href=&#34;https://github.com/shreyansh26/Sentence-VAE&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Protohackers&lt;/strong&gt; - Started the Protohackers set of challenges to create servers for network protocols &lt;a href=&#34;https://protohackers.com&#34;&gt;[Website]&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Protohackers-Solutions&#34;&gt;[Solutions]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;annotated-papers&#34;&gt;Annotated Papers&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Large-Scale%20High-Precision%20Topic%20Modeling%20on%20Twitter.pdf&#34;&gt;Large-Scale High-Precision Topic Modeling on Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/BadNets%20-%20Identifying%20Vulnerabilities%20in%20the%20Machine%20Learning%20Model%20Supply%20Chain.pdf&#34;&gt;BadNets - Identifying Vulnerabilities in the Machine Learning Model Supply Chain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/Detecting%20AI%20Trojans%20Using%20Meta%20Neural%20Analysis.pdf&#34;&gt;Detecting AI Trojans Using Meta Neural Analysis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/Trustworthy%20ML/Neural%20Trojans/Trojaning%20Attack%20on%20Neural%20Networks.pdf&#34;&gt;Trojaning Attack on Neural Networks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;papers-i-read&#34;&gt;Papers I read&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://dl.acm.org/doi/pdf/10.1145/3523227.3547394&#34;&gt;Rethinking personalized ranking at Pinterest&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2209.05310&#34;&gt;On the Factory Floor: ML Engineering for Industrial-Scale Ads Recommendation Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.07137&#34;&gt;Prioritized Training on Points that are Learnable, Worth Learning, and Not Yet Learnt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://cobweb.cs.uga.edu/~squinn/mmd_s15/papers/p1907-yang.pdf&#34;&gt;Large-Scale High-Precision Topic Modeling on Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/1910.03137&#34;&gt;Detecting AI Trojans Using Meta Neural Analysis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=2782&amp;amp;context=cstech&#34;&gt;Trojaning Attack on Neural Networks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/1708.06733&#34;&gt;BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://people.cs.uchicago.edu/~ravenben/publications/pdf/backdoor-sp19.pdf&#34;&gt;Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;blogs-i-read&#34;&gt;Blogs I read&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://aslvrstn.com/posts/transformer_precision_loss/&#34;&gt;Transformer Precision Loss&lt;/a&gt; + &lt;a href=&#34;https://twitter.com/NeelNanda5/status/1570217238799720454&#34;&gt;Neel Nanda&amp;rsquo; Twitter thread on the same&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/kyvCNgx9oAwJCuevo/deep-q-networks-explained&#34;&gt;Deep Q-Networks Explained - LessWrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/qLqyPMfc8epav72JF/learning-how-to-learn&#34;&gt;Learning How to Learn - LessWrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.neelnanda.io/blog/43-making-friends&#34;&gt;Making Friends - Neel Nanda&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.neelnanda.io/blog/47-inside-views&#34;&gt;Inside Views - Neel Nanda&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.neelnanda.io/blog/34-learning&#34;&gt;Learning - Neel Nanda&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mccormickml.com/2015/06/12/minhash-tutorial-with-python-code/&#34;&gt;MinHash Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/7cHgjJR2H5e4w4rxT/alignment-papers-roundup-week-1&#34;&gt;Alignment Papers Roundup (week 1) - LessWrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://kipp.ly/blog/jits-intro/&#34;&gt;Intro to JIT - Kipply&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/6Fpvch8RR29qLEWNH/chinchilla-s-wild-implications&#34;&gt;Chinchilla&amp;rsquo;s Wild Implications - LessWrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ppwwyyxx.com/blog/2022/TorchScript-Tracing-vs-Scripting/&#34;&gt;TorchScript - Tracing vs Scripting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://paulbridger.com/posts/mastering-torchscript/&#34;&gt;Mastering TorchScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pytorch.org/tutorials/advanced/cpp_export.html&#34;&gt;Loading a TorchScript Model in C++&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://shough.me/neural-trojans/&#34;&gt;Neural Trojans&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;podcasts-i-listened-to&#34;&gt;Podcasts I listened to&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/3fpxxuxexS4redIfAbwHEE?si=548c6f88b1374f9a&#34;&gt;Engineering an ML-Powered Developer First Search Engine with Richard Socher&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/7C4Zoy90rGq8VvRVglk9Dj?si=57c21856617544cb&#34;&gt;Spotify&amp;rsquo;s Gustav Söderström on machine learning to personalize user experiences&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/0pphUkLfK6A5ZynmsaznRm?si=78b7c40abdfb4b5e&#34;&gt;George Netscher of SafelyYou on the role of AI for fall detection&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/5X67hz2ssR2FcZ6jxh7jMP?si=af12a52c7c7d4e7a&#34;&gt;Andrew Song of Whisper AI on solving hearing loss with AI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/3gFoeQ7hXLQ3xOmFDLKsPo?si=e2a49a7956ec4d17&#34;&gt;How Wayve is teaching cars to drive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/1m7V84DdplFczUD7mLgRdW?si=c7e52c1d3dbf4266&#34;&gt;David Rolnick on how machine learning can help tackle climate change&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/3sr5TEzdhXT0pq3uk84U4Y?si=1249169b3ddc4948&#34;&gt;Mike Fisher of Etsy talks AI and E-commerce&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.spotify.com/episode/4tj1krRWAiw7SSrB43PDcj?si=800b1dfa6ebf4589&#34;&gt;It&amp;rsquo;s All About the Data - NerdOut@Spotify&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;talksvideos-i-watched&#34;&gt;Talks/Videos I watched&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://youtu.be/ABmRCdnVq3E&#34;&gt;How We&amp;rsquo;re Reverse Engineering the Human Brain in the Lab | Sergiu P. Pasca | TED&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=W7O1xLlsSVs&amp;amp;ab_channel=ScaleAI&#34;&gt;Creating Personalized Listening Experiences with Spotify&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=spUNpyF58BY&amp;amp;ab_channel=3Blue1Brown&#34;&gt;But what is the Fourier Transform? A visual introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=cUqoHQDinCM&amp;amp;t=0s&amp;amp;ab_channel=Mathemaniac&#34;&gt;The weirdest paradox in statistics (and machine learning)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=nra0Tt3a-Oc&#34;&gt;Continual Learning - Full Stack Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Summary #7 - Efficient Transformers: A Survey</title>
@@ -531,6 +641,45 @@
 
 &lt;hr&gt;
 &lt;p&gt;There are many more papers discussed in the survey. I will add their summaries here as I go through them.&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
 </description>
     </item>
     
@@ -581,6 +730,46 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/&#34;&gt;How GPU Computing Works&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
 </description>
     </item>
     
