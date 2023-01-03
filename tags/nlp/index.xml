@@ -5,12 +5,142 @@
     <link>https://shreyansh26.github.io/tags/nlp/</link>
       <atom:link href="https://shreyansh26.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     <description>nlp</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Thu, 13 Oct 2022 13:11:04 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Tue, 03 Jan 2023 22:16:12 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>nlp</title>
       <link>https://shreyansh26.github.io/tags/nlp/</link>
     </image>
+    
+    <item>
+      <title>Academic Log | October-December 2022</title>
+      <link>https://shreyansh26.github.io/post/2023-01-03-academic_log_october_december_22/</link>
+      <pubDate>Tue, 03 Jan 2023 22:16:12 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2023-01-03-academic_log_october_december_22/</guid>
+      <description>&lt;p&gt;A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.&lt;/p&gt;
+&lt;h2 id=&#34;personal-projects&#34;&gt;Personal Projects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - Gradient Descent on Neural Networks Typically Occurs at the Edge of Stability by Cohen et al., 2021 - &lt;a href=&#34;https://github.com/shreyansh26/Gradient-Descent-on-Neural-Networks-Typically-Occurs-at-the-Edge-of-Stability&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks by Frankle et al., 2018 - &lt;a href=&#34;https://github.com/shreyansh26/Lottery-Ticket-Hypothesis&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; -An Empirical Model of Large-Batch Training by OpenAI, 2018 - &lt;a href=&#34;https://github.com/shreyansh26/An-Empirical-Model-of-Large-Batch-Training&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;annotated-papers&#34;&gt;Annotated Papers&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/The%20Lottery%20Ticket%20Hypothesis%20-%20Finding%20Sparse%2C%20Trainable%20Neural%20Networks%20.pdf&#34;&gt;The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Gradient%20Descent%20on%20Neural%20Networks%20Typically%20Occurs%20at%20the%20Edge%20of%20Stability.pdf&#34;&gt;Gradient Descent on Neural Networks Typically Occurs at the Edge of Stability&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/Modeling%20Language%20Usage%20and%20Listener%20Engagement%20in%20Podcasts.pdf&#34;&gt;Modeling Language Usage and Listener Engagement in Podcasts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Which%20Algorithmic%20Choices%20Matter%20at%20Which%20Batch%20Sizes_%20Insights%20From%20a%20Noisy%20Quadratic%20Model.pdf&#34;&gt;Which Algorithmic Choices Matter at Which Batch Sizes? Insights From a Noisy Quadratic Model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/An%20Empirical%20Model%20of%20Large-Batch%20Training.pdf&#34;&gt;An Empirical Model of Large-Batch Training&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/An%20Empirical%20Model%20of%20Large-Batch%20Training.pdf&#34;&gt;Fine-Tuning Language Models from Human Preferences&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/RLHF/Training%20language%20models%20to%20follow%20instructions%20with%20human%20feedback.pdf&#34;&gt;Training language models to follow instructions with human feedback&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Adam%20-%20A%20Method%20for%20Stochastic%20Optimization.pdf&#34;&gt;Adam: A Method for Stochastic Optimization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/RecSys/Monolith%20-%20Real%20Time%20Recommendation%20System%20With%20Collisionless%20Embedding%20Table.pdf&#34;&gt;Monolith: Real Time Recommendation System With Collisionless Embedding Table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Limitations%20of%20the%20NTK%20for%20Understanding%20Generalization%20in%20Deep%20Learning.pdf&#34;&gt;Limitations of the NTK for Understanding Generalization in Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/What%20can%20linearized%20neural%20networks%20actually%20say%20about%20generalization.pdf&#34;&gt;What can linearized neural networks actually say about generalization?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/LLMs/GLM-130B%20-%20An%20Open%20Bilingual%20Pre-trained%20Model.pdf&#34;&gt;GLM-130B: An Open Bilingual Pre-trained Model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/RecSys/Augmenting%20Netflix%20Search%20with%20In-Session%20Adapted%20Recommendations.pdf&#34;&gt;Augmenting Netflix Search with In-Session Adapted Recommendations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/RecSys/Adversary%20or%20Friend%20-%20An%20adversarial%20Approach%20to%20Improving%20Recommender%20Systems.pdf&#34;&gt;Adversary or Friend? An adversarial Approach to Improving Recommender Systems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;papers-i-read-in-addition-to-above&#34;&gt;Papers I read (in addition to above)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.notion.so/How-does-GPT-Obtain-its-Ability-Tracing-Emergent-Abilities-of-Language-Models-to-their-Sources-b9a57ac0fcf74f30a1ab9e3e36fa1dc1&#34;&gt;How does GPT Obtain its Ability? Tracing Emergent Abilities of Language Models to their Sources&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/1907.04164&#34;&gt;Which Algorithmic Choices Matter at Which Batch Sizes? Insights From a Noisy Quadratic Model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/1812.06162&#34;&gt;An Empirical Model of Large-Batch Training&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2211.10877&#34;&gt;Artificial Interrogation for Attributing Language Models7&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2107.07075&#34;&gt;Deep Learning on a Data Diet: Finding Important Examples Early in Training&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2211.05610&#34;&gt;BERT on a Data Diet: Finding Important Examples by Gradient-Based Pruning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2110.13048&#34;&gt;Nonuniform Negative Sampling and Log Odds Correction with Rare Events Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2209.07663&#34;&gt;Monolith: Real Time Recommendation System With Collisionless Embedding Table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2211.03128&#34;&gt;Confidence-Ranked Reconstruction of Census Microdata from Published Statistics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2108.05857&#34;&gt;How Optimal is Greedy Decoding for Extractive Question Answering?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2206.10012&#34;&gt;Limitations of the NTK for Understanding Generalization in Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2106.06770&#34;&gt;What can linearized neural networks actually say about generalization?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2210.12574&#34;&gt;The Curious Case of Absolute Position Embeddings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2210.11413v1&#34;&gt;Finding the smallest or largest element of a tensor from its low-rank factors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2210.02414&#34;&gt;GLM-130B: An Open Bilingual Pre-trained Model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2201.08860&#34;&gt;GreaseLM: Graph REASoning Enhanced Language Models for Question Answering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2104.06378&#34;&gt;QA-GNN: Reasoning with Language Models and Knowledge Graphs for Question Answering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2210.04610&#34;&gt;Red-Teaming the Stable Diffusion Safety Filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dl.acm.org/doi/abs/10.1145/3523227.3547407&#34;&gt;Augmenting Netflix Search with In-Session Adapted Recommendations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dl.acm.org/doi/abs/10.1145/3523227.3546784&#34;&gt;Adversary or Friend? An adversarial Approach to Improving Recommender Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/1812.00417&#34;&gt;Snorkel DryBell: A Case Study in Deploying Weak Supervision at Industrial Scale&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;blogs-i-read&#34;&gt;Blogs I read&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/@AnalyticsAtMeta/notifications-why-less-is-more-how-facebook-has-been-increasing-both-user-satisfaction-and-app-9463f7325e7d&#34;&gt;Notifications: why less is more — how Facebook has been increasing both user satisfaction and app usage by sending only a few notifications | by Analytics at Meta | Dec, 2022 | Medium&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fennel.ai/blog/feature-engineering-for-personalized-search/&#34;&gt;Feature Engineering for Personalized Search (fennel.ai)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=BYxzrFyES6I&amp;amp;ab_channel=TheEconomist&#34;&gt;Are brain implants the future of computing? - YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=_bDXXWQxK38&#34;&gt;A New Way to Achieve Nuclear Fusion: Helion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ft.com/content/741772c0-ee76-4d3d-bfcd-4fabc1fb405d&#34;&gt;The secret lives of MI6’s top female spies&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/jfG6vdJZCwTQmG7kb/re-examining-layernorm&#34;&gt;Re-examining LayerNorm&lt;/a&gt; + &lt;a href=&#34;https://colab.research.google.com/drive/1S39-w4vzX3VzZx_27X_BtrLs442pOJnJ?usp=sharing&#34;&gt;Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/t9svvNPNmFf5Qa3TA/mysteries-of-mode-collapse-due-to-rlhf&#34;&gt;Mysteries of Mode Collapse due to RLHF&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/Couhhp4pPHbbhJ2Mg/will-we-run-out-of-ml-data-evidence-from-projecting-dataset&#34;&gt;Will we run out of ML data evidence from projecting dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://huggingface.co/blog/introducing-csearch&#34;&gt;Generating Human-level Text with Contrastive Search in Transformers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://vickiboykis.com/2022/11/10/how-i-learn-machine-learning/&#34;&gt;How I learn machine learning | ★❤✰ Vicki Boykis ★❤✰&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=r7UfYlFj2xw&amp;amp;ab_channel=InnovationEndeavors&#34;&gt;Emerging Research &amp;amp; Applications of Large Language Models (w/ Google Brain, Replit, &amp;amp; HuggingFace) - YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/srush/GPU-Puzzles&#34;&gt;https://github.com/srush/GPU-Puzzles&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/pinterest-engineering/how-pinterest-leverages-realtime-user-actions-in-recommendation-to-boost-homefeed-engagement-volume-165ae2e8cde8&#34;&gt;How Pinterest Leverages Realtime User Actions in Recommendation to Boost Homefeed Engagement Volume | by Pinterest Engineering | Pinterest Engineering Blog | Nov, 2022 | Medium&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=yo4QvDn-vsU&amp;amp;ab_channel=NeelNanda&#34;&gt;(1) Real-Time Research Recording: Can a Transformer Re-Derive Positional Info? - YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.lesswrong.com/posts/QzpKq92nXqp8NHM34/neural-tangent-kernel-distillation&#34;&gt;Neural Tangent Kernel Distillation - LessWrong&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/__nmca__/status/1588575691284807682?s=20&amp;amp;t=Yea0IQkI3v8VjiEAx1l8ow&#34;&gt;Generating Human-level Text with Contrastive Search in Transformers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SV87S38M1J4&amp;amp;ab_channel=TheInsideView&#34;&gt;Ethan Caballero–Broken Neural Scaling Laws - YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://engineering.fb.com/2022/11/04/video-engineering/instagram-video-processing-encoding-reduction/&#34;&gt;Reducing Instagram’s basic video compute time by 94 percent (fb.com)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=yo4QvDn-vsU&amp;amp;feature=youtu.be&amp;amp;ab_channel=NeelNanda&#34;&gt;Real-Time Research Recording: Can a Transformer Re-Derive Positional Info? - YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;NTK
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://lilianweng.github.io/posts/2022-09-08-ntk/&#34;&gt;Some Math behind Neural Tangent Kernel | Lil&amp;rsquo;Log (lilianweng.github.io)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rajatvd.github.io/NTK/&#34;&gt;Understanding the Neural Tangent Kernel – Rajat&amp;rsquo;s Blog – A blog about machine learning and math. (rajatvd.github.io)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Gaussian Processes
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://distill.pub/2019/visual-exploration-gaussian-processes/&#34;&gt;A Visual Exploration of Gaussian Processes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.dominodatalab.com/blog/fitting-gaussian-process-models-python&#34;&gt;Fitting Gaussian Process Models in Python&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Academic Log | August/September 2022</title>
@@ -20,7 +150,7 @@
       <description>&lt;p&gt;A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.&lt;/p&gt;
 &lt;h2 id=&#34;personal-projects&#34;&gt;Personal Projects&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;VAE-Implementation&lt;/strong&gt; - A simple implementation fo Autoencoder and Variational Autoencoder - &lt;a href=&#34;https://github.com/shreyansh26/VAE-Implementation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VAE-Implementation&lt;/strong&gt; - A simple implementation of Autoencoder and Variational Autoencoder - &lt;a href=&#34;https://github.com/shreyansh26/VAE-Implementation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;MinHash-Implemenation&lt;/strong&gt; - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - &lt;a href=&#34;https://github.com/shreyansh26/MinHash-Implemenation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - Sentence VAE paper, &amp;ldquo;Generating Sentences from a Continuous Space&amp;rdquo; by Bowman et al., 2016 - &lt;a href=&#34;https://github.com/shreyansh26/Sentence-VAE&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Protohackers&lt;/strong&gt; - Started the Protohackers set of challenges to create servers for network protocols &lt;a href=&#34;https://protohackers.com&#34;&gt;[Website]&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Protohackers-Solutions&#34;&gt;[Solutions]&lt;/a&gt;&lt;/li&gt;

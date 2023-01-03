@@ -5,7 +5,7 @@
     <link>https://shreyansh26.github.io/tags/torchscript/</link>
       <atom:link href="https://shreyansh26.github.io/tags/torchscript/index.xml" rel="self" type="application/rss+xml" />
     <description>torchscript</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2022</copyright><lastBuildDate>Thu, 13 Oct 2022 13:11:04 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Thu, 13 Oct 2022 13:11:04 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>torchscript</title>
@@ -20,7 +20,7 @@
       <description>&lt;p&gt;A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.&lt;/p&gt;
 &lt;h2 id=&#34;personal-projects&#34;&gt;Personal Projects&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;VAE-Implementation&lt;/strong&gt; - A simple implementation fo Autoencoder and Variational Autoencoder - &lt;a href=&#34;https://github.com/shreyansh26/VAE-Implementation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VAE-Implementation&lt;/strong&gt; - A simple implementation of Autoencoder and Variational Autoencoder - &lt;a href=&#34;https://github.com/shreyansh26/VAE-Implementation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;MinHash-Implemenation&lt;/strong&gt; - A simple MinHash implementation based on the explanation in the Mining of Massive Datasets course by Stanford - &lt;a href=&#34;https://github.com/shreyansh26/MinHash-Implemenation&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Paper re-implementation&lt;/strong&gt; - Sentence VAE paper, &amp;ldquo;Generating Sentences from a Continuous Space&amp;rdquo; by Bowman et al., 2016 - &lt;a href=&#34;https://github.com/shreyansh26/Sentence-VAE&#34;&gt;[Github]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Protohackers&lt;/strong&gt; - Started the Protohackers set of challenges to create servers for network protocols &lt;a href=&#34;https://protohackers.com&#34;&gt;[Website]&lt;/a&gt; &lt;a href=&#34;https://github.com/shreyansh26/Protohackers-Solutions&#34;&gt;[Solutions]&lt;/a&gt;&lt;/li&gt;
