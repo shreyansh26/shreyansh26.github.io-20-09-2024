@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness
+Link: https://arxiv.org/abs/2205.14135
+Authors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré
+Code: https://github.com/HazyResearch/flash-attention
+I have also released an annotated version of the paper. If you are interested, you can find it here.
+ I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2023-03-26_flash-attention/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2023-03-26_flash-attention/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/">
+  <meta property="og:title" content="Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness | Shreyansh Singh">
+  <meta property="og:description" content="Paper: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness
+Link: https://arxiv.org/abs/2205.14135
+Authors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré
+Code: https://github.com/HazyResearch/flash-attention
+I have also released an annotated version of the paper. If you are interested, you can find it here.
+ I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2023-03-26T15:47:48&#43;05:30">
+    
+    <meta property="article:modified_time" content="2023-03-26T15:47:48&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2023-03-26_flash-attention/"
+  },
+  "headline": "Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png"
+  ],
+  
+  "datePublished": "2023-03-26T15:47:48+05:30",
+  "dateModified": "2023-03-26T15:47:48+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness\nLink: https://arxiv.org/abs/2205.14135\nAuthors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré\nCode: https://github.com/HazyResearch/flash-attention\nI have also released an annotated version of the paper. If you are interested, you can find it here.\n I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</h1>
+
+  
+  <p class="page-subtitle">Understanding FlashAttention which is the most efficient exact attention implementation out there, which optimizes for both memory requirements and wall-clock time.</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 26, 2023
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    15 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2023-03-26_flash-attention/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 247px;">
+  <div style="position: relative">
+    <img src="/post/2023-03-26_flash-attention/featured_hu0efbdf26af2eccab6c9abad3a171db38_102919_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness<br>
+<strong>Link</strong>: <a href="https://arxiv.org/abs/2205.14135">https://arxiv.org/abs/2205.14135</a><br>
+<strong>Authors</strong>: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré<br>
+<strong>Code</strong>: <a href="https://github.com/HazyResearch/flash-attention">https://github.com/HazyResearch/flash-attention</a></p>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/FlashAttention%20-%20Fast%20and%20Memory-Efficient%20Exact%20Attention.pdf">here</a>.</strong></p>
+<hr>
+<p>I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well. I decided to make it public and hopefully it can help anyone reading this.</p>
+<h2 id="overview">Overview</h2>
+<p>Attention as we know, in its standard implementation is an $O(N^2)$ operation, where N is the sequence length. There are many approximate attention methods out there like Reformer, Smyrf, Reformer, Performer and others (<a href="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/">you can find more details on a few of these in my previous blog</a>) which aim to reduce the compute requirements to linear or near-linear in sequence length, but many of them do not display wall-clock speedup against standard attention. They focus on FLOP reduction (which doesn&rsquo;t always correlate with wall-clock speed) and tend to ignore overheads from memory access (IO).FlashAttention aims to incorporate IO-awareness i.e. dividing operations between faster and slower levels of GPU memory to make the whole computation faster. The algorithm uses tiling to reduce the number of memory reads/writes between GPU high bandwidth memory (HBM) and GPU on-chip SRAM. FlashAttention can also be extended to block-spare attention and this results in the fastest approximate (or not) attention algorithm out there.</p>
+<p>All this helps to improve the training time of Transformer models - a 15% end-to-end wall-clock speedup on BERT-large (seq. length 512) compared to the MLPerf 1.1 training speed record, 3× speedup on GPT-2 (seq. length 1K). This memory-efficient approach also helps to incorporate a longer context (up to 16k/64k tokens) which also results in better models (0.7 better perplexity on GPT-2).</p>
+<p>I&rsquo;ll describe more details in the future sections.</p>
+<h2 id="background---hardware-performance">Background - Hardware Performance</h2>
+<p>Since FlashAttention computes exact attention, and the major crux of their work is the efficient hardware usage, it is important to know a bit about GPU memory and the performance characteristics of various kinds of operations on it.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/gpu_mem.png" data-caption="A100 GPU Memory Hierarchy. Source - https://arxiv.org/abs/2205.14135">
+<img src="/post/2023-03-26_flash-attention/images/gpu_mem.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    A100 GPU Memory Hierarchy. Source - <a href="https://arxiv.org/abs/2205.14135">https://arxiv.org/abs/2205.14135</a>
+  </figcaption>
+
+
+</figure>
+
+<h3 id="gpu-memory-hierarchy">GPU Memory Hierarchy</h3>
+<p>For a A100 GPU with 40GB of High Memory Bandwidth (HBM), a rough diagram of the memory hierarchy is shown above. The SRAM memory us spread across 108 streaming multiprocessors (SMs), 192KB for each. As one can see, the on-chip SRAM is much faster the HBM but is much smaller than size. In terms of compute, the theoretical peak throughput for BFLOAT16 using Tensor Core is 312 TFLOPS. With time, compute has gotten much faster relative to memory speed, hence processes (operations) are increasingly bottlenecked by memory (HBM) access. Thus, the goal of the FlashAttention paper was to use the SRAM as well as efficiently as possible to speed up the computation.</p>
+<h3 id="execution-model">Execution Model</h3>
+<p>he typical way in which GPUs operate are that they use a large number of threads to perform an operation, which is called a kernel. The input is loaded from the HBM to the registers and SRAM, and written back to the HBM after computation.</p>
+<h3 id="performance-characteristics">Performance Characteristics</h3>
+<p>There is a term called <strong>arithmetic intensity</strong> which is given by the number of arithmetic operations per byte of memory access. It helps to understand the bottleneck of an operation. An operation can be characterized as compute-bound (also called math-bound) or memory-bound.</p>
+<ul>
+<li>
+<p><strong>Compute-bound</strong> - When the bottleneck is the compute i.e., the time taken by the operation is determined by how many arithmetic operations there are since the time taken due to HBM accesses is relative lower. E.g. of such operations are matrix multiplication with large inner dimension, and convolution with large number of channels.</p>
+</li>
+<li>
+<p><strong>Memory-bound</strong> - When the bottleneck is the memory i.e., the time taken by the operation is determined by the number of memory accesses there are since the time spent in computation is relative lower. E.g. of such processes are most other operation like elementwise operations - activation, dropout and reduction operations - sum, softmax, batch normalization, layer normalization.</p>
+</li>
+</ul>
+<p>To understand this better, let&rsquo;s analyze it mathematically. Let $N_{op}$ be the number of arithmetic/floating point operations, $N_{byte}$ be the number of memory accesses, ${BW}_{compute}$ and ${BW}_{memory}$ be the compute and memory bandwidth respectively, the time taken for compute operations and memory accesses can be determined as -</p>
+<p>$$t_{compute} = \frac{N_{op}}{{BW}_{compute}}$$
+$$t_{memory} = \frac{N_{byte}}{{BW}_{memory}}$$</p>
+<p>The operation is compute-bound if $t_{compute}$ is less than $t_{memory}$ and vice-versa for memory bound. Which mathematically becomes -</p>
+<p><strong>For compute-bound</strong>
+$$\frac{N_{op}}{N_{byte}} \gt \frac{{BW}_{compute}}{{BW}_{memory}}$$</p>
+<p><strong>For memory-bound</strong>
+$$\frac{N_{op}}{N_{byte}} \lt \frac{{BW}_{compute}}{{BW}_{memory}}$$</p>
+<p>As mentioned above as well, matrix multiplication for large inner dimensions is compute bound but below that it is memory bound. If using FP32 and plugging in numbers for A100 40GB, then for $N \lt 74$, the $N \times N$ multiplication is memory bound, but compute bound when $N$ is greater than that. A great and detailed resource to understand this theory is this <a href="https://leimao.github.io/blog/Math-Bound-VS-Memory-Bound-Operations/">blog post by Lei Mao</a>.</p>
+<h3 id="kernel-fusion">Kernel Fusion</h3>
+<p>Kernel Fusion is often down by compilers to fuse together multiple elementwise operations. It is used to accelerate memory-bound operations. The basic ideas is that instead of loading the input from the HBM, performing the operation and writing back to the HBM and repeating that for each operation applied to the same input, the operation can be fused so that all of the operations are performed at once when the input is loaded from the HBM.</p>
+<p>However, one must note that when performing model training, the effectiveness of kernel fusion is reduced as the intermediate values still have to be written to the HBM to save for the backward pass.</p>
+<h2 id="background---standard-attention">Background - Standard Attention</h2>
+<p>For anyone familiar with transformers, this equation is well-known -</p>
+<p>$$Attention(Q, K, V) = softmax(\frac{QK^\mathsf{T}}{\sqrt{d_k}})V$$</p>
+<p>Here, the sequences $Q, K, V  \in \mathbb{R}^{N \times d}$ where $N$ is the sequence length and $d$ is the head dimension. The attention output, above, can be denoted by $O \in \mathbb{R}^{N \times d}$. The equation can be broken down as -</p>
+<p>$$\mathbf{S} = \mathbf{QK^\mathsf{T}} \in \mathbb{R}^{N \times N},\quad \mathbf{P} = softmax(\mathbf{S}) \in \mathbb{R}^{N \times N},\quad \mathbf{O} = \mathbf{PV} \in \mathbb{R}^{N \times d}$$</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/att2.png" data-caption="Scaled Dot Product Attention">
+<img src="/post/2023-03-26_flash-attention/images/att2.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Scaled Dot Product Attention
+  </figcaption>
+
+
+</figure>
+
+<p>In standard attention implementations, the $\mathbf{S}$ and $\mathbf{P}$ matrices are materialized in the HBM, which takes $O(N^2)$ memory. Also, most operations are memory-bound/elementwise operations, e.g. softmax applied on $\mathbf{P}$, masking applied to $\mathbf{S}$, dropout applied to $\mathbf{P}$. This leads to slow wall-clock time.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/standard-att-algo.png" data-caption="Standard Attention Implementation">
+<img src="/post/2023-03-26_flash-attention/images/standard-att-algo.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Standard Attention Implementation
+  </figcaption>
+
+
+</figure>
+
+<h2 id="flashattention---algorithm-details">FlashAttention - Algorithm details</h2>
+<p>As one may understand, the materialization of the $N \times N$ attention matrix on the HBM and its repeated reading and writing is a major bottleneck. To solve this, two main things need to be done -</p>
+<ol>
+<li>Computing the softmax reduction without access to the whole input</li>
+<li>Not storing the large intermediate attention matrix for the backward pass</li>
+</ol>
+<p>Two established techniques, namely <strong>tiling</strong> and <strong>recomputation</strong> are used to solve this.</p>
+<ol>
+<li>Tiling - The attention computation is restructured to split the input into blocks and performing the softmax operation incrementally by making several passes over the input blocks.</li>
+<li>Recomputation - The softmax normalization factor from the forward pass is stored to quickly recompute attention on-chip in the backward pass, which is faster than the standard attention approach of reading the intermediate matrix from HBM.</li>
+</ol>
+<p>This does lead to increased FLOPs due to recomputation, however FlashAttention runs both faster (up to 7.6x on GPT-2) and uses less memory — linear in sequence length, due to the massively reduced amount of HBM access.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/gpt2-att-speedup.png" data-caption="Speedup over the PyTorch implementation of attention on GPT-2">
+<img src="/post/2023-03-26_flash-attention/images/gpt2-att-speedup.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Speedup over the PyTorch implementation of attention on GPT-2
+  </figcaption>
+
+
+</figure>
+
+<h3 id="understanding-the-algorithm">Understanding the algorithm</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/flash-attention-schematic.png" data-caption="FlashAttention Forward Pass Algorithm">
+<img src="/post/2023-03-26_flash-attention/images/flash-attention-schematic.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    FlashAttention Forward Pass Algorithm
+  </figcaption>
+
+
+</figure>
+
+<p>The main idea behind the algorithm is to split the inputs $\mathbf{Q, K, V}$ into blocks, loading them from slow HBM to fast SRAM and then computing the attention output w.r.t those blocks. The output of each block is scaled by the right normalization factor before adding them up, which gives the correct result.</p>
+<p>$$\mathbf{S} = \mathbf{\tau QK^\mathsf{T}} \in \mathbb{R}^{N \times N},\quad \mathbf{S}^\mathrm{masked} = \mathrm{MASK}(S) \in \mathbb{R}^{N \times N},\quad \mathbf{P} = softmax(\mathbf{S^\mathrm{masked}}) \in \mathbb{R}^{N \times N},$$</p>
+<p>$$\mathbf{P}^\mathrm{dropped} = \mathrm{dropout}(\mathbf{P}, p_\mathrm{drop}), \quad \mathbf{O} = \mathbf{P^\mathrm{dropped}V} \in \mathbb{R}^{N \times d},$$</p>
+<p>where $\tau \in \mathbb{R}$ is some softmax scaling factor (typically $\frac{1}{\sqrt{d}}$), $\mathrm{MASK}$ is some masking function that sets some entries of
+the input to $-\infty$ and keep other entries the same, and $\mathrm{dropout}(x, p)$ applies dropout to 𝑥 elementwise (i.e., output $\frac{x}{1-p}$ with probability $1 − p$ and output $0$ with probability $p$ for each element $x$)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/flash-attention-forward-algo.png" data-caption="FlashAttention Forward Pass Algorithm">
+<img src="/post/2023-03-26_flash-attention/images/flash-attention-forward-algo.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    FlashAttention Forward Pass Algorithm
+  </figcaption>
+
+
+</figure>
+
+<h4 id="tiling">Tiling</h4>
+<p>The key part in understanding the block-wise computation of attention in the algorithm above is the block-wise computation of the softmax. The paper explains it well though. The softmax of a vector $x \in \mathbb{R}^B$ can be computed as -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/softmax-1.png" >
+<img src="/post/2023-03-26_flash-attention/images/softmax-1.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>And for vectors $x^\mathrm{(1)}, x^\mathrm{(2)} \in \mathbb{R}^B$, the softmax of the concatenated $x = [x^\mathrm{(1)}, x^\mathrm{(2)}] \in \mathbb{R}^{2B}$ is given by -</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/softmax-2.png" >
+<img src="/post/2023-03-26_flash-attention/images/softmax-2.png" alt="" ></a>
+
+
+
+</figure>
+
+<p>Let&rsquo;s understand this better. In the above equations, $m(x)$ holds the maximum between $m(x^\mathrm{(1)})$ and $m(x^\mathrm{(2)})$. Now, $m(x^\mathrm{(1)})$ is the maximum element of $x^\mathrm{(1)}$ and $m(x^\mathrm{(2)})$ is the maximum element of $x^\mathrm{(2)}$ which means that $m(x)$ is basically the maximum of the whole concatenated vector. The beauty is that this was done blockwise.</p>
+<p>So, if statistics $(m(x), l(x))$ are tracked then softmax can be computed one block at a time. In line 12 of the algorithm, $\tilde{m_{ij}}$ has the maximum element of each row of $S_{ij}^\mathrm{masked}$, and next in line 13, $m_i^\mathrm{new}$ holds the row-wise maximum of the $m_i$ till now and the new one i.e., $\tilde{m_{ij}}$. Hence $m_i$ is updated every column from the outer loop and eventually stores the row-wise max of the matrix $\mathbf{S}$. The same logic goes for $l_i$ and the matrix $\mathbf{P}$. The results are combined to get the output attention matrix in line 15.</p>
+<h4 id="recomputation">Recomputation</h4>
+<p>The backward pass of FlashAttention requires the $\mathbf{S}$ and $\mathbf{P}$ matrices to compute the gradients w.r.t $\mathbf{Q}$,$\mathbf{K}$,$\mathbf{V}$. However, they are $N \times N$ matrices and as it can be seen in the algorithm above, they aren&rsquo;t stored explicitly. The trick is to use the output $\mathbf{O}$ and the softmax normalization statistics $(m, l)$, we can recompute the attention matrix $\mathbf{S}$ and $\mathbf{P}$ easily in the backward pass from blocks of $\mathbf{Q}$,$\mathbf{K}$,$\mathbf{V}$ in SRAM. even with more FLOPs, the recomputation step speeds up the backward pass due to reduced HBM accesses. The backward pass is very interesting too but slightly more complicated hence I&rsquo;ll probably cover it in a separate post. One can cover the Appendix B of the paper to learn more.</p>
+<p>Kernel Fusion is also used to implement the algorithm in one CUDA kernel, loading input from HBM, performing all the computation steps (matrix multiply, softmax, optionally masking and dropout, matrix multiply), then writing the result back to HBM. This avoids repeatedly reading and writing of inputs and outputs from and to HBM.</p>
+<p><strong>Important Information</strong> - <em>The FlashAttention algorithm computed $\mathbf{O} = softmax(QK^\mathsf{T})V$ with $O(N^2d)$ FLOPs and requires $O(N)$ additional memory beyond inputs and output (for the $(l, m)$ statistics).</em></p>
+<p>The proof for the FLOPs calculation is given in Appendix C of the paper, which should be checked out by the curious reader.</p>
+<p><strong>Important Information</strong> - <em>Let $N$ be the sequence length, $d$ be the head dimension, and $M$ be the size of SRAM with $d \leq M \leq Nd$. Standard attention requires $\Theta(Nd + N^2)$ HBM accesses while FlashAttention requires $\Theta(N^2d^2M^{-1})$ HBM accesses.</em></p>
+<p>For typical values of $d$ (64-128) and $M$ (around 100KB), $d^2$ is many times smaller than $M$, and thus FlashAttention requires many times fewer HBM accesses than standard implementation. This leads to both faster execution and a lower memory footprint.</p>
+<p>The authors also go on to show that the number of HBM accesses by FlashAttention is a lower-bound. There can be no implementation which can asymptotically improve on the number of HBM accesses for all values of $M$ when doing exact attention calculation.</p>
+<p>As the block size increases, the number of HBM accesses decreases as there are less passes over the input, and the runtime also decreases. However, beyond 256, the runtime starts getting bottlenecked by factors like arithmetic operations. And there is also a limit on how large we can choose the block size to be, as we want it to be able to fit in the SRAM.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-1.png" data-caption="Left - Comparison of standard attention and FlashAttention for GPT-2 medium on A100. Despite the higher FLOPs (due to the recomputation step in backward pass), the lesser number of HBM access leads to a much faster runtime. Right - The effect of block size on the forward runtime and HBM accesses.">
+<img src="/post/2023-03-26_flash-attention/images/res-1.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    <strong>Left</strong> - Comparison of standard attention and FlashAttention for GPT-2 medium on A100. Despite the higher FLOPs (due to the recomputation step in backward pass), the lesser number of HBM access leads to a much faster runtime. <strong>Right</strong> - The effect of block size on the forward runtime and HBM accesses.
+  </figcaption>
+
+
+</figure>
+
+<h3 id="block-sparse-flashattention">Block-Sparse FlashAttention</h3>
+<p>As mentioned in the overview, FlashAttention can be used to make a approximate attention algorithm as well. The authors call it Block-Sparse FlashAttention and it is the fastest approximate attention algorithm. The memory complexity is smaller than FlashAttention by a factor proportional to the sparsity.</p>
+<p>For inputs $\mathbf{Q, K, V} \in \mathbb{R}^{N \times d}$ and a mask $\tilde{\mathbf{M}} \in { 0,1 }^{N \times N}$, we want to calculate -</p>
+<p>$$\mathbf{S} = \mathbf{QK^\mathsf{T}} \in \mathbb{R}^{N \times N},\quad \mathbf{P} = softmax(\mathbf{S} \odot \mathbb{1}_{\tilde{\mathbf{\mathrm{M}}}}) \in \mathbb{R}^{N \times N},\quad \mathbf{O} = \mathbf{PV} \in \mathbb{R}^{N \times d}$$</p>
+<p>Given a pre-defined block sparsity mask $\mathbf{M} \in { 0,1 }^{N/B_r \times N/B_c}$, Algorithm 2 above can be adapted to only compute the nonzero blocks of the attention matrix. We can just skip the zero blocks. The Algorithm shown below describes the forward pass of Block-sparse FlashAttention.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/blocksparse-flash-attention-forward-algo.png" data-caption="Blcok-Sparse FlashAttention Forward Pass Algorithm">
+<img src="/post/2023-03-26_flash-attention/images/blocksparse-flash-attention-forward-algo.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Blcok-Sparse FlashAttention Forward Pass Algorithm
+  </figcaption>
+
+
+</figure>
+
+<p><strong>Important Information</strong> - <em>Let $N$ be the sequence length, $d$ be the head dimension, and $M$ be the size of SRAM with $d \leq M \leq Nd$. Block-sparse FlashAttention requires $\Theta(Nd + N^2d^2M^{-1}s)$ HBM accesses where $s$ is the fraction of nonzero blocks in the block-sparsity mask.</em></p>
+<p>For large sequence lengths, $s$ is set to $N^{-1/2}$ or $N^{-1} \log N$ resulting in $\Theta(N \sqrt{N})$ or $\Theta(N \log N)$ IO complexity. As the sparsity increases, the runtime of block-sparse FlashAttention improves proportionally.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-2.png" >
+<img src="/post/2023-03-26_flash-attention/images/res-2.png" alt="" ></a>
+
+
+
+</figure>
+
+<h2 id="experiments">Experiments</h2>
+<p>There are tons of results in the paper. But the TL;DR is that FlashAttention beats all other exact attention algorithms in both training speed and quality of the models/down stream models especially when pushed to the limits of sequence length. I&rsquo;ll add the plots and graphs for their various results here. Additional results are present in the paper.</p>
+<h3 id="training-speed">Training Speed</h3>
+<h4 id="bert">BERT</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-3.png" data-caption="Training time of BERT-large. starting from the same initialization provided by the MLPerf benchmark, to reach the target accuracy of 72.0% on masked language modeling. Averaged over 10 runs on 8×A100 GPUs.">
+<img src="/post/2023-03-26_flash-attention/images/res-3.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Training time of BERT-large. starting from the same initialization provided by the MLPerf benchmark, to reach the target accuracy of 72.0% on masked language modeling. Averaged over 10 runs on 8×A100 GPUs.
+  </figcaption>
+
+
+</figure>
+
+<h4 id="gpt-2">GPT-2</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-4.png" data-caption="GPT-2 small and medium using FlashAttention achieve up to 3× speed up compared to Huggingface implementation and up to 1.7× compared to Megatron-LM. Training time reported on 8×A100s GPUs.">
+<img src="/post/2023-03-26_flash-attention/images/res-4.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    GPT-2 small and medium using FlashAttention achieve up to 3× speed up compared to Huggingface implementation and up to 1.7× compared to Megatron-LM. Training time reported on 8×A100s GPUs.
+  </figcaption>
+
+
+</figure>
+
+<h4 id="long-range-arena">Long-range Arena</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-5.png" data-caption="The performance of standard attention, FlashAttention, block-sparse FlashAttention, and approximate attention baselines on the Long-Range-Arena benchmarks. Each task has a different sequence length varying between 1024 and 4096.">
+<img src="/post/2023-03-26_flash-attention/images/res-5.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    The performance of standard attention, FlashAttention, block-sparse FlashAttention, and approximate attention baselines on the Long-Range-Arena benchmarks. Each task has a different sequence length varying between 1024 and 4096.
+  </figcaption>
+
+
+</figure>
+
+<p>Block-sparse FlashAttention is faster than all of the approximate attention methods that were tested.</p>
+<h3 id="model-quality">Model Quality</h3>
+<h4 id="language-modeling-with-long-context">Language Modeling with Long Context</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-6.png" data-caption="GPT-2 small with FlashAttention, with 4× larger context length compared to Megatron-LM, is still 30% faster while achieving 0.7 better perplexity. Training time on 8×A100 GPUs is reported.">
+<img src="/post/2023-03-26_flash-attention/images/res-6.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    GPT-2 small with FlashAttention, with 4× larger context length compared to Megatron-LM, is still 30% faster while achieving 0.7 better perplexity. Training time on 8×A100 GPUs is reported.
+  </figcaption>
+
+
+</figure>
+
+<h4 id="long-document-classification">Long Document Classification</h4>
+<p>Since FlashAttention allows training on longer sequences, it improves performance on such datasets. MIMIC-III contains intensive care unit patient discharge summaries, each annotated with multiple labels. ECtHR contains legal cases from the European Court of Human Rights, each of which is mapped to articles of the Convention of Human Rights
+that were allegedly violated. Both of these datasets contain very long text documents. The average number of tokens in MIMIC-III is 2395 tokens and the longest document contains 14562 tokens.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-7.png" data-caption="Sequence length 16K outperforms length 512 by 4.3 points on MIMIC, and that length 8K outperforms length 512 by 8.5 points on ECtHR. The discrepancies may be due to subtle distribution shifts: MIMIC-III contains specialized medical text and thus may be more susceptible to a distribution shift in the document length, whereas ECtHR contains general language.">
+<img src="/post/2023-03-26_flash-attention/images/res-7.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Sequence length 16K outperforms length 512 by 4.3 points on MIMIC, and that length 8K outperforms length 512 by 8.5 points on ECtHR. The discrepancies may be due to subtle distribution shifts: MIMIC-III contains specialized medical text and thus may be more susceptible to a distribution shift in the document length, whereas ECtHR contains general language.
+  </figcaption>
+
+
+</figure>
+
+<h4 id="path-x-and-path-256">Path-X and Path-256</h4>
+<p>These are challenging tasks from the long range arena benchmark where the task is to classify whether two points in a black and white 128×128 (or 256×256) image have a path connecting them, and the images are fed to the transformer one pixel at a time. No transformer model in the past has been able to model these tasks effectively. They have either ran out of memory or achieved random performance. FlashAttention yields the first Transformer that can achieve better-than-random performance on the challenging Path-X task (sequence length 16K), and block-sparse FlashAttention yields the first sequence model that can achieve better-than-random performance on Path-256 (sequence length 64K).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-8.png" data-caption="First Transformer model that can achieve non-random performance on Path-X and Path-256. Path-256 requires longer sequences but has relatively shorter paths than Path-X, so it is easier to obtain a higher accuracy.">
+<img src="/post/2023-03-26_flash-attention/images/res-8.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    First Transformer model that can achieve non-random performance on Path-X and Path-256. Path-256 requires longer sequences but has relatively shorter paths than Path-X, so it is easier to obtain a higher accuracy.
+  </figcaption>
+
+
+</figure>
+
+<h3 id="benchmarking-attention">Benchmarking Attention</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-03-26_flash-attention/images/res-9.png" data-caption="Left - runtime of forward pass &#43; backward pass. Right - attention memory usage">
+<img src="/post/2023-03-26_flash-attention/images/res-9.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    <strong>Left</strong> - runtime of forward pass + backward pass. <strong>Right</strong> - attention memory usage
+  </figcaption>
+
+
+</figure>
+
+<h4 id="runtime">Runtime</h4>
+<p>FlashAttention beats all exact attention baselines and is about 3× faster than the PyTorch implementation. The runtimes of many approximate/sparse attention mechanisms grow linearly with sequence length, but FlashAttention still runs faster than approximate and sparse attention for short sequences due to fewer memory accesses. The approximate attention runtimes begin to cross over with FlashAttention at sequences between 512 and 1024. On the other hand, block-sparse FlashAttention is faster than all implementations of exact, sparse, and approximate attention that are available, across all sequence lengths.</p>
+<h4 id="memory-footprint">Memory Footprint</h4>
+<p>FlashAttention and block-sparse FlashAttention have the same memory footprint, which grows linearly with sequence length. FlashAttention is up to 20× more memory efficient than exact attention baselines, and is more memory-efficient than the approximate attention baselines.  All other algorithms except for Linformer run out of memory on an A100 GPU before 64K, and FlashAttention is still 2× more efficient than Linformer.</p>
+<hr>
+<p>A great paper overall, tremendous impact and personally, I had loads to learn from it!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/transformers/">transformers</a>
+  
+  <a class="badge badge-light" href="/tags/attention/">attention</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+  <a class="badge badge-light" href="/tags/paper-summaries/">paper-summaries</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2023-03-26_flash-attention/&amp;text=Paper%20Summary%20#8%20-%20FlashAttention:%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2023-03-26_flash-attention/&amp;t=Paper%20Summary%20#8%20-%20FlashAttention:%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Summary%20#8%20-%20FlashAttention:%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness&amp;body=https://shreyansh26.github.io/post/2023-03-26_flash-attention/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2023-03-26_flash-attention/&amp;title=Paper%20Summary%20#8%20-%20FlashAttention:%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Summary%20#8%20-%20FlashAttention:%20Fast%20and%20Memory-Efficient%20Exact%20Attention%20with%20IO-Awareness%20https://shreyansh26.github.io/post/2023-03-26_flash-attention/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2023-01-03-academic_log_october_december_22/" rel="prev">Academic Log | October-December 2022</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2022-10-10_efficient_transformers_survey/">Paper Summary #7 - Efficient Transformers: A Survey</a></li>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Summary #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></li>
+      
+      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
+      
+      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2023 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
