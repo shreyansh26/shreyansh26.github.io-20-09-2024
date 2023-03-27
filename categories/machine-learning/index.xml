@@ -76,7 +76,7 @@
 &lt;p&gt;To understand this better, let&amp;rsquo;s analyze it mathematically. Let $N_{op}$ be the number of arithmetic/floating point operations, $N_{byte}$ be the number of memory accesses, ${BW}_{compute}$ and ${BW}_{memory}$ be the compute and memory bandwidth respectively, the time taken for compute operations and memory accesses can be determined as -&lt;/p&gt;
 &lt;p&gt;$$t_{compute} = \frac{N_{op}}{{BW}_{compute}}$$
 $$t_{memory} = \frac{N_{byte}}{{BW}_{memory}}$$&lt;/p&gt;
-&lt;p&gt;The operation is compute-bound if $t_{compute}$ is less than $t_{memory}$ and vice-versa for memory bound. Which mathematically becomes -&lt;/p&gt;
+&lt;p&gt;The operation is compute-bound if $t_{compute}$ is greater than $t_{memory}$ and vice-versa for memory bound. Which mathematically becomes -&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;For compute-bound&lt;/strong&gt;
 $$\frac{N_{op}}{N_{byte}} \gt \frac{{BW}_{compute}}{{BW}_{memory}}$$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;For memory-bound&lt;/strong&gt;

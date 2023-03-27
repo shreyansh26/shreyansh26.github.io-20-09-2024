@@ -721,7 +721,7 @@ I have also released an annotated version of the paper. If you are interested, y
 <p>To understand this better, let&rsquo;s analyze it mathematically. Let $N_{op}$ be the number of arithmetic/floating point operations, $N_{byte}$ be the number of memory accesses, ${BW}_{compute}$ and ${BW}_{memory}$ be the compute and memory bandwidth respectively, the time taken for compute operations and memory accesses can be determined as -</p>
 <p>$$t_{compute} = \frac{N_{op}}{{BW}_{compute}}$$
 $$t_{memory} = \frac{N_{byte}}{{BW}_{memory}}$$</p>
-<p>The operation is compute-bound if $t_{compute}$ is less than $t_{memory}$ and vice-versa for memory bound. Which mathematically becomes -</p>
+<p>The operation is compute-bound if $t_{compute}$ is greater than $t_{memory}$ and vice-versa for memory bound. Which mathematically becomes -</p>
 <p><strong>For compute-bound</strong>
 $$\frac{N_{op}}{N_{byte}} \gt \frac{{BW}_{compute}}{{BW}_{memory}}$$</p>
 <p><strong>For memory-bound</strong>
