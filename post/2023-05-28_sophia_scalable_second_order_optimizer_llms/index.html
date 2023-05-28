@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.6.2">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shreyansh Singh">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Paper: Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training
+Link: https://arxiv.org/abs/2305.14342
+Authors: Hong Liu, Zhiyuan Li, David Hall, Percy Liang, Tengyu Ma
+Code: https://github.com/Liuhong99/Sophia
+I have also released an annotated version of the paper. If you are interested, you can find it here.
+ Sophia is probably one of the most interesting papers I have read recently and I really liked how well it was written. This post is basically the notes that I had made while reading the paper, which is why it is not exactly a blog post and most of it is verbatim copied from the paper.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono:400,700%7COrbitron:400,700%7CSpace+Mono:400,700%7CLato%7CMontserrat%7CInconsolata%7CAnonymous+Pro&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153509490-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           document.location = url;
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target);  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-153509490-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
+
+  <link rel="canonical" href="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/">
+
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/featured.png">
+  
+  <meta property="twitter:site" content="@shreyansh_26">
+  <meta property="twitter:creator" content="@shreyansh_26">
+  
+  <meta property="og:site_name" content="Shreyansh Singh">
+  <meta property="og:url" content="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/">
+  <meta property="og:title" content="Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training | Shreyansh Singh">
+  <meta property="og:description" content="Paper: Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training
+Link: https://arxiv.org/abs/2305.14342
+Authors: Hong Liu, Zhiyuan Li, David Hall, Percy Liang, Tengyu Ma
+Code: https://github.com/Liuhong99/Sophia
+I have also released an annotated version of the paper. If you are interested, you can find it here.
+ Sophia is probably one of the most interesting papers I have read recently and I really liked how well it was written. This post is basically the notes that I had made while reading the paper, which is why it is not exactly a blog post and most of it is verbatim copied from the paper."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/featured.png">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2023-05-28T19:49:27&#43;05:30">
+    
+    <meta property="article:modified_time" content="2023-05-28T19:49:27&#43;05:30">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/"
+  },
+  "headline": "Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training",
+  
+  "image": [
+    "https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/featured.png"
+  ],
+  
+  "datePublished": "2023-05-28T19:49:27+05:30",
+  "dateModified": "2023-05-28T19:49:27+05:30",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Shreyansh Singh"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shreyansh Singh",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
+    }
+  },
+  "description": "Paper: Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training\nLink: https://arxiv.org/abs/2305.14342\nAuthors: Hong Liu, Zhiyuan Li, David Hall, Percy Liang, Tengyu Ma\nCode: https://github.com/Liuhong99/Sophia\nI have also released an annotated version of the paper. If you are interested, you can find it here.\n Sophia is probably one of the most interesting papers I have read recently and I really liked how well it was written. This post is basically the notes that I had made while reading the paper, which is why it is not exactly a blog post and most of it is verbatim copied from the paper."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+<style>
+
+    @font-face {
+        font-family: monaco123;
+        font-weight: 100%;
+        font-style: normal;
+        src: url("/fonts/MONACO.TTF");
+    } 
+
+    code {
+        font-family: monaco123;
+        font-size: 100%;
+    }
+
+</style>
+
+<script data-ad-client="ca-pub-8708413956078710" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+
+  <title>Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training | Shreyansh Singh</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    
+    
+      <a class="navbar-brand" href="/">Shreyansh Singh</a>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Shreyansh_Resume.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training</h1>
+
+  
+  <p class="page-subtitle">Understanding Sophia - A new fast, scalable second-order optimizer which beats Adam on LLM pretraining</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  
+  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 28, 2023
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    15 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 240px;">
+  <div style="position: relative">
+    <img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/featured_hucce6a03a89bede0dd786756fe4856bb3_61207_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><strong>Paper</strong>: Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training<br>
+<strong>Link</strong>: <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a><br>
+<strong>Authors</strong>: Hong Liu, Zhiyuan Li, David Hall, Percy Liang, Tengyu Ma<br>
+<strong>Code</strong>: <a href="https://github.com/Liuhong99/Sophia">https://github.com/Liuhong99/Sophia</a></p>
+<p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Sophia%20-%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pretraining.pdf">here</a>.</strong></p>
+<hr>
+<p>Sophia is probably one of the most interesting papers I have read recently and I really liked how well it was written. This post is basically the notes that I had made while reading the paper, which is why it is not exactly a blog post and most of it is verbatim copied from the paper. But since there are a lot of optimization-theory related concepts which have been mentioned in the paper, I have tried to add my own set of references which I have read in the past that helped me understand the paper better. Hopefully it helps someone!</p>
+<h1 id="overview">Overview</h1>
+<ul>
+<li>
+<p>The goal of this work is to propose a new optimizer for pre-training LLMs that can improve pre-training efficiency with a faster optimizer, which either reduces the time and cost to achieve the same pre-training loss, or alternatively achieves better pre-training loss with the same budget.</p>
+</li>
+<li>
+<p>Adam and its variants have become the somewhat default optimizers which are used in LLM pretraining.</p>
+</li>
+<li>
+<p>Designing fast optimizers for LLMs is challenging because -</p>
+<ul>
+<li>The benefit of the first-order pre-conditioner (the $1/\sqrt{v_t}$ factor) in Adam is still not well understood.</li>
+<li>The choice of pre-conditioners is constrained because we can only afford light-weight options whose overhead can be offset by the speed-up in the number of iterations.</li>
+<li>Among the recent works on light-weight gradient-based pre-conditioners, <a href="https://arxiv.org/abs/2302.06675">Lion</a> stood out as it is substantially faster than Adam on vision Transformers and diffusion models but only achieves limited speed-up on LLMs.</li>
+</ul>
+</li>
+<li>
+<p>This paper introduces Sophia, <strong>S</strong>econd-<strong>o</strong>rder Cli<strong>p</strong>ped Stoc<strong>h</strong>ast<strong>i</strong>c Optimiz<strong>a</strong>tion, a light-weight second-order optimizer that uses an inexpensive stochastic estimate of the diagonal of the Hessian as a pre-conditioner and a clipping mechanism to control the worst-case update size.</p>
+</li>
+<li>
+<p>Key Results -</p>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/src89abpL3fgu-saaWEWVmLmuigWxwsWvQde9cntTK9DuGVFZSBYpNo1FC2KM9y6uyf1VOaPs_ouZyxF-HP9umwC6xem71xx7460IH1MkEGevVn-IXj1j-I3MiOnNBto.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig1.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig1.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Sophia achieves the same validation pre-training loss with 50% fewer number of steps than Adam.</li>
+<li>Sophia maintains almost the memory and average time per step and therefore the speedup also translates to 50% less total compute and 50% less wall-clock time.</li>
+<li>The scaling law based on model size from 125M to 770M is in favor of Sophia over Adam - the gap between Sophia and Adam with 100K steps increases as the model size increases. Sophia on a 540M-parameter model with 100K steps gives the same validation loss as Adam on a 770M-parameter model with 100K steps.<br>
+<br></li>
+</ul>
+</li>
+<li>
+<p>Checking the performance and scalability of this optimizer for pre-training much larger model sizes would (although expensive) be interesting to see.</p>
+</li>
+<li>
+<p>Sophia estimates the diagonal entries of the Hessian of the loss using a mini-batch of examples every $k$ steps ($k=10$ in the paper).</p>
+</li>
+<li>
+<p>The paper considers two options for diagonal Hessian estimators -</p>
+<ul>
+<li>Hutchinson’s unbiased estimator -  an unbiased estimator that uses a Hessian-vector product with the same run-time as a mini-batch gradient up to a constant factor</li>
+<li>Gauss-Newton-Bartlett (GNB) estimator -  a biased estimator that uses one mini-batch gradient calculated with resampled labels.
+<br><br></li>
+</ul>
+</li>
+<li>
+<p>Both the estimators introduce only a 5% overhead per step (on average).</p>
+</li>
+<li>
+<p>Sophia updates the parameter with an exponential moving average (EMA) of the gradient divided by the EMA of the diagonal Hessian estimate, subsequently clipped by a scalar.</p>
+</li>
+<li>
+<p>Due to the Hessian-based pre-conditioner, Sophia adapts more efficiently, than Adam does, to the heterogeneous curvatures in different parameter dimensions, which can often occur in the landscape of LLMs losses and cause instability or slowdown.</p>
+</li>
+<li>
+<p>In terms of the loss landscape, Sophia has a more aggressive pre-conditioner than Adam - Sophia applies a stronger penalization to updates in sharp dimensions (where the Hessian is large) than the flat dimensions (where the Hessian is small), <b>ensuring a uniform <i><ins>loss decrease</ins></i> across all parameter dimensions</b>.  In contrast, <strong>Adam’s updates are mostly uniform across all parameter dimensions, leading to a slower loss decrease in flat dimensions</strong>.</p>
+</li>
+<li>
+<p>Sophia’s clipping mechanism controls the worst-case size of the updates in all directions, safeguarding against the negative impact of inaccurate Hessian estimates, rapid Hessian changes over time, and non-convex landscape.</p>
+</li>
+</ul>
+<h1 id="motivations">Motivations</h1>
+<h2 id="heterogeneous-curvatures">Heterogeneous Curvatures</h2>
+<ul>
+<li>Loss functions in modern deep learning problems often have different curvatures across different parameter dimensions.</li>
+<li>The paper demonstrates the limitations of Adam and Gradient Descent by considering a two dimensional loss function - $L(\theta_{[1]},\theta_{[2]}) = L_1(\theta_{[1]}) + L_2(\theta_{[2]})$ where $$L_{1}(\theta_{[1]}) = 8(\theta_{[1]} - 1)^2(1.3\theta_{[1]}^2 + 2\theta_{[1]} + 1)$$ $$L_2(\theta_{[2]}) = 1/2 (\theta_{[2]} - 4)^2$$</li>
+<li>Here $L_1$ is much sharper than $L_2$.</li>
+<li>Another optimizer, SignGD is also compared which is quite old but can be understood as a simplified version of Adam, which does not involve taking the EMA for gradients and second moments of the gradients. The update then simplifies to - $\eta \cdot \nabla L(\theta)/|\nabla L(\theta)| = \eta\cdot \textup{sign}(\nabla L(\theta))$.</li>
+</ul>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/LrMmz7R-DKnsQqGyXsWf1HCZGZcyB_TtnGuJk8HcpijBAmdkt7zYi-BKvLQrTx2Wwb7fYqaS7dUv2Iw_Th3y4vE6ymaNdnVVP1h9xEufWJmPJqFqqyx3Sp9NFy41jOF_.png) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig2.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig2.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<h2 id="limitations-of-gd-and-signgd-adam">Limitations of GD and SignGD (Adam)</h2>
+<ul>
+<li>The optimal learning rate of Gradient Descent should be proportional to the inverse of the curvature, i.e., the Hessian/second derivative at the local minimum. A good set of resources to understand this in detail are some notes from University of Toronto <a href="https://www.cs.toronto.edu/~rgrosse/courses/csc2541_2022/readings/L01_intro.pdf">Section 2.2</a> and <a href="https://www.cs.toronto.edu/~rgrosse/courses/csc2541_2022/readings/L02_Taylor_approximations.pdf">Section 4.1</a>.</li>
+<li>So, if the curvatures of $L_1$ and $L_2$ at the local minima are $h_1$ and $h_2$ respectively (and thus $h_1 &gt; h_2$ ). So the largest shared learning rate can only be $1/h_1$. Hence, the convergence in $\theta_{[2]}$ dimension is slow as also shown in the figure above.
+<br>
+<br></li>
+<li>The update size of SignGD is the learning rate $\eta$ in all dimensions. Hence, intuitively, the same update size translates to less progress in decreasing the loss in the flat direction than in the sharp direction. In the yellow curve in the above figure, the progress of SignGD in the flat dimension $\theta_{[2]}$ is slow and along $\theta_{[1]}$, theiterate quickly travels to the valley in the first three steps and then starts to bounce.  To fully converge in the sharp dimension, the learning rate $\eta$ needs to decay to $0$, which will exacerbate the slow convergence in the flat dimension $θ_{[2]}$. The trajectory of Adam is similar to SignGD and shown by the red curve in the figure.
+<br><br></li>
+<li>The behavior of SignGD and Adam above indicates that a more aggressive pre-conditioning is needed - sharp dimensions should have relatively smaller updates than flat dimensions so that the decrease of loss is equalized in all dimensions.</li>
+<li>Prior work on second order optimization suggest that the optimal pre-conditioner is the Hessian which captures the curvature on each dimension.</li>
+<li>The Newton’s method, does something similar - the update is the gradient divided by the Hessian in each dimension.$$\theta_{[1]} \leftarrow \theta_{[1]} - \eta \cdot L&rsquo;_1(\theta_{[1]}) / h_1\ \ \textup{and}\ \ \theta_{[2]} \leftarrow \theta_{[2]} - \eta \cdot L&rsquo;_2(\theta_{[2]})/ h_2$$ 
+<br></li>
+</ul>
+<h2 id="limitations-of-newtons-method">Limitations of Newton&rsquo;s method</h2>
+<ul>
+<li>Vanilla Newton’s method could converge to a global maximum when the local curvature is negative.</li>
+<li>As shown in the blue curve in the figure,   Newton’s method quickly converges to a saddle point instead of a local minimum.</li>
+<li>Since the curvature may change rapidly along a trajectory, the second order information can often become unreliable.
+<br><br></li>
+<li>Sophia addresses this by considering only pre-conditioners that capture positive curvature, and introduce a pre-coordinate clipping mechanism to mitigate the rapid change of Hessian. Applying those changes results in the following update - $$\theta_{[1]} \leftarrow \theta_{[1]} - \eta \cdot \textup{clip}(\frac{ L&rsquo;_1(\theta_{[1]})}{\max{h_1,\epsilon}} ,\rho)\ \textup{and}\ \theta_{[2]} \leftarrow \theta_{[2]} - \eta \cdot \textup{clip}(\frac{ L&rsquo;_2(\theta_{[2]})}{\max{h_2,\epsilon}},\rho)$$</li>
+<li>Here, $\rho$ is a constant to control the worst-case update size, $\epsilon$ is a very small constant (e.g., 1e-12) to avoid dividing by 0.</li>
+<li>The beauty here is that  when the curvature of some dimension is rapidly changing or negative and thus the second-order information is misleading and possibly leads to a huge update before clipping, the clipping mechanism kicks in and the optimizer defaults to SignGD (even though this is sub-optimal for benign situations).</li>
+<li>The black curve in the figure starts off similarly to SignGD due to the clipping mechanism in the non-convex region, making descent opposed to converging to a local maximum. In the convex valley, it converges to the global minimum with a few steps.</li>
+<li>Compared with SignGD and Adam, it makes much faster progress in the flat dimension $\theta_{[2]}$ (because the update is bigger in dimension $\theta_{[2]}$), while avoiding bouncing in the sharp dimension $\theta_{[1]}$ (because the update is significantly shrunk in the sharp dimension $\theta_{[1]}$).</li>
+</ul>
+<h1 id="sophia-second-order-clipped-stochastic-optimization">Sophia: <strong>S</strong>econd-<strong>o</strong>rder Cli<strong>p</strong>ped Stoc<strong>h</strong>ast<strong>i</strong>c Optimiz<strong>a</strong>tion</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/sophia.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/sophia.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<h2 id="ema-of-diagonal-hessian-estimates">EMA of diagonal Hessian estimates</h2>
+<ul>
+<li>The diagonal Hessian estimates definitely have overheads, so it is computed at every $k$ steps.</li>
+<li>At every time step $t$, where $t \ \textup{mod} \ k = 1$, the estimator returns an estimate $h_t$ of the diagonal of the Hessian of the mini-batch loss.</li>
+<li>Similar to the gradient of the mini-batch loss function, the estimated diagonal Hessian can also have large noise.</li>
+<li>The EMA performed at every $k$ steps helps denoise the estimates. $$h_t = \beta_2 h_{t-k} + (1 - \beta_2) \hat{h}_{t} \ \textup{ if } t \ \mathrm{mod} \ k = 1 ; \textup{ else } h_t = h_{t-1}$$</li>
+</ul>
+<h2 id="pre-coordinate-clipping">Pre-coordinate clipping</h2>
+<ul>
+<li>I personally found this very innovative.</li>
+<li>As mentioned in the previous section, the inaccuracy of Hessian estimates and the change of Hessian along the trajectory can make the second-order information unreliable.</li>
+<li>$$\theta_{t+1} \leftarrow \theta_{t} - \eta_t \cdot \textup{clip}(m_t / \max{h_t,\epsilon}, \rho)$$</li>
+<li>When any entry of $h_t$ is negative, e.g., $h_t[i] &lt; 0$, the corresponding entry in the pre-conditioned gradient $m_t[i]/\max{h_t[i],\epsilon} = m_t[i]/\epsilon$ is extremely large and has the same sign as $m_t[i]$, and thus $\eta\cdot \textup{clip}(m_t[i] / \max{h_t[i],\epsilon}, \rho) = \eta\rho\cdot \textup{sign}(m_t[i])$, which is the same as stochastic momentum SignSGD.</li>
+<li>Sophia uses stochastic momentum SignSGD as a backup when the Hessian is negative (or mistakenly estimated to be negative or very small.)  We also note that t</li>
+<li>The clipping mechanism controls the worst-case size of the updates in all parameter dimensions to be at most $\rho$, which also improves the stability (which could be a severe issue for second-order methods).</li>
+</ul>
+<h2 id="diagonal-hessian-estimators">Diagonal Hessian Estimators</h2>
+<ul>
+<li>I&rsquo;ll keep this section short and brief, for the simple reason that the math is extremely interesting but also a bit difficult to understand. So, I&rsquo;ll add references to the best of my knowledge and I encourage the reader to go through them thoroughly.</li>
+</ul>
+<h3 id="hutchinsons-unbiased-estimator">Hutchinson’s unbiased estimator</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/hutchinson.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/hutchinson.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>For any loss function $\ell(\theta)$ on parameters $\theta\in \mathbb{R}^d$,  the Hutchinson&rsquo;s estimator can be used to obtain an unbiased estimator for the diagonal of the Hessian.</li>
+<li>First, draw $u\in \mathbb{R}^d$ from the spherical Gaussian distribution $\mathcal{N}(0,\mathrm{I}_d)$, and then output $\hat{h} = u \odot (\nabla^2 \ell(\theta) u)$, where $\odot$ denotes the element-wise product, and $\nabla^2 \ell(\theta) u$ is the HVP of the Hessian with $u$.</li>
+<li>Using HVP (from <a href="https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html#hessian-vector-products-using-both-forward-and-reverse-mode">JAX</a> or <a href="https://pytorch.org/docs/stable/generated/torch.autograd.functional.hvp.html">Pytorch</a> allows us to efficiently compute the product of the Hessian and a vector without the actual computation of the full Hessian matrix.</li>
+<li>Effectively, $\mathbb{E}[\hat h] = \mathrm{diag}(\nabla^2 \ell(\theta))$.
+<br><br></li>
+<li><strong>How does it work?</strong> The idea for the above comes from the original paper from Hutchinson - &ldquo;A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines&rdquo; which was about estimating the trace of a matrix. The idea there was -  
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig3.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig3.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+</li>
+<li>Dimensionally, and somewhat intuitively, it kinda makes sense to change the dot product to an elementwise product to get the non-aggregated estimate of the diagonal (since trace is the sum of the diagonal elements).</li>
+<li>This idea was also used in the <a href="https://arxiv.org/abs/2006.00719">&ldquo;Hessian Diagonal Approximation&rdquo; section of the AdaHessian paper</a>, and I would also encourage the reader to go through <a href="https://www-users.cse.umn.edu/~saad/PDF/umsi-2005-082.pdf">Section 2 of the paper - &ldquo;An Estimator for the Diagonal of a Matrix&rdquo;</a>, which the AdaHessian paper cites as well.</li>
+</ul>
+<h3 id="gauss-newton-bartlett-gnb-estimator">Gauss-Newton-Bartlett (GNB) estimator</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/gnb.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/gnb.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>The math for this section is particularly interesting and I would redirect you to my <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/ML%20Theory/Sophia%20-%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pretraining.pdf">annotated paper</a> where I have mentioned references and also worked out some of the math.</li>
+<li>I&rsquo;d highly recommend reading <a href="https://www.cs.toronto.edu/~rgrosse/courses/csc2541_2022/readings/L02_Taylor_approximations.pdf">Section 4.4 of these notes</a> and optionally <a href="https://www.cs.toronto.edu/~rgrosse/courses/csc2541_2022/readings/L03_metrics.pdf">Section 4 of these notes</a> (not absolutely required, just helps to understand the footnote in the Sophia paper).</li>
+<li>Ultimately, the GNB estimator used by the authors is $$B \cdot \nabla_\theta \widehat L(\theta) \odot \nabla_\theta \widehat L(\theta)$$ where $\widehat L(\theta) = \frac{1}{B}\sum_{b=1}^B \ce(f(\theta, x_b), \hat{y}_b)$, here $\hat{y}_b$ are not the labels corresponding to $x_b$. They are just  __sampled labels__  from the mini-batch.</li>
+<li>The reason we can do that is in the math, which comes from the combination of
+<ol>
+<li>The claim in the paper that the second-order derivative of the loss w.r.t. the logits only depends on the logits and the true labels $y$.</li>
+<li>Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, ~~\mathbb{E}_{\hat{y}<em>b}\nabla \ell</em>{\textup{ce}}(f(\theta,x_b),\hat{y}_b) = 0$$</li>
+</ol>
+</li>
+<li>Also, the above estimator is an unbiased estimator for the diagonal of the Gauss-Newton matrix, which is a biased estimator for the diagonal of the Hessian.</li>
+<li>Additional References - <a href="https://www.sfu.ca/~lockhart/richard/830/12_3/Summaries/8.pdf">Bartlett Identities</a></li>
+</ul>
+<h3 id="comparison-of-hessian-estimators">Comparison of Hessian estimators</h3>
+<ul>
+<li>The Hutchinson’s estimator does not assume any structure of the loss, but requires a Hessian-vector product.</li>
+<li>The GNB estimator only estimates the Gauss-Newton term but always gives a positive semi-definite (non-negative) diagonal Hessian estimate. The PSDness ensures that the pre-conditioned update is always a descent direction.</li>
+<li>The Gauss-Newton Matrix is guaranteed to be PSD if the above-mentioned second-order derivative of the loss w.r.t. the logits is PSD. For proof, <a href="https://andrew.gibiansky.com/blog/machine-learning/gauss-newton-matrix/">refer this</a>.</li>
+</ul>
+<h1 id="experiments">Experiments</h1>
+<ul>
+<li>There are tons of details in the paper regarding the experiments. I&rsquo;ll just mention the key points here, just in case I have to look up something quickly.</li>
+</ul>
+<h2 id="experimental-setup">Experimental Setup</h2>
+<h3 id="baselines">Baselines</h3>
+<ul>
+<li>Main comparison with AdamW and Lion</li>
+<li>AdamW for GPT2 hyperparams - WD = 0.1, $\beta_1 = 0.9$ and $\beta_2 = 0.95$</li>
+<li>Lion fro GPT2 hyperparams - $\beta_1 = 0.95$ and $\beta_2 = 0.98$</li>
+</ul>
+<h3 id="implementation">Implementation</h3>
+<ul>
+<li>Batch Size = 480</li>
+<li>Cosine LR schedule with the final LR equal to 0.05 times the peak LR</li>
+<li>Standard gradient clipping (by norm) threshold 1.0</li>
+<li>Fixed 2k steps of LR warm-up</li>
+<li>For Sophia, the authors use $\beta_1 = 0.96$, $\beta_2 = 0.99$, $\epsilon=$ 1e-12 and update diagonal Hessian every 10 steps.</li>
+<li>Sophia-H (which refers to Sophia with Hutchinson estimator) uses $\rho=0.01$, and only a subset of 32 examples from the mini-batch to calculate the diagonal Hessian to further reduce overhead.</li>
+<li>Sophia-G (which refers to Sophia with GNB estimator) uses $\rho=20$, and use a subset of 240 examples from the mini-batch to calculate the diagonal Gauss-Newton.</li>
+<li>All models are trained in bfloat16.</li>
+<li>The 125M and 355M models are trained on A5000 GPUs, while the 770M models are trained on A100 GPUs. Total amount of compute spent on all experiments is about 6000 hours on A100s and 10000 hours on A5000s. This amounts to 4.38e21 FLOPs.</li>
+</ul>
+<h1 id="results">Results</h1>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/xxTaqsxFBU8XN3dgfQK36JrZPD8oh6Qbff451sCN-YogrFHMuBChP6hMheJpGEwD6ll9r2qZkTjD-mhAC01nnbFEQBXgeCDaMBIn-pEmVMRjjzLgKJfl6hM3bMNp7fxg.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig4.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig4.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Sophia consistently achieves better validation loss than AdamW and Lion.</li>
+<li>As the model size grows, the gap between Sophia and baselines also becomes larger. Sophia-H and Sophia-G both achieve a 0.04 smaller validation loss on the 355M model,   Sophia-H achieves a 0.05 smaller validation loss on the 770M model with the same 100k steps.</li>
+</ul>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/ajIHZESSHf_LXT0W9rCEACxW2-LPTHapJuIWfNEDHsOU7OC9KDlj1k8f-uBgjx4gRbysa5rmtlst9tg7GhystKdPzPNZNqVGIaDTbB6sVCM1IBEbBtvt3DG9KRuRvOjn.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig5.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig5.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>According to the scaling laws in this regime, an improvement in loss of 0.05 is equivalent to 2x improvement in terms of number of steps or total compute to achieve the same validation loss</li>
+<li>Sophia is 2x faster in terms of number of steps, total compute and wall-clock time.</li>
+<li><strong>The scaling law is in favor of Sophia-H over AdamW</strong>
+<ul>
+<li>The 540M model trained by Sophia-H has smaller loss than the 770M model trained by AdamW.</li>
+<li>The 355M model trained by Sophia-H has comparable loss as the 540M model trained by AdamW.</li>
+</ul>
+</li>
+<li><strong>Few-shot Evaluation on Downstream Tasks (SuperGLUE)</strong>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/SfXdQSEchScxBjUlKfiaAfx55WHF6zoAuAral2hhMHAUD_HJDU6-1MdLpkBHJ2Al3K0lq4_SiLIgunAOQyAus5Y2-m68nMYXaNnqrgNIPvkoRzgTYxT_LnnDOwgEbULT.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig6.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig6.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>GPT-2 medium and GPT-2 large pre-trained with Sophia have better few-shot accuracy on most subtasks.</li>
+<li>Models pre-trained with Sophia-H have comparable few-shot accuracy as models pre-trained with AdamW for 2x number of steps.</li>
+</ul>
+</li>
+<li><strong>Sensitivity to $\rho$ and $\beta_2$, and transferability of hyperparameters</strong>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/Q7I5-Z7KY7-YFsggDfNZgfzslMPVlP1slvOSScfIjmUu8izJuPCGl63B3D3cVl8tzwY2VC2rCMd-WFb8qZ437vYcDmysNNq0DIi1qUDgvZqW_9sH-40bfeWoQSwDf4LH.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig7.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig7.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>While performing grid search on hyperparams on a smaller 30M model, the authors found that  all combinations have a similar performance. Moreover, this hyperparameter choice is transferable across model sizes. For all the experiments on 125M, 355M and 770M, we use the hyperparameters searched on the 30M model, which is ρ = 0.01, β2 = 0.99.</li>
+</ul>
+</li>
+<li><strong>Training Stability</strong>
+<ul>
+<li>Gradient clipping (by norm) is an important technique in language model pre-training as it avoids messing up the moment of gradients with one mini-batch gradient computed from rare data.</li>
+<li>In practice, the frequency that gradients clipping is triggered is related to the training stability - if the gradient is frequently clipped, the iterate can be in a very unstable state.</li>
+</ul>
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/4S5g8pYpt1RJq2GnQH3YvM6-IG_WW2GdnciFI0_B6_sn0CxqvrWPFzpyTUePG5kYcjFf7j2MijUIrPTUN9hXC_osIlt-co6i3K6DdSw86sMwdaJaikvm8RlsZ2YE7_KS.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig8.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig8.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Although all methods use the same clipping threshold 1.0, Sophia-H seldomly triggers gradient clipping, while AdamW and Lion trigger gradient clipping in more than 10% of the steps</li>
+</ul>
+</li>
+<li>Another common trick of pre-training deep Transformers is scaling the product of keys and values by the inverse of the layer index [<a href="https://crfm.stanford.edu/2021/08/26/mistral.html">Mistral</a>]. This stabilizes training and increases the largest possible learning rate.
+  <!-- - ![](local://C:/Users/shrey/remnote/remnote-64285e10d2c548ebfefc88aa/files/UCHToiptemrq7v8SwQxEqoXJF1oSgfyQU3-k9bVZjYs-GxwX30vLNv9k-S5WpaFqwHEme2T9n7Pl-VwvPUUXm9eMIKQ9lKXd2yAaqr3q93LnyjKJRoNOfzewvFvUtXwe.png)  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+
+
+  <a data-fancybox="" href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig9.png" data-caption="Source - https://arxiv.org/abs/2305.14342">
+<img src="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/images/fig9.png" alt="" ></a>
+
+
+  
+  
+  <figcaption>
+    Source - <a href="https://arxiv.org/abs/2305.14342">https://arxiv.org/abs/2305.14342</a>
+  </figcaption>
+
+
+</figure>
+
+<ul>
+<li>Without this trick, the maximum learning rate of AdamW and Lion on GPT-2 medium (355M) can only be 1.5e-4, which is much smaller than 3e-4 with the trick (the loss will blow up with 3e-4 without the trick). Moreover, the loss decreases much slower without the trick as shown. In all the experiments, Sophia-H does not require scaling the product of keys and values by the inverse of the layer index.</li>
+</ul>
+</li>
+</ul>
+<h1 id="limitations">Limitations</h1>
+<ul>
+<li>Scaling up to larger models and datasets
+<ul>
+<li>The paper only experiments with GPT-2 pretraining on OpenWebText for model sizes up to 770M params.</li>
+<li>Although it is faster and better than Adam and Lion in these set of experiments, and the   scaling laws and pre-training stability are encouraging, it remains to be seen how well Sophia scales on larger models.</li>
+</ul>
+</li>
+<li>Holistic downstream evaluation
+<ul>
+<li>The paper has only experimented with 4 SuperGLUE tasks and although the results are encouraging, a better downstream evaluation is still important.</li>
+<li>To note - The limitation in downstream evaluation is also due to the limited model size, because language models at this scale do not have enough capabilities such as in-context learning, and mathematical reasoning.</li>
+</ul>
+</li>
+<li>Evaluation on other domains
+<ul>
+<li>This paper focuses on optimizers for LLMs, it should be evaluated in other domains like CV, RL and Multimodal tasks.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>A very exciting paper. Hope people can test it out on even bigger models and across multiple domains and we may potentially have an optimizer finally dethroning Adam!</p>
+<p> </p>
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+<!-- <button style="background-color: #70ab17; color: #1770AB" id="openpopup">Subscribe to my posts!</button> -->
+<div class="button_cont" align="center"><button id="openpopup" class="example_a">Subscribe to my posts!</button></div>
+<style>
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+</style>
+<script type="text/javascript">
+
+function showMailingPopUp() {
+    window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us4.list-manage.com","uuid":"0b10ac14f50d7f4e7d11cf26a","lid":"667a1bb3da","uniqueMethods":true}) })
+
+    document.cookie = "MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
+
+</script>
+<p> </p>
+<p>Follow me on <a href="https://twitter.com/shreyansh_26">Twitter</a>, <a href="https://github.com/shreyansh26">Github</a> or connect on <a href="https://www.linkedin.com/in/shreyansh26/">LinkedIn</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/transformers/">transformers</a>
+  
+  <a class="badge badge-light" href="/tags/optimizer/">optimizer</a>
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
+  
+  <a class="badge badge-light" href="/tags/paper-summaries/">paper-summaries</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/&amp;text=Paper%20Summary%20#9%20-%20Sophia:%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pre-training" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/&amp;t=Paper%20Summary%20#9%20-%20Sophia:%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pre-training" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Paper%20Summary%20#9%20-%20Sophia:%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pre-training&amp;body=https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/&amp;title=Paper%20Summary%20#9%20-%20Sophia:%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pre-training" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Paper%20Summary%20#9%20-%20Sophia:%20A%20Scalable%20Stochastic%20Second-order%20Optimizer%20for%20Language%20Model%20Pre-training%20https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "shreyansh26-netlify-com" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/2023-03-26_flash-attention/" rel="prev">Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/2023-03-26_flash-attention/">Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a></li>
+      
+      <li><a href="/post/2022-10-10_efficient_transformers_survey/">Paper Summary #7 - Efficient Transformers: A Survey</a></li>
+      
+      <li><a href="/post/2021-04-18_attention_is_all_you_need/">Paper Summary #1 - Attention Is All You Need</a></li>
+      
+      <li><a href="/post/2021-05-23_language_models_unsupervised_multitask_learners_gpt2/">Paper Summary #6 - Language Models are Unsupervised Multitask Learners</a></li>
+      
+      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" integrity="sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/cpp.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/js.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://shreyansh26-netlify-com.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.bcfae8267aba63cc55af53a503896bd9.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Shreyansh Singh 2023 &middot; 
+
+    Powered by 
+    
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

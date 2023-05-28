@@ -33,7 +33,7 @@ Link: https://arxiv.org/abs/2205.14135
 Authors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré
 Code: https://github.com/HazyResearch/flash-attention
 I have also released an annotated version of the paper. If you are interested, you can find it here.
- I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well.">
+ I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that it can help me understand the concept well.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2023-03-26_flash-attention/">
@@ -162,7 +162,7 @@ Link: https://arxiv.org/abs/2205.14135
 Authors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré
 Code: https://github.com/HazyResearch/flash-attention
 I have also released an annotated version of the paper. If you are interested, you can find it here.
- I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png">
+ I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that it can help me understand the concept well."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png">
   <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-03-26_flash-attention/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -218,7 +218,7 @@ I have also released an annotated version of the paper. If you are interested, y
       "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
     }
   },
-  "description": "Paper: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness\nLink: https://arxiv.org/abs/2205.14135\nAuthors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré\nCode: https://github.com/HazyResearch/flash-attention\nI have also released an annotated version of the paper. If you are interested, you can find it here.\n I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well."
+  "description": "Paper: FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness\nLink: https://arxiv.org/abs/2205.14135\nAuthors: Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré\nCode: https://github.com/HazyResearch/flash-attention\nI have also released an annotated version of the paper. If you are interested, you can find it here.\n I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that it can help me understand the concept well."
 }
 </script>
 
@@ -668,7 +668,7 @@ I have also released an annotated version of the paper. If you are interested, y
 <strong>Code</strong>: <a href="https://github.com/HazyResearch/flash-attention">https://github.com/HazyResearch/flash-attention</a></p>
 <p><strong>I have also released an annotated version of the paper. If you are interested, you can find it <a href="https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/General-DL/FlashAttention%20-%20Fast%20and%20Memory-Efficient%20Exact%20Attention.pdf">here</a>.</strong></p>
 <hr>
-<p>I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that understand the concept well. I decided to make it public and hopefully it can help anyone reading this.</p>
+<p>I finished reading the FlashAttention paper recently and thought that it would be good to have a technical write-up of the paper, so that it can help me understand the concept well. I decided to make it public and hopefully it can help anyone reading this.</p>
 <h2 id="overview">Overview</h2>
 <p>Attention as we know, in its standard implementation is an $O(N^2)$ operation, where N is the sequence length. There are many approximate attention methods out there like Reformer, Smyrf, Reformer, Performer and others (<a href="https://shreyansh26.github.io/post/2022-10-10_efficient_transformers_survey/">you can find more details on a few of these in my previous blog</a>) which aim to reduce the compute requirements to linear or near-linear in sequence length, but many of them do not display wall-clock speedup against standard attention. They focus on FLOP reduction (which doesn&rsquo;t always correlate with wall-clock speed) and tend to ignore overheads from memory access (IO).FlashAttention aims to incorporate IO-awareness i.e. dividing operations between faster and slower levels of GPU memory to make the whole computation faster. The algorithm uses tiling to reduce the number of memory reads/writes between GPU high bandwidth memory (HBM) and GPU on-chip SRAM. FlashAttention can also be extended to block-spare attention and this results in the fastest approximate (or not) attention algorithm out there.</p>
 <p>All this helps to improve the training time of Transformer models - a 15% end-to-end wall-clock speedup on BERT-large (seq. length 512) compared to the MLPerf 1.1 training speed record, 3× speedup on GPT-2 (seq. length 1K). This memory-efficient approach also helps to incorporate a longer context (up to 16k/64k tokens) which also results in better models (0.7 better perplexity on GPT-2).</p>
@@ -1482,6 +1482,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
 <div class="article-widget">
   
 <div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/" rel="next">Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training</a>
+  </div>
   
   
   
