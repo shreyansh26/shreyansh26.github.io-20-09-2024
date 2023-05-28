@@ -169,7 +169,7 @@
 &lt;li&gt;As shown in the blue curve in the figure,   Newton’s method quickly converges to a saddle point instead of a local minimum.&lt;/li&gt;
 &lt;li&gt;Since the curvature may change rapidly along a trajectory, the second order information can often become unreliable.
 &lt;br&gt;&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;Sophia addresses this by considering only pre-conditioners that capture positive curvature, and introduce a pre-coordinate clipping mechanism to mitigate the rapid change of Hessian. Applying those changes results in the following update - $$\theta_{[1]} \leftarrow \theta_{[1]} - \eta \cdot \textup{clip}(\frac{ L&amp;rsquo;_1(\theta_{[1]})}{\max{h_1,\epsilon}} ,\rho)\ \textup{and}\ \theta_{[2]} \leftarrow \theta_{[2]} - \eta \cdot \textup{clip}(\frac{ L&amp;rsquo;_2(\theta_{[2]})}{\max{h_2,\epsilon}},\rho)$$&lt;/li&gt;
+&lt;li&gt;Sophia addresses this by considering only pre-conditioners that capture positive curvature, and introduce a per-coordinate clipping mechanism to mitigate the rapid change of Hessian. Applying those changes results in the following update - $$\theta_{[1]} \leftarrow \theta_{[1]} - \eta \cdot \textup{clip}(\frac{ L&amp;rsquo;_1(\theta_{[1]})}{\max{h_1,\epsilon}} ,\rho)\ \textup{and}\ \theta_{[2]} \leftarrow \theta_{[2]} - \eta \cdot \textup{clip}(\frac{ L&amp;rsquo;_2(\theta_{[2]})}{\max{h_2,\epsilon}},\rho)$$&lt;/li&gt;
 &lt;li&gt;Here, $\rho$ is a constant to control the worst-case update size, $\epsilon$ is a very small constant (e.g., 1e-12) to avoid dividing by 0.&lt;/li&gt;
 &lt;li&gt;The beauty here is that  when the curvature of some dimension is rapidly changing or negative and thus the second-order information is misleading and possibly leads to a huge update before clipping, the clipping mechanism kicks in and the optimizer defaults to SignGD (even though this is sub-optimal for benign situations).&lt;/li&gt;
 &lt;li&gt;The black curve in the figure starts off similarly to SignGD due to the clipping mechanism in the non-convex region, making descent opposed to converging to a local maximum. In the convex valley, it converges to the global minimum with a few steps.&lt;/li&gt;
@@ -212,7 +212,7 @@
 &lt;li&gt;Similar to the gradient of the mini-batch loss function, the estimated diagonal Hessian can also have large noise.&lt;/li&gt;
 &lt;li&gt;The EMA performed at every $k$ steps helps denoise the estimates. $$h_t = \beta_2 h_{t-k} + (1 - \beta_2) \hat{h}_{t} \ \textup{ if } t \ \mathrm{mod} \ k = 1 ; \textup{ else } h_t = h_{t-1}$$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;pre-coordinate-clipping&#34;&gt;Pre-coordinate clipping&lt;/h2&gt;
+&lt;h2 id=&#34;per-coordinate-clipping&#34;&gt;Per-coordinate clipping&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;I personally found this very innovative.&lt;/li&gt;
 &lt;li&gt;As mentioned in the previous section, the inaccuracy of Hessian estimates and the change of Hessian along the trajectory can make the second-order information unreliable.&lt;/li&gt;
