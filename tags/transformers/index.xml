@@ -351,7 +351,7 @@
 &lt;ul&gt;
 &lt;li&gt;Main comparison with AdamW and Lion&lt;/li&gt;
 &lt;li&gt;AdamW for GPT2 hyperparams - WD = 0.1, $\beta_1 = 0.9$ and $\beta_2 = 0.95$&lt;/li&gt;
-&lt;li&gt;Lion fro GPT2 hyperparams - $\beta_1 = 0.95$ and $\beta_2 = 0.98$&lt;/li&gt;
+&lt;li&gt;Lion for GPT2 hyperparams - $\beta_1 = 0.95$ and $\beta_2 = 0.98$&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;implementation&#34;&gt;Implementation&lt;/h3&gt;
 &lt;ul&gt;
