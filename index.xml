@@ -23,6 +23,15 @@
     </item>
     
     <item>
+      <title>KV Cache in Nanogpt</title>
+      <link>https://shreyansh26.github.io/project/kv-cache-nanogpt/</link>
+      <pubDate>Sat, 17 Jun 2023 20:18:33 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/project/kv-cache-nanogpt/</guid>
+      <description>&lt;p&gt;A modification of nanoGPT to use KV-Cache during inference. Using a KV Cache helps speed up inference since we don&amp;rsquo;t have to do attention re-computation over the entire generated sequence every time to generate the next tokens.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training</title>
       <link>https://shreyansh26.github.io/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/</link>
       <pubDate>Sun, 28 May 2023 19:49:27 +0530</pubDate>

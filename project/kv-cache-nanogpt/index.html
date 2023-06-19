@@ -28,11 +28,10 @@
   
     
   
-  <meta name="description" content="A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.
-Note that this is for educational purposes only as I haven&rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper.">
+  <meta name="description" content="A modification of nanoGPT to use KV-Cache during inference. Using a KV Cache helps speed up inference since we don&rsquo;t have to do attention re-computation over the entire generated sequence every time to generate the next tokens.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/project/flash-attention-pytorch/">
+  <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/project/kv-cache-nanogpt/">
 
   
 
@@ -135,7 +134,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   <link rel="icon" type="image/png" href="/img/shreyansh-icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/shreyansh-icon-192.png">
 
-  <link rel="canonical" href="https://shreyansh26.github.io/project/flash-attention-pytorch/">
+  <link rel="canonical" href="https://shreyansh26.github.io/project/kv-cache-nanogpt/">
 
   
   
@@ -145,22 +144,21 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   
   
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:image" content="https://shreyansh26.github.io/project/flash-attention-pytorch/featured.jpg">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/project/kv-cache-nanogpt/featured.jpg">
   
   <meta property="twitter:site" content="@shreyansh_26">
   <meta property="twitter:creator" content="@shreyansh_26">
   
   <meta property="og:site_name" content="Shreyansh Singh">
-  <meta property="og:url" content="https://shreyansh26.github.io/project/flash-attention-pytorch/">
-  <meta property="og:title" content="Flash Attention in Pytorch | Shreyansh Singh">
-  <meta property="og:description" content="A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.
-Note that this is for educational purposes only as I haven&rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper."><meta property="og:image" content="https://shreyansh26.github.io/project/flash-attention-pytorch/featured.jpg">
-  <meta property="twitter:image" content="https://shreyansh26.github.io/project/flash-attention-pytorch/featured.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://shreyansh26.github.io/project/kv-cache-nanogpt/">
+  <meta property="og:title" content="KV Cache in Nanogpt | Shreyansh Singh">
+  <meta property="og:description" content="A modification of nanoGPT to use KV-Cache during inference. Using a KV Cache helps speed up inference since we don&rsquo;t have to do attention re-computation over the entire generated sequence every time to generate the next tokens."><meta property="og:image" content="https://shreyansh26.github.io/project/kv-cache-nanogpt/featured.jpg">
+  <meta property="twitter:image" content="https://shreyansh26.github.io/project/kv-cache-nanogpt/featured.jpg"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2023-06-19T20:10:00&#43;05:30">
+      <meta property="article:published_time" content="2023-06-17T20:18:33&#43;05:30">
     
-    <meta property="article:modified_time" content="2023-06-19T20:10:00&#43;05:30">
+    <meta property="article:modified_time" content="2023-06-17T20:18:33&#43;05:30">
   
 
   
@@ -184,16 +182,16 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   "@type": "Article",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://shreyansh26.github.io/project/flash-attention-pytorch/"
+    "@id": "https://shreyansh26.github.io/project/kv-cache-nanogpt/"
   },
-  "headline": "Flash Attention in Pytorch",
+  "headline": "KV Cache in Nanogpt",
   
   "image": [
-    "https://shreyansh26.github.io/project/flash-attention-pytorch/featured.jpg"
+    "https://shreyansh26.github.io/project/kv-cache-nanogpt/featured.jpg"
   ],
   
-  "datePublished": "2023-06-19T20:10:00+05:30",
-  "dateModified": "2023-06-19T20:10:00+05:30",
+  "datePublished": "2023-06-17T20:18:33+05:30",
+  "dateModified": "2023-06-17T20:18:33+05:30",
   
   "author": {
     "@type": "Person",
@@ -208,7 +206,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
     }
   },
-  "description": "A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.\nNote that this is for educational purposes only as I haven\u0026rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper."
+  "description": "A modification of nanoGPT to use KV-Cache during inference. Using a KV Cache helps speed up inference since we don\u0026rsquo;t have to do attention re-computation over the entire generated sequence every time to generate the next tokens."
 }
 </script>
 
@@ -243,7 +241,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
 
 
-  <title>Flash Attention in Pytorch | Shreyansh Singh</title>
+  <title>KV Cache in Nanogpt | Shreyansh Singh</title>
 
 </head>
 
@@ -523,7 +521,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
 
 <div class="article-container pt-3">
-  <h1>Flash Attention in Pytorch</h1>
+  <h1>KV Cache in Nanogpt</h1>
 
   
 
@@ -534,19 +532,6 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
   
   
-  
-  
-  <div>
-    
-
-
-
-  
-  <span><a href="/authors/shreyansh-singh/">Shreyansh Singh</a></span>
-
-  </div>
-  
-  
 
   
   <span class="article-date">
@@ -554,7 +539,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
     
       
     
-    Jun 19, 2023
+    Jun 17, 2023
   </span>
   
 
@@ -567,10 +552,6 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   
 
   
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/categories/machine-learning/">Machine Learning</a></span>
   
 
 </div>
@@ -611,7 +592,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   
     
   
-<a class="btn btn-outline-primary my-1 mr-1" href="https://github.com/shreyansh26/FlashAttention-PyTorch" target="_blank" rel="noopener">
+<a class="btn btn-outline-primary my-1 mr-1" href="https://github.com/shreyansh26/nanoGPT-kvcache" target="_blank" rel="noopener">
   Code
 </a>
 
@@ -634,9 +615,9 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 281px;">
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 271px;">
   <div style="position: relative">
-    <img src="/project/flash-attention-pytorch/featured_hubb76ad5ff4fdede90787cccc6e0e85a5_322273_720x0_resize_q90_lanczos.jpg" alt="" class="featured-image">
+    <img src="/project/kv-cache-nanogpt/featured_hu5d1585dc74e7d589ef09e343ecbf4280_118621_720x0_resize_q90_lanczos.jpg" alt="" class="featured-image">
     
   </div>
 </div>
@@ -646,8 +627,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   <div class="article-container">
 
     <div class="article-style">
-      <p>A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.</p>
-<p>Note that this is for educational purposes only as I haven&rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper.</p>
+      <p>A modification of nanoGPT to use KV-Cache during inference. Using a KV Cache helps speed up inference since we don&rsquo;t have to do attention re-computation over the entire generated sequence every time to generate the next tokens.</p>
 
     </div>
 
@@ -656,18 +636,6 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
 
 
-
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tags/attention/">attention</a>
-  
-  <a class="badge badge-light" href="/tags/transformer/">transformer</a>
-  
-  <a class="badge badge-light" href="/tags/efficient-ml/">efficient-ml</a>
-  
-  <a class="badge badge-light" href="/tags/deep-learning/">deep learning</a>
-  
-</div>
 
 
 
@@ -682,7 +650,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/project/flash-attention-pytorch/&amp;text=Flash%20Attention%20in%20Pytorch" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://shreyansh26.github.io/project/kv-cache-nanogpt/&amp;text=KV%20Cache%20in%20Nanogpt" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -695,7 +663,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/project/flash-attention-pytorch/&amp;t=Flash%20Attention%20in%20Pytorch" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://shreyansh26.github.io/project/kv-cache-nanogpt/&amp;t=KV%20Cache%20in%20Nanogpt" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -708,7 +676,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       
       
       <li>
-        <a href="mailto:?subject=Flash%20Attention%20in%20Pytorch&amp;body=https://shreyansh26.github.io/project/flash-attention-pytorch/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=KV%20Cache%20in%20Nanogpt&amp;body=https://shreyansh26.github.io/project/kv-cache-nanogpt/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -721,7 +689,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/project/flash-attention-pytorch/&amp;title=Flash%20Attention%20in%20Pytorch" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://shreyansh26.github.io/project/kv-cache-nanogpt/&amp;title=KV%20Cache%20in%20Nanogpt" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -734,7 +702,7 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Flash%20Attention%20in%20Pytorch%20https://shreyansh26.github.io/project/flash-attention-pytorch/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=KV%20Cache%20in%20Nanogpt%20https://shreyansh26.github.io/project/kv-cache-nanogpt/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -754,28 +722,125 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
 
   
+
+
+
+
+
+
+  
+  
   
     
-  
-  
-
-
-
-
-
-
-  
-  
   
   
   <div class="media author-card content-widget-hr">
     
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huf5174f5dbe5058e60bb779cc52d8dfeb_1423398_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
 
     <div class="media-body">
-      <h5 class="card-title"><a href="/authors/shreyansh-singh/"></a></h5>
-      
-      
+      <h5 class="card-title"><a href="https://shreyansh26.github.io/">Shreyansh Singh</a></h5>
+      <h6 class="card-subtitle">AI Software Engineer</h6>
+      <p class="card-text">My research interests include Machine Learning, Natural Language Processing and as well as the application of Machine Learning in Privacy. Lately, I have been reading more about parameter-efficient ML and model compression as well.</p>
       <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:shreyansh.singh.cse16@iitbhu.ac.in" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/shreyansh_26" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=x8LmoJIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/shreyansh26" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/shreyansh26/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/Shreyansh_Resume.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
   
 </ul>
 
@@ -795,8 +860,15 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
   
   
   <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/project/flash-attention-pytorch/" rel="next">Flash Attention in Pytorch</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/project/kv-cache-nanogpt/" rel="prev">KV Cache in Nanogpt</a>
+    <a href="/project/convnext-adversarial/" rel="prev">ConvNeXt - Adversarial images generation</a>
   </div>
   
 </div>
@@ -806,23 +878,6 @@ Note that this is for educational purposes only as I haven&rsquo;t implemented a
 
 
   
-  
-  <div class="article-widget content-widget-hr">
-    <h3>Related</h3>
-    <ul>
-      
-      <li><a href="/post/2023-03-26_flash-attention/">Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a></li>
-      
-      <li><a href="/post/2022-10-10_efficient_transformers_survey/">Paper Summary #7 - Efficient Transformers: A Survey</a></li>
-      
-      <li><a href="/post/2021-05-16_generalized_autoregressive_pretraining_xlnet/">Paper Summary #5 - XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></li>
-      
-      <li><a href="/post/2021-05-09_pretraining_deep_bidirectional_transformers_bert/">Paper Summary #4 - BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
-      
-      <li><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></li>
-      
-    </ul>
-  </div>
   
 
 
