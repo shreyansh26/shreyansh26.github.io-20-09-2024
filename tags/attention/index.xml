@@ -5,12 +5,22 @@
     <link>https://shreyansh26.github.io/tags/attention/</link>
       <atom:link href="https://shreyansh26.github.io/tags/attention/index.xml" rel="self" type="application/rss+xml" />
     <description>attention</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Sun, 26 Mar 2023 15:47:48 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Mon, 19 Jun 2023 20:10:00 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>attention</title>
       <link>https://shreyansh26.github.io/tags/attention/</link>
     </image>
+    
+    <item>
+      <title>Flash Attention in Pytorch</title>
+      <link>https://shreyansh26.github.io/project/flash-attention-pytorch/</link>
+      <pubDate>Mon, 19 Jun 2023 20:10:00 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/project/flash-attention-pytorch/</guid>
+      <description>&lt;p&gt;A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.&lt;/p&gt;
+&lt;p&gt;Note that this is for educational purposes only as I haven&amp;rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Paper Summary #8 - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</title>

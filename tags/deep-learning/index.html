@@ -157,7 +157,7 @@
   <meta property="og:description" content="AI Software Engineer"><meta property="og:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg">
   <meta property="twitter:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2023-05-28T19:49:27&#43;05:30">
+    <meta property="og:updated_time" content="2023-06-19T20:10:00&#43;05:30">
   
 
   
@@ -477,6 +477,16 @@
   
   
   <div>
+    <h2><a href="/project/flash-attention-pytorch/">Flash Attention in Pytorch</a></h2>
+    <div class="article-style">
+      
+      A simplified implementation of FlashAttention in PyTorch. I have implemented the forward pass and backward pass algorithms from the paper, and also shown that it is equivalent to the normal attention formulation in Transformers. I also include some code for benchmarking.
+Note that this is for educational purposes only as I haven&rsquo;t implemented any of the CUDA and SRAM memory tricks as described in the paper.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2023-05-28_sophia_scalable_second_order_optimizer_llms/">Paper Summary #9 - Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training</a></h2>
     <div class="article-style">
       
@@ -582,19 +592,6 @@ Code: https://github.com/zihangdai/xlnet
 Link: https://bit.ly/3bdTUra Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
 Code: https://bit.ly/3vRXlM7
  What? The paper proposes BERT which stands for Bidirectional Encoder Representations from Transformers. BERT is designed to pre-train deep bidirectional representations from unlabeled text. It performs a joint conditioning on both left and right context in all the layers. The pre-trained BERT model can be fine-tuned with one additional layer to create the final task-specific models i.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2021-05-02_language_understanding_generative_pretraining/">Paper Summary #3 - Improving Language Understanding by Generative Pre-Training</a></h2>
-    <div class="article-style">
-      
-      Paper: Improving Language Understanding by Generative Pre-Training
-Link: https://bit.ly/3xITvGP
-Blog: https://openai.com/blog/language-unsupervised/ Authors: Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever
-Code: https://bit.ly/3gUFrUX
- What? The paper proposes a semi-supervised technique that shows better performance on a wide variety of tasks like textual entailment, question answering, semantic similarity text classification by using a single task-agnostic model. The model can overcome the constraints of the small amount of annotated data for these specific tasks by performing an unsupervised generative-pretraining of a language model on a large diverse text corpus followed by supervised discriminative fine-tuning on each specific task.
       
     </div>
   </div>
