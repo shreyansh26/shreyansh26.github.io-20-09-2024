@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. We won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post.">
+  <meta name="description" content="I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. In this blog post, I won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/">
@@ -152,7 +152,7 @@
   <meta property="og:site_name" content="Shreyansh Singh">
   <meta property="og:url" content="https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/">
   <meta property="og:title" content="Solving Substitution Ciphers using Markov Chain Monte Carlo (MCMC) | Shreyansh Singh">
-  <meta property="og:description" content="I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. We won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/featured.png">
+  <meta property="og:description" content="I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. In this blog post, I won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post."><meta property="og:image" content="https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/featured.png">
   <meta property="twitter:image" content="https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -208,7 +208,7 @@
       "url": "https://shreyansh26.github.io/img/shreyansh-icon-512.png"
     }
   },
-  "description": "I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. We won\u0026rsquo;t be explaining what Markov process and MCMC is, however I\u0026rsquo;ll add some references for that at the end of this post."
+  "description": "I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. In this blog post, I won\u0026rsquo;t be explaining what Markov process and MCMC is, however I\u0026rsquo;ll add some references for that at the end of this post."
 }
 </script>
 
@@ -600,7 +600,7 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. We won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post.</p>
+      <p>I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. In this blog post, I won&rsquo;t be explaining what Markov process and MCMC is, however I&rsquo;ll add some references for that at the end of this post.</p>
 <h3 id="assumptions">Assumptions</h3>
 <p>We assume a very simple setting in which we only deal with the 26 lowercase alphabets of the English language and the space character. This can be extended to more characters, but that isn&rsquo;t imperative to understand how the solution works. It can be extended for a larger set of characters with a bit of effort and without changing the core algorithm.</p>
 <h3 id="solution">Solution</h3>
