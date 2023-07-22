@@ -330,7 +330,7 @@
 &lt;li&gt;The reason we can do that is in the math, which comes from the combination of
 &lt;ol&gt;
 &lt;li&gt;The claim in the paper that the second-order derivative of the loss w.r.t. the logits only depends on the logits and the true labels $y$.&lt;/li&gt;
-&lt;li&gt;Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, ~~\mathbb{E}_{\hat{y}&lt;em&gt;b}\nabla \ell&lt;/em&gt;{\textup{ce}}(f(\theta,x_b),\hat{y}_b) = 0$$&lt;/li&gt;
+&lt;li&gt;Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, \mathbb{E}_{\hat{y}_b}\nabla L\textup{ce}(f(\theta,x_b),\hat{y}_b) = 0$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Also, the above estimator is an unbiased estimator for the diagonal of the Gauss-Newton matrix, which is a biased estimator for the diagonal of the Hessian.&lt;/li&gt;

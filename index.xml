@@ -5,12 +5,55 @@
     <link>https://shreyansh26.github.io/</link>
       <atom:link href="https://shreyansh26.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Mon, 19 Jun 2023 20:10:00 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Sat, 22 Jul 2023 20:30:42 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
       <link>https://shreyansh26.github.io/</link>
     </image>
+    
+    <item>
+      <title>Solving Substitution Ciphers using Markov Chain Monte Carlo (MCMC)</title>
+      <link>https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/</link>
+      <pubDate>Sat, 22 Jul 2023 20:30:42 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2023-07-22_solving_substitution_cipher_using_mcmc/</guid>
+      <description>&lt;p&gt;I was reading about Markov Chain Monte Carlo (MCMC) recently and discovered a very famous application of using them to decrypt substitution ciphers. This blog is meant to serve as notes on how the problem can be framed as a Markov chain and how a simple yet smart Monte Carlo sampling approach can help solve it very efficiently. We won&amp;rsquo;t be explaining what Markov process and MCMC is, however I&amp;rsquo;ll add some references for that at the end of this post.&lt;/p&gt;
+&lt;h3 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h3&gt;
+&lt;p&gt;We assume a very simple setting in which we only deal with the 26 lowercase alphabets of the English language and the space character. This can be extended to more characters, but that isn&amp;rsquo;t imperative to understand how the solution works. It can be extended for a larger set of characters with a bit of effort and without changing the core algorithm.&lt;/p&gt;
+&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
+&lt;p&gt;The input we have is just the ciphertext from an English plaintext. How do we go from the ciphertext to the plaintext using MCMC?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scoring Function&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We need a scoring function to check how good our current state is. The state here the current mapping we have for the alphabets (for the substitution cipher).&lt;/p&gt;
+&lt;p&gt;The scoring function can be defined in multiple ways. One option can be to check fraction of decrypted words that appear in an English dictionary. Another option is to define the score to be the probability of seeing the given sequence of decrypted characters, which can be calculated as the product of consecutive bigram probabilities, using the pair-wise probabilities based on an existing long piece of English text.&lt;/p&gt;
+&lt;p&gt;In my implementation, I have used the second option. So, if the plaintext/ciphertext is say, &amp;ldquo;good life is&amp;hellip;&amp;quot;, the score will be the product of probabilities - $Pr[(g,o)] * Pr[(o,o)] * Pr[(o,d)] * Pr[(d, &amp;lt;space&amp;gt;)] * &amp;hellip;$ and so on. Here $Pr[(g,o)]$ is the estimate of the probability that &amp;ldquo;$o$&amp;rdquo; follows &amp;ldquo;$g$&amp;rdquo; in typical English text.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Transition Function&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Once we have the scoring function, the transition can be defined as follows -&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Algorithm&lt;/strong&gt;&lt;br&gt;
+Repeat for N iterations&lt;br&gt;
+$\quad$Take current mapping $m$&lt;br&gt;
+$\quad$Switch the image of 2 random symbols to produce mapping $m&#39;$&lt;br&gt;
+$\quad$Compute the score for $m&#39;$ and $m$&lt;br&gt;
+$\quad$If score for $m&#39;$ is higher than score for $m$&lt;br&gt;
+$\qquad$Accept&lt;br&gt;
+$\quad$If not, then with a small probability&lt;br&gt;
+$\qquad$Accept&lt;br&gt;
+$\quad$Else&lt;br&gt;
+$\qquad$Reject&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This transition function ensures that the stationary distribution of the chain puts much higher weight on better mappings.&lt;/p&gt;
+&lt;p&gt;This is how it would look when translated into code - 
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/shreyansh26/9e117289ae36e1b353581672335466b9.js&#34;&gt;&lt;/script&gt;
+&lt;/p&gt;
+&lt;p&gt;The above chain runs extremely fast and solves the cipher in a couple thousand iterations.&lt;/p&gt;
+&lt;p&gt;The entire code for this project including the bigram frequency/probability calculation and the MCMC-based solver is here on Github.&lt;/p&gt;
+&lt;h3 id=&#34;additional-references-on-markov-chainsmcmc&#34;&gt;Additional references on Markov Chains/MCMC&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://jeremykun.com/2015/04/06/markov-chain-monte-carlo-without-all-the-bullshit/&#34;&gt;Markov Chain Monte Carlo Without all the Bullshit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stats.stackexchange.com/questions/165/how-would-you-explain-markov-chain-monte-carlo-mcmc-to-a-layperson&#34;&gt;How would you explain Markov Chain Monte Carlo (MCMC) to a layperson?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Flash Attention in Pytorch</title>
@@ -349,7 +392,7 @@
 &lt;li&gt;The reason we can do that is in the math, which comes from the combination of
 &lt;ol&gt;
 &lt;li&gt;The claim in the paper that the second-order derivative of the loss w.r.t. the logits only depends on the logits and the true labels $y$.&lt;/li&gt;
-&lt;li&gt;Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, ~~\mathbb{E}_{\hat{y}&lt;em&gt;b}\nabla \ell&lt;/em&gt;{\textup{ce}}(f(\theta,x_b),\hat{y}_b) = 0$$&lt;/li&gt;
+&lt;li&gt;Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, \mathbb{E}_{\hat{y}_b}\nabla L\textup{ce}(f(\theta,x_b),\hat{y}_b) = 0$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Also, the above estimator is an unbiased estimator for the diagonal of the Gauss-Newton matrix, which is a biased estimator for the diagonal of the Hessian.&lt;/li&gt;

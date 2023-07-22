@@ -938,7 +938,7 @@ I have also released an annotated version of the paper. If you are interested, y
 <li>The reason we can do that is in the math, which comes from the combination of
 <ol>
 <li>The claim in the paper that the second-order derivative of the loss w.r.t. the logits only depends on the logits and the true labels $y$.</li>
-<li>Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, ~~\mathbb{E}_{\hat{y}<em>b}\nabla \ell</em>{\textup{ce}}(f(\theta,x_b),\hat{y}_b) = 0$$</li>
+<li>Bartlett’s first identity, which generally holds for the negative log-likelihood loss of any probabilistic model  and which states - $$\forall b, \mathbb{E}_{\hat{y}_b}\nabla L\textup{ce}(f(\theta,x_b),\hat{y}_b) = 0$$</li>
 </ol>
 </li>
 <li>Also, the above estimator is an unbiased estimator for the diagonal of the Gauss-Newton matrix, which is a biased estimator for the diagonal of the Hessian.</li>
@@ -1426,6 +1426,13 @@ document.getElementById("openpopup").onclick = function() {showMailingPopUp()};
 <div class="article-widget">
   
 <div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/2023-07-22_solving_substitution_cipher_using_mcmc/" rel="next">Solving Substitution Ciphers using Markov Chain Monte Carlo (MCMC)</a>
+  </div>
   
   
   
