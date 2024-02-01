@@ -5,7 +5,7 @@
     <link>https://shreyansh26.github.io/</link>
       <atom:link href="https://shreyansh26.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Shreyansh Singh</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2023</copyright><lastBuildDate>Sat, 22 Jul 2023 20:30:42 +0530</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2024</copyright><lastBuildDate>Sat, 22 Jul 2023 20:30:42 +0530</lastBuildDate>
     <image>
       <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
       <title>Shreyansh Singh</title>
@@ -3898,6 +3898,7 @@ One experiment showed the number of rounds required to attain a target accuracy,
 &lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;My last thread covered a high-level overview of Federated Learning, its applications, advantages &amp;amp; challenges.&lt;br&gt;&lt;br&gt;But from a mathematical sense, how is Federated Learning training actually performed? That&amp;#39;s what we will be looking at in this thread 🧵&lt;a href=&#34;https://t.co/anyvEluWoq&#34;&gt;https://t.co/anyvEluWoq&lt;/a&gt;&lt;/p&gt;&amp;mdash; Shreyansh Singh (@shreyansh_26) &lt;a href=&#34;https://twitter.com/shreyansh_26/status/1463454860460785670?ref_src=twsrc%5Etfw&#34;&gt;November 24, 2021&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
+
 &lt;p&gt;That&amp;rsquo;s the end for now!&lt;/p&gt;
 &lt;p&gt;This post finishes my summary on the basics of Federated Learning and is also a concise version of the very famous paper &amp;ldquo;Communication-Efficient Learning of Deep Networks from Decentralized Data&amp;rdquo; by Google.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;I have also released an annotated version of the paper. If you are interested, you can find it &lt;a href=&#34;https://github.com/shreyansh26/Annotated-ML-Papers/blob/main/PPML/Federated%20Learning/Communication-Efficient%20Learning%20of%20Deep%20Networks%20from%20Decentralized%20Data.pdf&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
@@ -4049,6 +4050,7 @@ In Federated Learning, the communication costs somewhat dominate.&lt;/p&gt;
 &lt;p&gt;I wrote a Twitter thread on this topic as well - do give it a like/follow me if you liked the article.&lt;/p&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;I recently started reading about Privacy-preserving ML, as this has been a topic that has always interested me.&lt;br&gt;I hope to share my learnings here on Twitter.&lt;br&gt;&lt;br&gt;I started with Federated Learning and here&amp;#39;s a detailed thread that will give you a high-level idea of FL🧵&lt;/p&gt;&amp;mdash; Shreyansh Singh (@shreyansh_26) &lt;a href=&#34;https://twitter.com/shreyansh_26/status/1462262151209381888?ref_src=twsrc%5Etfw&#34;&gt;November 21, 2021&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
 
 &lt;p&gt;This is all for now. Thanks for reading!&lt;/p&gt;
 &lt;p&gt;In my next post, I&amp;rsquo;ll share a mathematical explanation as to how optimization (learning) is done in a Federated Learning setting. I will also explain some experimental results that have been published.&lt;/p&gt;
