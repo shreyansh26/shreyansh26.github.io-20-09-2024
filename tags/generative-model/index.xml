@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>generative model | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/tags/generative-model/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/generative-model/index.xml" rel="self" type="application/rss+xml" />
+    <description>generative model</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2024</copyright><lastBuildDate>Sun, 18 Feb 2024 19:56:44 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>generative model</title>
+      <link>https://shreyansh26.github.io/tags/generative-model/</link>
+    </image>
+    
+    <item>
+      <title>Paper Summary #12 - Image Recaptioning in DALL-E 3</title>
+      <link>https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/</link>
+      <pubDate>Sun, 18 Feb 2024 19:56:44 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Technical Paper&lt;/strong&gt;: &lt;a href=&#34;https://cdn.openai.com/papers/dall-e-3.pdf&#34;&gt;Improving Image Generation with Better Captions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;OpenAI&amp;rsquo;s Sora is built upon the image captioning model which was described in quite some detail in the DALL-E 3 technical report.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;In general, in text-image datasets, the captions omit background details or common sense relationships, e.g. sink in a kitchen or stop signs along the road. They also omit the position and count of objects in the picture, color and size of the objects and any text present in the image.&lt;/p&gt;
+&lt;p&gt;OpenAI trained a captioner model to solve this.&lt;/p&gt;
+&lt;p&gt;An image captioner is similar to a language model that predicts the next token conditioned on the image and the past generated tokens. Since images are composed of many thousands of pixel values, conditioning on all of this information is very complex and inefficient. The solution DALL-E 3 used was to use CLIP&amp;rsquo;s compressed representational space to condition upon. OpenAI jointly pre-trained a captioner with a CLIP and a language modeling objective using this formulation on the text and image pairs.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/lm.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/lm.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;However, this still doesn&amp;rsquo;t solve the reluctance of the captioning model to provide details, as mentioned above. The fine-tuning of this captioner to be more descriptive and helpful for the text-to-image task is done in two phases.&lt;/p&gt;
+&lt;p&gt;First, they built a small dataset of captions that describe only the main subject of the image. The captioner is fine-tuned on this dataset. Now the model is more biased towards describing the main subject of the image.&lt;/p&gt;
+&lt;p&gt;Next, they created a dataset of long, highly-descriptive captions describing the contents of each image in the fine-tuning dataset. In addition to the main subject, these captions describe the surroundings, background, text found in the image, styles, coloration, etc. as well. The captioner is then fine-tuned on this dataset to generate descriptive synthetic captions.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/synthetic_captions.png&#34; data-caption=&#34;Examples of alt-text accompanying selected images scraped from the internet, short synthetic captions (SSC), and descriptive synthetic captions (DSC).&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/synthetic_captions.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Examples of alt-text accompanying selected images scraped from the internet, short synthetic captions (SSC), and descriptive synthetic captions (DSC).
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;There is a still a problem though&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Text-to-Image diffusion models have a tendency to overfit to the text distribution. Using synthetic captions can lead to such issues since the captioner model can have many modal behaviours that won&amp;rsquo;t be apparent but can bias the text-to-image model when trained on the synthetic captions.&lt;br&gt;
+Examples of where this might occur is in letter casing, where punctuation appears in the caption (e.g. does it always end with a period?), how long the captions are, or stylistic tendencies such as starting all captions with the words &amp;ldquo;a&amp;rdquo; or &amp;ldquo;an&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;OpenAI overcame this issue by regularizing the text inputs to a distribution that is similar to the humans. The ground-truth captions provide this already since they were drawn from a distribution of human-written text. The regularization can be introduced during training the model by randomly selecting either the ground truth or synthetic caption with a fixed percent chance. DALLE-3 used 95% synthetic captions and 5% ground truth captions.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/perf.png&#34; data-caption=&#34;CLIP scores for text-to-image models trained on different caption types. Left is evaluation results with ground truth captions on our evaluation dataset. Right uses the descriptive synthetic captions from the same dataset&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/perf.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    CLIP scores for text-to-image models trained on different caption types. Left is evaluation results with ground truth captions on our evaluation dataset. Right uses the descriptive synthetic captions from the same dataset
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/synthetic_ratio.png&#34; data-caption=&#34;CLIP scores for text-to-image models trained on various blending ratios of descriptive synthetic captions and ground-truth captions. Evaluation performed using ground truth captions.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/synthetic_ratio.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    CLIP scores for text-to-image models trained on various blending ratios of descriptive synthetic captions and ground-truth captions. Evaluation performed using ground truth captions.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The above figure shows that using very high percentage of synthetic captions maximizes the performance of the models. But increasing the synthetic caption ratio implies biasing the model to the distribution of long, highly-descriptive captions emitted by the captioning model. OpenAI used GPT-4 to upsamples any caption into a highly descriptive one.&lt;/p&gt;
+&lt;p&gt;Here are some examples -&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/gpt_upsample.png&#34; data-caption=&#34;Effect of using &amp;lsquo;upsampled&amp;rsquo; drawbench captions to create samples with DALL-E 3. Original drawbench captions on top, upsampled captions on bottom. Images are best of 4 for each caption.&#34;&gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/gpt_upsample.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Effect of using &amp;lsquo;upsampled&amp;rsquo; drawbench captions to create samples with DALL-E 3. Original drawbench captions on top, upsampled captions on bottom. Images are best of 4 for each caption.
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Below is the prompt OpenAI used to &amp;ldquo;upsample&amp;rdquo; the captions.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/upsample_prompt.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_dalle3_image_recaptioner/images/upsample_prompt.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Paper Summary #11 - Sora</title>
+      <link>https://shreyansh26.github.io/post/2024-02-18_sora_openai/</link>
+      <pubDate>Sun, 18 Feb 2024 19:40:18 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2024-02-18_sora_openai/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Technical Paper&lt;/strong&gt;: &lt;a href=&#34;https://openai.com/sora&#34;&gt;Sora - Creating video from text&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Blog&lt;/strong&gt;: &lt;a href=&#34;https://openai.com/research/video-generation-models-as-world-simulators&#34;&gt;Video generation models as world simulators&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;These are just short notes / excerpts from the technical paper for quick lookup.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Sora is quite a breakthrough. It is able to understand and simulate the physical world, generating upto 60s long high-definition videos while maintaining the quality, scene continuation and following the user&amp;rsquo;s prompt.&lt;/p&gt;
+&lt;p&gt;Key papers Sora is built upon -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2212.09748&#34;&gt;Diffusion Transformer (DiT)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2112.10752&#34;&gt;Latent Diffusion Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cdn.openai.com/papers/dall-e-3.pdf&#34;&gt;DALL-E 3 Image Recaptioning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/diffusion.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/diffusion.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Sora (being a diffusion transformer) uses the idea from ViT of using patches. The videos are converted to patches by first first compressing videos into a lower-dimensional latent space (as in the Latent Diffusion Models paper) and then decomposing the representation into spacetime patches.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/patches1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/patches1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The network takes raw video as input and outputs a latent representation that is compressed temporally and spatially. The video training and generation is done within this latent space. A decoder model is also trained that maps generated latents back to pixel space.&lt;/p&gt;
+&lt;p&gt;A sequence of spacetime patches is extracted from the compressed video. The patch-based representation enables Sora to train on videos and images of variable resolutions, durations and aspect ratios. During inference time, an appropriately-sized grid (for the random patches) can be selected to control the size of the generated videos.&lt;/p&gt;
+&lt;p&gt;Hence, while past approaches resized, cropped or trimmed videos to a standard size, Sora can sample widescreen 1920x1080p videos, vertical 1080x1920 videos and everything inbetween. Training on the native aspect ratios was in fact helpful for the model to improve composition and framing. This is similar to what Adept did in &lt;a href=&#34;https://www.adept.ai/blog/fuyu-8b&#34;&gt;Fuyu-8B&lt;/a&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/fuyu.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/fuyu.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;how-does-it-adhere-to-text-so-well&#34;&gt;How does it adhere to text so well?&lt;/h3&gt;
+&lt;p&gt;OpenAI trained a very descriptive captioner model which they used to generate captions for all the videos in their training set (probably a finetuned GPT-4V ?). Training on highly descriptive video captions improves text fidelity as well as the overall quality of videos.&lt;/p&gt;
+&lt;p&gt;They also use query expansion - using GPT to turn short user prompts into longer detailed captions that are sent to the video model.&lt;/p&gt;
+&lt;p&gt;More details about the image captioner in the next blog post.&lt;/p&gt;
+&lt;h3 id=&#34;what-are-some-emergent-capabilities-that-are-exhibited-with-scale&#34;&gt;What are some emergent capabilities that are exhibited with scale?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;3D consistency - Sora videos can shift and rotate elements based on the camera motion.&lt;/li&gt;
+&lt;li&gt;Long-range coherence and object permanence&lt;/li&gt;
+&lt;li&gt;Interacting with the world - Though not perfect, Sora can sometimes remember the state of the world after an action was taken.&lt;/li&gt;
+&lt;li&gt;Simulating digital worlds - Sora can generate Minecraft videos, wherein it can simultaneously control the player with a basic policy while also rendering the world and its dynamics in high fidelity.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

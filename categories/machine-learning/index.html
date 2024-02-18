@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="AI Software Engineer">
+  <meta name="description" content="Lead Machine Learning Engineer">
 
   
   <link rel="alternate" hreflang="en-us" href="https://shreyansh26.github.io/categories/machine-learning/">
@@ -154,10 +154,10 @@
   <meta property="og:site_name" content="Shreyansh Singh">
   <meta property="og:url" content="https://shreyansh26.github.io/categories/machine-learning/">
   <meta property="og:title" content="Machine Learning | Shreyansh Singh">
-  <meta property="og:description" content="AI Software Engineer"><meta property="og:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg">
+  <meta property="og:description" content="Lead Machine Learning Engineer"><meta property="og:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg">
   <meta property="twitter:image" content="https://shreyansh26.github.io/img/Shreyansh.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2023-07-22T20:30:42&#43;05:30">
+    <meta property="og:updated_time" content="2024-02-18T19:56:44&#43;05:30">
   
 
   
@@ -477,6 +477,44 @@
   
   
   <div>
+    <h2><a href="/post/2024-02-18_dalle3_image_recaptioner/">Paper Summary #12 - Image Recaptioning in DALL-E 3</a></h2>
+    <div class="article-style">
+      
+      Technical Paper: Improving Image Generation with Better Captions
+OpenAI&rsquo;s Sora is built upon the image captioning model which was described in quite some detail in the DALL-E 3 technical report.
+ In general, in text-image datasets, the captions omit background details or common sense relationships, e.g. sink in a kitchen or stop signs along the road. They also omit the position and count of objects in the picture, color and size of the objects and any text present in the image.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2024-02-18_sora_openai/">Paper Summary #11 - Sora</a></h2>
+    <div class="article-style">
+      
+      Technical Paper: Sora - Creating video from text
+Blog: Video generation models as world simulators
+These are just short notes / excerpts from the technical paper for quick lookup.
+ Sora is quite a breakthrough. It is able to understand and simulate the physical world, generating upto 60s long high-definition videos while maintaining the quality, scene continuation and following the user&rsquo;s prompt.
+Key papers Sora is built upon -
+ Diffusion Transformer (DiT) Latent Diffusion Models DALL-E 3 Image Recaptioning  Sora (being a diffusion transformer) uses the idea from ViT of using patches.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/2024-02-18_gemini_pro_google/">Paper Summary #10 - Gemini 1.5 Pro</a></h2>
+    <div class="article-style">
+      
+      Technical Paper: Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context
+Blog: Our next-generation model: Gemini 1.5
+These are just short notes / excerpts from the technical paper for quick lookup. Actual implementational details are anyways missing in the technical paper.
+ Gemini 1.5 Pro is a sparse MoE Transformer-based model (seems like a trend these days, after GPT-4&rsquo;s rumors and Mixtral).
+It supports upto 10M context multimodal context length which is about a day of 22 hours of audio recordings, more than ten times the entirety of the 1440 page book &ldquo;War and Peace&rdquo;, the entire Flax codebase (41,070 lines of code), or three hours of video at 1 frame-per-second.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/2023-07-22_solving_substitution_cipher_using_mcmc/">Solving Substitution Ciphers using Markov Chain Monte Carlo (MCMC)</a></h2>
     <div class="article-style">
       
@@ -553,37 +591,6 @@ Link: https://arxiv.org/abs/2009.06732
 Authors: Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler
  I wanted to summarize this paper for a long time now because of the immense amount of information in this paper. Thanks to the Cohere For AI community for having a session on this paper which made me revisit this.
 What? This is a survey paper on the various memory-efficiency based improvements on the original Transformers architecture by Vaswani et al.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2022-08-04-academic_log_june_july_22/">Academic Log | June/July 2022</a></h2>
-    <div class="article-style">
-      
-      A collection of academic papers/blogs/talks/projects that I read/watched/explored during the month. I also include any small (or large) personal projects that I did and any such related ML/non-ML work.
-Personal Projects  Paper re-implementation - &ldquo;Extracting Training Data from Large Language Models&rdquo; by Carlini et al., 2021. - [Github]  Annotated Papers  Learning Backward Compatible Embeddings Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Papers I read  On the Unreasonable Effectiveness of Feature propagation in Learning on Graphs with Missing Node Features PaLM: Scaling Language Modeling with Pathways Hierarchical Text-Conditional Image Generation with CLIP Latents Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language Unified Contrastive Learning in Image-Text-Label Space Improving Passage Retrieval with Zero-Shot Question Generation Exploring Dual Encoder Architectures for Question Answering Efficient Fine-Tuning of BERT Models on the Edge Fine-Tuning Transformers: Vocabulary Transfer Manipulating SGD with Data Ordering Attacks Differentially Private Fine-tuning of Language Models Extracting Training Data from Large Language Models Learning Backward Compatible Embeddings Compacter: Efficient Low-Rank Hypercomplex Adapter Layers Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift Memorization Without Overfitting: Analyzing the Training Dynamics of Large Language Models Tracing Knowledge in Language Models Back to the Training Data  Blogs I read  Domain Adaptation with Generative Pseudo-Labeling (GPL) Making Deep Learning Go Brrrr From First Principles Introduction to TorchScript Nonlinear Computation in Deep Linear Networks  Talks I watched  How GPU Computing Works    Subscribe to my posts!
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/project/convnext-adversarial/">ConvNeXt - Adversarial images generation</a></h2>
-    <div class="article-style">
-      
-      I implemented [Stanislav Fort's project](https://twitter.com/stanislavfort/status/1481263565998805002?s=20) in Pytorch. The Github repo has a notebook which looks at generating adversarial images to 'fool' the ConvNeXt model's image classification capabilities. ConvNeXt came out earlier this year (2022) from Meta AI. The FGSM (Fast Gradient Sign Method) is a great algorithm to attack models in a white-box fashion with the goal of misclassification. Noise is added to the input image (not randomly) but in a manner such that the direction is the same as the gradient of the cost function with respect to the data.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/2022-03-06_model_deployment_using_gcp_google_ai_platform/">Deploying Machine Learning models using GCP&#39;s Google AI Platform - A Detailed Tutorial</a></h2>
-    <div class="article-style">
-      
-      In my last post I had written about deploying models on AWS. So, I though it would only be fitting to write one for GCP, for all the GCP lovers out there.
-GCP has a service called the AI Platform which, as the name suggest, is responsible for training and hosting ML/AI models.
-Just like the last post, this post, through a PoC, describes -
- How to add a trained model to a Google Cloud bucket Host the saved model on the AI Platform Create a Service Account to use the model hosted on AI Platform externally Make a Streamlit app to make a UI to access the hosted model  All the code can be found in my Github repository.
       
     </div>
   </div>

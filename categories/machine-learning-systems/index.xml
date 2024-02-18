@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning Systems | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/categories/machine-learning-systems/</link>
+      <atom:link href="https://shreyansh26.github.io/categories/machine-learning-systems/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine Learning Systems</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2024</copyright><lastBuildDate>Sun, 18 Feb 2024 19:32:59 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>Machine Learning Systems</title>
+      <link>https://shreyansh26.github.io/categories/machine-learning-systems/</link>
+    </image>
+    
+    <item>
+      <title>Optimized NN Inference using custom Triton kernels</title>
+      <link>https://shreyansh26.github.io/project/linear-layer-triton/</link>
+      <pubDate>Sun, 18 Feb 2024 19:32:59 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/project/linear-layer-triton/</guid>
+      <description>&lt;p&gt;Implemented a high-performance linear layer (both forward and backward pass) with (optional) activation layer fusion using OpenAI’s Triton.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The use of the custom Triton-based linear layer demonstrated up to 1.6x speedup in training FlanT5-Base on the Samsum dataset and up to 3.5x speedup in inference.&lt;/li&gt;
+&lt;li&gt;Automated the patching of PyTorch&amp;rsquo;s nn.LinearLayer and associated activation layers to the new custom layers for inference using torch.fx for pattern matching and CUDA Graphs for reducing overheads.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

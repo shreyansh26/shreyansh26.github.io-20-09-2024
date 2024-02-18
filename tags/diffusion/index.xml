@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>diffusion | Shreyansh Singh</title>
+    <link>https://shreyansh26.github.io/tags/diffusion/</link>
+      <atom:link href="https://shreyansh26.github.io/tags/diffusion/index.xml" rel="self" type="application/rss+xml" />
+    <description>diffusion</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Shreyansh Singh 2024</copyright><lastBuildDate>Sun, 18 Feb 2024 19:40:18 +0530</lastBuildDate>
+    <image>
+      <url>https://shreyansh26.github.io/img/Shreyansh.jpg</url>
+      <title>diffusion</title>
+      <link>https://shreyansh26.github.io/tags/diffusion/</link>
+    </image>
+    
+    <item>
+      <title>Paper Summary #11 - Sora</title>
+      <link>https://shreyansh26.github.io/post/2024-02-18_sora_openai/</link>
+      <pubDate>Sun, 18 Feb 2024 19:40:18 +0530</pubDate>
+      <guid>https://shreyansh26.github.io/post/2024-02-18_sora_openai/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Technical Paper&lt;/strong&gt;: &lt;a href=&#34;https://openai.com/sora&#34;&gt;Sora - Creating video from text&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Blog&lt;/strong&gt;: &lt;a href=&#34;https://openai.com/research/video-generation-models-as-world-simulators&#34;&gt;Video generation models as world simulators&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;These are just short notes / excerpts from the technical paper for quick lookup.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Sora is quite a breakthrough. It is able to understand and simulate the physical world, generating upto 60s long high-definition videos while maintaining the quality, scene continuation and following the user&amp;rsquo;s prompt.&lt;/p&gt;
+&lt;p&gt;Key papers Sora is built upon -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2212.09748&#34;&gt;Diffusion Transformer (DiT)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/abs/2112.10752&#34;&gt;Latent Diffusion Models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cdn.openai.com/papers/dall-e-3.pdf&#34;&gt;DALL-E 3 Image Recaptioning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/diffusion.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/diffusion.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Sora (being a diffusion transformer) uses the idea from ViT of using patches. The videos are converted to patches by first first compressing videos into a lower-dimensional latent space (as in the Latent Diffusion Models paper) and then decomposing the representation into spacetime patches.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/patches1.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/patches1.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;The network takes raw video as input and outputs a latent representation that is compressed temporally and spatially. The video training and generation is done within this latent space. A decoder model is also trained that maps generated latents back to pixel space.&lt;/p&gt;
+&lt;p&gt;A sequence of spacetime patches is extracted from the compressed video. The patch-based representation enables Sora to train on videos and images of variable resolutions, durations and aspect ratios. During inference time, an appropriately-sized grid (for the random patches) can be selected to control the size of the generated videos.&lt;/p&gt;
+&lt;p&gt;Hence, while past approaches resized, cropped or trimmed videos to a standard size, Sora can sample widescreen 1920x1080p videos, vertical 1080x1920 videos and everything inbetween. Training on the native aspect ratios was in fact helpful for the model to improve composition and framing. This is similar to what Adept did in &lt;a href=&#34;https://www.adept.ai/blog/fuyu-8b&#34;&gt;Fuyu-8B&lt;/a&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/fuyu.png&#34; &gt;
+&lt;img src=&#34;https://shreyansh26.github.io/post/2024-02-18_sora_openai/images/fuyu.png&#34; alt=&#34;&#34; &gt;&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;how-does-it-adhere-to-text-so-well&#34;&gt;How does it adhere to text so well?&lt;/h3&gt;
+&lt;p&gt;OpenAI trained a very descriptive captioner model which they used to generate captions for all the videos in their training set (probably a finetuned GPT-4V ?). Training on highly descriptive video captions improves text fidelity as well as the overall quality of videos.&lt;/p&gt;
+&lt;p&gt;They also use query expansion - using GPT to turn short user prompts into longer detailed captions that are sent to the video model.&lt;/p&gt;
+&lt;p&gt;More details about the image captioner in the next blog post.&lt;/p&gt;
+&lt;h3 id=&#34;what-are-some-emergent-capabilities-that-are-exhibited-with-scale&#34;&gt;What are some emergent capabilities that are exhibited with scale?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;3D consistency - Sora videos can shift and rotate elements based on the camera motion.&lt;/li&gt;
+&lt;li&gt;Long-range coherence and object permanence&lt;/li&gt;
+&lt;li&gt;Interacting with the world - Though not perfect, Sora can sometimes remember the state of the world after an action was taken.&lt;/li&gt;
+&lt;li&gt;Simulating digital worlds - Sora can generate Minecraft videos, wherein it can simultaneously control the player with a basic policy while also rendering the world and its dynamics in high fidelity.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js&#34; data-dojo-config=&#34;usePlainJson: true, isDebug: false&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;button style=&#34;background-color: #70ab17; color: #1770AB&#34; id=&#34;openpopup&#34;&gt;Subscribe to my posts!&lt;/button&gt; --&gt;
+&lt;div class=&#34;button_cont&#34; align=&#34;center&#34;&gt;&lt;button id=&#34;openpopup&#34; class=&#34;example_a&#34;&gt;Subscribe to my posts!&lt;/button&gt;&lt;/div&gt;
+&lt;style&gt;
+    .example_a {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #3f51b5;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .example_a:hover {
+        background: #434343;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+&lt;/style&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+
+function showMailingPopUp() {
+    window.dojoRequire([&#34;mojo/signup-forms/Loader&#34;], function(L) { L.start({&#34;baseUrl&#34;:&#34;mc.us4.list-manage.com&#34;,&#34;uuid&#34;:&#34;0b10ac14f50d7f4e7d11cf26a&#34;,&#34;lid&#34;:&#34;667a1bb3da&#34;,&#34;uniqueMethods&#34;:true}) })
+
+    document.cookie = &#34;MCPopupClosed=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC&#34;;
+}
+
+document.getElementById(&#34;openpopup&#34;).onclick = function() {showMailingPopUp()};
+
+&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;script data-name=&#34;BMC-Widget&#34; data-cfasync=&#34;false&#34; src=&#34;https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js&#34; data-id=&#34;shreyanshsingh&#34; data-description=&#34;Support me on Buy me a coffee!&#34; data-message=&#34;&#34; data-color=&#34;#FF5F5F&#34; data-position=&#34;Right&#34; data-x_margin=&#34;18&#34; data-y_margin=&#34;18&#34;&gt;&lt;/script&gt;
+&lt;p&gt;Follow me on &lt;a href=&#34;https://twitter.com/shreyansh_26&#34;&gt;Twitter&lt;/a&gt;, &lt;a href=&#34;https://github.com/shreyansh26&#34;&gt;Github&lt;/a&gt; or connect on &lt;a href=&#34;https://www.linkedin.com/in/shreyansh26/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
